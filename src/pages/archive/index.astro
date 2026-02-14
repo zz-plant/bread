@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const archivePages = (await getCollection('archive')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout
+  title="BREAD Archive"
+  description="An information architecture for a long-living BREAD archive: overview, timeline, people, and venue shifts."
+>
+  <p><a href="/">← Back home</a></p>
+  <h1>BREAD Archive</h1>
+  <p>
+    This archive is organized for long-term maintenance. Start with the overview, then drill into timeline,
+    people, and venue/formats.
+  </p>
+
+  <ul>
+    {
+      archivePages.map((page) => (
+        <li>
+          <a href={`/archive/${page.id.replace(/\.md$/, '')}/`}>{page.data.title}</a>
+          <p>{page.data.description}</p>
+        </li>
+      ))
+    }
+  </ul>
+</BaseLayout>

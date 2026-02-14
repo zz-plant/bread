@@ -1,25 +1,175 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { getCollection } from 'astro:content';
 
-const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
-);
+const chronology = [
+  { year: '2015', date: 'Feb 13', title: 'Pilot: Grime City vs BREAD', venue: 'F8', lineup: 'Helix + locals', confidence: 'user-archive', status: 'played' },
+  { year: '2015', date: 'May 29', title: 'BREAD #1', venue: 'F8', lineup: 'Rushmore, Kid Antoine, residents', confidence: 'strong', status: 'played' },
+  { year: '2015', date: 'Jul 24', title: 'BREAD #2', venue: 'F8', lineup: 'Rabit, Korma, Sheen, Victoria Kim', confidence: 'user-archive', status: 'played' },
+  { year: '2015', date: 'Nov 06', title: 'BREAD #3', venue: 'F8', lineup: 'Doctor Jeep, Sha Sha Kimbo, support incl. Club Chai context', confidence: 'user-archive', status: 'played' },
+  { year: '2015', date: 'Nov 13', title: 'Special Event', venue: 'F8', lineup: 'Addison Groove', confidence: 'user-archive', status: 'played' },
+
+  { year: '2016', date: 'Feb 19', title: 'BREAD #4 (Residents Night)', venue: 'F8', lineup: 'Residents', confidence: 'user-archive', status: 'played' },
+  { year: '2016', date: 'Mar 25', title: 'BREAD #5', venue: 'F8', lineup: 'Jlin (+ residents)', confidence: 'user-archive', status: 'played' },
+  { year: '2016', date: 'Apr 23', title: 'Nightsweats Collaboration', venue: 'SF (venue varies by source)', lineup: "Air Max '97, False Witness", confidence: 'user-archive', status: 'played' },
+  { year: '2016', date: 'May 20', title: 'BREAD #7', venue: 'F8 / UGSF period transition', lineup: 'Distal, Celestial Trax, Endgame', confidence: 'user-archive', status: 'played' },
+  { year: '2016', date: 'Jun 16', title: 'BREAD #8', venue: 'Mighty (user-archive venue note)', lineup: 'Neana, Bleaker', confidence: 'user-archive', status: 'played' },
+  { year: '2016', date: 'Jun 29', title: 'Toasted Trax #1', venue: 'Codeword (user-archive venue note)', lineup: 'Abyss X, DJ Spider', confidence: 'user-archive', status: 'played' },
+  { year: '2016', date: 'Jul 22', title: 'BREAD #9', venue: 'Public Works Loft (user-archive venue note)', lineup: 'Deadboy, Murlo, Blackdown', confidence: 'user-archive', status: 'played' },
+  { year: '2016', date: 'Aug 19', title: 'BREAD #10', venue: 'F8', lineup: 'Rabit (live), Logos, Mumdance, Pinch, Caski', confidence: 'user-archive', status: 'played' },
+  { year: '2016', date: 'Sep 04', title: 'BREAD #11', venue: "Bruno's (Long Weekend Special)", lineup: 'Dehousy, The Dance Pit', confidence: 'user-archive', status: 'played' },
+  { year: '2016', date: 'Oct 21', title: 'Toasted Trax #2', venue: 'Codeword', lineup: 'Iyer, Adam Kraft, Prawns', confidence: 'user-archive', status: 'unlisted/canceled claim' },
+  { year: '2016', date: 'Nov 19', title: 'Sure Thing Collaboration', venue: 'Club 6ix (Lobster Theremin showcase)', lineup: 'Route 8, Asquith', confidence: 'user-archive', status: 'played' },
+  { year: '2016', date: 'Dec 09', title: 'BREAD #12', venue: 'F8', lineup: 'NA, TSVI, Dubbel Dutch', confidence: 'user-archive', status: 'played' },
+
+  { year: '2017', date: 'Feb 24', title: 'BREAD #13 (Residents Night)', venue: 'Underground SF', lineup: 'Residents', confidence: 'user-archive', status: 'played' },
+  { year: '2017', date: 'Mar 24', title: 'UGSF Night', venue: 'Underground SF', lineup: 'DJ J Heat, Kieran Loftus', confidence: 'user-archive', status: 'played' },
+  { year: '2017', date: 'May 26', title: 'UGSF Night', venue: 'Underground SF', lineup: 'Mr. Mitch, Kozee', confidence: 'user-archive', status: 'played' },
+  { year: '2017', date: 'Jul 28', title: 'UGSF Night', venue: 'Underground SF', lineup: 'Roska, Misoh', confidence: 'user-archive', status: 'played' },
+  { year: '2017', date: 'Sep 22', title: 'UGSF Night', venue: 'Underground SF', lineup: 'Kelman Duran, Suda', confidence: 'user-archive', status: 'played' },
+  { year: '2018', date: 'May 12', title: 'Final Club Night', venue: 'OMG', lineup: 'Gila, Neana', confidence: 'user-archive', status: 'played' },
+
+  { year: '2021', date: 'Jan 02', title: 'BREAD New Year Stream', venue: 'Twitch', lineup: 'Zaida, Wonja, Color Plus, Gila', confidence: 'strong', status: 'played' },
+  { year: '2021', date: 'Mar 13', title: 'Six Years of BREAD Stream', venue: 'Twitch', lineup: 'Residents-led lineup', confidence: 'strong', status: 'played' },
+  { year: '2021', date: 'Jul 10', title: 'Long Bread Summer Stream', venue: 'Twitch', lineup: 'Residents + collaborators', confidence: 'strong', status: 'played' }
+];
+
+const roster = [
+  { name: 'Cage A (Kanav)', role: 'Founder', links: { sc: 'https://soundcloud.com/cage_a' } },
+  { name: 'Prawns', role: 'Founder', links: { sc: 'https://soundcloud.com/prawns', ig: 'https://instagram.com/_prawns' } },
+  { name: 'Botaz', role: 'Resident', links: { sc: 'https://soundcloud.com/botaz', ig: 'https://instagram.com/brian_aviles' } },
+  { name: 'TF1000 / Tranespotting', role: 'Resident', links: { sc: 'https://soundcloud.com/tranespotting', ig: 'https://instagram.com/tf1000_' } },
+  { name: 'Adam Kraft', role: 'Resident', links: { sc: 'https://soundcloud.com/adamkraftneindanke', ig: 'https://instagram.com/adamkraft_' } },
+  { name: 'Gewzer', role: 'Resident', links: { sc: 'https://soundcloud.com/gewzer', ig: 'https://instagram.com/gewzer' } },
+  { name: 'Exteeng', role: 'Resident', links: { sc: 'https://soundcloud.com/exteeng', ig: 'https://instagram.com/exteeng' } }
+];
+
+const confidenceInfo = [
+  { label: 'verified', text: 'Directly confirmed from accessible primary source in-repo.' },
+  { label: 'strong', text: 'Multiple independent signals, but still awaiting full artifact binding.' },
+  { label: 'user-archive', text: 'Provided in canonical archive notes; pending line-by-line verification.' },
+  { label: 'unverified', text: 'Not yet source-backed in this repository.' }
+];
 ---
 
-<BaseLayout title="Bread" description="Bread static site starter with Astro, skills, and MCP-ready workflows.">
-  <h1>Bread static site</h1>
-  <p>This repository now includes a working Astro baseline for publishing content.</p>
+<BaseLayout title="BREAD // Archive" description="BREAD archive with full known chronology, roster, and source-confidence framing.">
+  <div class="bg-watermark" id="bgText">BREAD</div>
 
-  <h2>Recent posts</h2>
-  <ul>
-    {
-      posts.map((post) => (
-        <li>
-          <a href={`/blog/${post.id.replace(/\.md$/, '')}/`}>{post.data.title}</a>
-          <p>{post.data.description}</p>
-        </li>
-      ))
-    }
-  </ul>
+  <header class="pivot" id="pivotContainer">
+    <button class="pivot-item active" data-tab="chronology">chronology</button>
+    <button class="pivot-item" data-tab="roster">roster</button>
+    <button class="pivot-item" data-tab="manifesto">manifesto</button>
+  </header>
+
+  <section class="viewport">
+    <article class="panel active" id="panel-chronology">
+      <h1>Chronology</h1>
+      <p class="lede">Complete known event ledger from current in-repo research + canonical notes, including unlisted/canceled claims when present.</p>
+      <ul class="event-list">
+        {chronology.map((event) => (
+          <li>
+            <div>
+              <p class="event-title">{event.title}</p>
+              <p class="event-meta">{event.year} · {event.date} · {event.venue}</p>
+              <p class="event-lineup">{event.lineup}</p>
+              <p class="event-status">status: {event.status}</p>
+            </div>
+            <span class={`badge ${event.confidence}`}>{event.confidence}</span>
+          </li>
+        ))}
+      </ul>
+      <p class="links"><a href="/archive/timeline/">Open full timeline notes →</a></p>
+    </article>
+
+    <article class="panel" id="panel-roster">
+      <h1>Roster</h1>
+      <p class="lede">Founders and resident ecosystem from in-repo archive research.</p>
+      <div class="roster-grid">
+        {roster.map((person) => (
+          <div class="card">
+            <p class="event-title">{person.name}</p>
+            <p class="event-meta">{person.role}</p>
+            <p class="links">
+              {person.links.sc && <a href={person.links.sc} target="_blank">SoundCloud</a>}
+              {person.links.ig && <a href={person.links.ig} target="_blank">Instagram</a>}
+            </p>
+          </div>
+        ))}
+      </div>
+      <p class="links"><a href="/archive/people-network/">Open people + network page →</a></p>
+    </article>
+
+    <article class="panel" id="panel-manifesto">
+      <h1>Manifesto</h1>
+      <p class="big-quote"><span>BREAD</span> was a glitch in San Francisco's monoculture.</p>
+      <p class="lede">The archive favors verifiable claims over mythmaking. The narrative is preserved, but each claim is tracked by source confidence.</p>
+      <ul class="confidence-list">
+        {confidenceInfo.map((item) => (
+          <li>
+            <strong>{item.label}</strong>
+            <span>{item.text}</span>
+          </li>
+        ))}
+      </ul>
+      <p class="lede">Known cleanup preserved: over-specific ticket-price claims and unsupported biographical assertions remain excluded unless directly sourced.</p>
+      <p class="links">
+        <a href="/archive/research-methods-confidence/">Methods + confidence</a>
+        <a href="/archive/channel-profile-directory/">Channel directory</a>
+        <a href="/blog/the-story-of-bread/">Narrative story</a>
+      </p>
+    </article>
+  </section>
 </BaseLayout>
+
+<style>
+  :global(:root){--bg:#000;--text:#fff;--dim:#8a8a8a;--accent:#f04e23}
+  :global(body){background:#000;color:#fff}
+  :global(main){max-width:none;padding:0;position:relative;min-height:100vh;overflow:hidden}
+  .bg-watermark{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;font-size:28vw;font-weight:800;color:#090909;pointer-events:none;z-index:0}
+  .pivot{position:relative;z-index:2;display:flex;gap:2rem;padding:2.5rem 3rem 0}
+  .pivot-item{background:none;border:none;color:var(--dim);font-size:2.2rem;font-weight:300;cursor:pointer}
+  .pivot-item.active{color:var(--text)}
+  .viewport{position:relative;z-index:2;padding:2rem 3rem 3rem;max-width:960px}
+  .panel{display:none;max-height:75vh;overflow:auto;padding-right:1rem}
+  .panel.active{display:block}
+  h1{font-size:3rem;font-weight:300;margin:0 0 .25rem}
+  .lede{color:#b2b2b2;max-width:70ch}
+  .event-list{list-style:none;padding:0;margin:1.25rem 0;display:grid;gap:.85rem}
+  .event-list li{display:flex;justify-content:space-between;gap:1rem;padding:.9rem 0;border-bottom:1px solid #1f1f1f}
+  .event-title{font-size:1.35rem;line-height:1.2;margin:0}
+  .event-meta{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:#7d7d7d;margin:.25rem 0}
+  .event-lineup{margin:0;color:#d2d2d2}
+  .event-status{margin:.3rem 0 0;color:#9ca3af;font-size:.72rem;text-transform:uppercase;letter-spacing:.07em}
+  .badge{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;padding:.3rem .5rem;border:1px solid #333;height:fit-content}
+  .badge.strong{color:#93c5fd}.badge.verified{color:#86efac}.badge.unverified{color:#fca5a5}.badge.user-archive{color:#fdba74}
+  .roster-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.9rem;margin:1rem 0}
+  .card{border:1px solid #202020;background:#0b0b0b;padding:1rem}
+  .links{display:flex;gap:1rem;flex-wrap:wrap}
+  .big-quote{font-size:2.25rem;line-height:1.05;max-width:20ch}.big-quote span{color:var(--accent)}
+  .confidence-list{list-style:none;padding:0;margin:1rem 0;display:grid;gap:.7rem}
+  .confidence-list li{display:grid;gap:.2rem;border-left:2px solid #2a2a2a;padding-left:.75rem}
+  a{color:#ddd} a:hover{color:var(--accent)}
+  @media (max-width: 700px){.pivot{padding:1rem 1rem 0;gap:.75rem;flex-wrap:wrap}.pivot-item{font-size:1.5rem}.viewport{padding:1rem}.panel{max-height:80vh}h1{font-size:2rem}}
+</style>
+
+<script>
+  const items = document.querySelectorAll('.pivot-item');
+  const panels = document.querySelectorAll('.panel');
+  const bgText = document.getElementById('bgText');
+
+  items.forEach((item) => {
+    item.addEventListener('click', () => {
+      const tab = item.getAttribute('data-tab') || 'chronology';
+      items.forEach((i) => i.classList.remove('active'));
+      item.classList.add('active');
+      panels.forEach((panel) => panel.classList.toggle('active', panel.id === `panel-${tab}`));
+      if (bgText) bgText.textContent = tab.toUpperCase();
+    });
+  });
+
+  document.addEventListener('mousemove', (e) => {
+    if (!bgText) return;
+    const x = (e.clientX / window.innerWidth - 0.5) * 25;
+    const y = (e.clientY / window.innerHeight - 0.5) * 25;
+    bgText.style.transform = `translate(${x}px, ${y}px)`;
+  });
+</script>

@@ -14,6 +14,7 @@ This site is organized as a long-living archive for BREAD's history, not just a 
 ## How this archive is structured
 
 - **Timeline**: chronology and era framing. See [Timeline & Eras](/archive/timeline/).
+- **Event ledger**: row-level records with source-basis columns. See [Event Ledger (Working)](/archive/event-ledger/).
 - **People & Network**: founders, residents, collaborators, and scene effects. See [People & Network](/archive/people-network/).
 - **Venues & Format Shifts**: venue phases and format evolution. See [Venues & Format Shifts](/archive/venues-format-shifts/).
 - **Methods & confidence**: evidence model and verification limits. See [Research Methods & Source Confidence](/archive/research-methods-confidence/).

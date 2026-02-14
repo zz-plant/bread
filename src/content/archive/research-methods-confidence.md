@@ -1,7 +1,7 @@
 ---
 title: Research Methods & Source Confidence
 description: Methodology, access constraints, and confidence taxonomy used for BREAD archival claims.
-order: 5
+order: 6
 updated: 2026-02-14
 tags:
   - archive

@@ -1,7 +1,7 @@
 ---
 title: Venues & Format Shifts
 description: A venue-centered view of BREAD's evolution from club residency to remote streams.
-order: 4
+order: 5
 updated: 2026-02-14
 tags:
   - archive

@@ -1,0 +1,35 @@
+<svg width="1400" height="520" viewBox="0 0 1400 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">BREAD event ledger banner</title>
+  <desc id="desc">Banner graphic summarizing timeline from club nights to fundraiser streams.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#09090B"/>
+      <stop offset="40%" stop-color="#1A1A26"/>
+      <stop offset="100%" stop-color="#213F63"/>
+    </linearGradient>
+  </defs>
+  <rect width="1400" height="520" fill="url(#bg)"/>
+  <text x="60" y="120" fill="#FFFFFF" font-family="Arial Black, Arial, sans-serif" font-size="84">BREAD EVENT LEDGER</text>
+  <text x="60" y="170" fill="#BFC7D7" font-family="Arial, Helvetica, sans-serif" font-size="34">2015 CLUB NIGHTS → 2021 FUNDRAISER STREAMS</text>
+
+  <rect x="60" y="220" width="1280" height="220" fill="none" stroke="#DCE3EE" stroke-width="2"/>
+  <line x1="360" y1="220" x2="360" y2="440" stroke="#DCE3EE" stroke-width="2"/>
+  <line x1="700" y1="220" x2="700" y2="440" stroke="#DCE3EE" stroke-width="2"/>
+  <line x1="1030" y1="220" x2="1030" y2="440" stroke="#DCE3EE" stroke-width="2"/>
+
+  <text x="84" y="270" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">2015</text>
+  <text x="84" y="320" fill="#D4DCEE" font-family="Arial, Helvetica, sans-serif" font-size="26">Pilot at F8</text>
+  <text x="84" y="360" fill="#D4DCEE" font-family="Arial, Helvetica, sans-serif" font-size="26">Numbered series starts</text>
+
+  <text x="386" y="270" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">2016</text>
+  <text x="386" y="320" fill="#D4DCEE" font-family="Arial, Helvetica, sans-serif" font-size="26">Growth-era guests</text>
+  <text x="386" y="360" fill="#D4DCEE" font-family="Arial, Helvetica, sans-serif" font-size="26">F8 residency cadence</text>
+
+  <text x="726" y="270" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">2017–2018</text>
+  <text x="726" y="320" fill="#D4DCEE" font-family="Arial, Helvetica, sans-serif" font-size="26">Underground SF phase</text>
+  <text x="726" y="360" fill="#D4DCEE" font-family="Arial, Helvetica, sans-serif" font-size="26">Late-cycle club nights</text>
+
+  <text x="1056" y="270" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">2021</text>
+  <text x="1056" y="320" fill="#D4DCEE" font-family="Arial, Helvetica, sans-serif" font-size="26">New Year / Six Years</text>
+  <text x="1056" y="360" fill="#D4DCEE" font-family="Arial, Helvetica, sans-serif" font-size="26">Long Bread Summer</text>
+</svg>

@@ -1,7 +1,7 @@
 ---
 title: People & Network
 description: Founders, residents, collaborators, and how BREAD functioned as a scene network.
-order: 3
+order: 4
 updated: 2026-02-14
 tags:
   - archive

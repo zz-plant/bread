@@ -1,0 +1,28 @@
+<svg width="1080" height="1350" viewBox="0 0 1080 1350" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Six Years of BREAD fundraiser stream card</title>
+  <desc id="desc">Anniversary fundraising stream card with lineup and timezone details.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#111225"/>
+      <stop offset="55%" stop-color="#3C2F71"/>
+      <stop offset="100%" stop-color="#8E7EDB"/>
+    </linearGradient>
+  </defs>
+  <rect width="1080" height="1350" fill="url(#bg)"/>
+  <text x="76" y="170" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="44" letter-spacing="3">BREAD FUNDRAISER SERIES</text>
+  <text x="76" y="330" fill="#FFFFFF" font-family="Arial Black, Arial, sans-serif" font-size="168">SIX YEARS</text>
+  <text x="76" y="455" fill="#F4EDFF" font-family="Arial Black, Arial, sans-serif" font-size="126">OF BREAD</text>
+  <text x="76" y="525" fill="#D5CBFF" font-family="Arial, Helvetica, sans-serif" font-size="38" letter-spacing="4">SAT JAN 2 • STREAM BROADCAST</text>
+
+  <rect x="76" y="585" width="928" height="2" fill="#C6BAFF"/>
+
+  <text x="76" y="670" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="54" font-weight="700">COLOR PLUS • GILA • ZAIDA • WONJA</text>
+  <text x="76" y="745" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="54" font-weight="700">PRAWNS • ADAM KRAFT • EXTEENG</text>
+  <text x="76" y="820" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="54" font-weight="700">BOTAZ • TF1000 • SHL</text>
+
+  <text x="76" y="945" fill="#F4EDFF" font-family="Arial, Helvetica, sans-serif" font-size="50">14:00 PST / 17:00 EST / 07:00 JST (SUN JAN 3)</text>
+  <text x="76" y="1040" fill="#FFFFFF" font-family="Arial Black, Arial, sans-serif" font-size="70">twitch.tv/breadfm</text>
+
+  <text x="76" y="1140" fill="#DED6FF" font-family="Arial, Helvetica, sans-serif" font-size="38">Benefiting: National Black Deaf Advocates + Atlanta Solidarity Fund</text>
+  <text x="76" y="1200" fill="#DED6FF" font-family="Arial, Helvetica, sans-serif" font-size="34">Archival confidence: strong (screenshot-backed)</text>
+</svg>

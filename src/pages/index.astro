@@ -42,7 +42,6 @@ const roster = [
 
 const documentedChronology = chronology.filter((event) => event.confidence !== 'unverified');
 
-
 const directoryLinks = [
   { label: 'BREAD SoundCloud ↗', href: 'https://soundcloud.com/breadfm', external: true },
   { label: 'BREAD Instagram ↗', href: 'https://instagram.com/bread_sf', external: true },
@@ -162,6 +161,7 @@ const directoryLinks = [
   .cards{list-style:none;margin:0;padding:0;display:grid;gap:.5rem}
   .card{border:1px solid #2c2c2c;background:#0e0e0e;padding:.85rem;display:flex;justify-content:space-between;gap:.8rem;cursor:pointer;min-height:108px}
   .card:hover{border-color:var(--accent)}
+  .card:focus-visible,.tab:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
   .title{margin:0;font-family:'Archivo Black',sans-serif;font-size:1.22rem;line-height:.96;text-transform:uppercase;letter-spacing:-.01em}
   .meta{margin:.2rem 0;font-family:'JetBrains Mono',monospace;font-size:.74rem;color:#8f8f8f;text-transform:uppercase}
   .lineup{margin:0;color:#d8d8d8}
@@ -233,6 +233,14 @@ const directoryLinks = [
   }
 
   document.querySelectorAll('.pick').forEach((row) => {
+    row.tabIndex = 0;
+
+    row.addEventListener('keydown', (event) => {
+      if (event.key !== 'Enter' && event.key !== ' ') return;
+      event.preventDefault();
+      row.click();
+    });
+
     row.addEventListener('click', () => {
       const kind = row.getAttribute('data-kind');
       const index = Number(row.getAttribute('data-index') || 0);
@@ -269,4 +277,5 @@ const directoryLinks = [
       }
     });
   });
+
 </script>

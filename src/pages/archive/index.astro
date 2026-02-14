@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
+import { toContentSlug } from '../../utils/content';
 
 const archivePages = (await getCollection('archive')).sort((a, b) => a.data.order - b.data.order);
 ---
@@ -20,7 +21,7 @@ const archivePages = (await getCollection('archive')).sort((a, b) => a.data.orde
     {
       archivePages.map((page) => (
         <li>
-          <a href={`/archive/${page.id.replace(/\.md$/, '')}/`}>{page.data.title}</a>
+          <a href={`/archive/${toContentSlug(page.id)}/`}>{page.data.title}</a>
           <p>{page.data.description}</p>
         </li>
       ))

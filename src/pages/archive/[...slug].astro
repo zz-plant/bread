@@ -1,12 +1,13 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection, render } from 'astro:content';
+import { formatDate, toContentSlug } from '../../utils/content';
 
 export async function getStaticPaths() {
   const pages = await getCollection('archive');
 
   return pages.map((page) => ({
-    params: { slug: page.id.replace(/\.md$/, '') },
+    params: { slug: toContentSlug(page.id) },
     props: { page }
   }));
 }
@@ -19,7 +20,7 @@ const { Content } = await render(page);
   <p><a href="/archive/">← Back to archive</a></p>
   <h1>{page.data.title}</h1>
   <p>{page.data.description}</p>
-  <small>Last updated: {page.data.updated.toLocaleDateString()}</small>
+  <small>Last updated: {formatDate(page.data.updated)}</small>
   <hr />
   <Content />
 </BaseLayout>

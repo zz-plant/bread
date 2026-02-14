@@ -1,7 +1,7 @@
 ---
 title: Channel & Profile Directory
 description: Canonical link directory for BREAD channels, member profiles, and discovered event URLs.
-order: 6
+order: 7
 updated: 2026-02-14
 tags:
   - archive

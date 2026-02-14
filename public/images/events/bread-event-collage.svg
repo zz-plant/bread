@@ -1,0 +1,31 @@
+<svg width="1400" height="900" viewBox="0 0 1400 900" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">BREAD timeline collage card</title>
+  <desc id="desc">Three-era visual summary card for 2015 pilot, 2016 growth, and 2021 fundraiser streams.</desc>
+  <rect width="1400" height="900" fill="#08080A"/>
+
+  <rect x="36" y="36" width="1328" height="828" fill="none" stroke="#EDEDED" stroke-width="2"/>
+
+  <rect x="70" y="80" width="390" height="740" fill="#131316" stroke="#D8D8D8" stroke-width="2"/>
+  <rect x="505" y="80" width="390" height="740" fill="#201B3A" stroke="#D8D8D8" stroke-width="2"/>
+  <rect x="940" y="80" width="390" height="740" fill="#144A6A" stroke="#D8D8D8" stroke-width="2"/>
+
+  <text x="98" y="140" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">2015 / FORMATION</text>
+  <text x="98" y="210" fill="#FFFFFF" font-family="Arial Black, Arial, sans-serif" font-size="102">PILOT</text>
+  <text x="98" y="262" fill="#BFC1C8" font-family="Arial, Helvetica, sans-serif" font-size="28">F8 • HELIX • EARLY CADENCE</text>
+  <text x="98" y="350" fill="#DADADA" font-family="Arial, Helvetica, sans-serif" font-size="30">Mission:</text>
+  <text x="98" y="390" fill="#DADADA" font-family="Arial, Helvetica, sans-serif" font-size="30">alternative club sound in SF</text>
+
+  <text x="533" y="140" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">2016 / GROWTH ERA</text>
+  <text x="533" y="228" fill="#FFFFFF" font-family="Arial Black, Arial, sans-serif" font-size="116">BREAD</text>
+  <text x="533" y="290" fill="#E7DFFF" font-family="Arial Black, Arial, sans-serif" font-size="88">PEAK</text>
+  <text x="533" y="350" fill="#D4CAFF" font-family="Arial, Helvetica, sans-serif" font-size="30">Jlin window • expanded guest circuit</text>
+  <text x="533" y="392" fill="#D4CAFF" font-family="Arial, Helvetica, sans-serif" font-size="30">residency + stronger visual identity</text>
+
+  <text x="968" y="140" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">2021 / MUTUAL AID</text>
+  <text x="968" y="228" fill="#FFFFFF" font-family="Arial Black, Arial, sans-serif" font-size="102">STREAMS</text>
+  <text x="968" y="292" fill="#D8F4FF" font-family="Arial, Helvetica, sans-serif" font-size="30">NEW YEAR • SIX YEARS • LONG SUMMER</text>
+  <text x="968" y="350" fill="#D8F4FF" font-family="Arial, Helvetica, sans-serif" font-size="30">Twitch telethons • cross-time-zone lineups</text>
+  <text x="968" y="392" fill="#D8F4FF" font-family="Arial, Helvetica, sans-serif" font-size="30">fundraising for partner orgs</text>
+
+  <text x="98" y="775" fill="#BDBDBD" font-family="Arial, Helvetica, sans-serif" font-size="27">Archival visual aid; verify with primary flyers and links when available.</text>
+</svg>

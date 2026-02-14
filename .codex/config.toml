@@ -1,0 +1,8 @@
+model = "gpt-5-codex"
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+
+[mcp_servers.docs]
+url = "https://developers.openai.com/mcp"
+enabled = false
+required = false

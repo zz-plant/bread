@@ -2,9 +2,14 @@
 interface Props {
   title: string;
   description?: string;
+  showSiteFrame?: boolean;
 }
 
-const { title, description = 'Bread static site powered by Astro.' } = Astro.props;
+const {
+  title,
+  description = 'Bread static site powered by Astro.',
+  showSiteFrame = true
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -17,30 +22,151 @@ const { title, description = 'Bread static site powered by Astro.' } = Astro.pro
     <title>{title}</title>
   </head>
   <body>
-    <main>
-      <slot />
-    </main>
+    {
+      showSiteFrame ? (
+        <div class="site-shell">
+          <a class="skip-link" href="#main-content">Skip to content</a>
+          <header class="site-header">
+            <a class="brand" href="/">BREAD</a>
+            <nav aria-label="Primary">
+              <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/archive/">Archive</a></li>
+              </ul>
+            </nav>
+          </header>
+
+          <main id="main-content" class="content-wrap">
+            <slot />
+          </main>
+
+          <footer class="site-footer">
+            <p>Built with Astro for long-lived archival publishing.</p>
+          </footer>
+        </div>
+      ) : (
+        <main>
+          <slot />
+        </main>
+      )
+    }
   </body>
 </html>
 
 <style>
   :root {
-    font-family: Inter, system-ui, sans-serif;
+    color-scheme: light;
+    font-family: Inter, system-ui, -apple-system, Segoe UI, sans-serif;
     color: #111827;
     background: #f8fafc;
   }
 
   body {
     margin: 0;
+    background: radial-gradient(circle at top, #ffffff, #eef2ff 50%, #f8fafc 100%);
+    min-height: 100vh;
   }
 
-  main {
-    max-width: 48rem;
+  .site-shell {
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+  }
+
+  .skip-link {
+    position: absolute;
+    left: 0.75rem;
+    top: -3rem;
+    background: #0f172a;
+    color: #fff;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+    z-index: 30;
+  }
+
+  .skip-link:focus {
+    top: 0.75rem;
+  }
+
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.9rem 1rem;
+    border-bottom: 1px solid #dbe4f5;
+    background: rgb(255 255 255 / 88%);
+    backdrop-filter: blur(8px);
+  }
+
+  .brand {
+    color: #0f172a;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+  }
+
+  nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 0.25rem;
+  }
+
+  nav a {
+    color: #1e293b;
+    text-decoration: none;
+    border-radius: 999px;
+    padding: 0.4rem 0.75rem;
+  }
+
+  nav a:hover,
+  nav a:focus-visible {
+    background: #e2e8f0;
+  }
+
+  .content-wrap {
+    width: min(52rem, calc(100% - 2rem));
     margin: 0 auto;
-    padding: 2rem 1rem 3rem;
+    padding: 1.5rem 0 3rem;
   }
 
-  a {
+  .site-footer {
+    border-top: 1px solid #dbe4f5;
+    color: #475569;
+    font-size: 0.9rem;
+    text-align: center;
+    padding: 1.2rem 1rem 1.6rem;
+  }
+
+  :global(h1, h2, h3) {
+    line-height: 1.2;
+    color: #0f172a;
+  }
+
+  :global(p),
+  :global(li) {
+    line-height: 1.7;
+  }
+
+  :global(a) {
     color: #0f766e;
+  }
+
+  :global(hr) {
+    border: 0;
+    border-top: 1px solid #dbe4f5;
+    margin: 1.5rem 0;
+  }
+
+  @media (max-width: 640px) {
+    .site-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
   }
 </style>

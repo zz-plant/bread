@@ -1,0 +1,46 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Bread static site powered by Astro.' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <main>
+      <slot />
+    </main>
+  </body>
+</html>
+
+<style>
+  :root {
+    font-family: Inter, system-ui, sans-serif;
+    color: #111827;
+    background: #f8fafc;
+  }
+
+  body {
+    margin: 0;
+  }
+
+  main {
+    max-width: 48rem;
+    margin: 0 auto;
+    padding: 2rem 1rem 3rem;
+  }
+
+  a {
+    color: #0f766e;
+  }
+</style>

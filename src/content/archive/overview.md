@@ -9,7 +9,7 @@ tags:
   - methodology
 ---
 
-This site is organized as a long-living archive for BREAD's history, not just a single story post.
+This archive is structured for ongoing updates and source-linked history.
 
 ## How this archive is structured
 
@@ -19,7 +19,7 @@ This site is organized as a long-living archive for BREAD's history, not just a 
 - **Venues & Format Shifts**: venue phases and format evolution. See [Venues & Format Shifts](/archive/venues-format-shifts/).
 - **Methods & confidence**: evidence model and verification limits. See [Research Methods & Source Confidence](/archive/research-methods-confidence/).
 - **Channel directory**: canonical links and discovered event URLs. See [Channel & Profile Directory](/archive/channel-profile-directory/).
-- **Narrative version**: story-form onboarding. See [The Story of BREAD](/blog/the-story-of-bread/).
+- **Narrative version**: story-form onboarding. See [Narrative History](/archive/narrative-history/).
 
 ## Archival principles
 

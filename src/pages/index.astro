@@ -69,6 +69,12 @@ const directoryLinks = [
     <aside class="nav-rail">
       <h1 class="wordmark">BREAD</h1>
       <p class="sub">PANORAMA VIEW<br/>DOCUMENTED HISTORY</p>
+      <nav class="primary-routes" aria-label="Primary routes">
+        <a href="/archive/timeline/">Timeline &amp; eras →</a>
+        <a href="/archive/event-ledger/">Event ledger →</a>
+        <a href="/archive/research-methods-confidence/">Methods + confidence →</a>
+        <a href="/archive/narrative-history/">Narrative story →</a>
+      </nav>
       <nav class="tabs" id="tabs">
         <button class="tab active" data-panel="panel-ledger">events</button>
         <button class="tab" data-panel="panel-people">people</button>
@@ -120,7 +126,7 @@ const directoryLinks = [
             </li>
           ))}
           <li><a href="/archive/research-methods-confidence/">Methods + confidence →</a></li>
-          <li><a href="/blog/the-story-of-bread/">Narrative story →</a></li>
+          <li><a href="/archive/narrative-history/">Narrative story →</a></li>
         </ul>
       </article>
     </main>
@@ -150,6 +156,10 @@ const directoryLinks = [
   .nav-rail{padding:1rem;display:flex;flex-direction:column;gap:.9rem}
   .wordmark{margin:0;font-family:'Archivo Black',sans-serif;font-size:2.6rem;line-height:.9;letter-spacing:-.03em;transform:scaleX(1.28);transform-origin:left center;text-transform:uppercase}
   .sub{margin:0;color:var(--muted);font-family:'Inter',sans-serif;font-weight:300;font-size:.86rem;letter-spacing:.04em;text-transform:uppercase}
+
+  .primary-routes{display:grid;gap:.35rem;margin:.25rem 0 .1rem}
+  .primary-routes a{display:block;padding:.6rem .7rem;border:1px solid #2c2c2c;color:#d8d8d8;text-decoration:none;text-transform:uppercase;font-size:.74rem;letter-spacing:.05em;background:#0d0d0d}
+  .primary-routes a:hover,.primary-routes a:focus-visible{border-color:var(--accent);color:var(--accent);outline:none}
 
   .tabs{display:flex;flex-direction:column;gap:.2rem;margin-top:.4rem}
   .tab{background:none;border:none;color:#7b7b7b;padding:.2rem 0;font-family:'Inter',sans-serif;font-weight:200;font-size:2.05rem;letter-spacing:-.03em;cursor:pointer;text-align:left;line-height:.9;text-transform:lowercase}

@@ -12,7 +12,7 @@ tags:
 
 Here is the full story of BREAD, told not as a list of dates, but as a narrative about a group of friends who tried to carve out a space for "weird" culture in a city that was rapidly becoming normal.
 
-For the durable, research-friendly version of this material, use the [BREAD Archive index](/archive/).
+For the durable, research-friendly version of this material, use [Narrative History](/archive/narrative-history/) and the [BREAD Archive index](/archive/).
 
 For source-oriented event rows, use the [Event Ledger (Working)](/archive/event-ledger/).
 

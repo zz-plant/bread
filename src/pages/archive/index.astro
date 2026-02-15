@@ -10,14 +10,10 @@ const archivePages = (await getCollection('archive')).sort((a, b) => a.data.orde
   title="BREAD Archive"
   description="An information architecture for a long-living BREAD archive: overview, timeline, people, and venue shifts."
 >
-  <p><a href="/">← Back home</a></p>
   <h1>BREAD Archive</h1>
-  <p>
-    This archive is organized for long-term maintenance. Start with the overview, then drill into timeline,
-    people, and venue/formats.
-  </p>
+  <p class="intro">A durable map of timeline, people, venues, methods, and narrative context.</p>
 
-  <ul>
+  <ul class="archive-map">
     {
       archivePages.map((page) => (
         <li>
@@ -28,3 +24,41 @@ const archivePages = (await getCollection('archive')).sort((a, b) => a.data.orde
     }
   </ul>
 </BaseLayout>
+
+<style>
+  .intro {
+    margin-bottom: 1.2rem;
+    color: #cbd5e1;
+  }
+
+  .archive-map {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  .archive-map li {
+    border: 1px solid #1f2937;
+    background: #0b1220;
+    border-radius: 0.5rem;
+    padding: 0.9rem 1rem;
+  }
+
+  .archive-map a {
+    color: #f97316;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .archive-map a:hover,
+  .archive-map a:focus-visible {
+    text-decoration: underline;
+  }
+
+  .archive-map p {
+    margin: 0.45rem 0 0;
+    color: #cbd5e1;
+  }
+</style>

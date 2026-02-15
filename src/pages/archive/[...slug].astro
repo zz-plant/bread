@@ -17,7 +17,6 @@ const { Content } = await render(page);
 ---
 
 <BaseLayout title={page.data.title} description={page.data.description}>
-  <p><a href="/archive/">← Back to archive</a></p>
   <h1>{page.data.title}</h1>
   <p>{page.data.description}</p>
   <small>Last updated: {formatDate(page.data.updated)}</small>

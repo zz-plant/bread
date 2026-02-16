@@ -67,6 +67,61 @@ const directoryLinks = [
   { label: 'Story archive →', href: '/blog/the-story-of-bread/', external: false }
 ];
 
+const soundcloudEmbedCollections = [
+  {
+    title: 'BREAD profile stream',
+    description: 'Main profile feed with published uploads and profile context.',
+    href: 'https://soundcloud.com/breadfm',
+    height: 420,
+    visual: true
+  },
+  {
+    title: 'BREAD playlists',
+    description: 'Dive into set-based listening with curated archives and series.',
+    href: 'https://soundcloud.com/breadfm/sets',
+    height: 300,
+    visual: false
+  },
+  {
+    title: 'BREAD likes',
+    description: 'Explore adjacent scenes and inspirations via liked tracks.',
+    href: 'https://soundcloud.com/breadfm/likes',
+    height: 300,
+    visual: false
+  },
+  {
+    title: 'BREAD reposts',
+    description: 'Browse network signals and collaborations through repost activity.',
+    href: 'https://soundcloud.com/breadfm/reposts',
+    height: 300,
+    visual: false
+  }
+];
+
+const residentSoundcloudProfiles = roster
+  .filter((person) => person.links.sc)
+  .map((person) => ({
+    name: person.name,
+    role: person.role,
+    href: person.links.sc
+  }));
+
+const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
+  const params = new URLSearchParams({
+    url: href,
+    color: '#ff5a1f',
+    auto_play: 'false',
+    hide_related: 'false',
+    show_comments: 'true',
+    show_user: 'true',
+    show_reposts: 'true',
+    show_teaser: 'true',
+    visual: visual ? 'true' : 'false'
+  });
+
+  return `https://w.soundcloud.com/player/?${params.toString()}`;
+};
+
 ---
 
 <BaseLayout
@@ -106,6 +161,7 @@ const directoryLinks = [
         <div class="tablist" role="tablist" aria-label="Archive sections">
           <button class="tab active" role="tab" aria-selected="true" aria-controls="panel-ledger" id="tab-ledger" data-panel="panel-ledger">events</button>
           <button class="tab" role="tab" aria-selected="false" aria-controls="panel-people" id="tab-people" data-panel="panel-people">people</button>
+          <button class="tab" role="tab" aria-selected="false" aria-controls="panel-audio" id="tab-audio" data-panel="panel-audio">audio</button>
           <button class="tab" role="tab" aria-selected="false" aria-controls="panel-links" id="tab-links" data-panel="panel-links">links</button>
         </div>
       </nav>
@@ -172,6 +228,55 @@ const directoryLinks = [
             </li>
           ))}
         </ul>
+      </article>
+
+      <article class="panel" id="panel-audio" role="tabpanel" aria-labelledby="tab-audio" hidden>
+        <h2>SoundCloud listening hub</h2>
+        <p class="audio-intro">Listen to BREAD&apos;s profile, playlists, likes, reposts, plus resident SoundCloud profiles in one place.</p>
+        <div class="audio-actions">
+          <button class="chip" type="button" id="loadAudioEmbeds">Load audio embeds</button>
+          <a href="https://soundcloud.com/breadfm" target="_blank" rel="noreferrer">Open BREAD profile ↗</a>
+        </div>
+        <ul class="audio-grid">
+          {soundcloudEmbedCollections.map((item) => (
+            <li class="audio-card">
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
+              <iframe
+                title={item.title}
+                width="100%"
+                height={item.height}
+                allow="autoplay"
+                loading="lazy"
+                src="about:blank"
+                data-embed-src={buildSoundCloudEmbedSrc(item.href, item.visual)}
+              ></iframe>
+              <a href={item.href} target="_blank" rel="noreferrer">Open on SoundCloud ↗</a>
+            </li>
+          ))}
+        </ul>
+        <section class="resident-audio" aria-label="Resident SoundCloud channels">
+          <h3>Resident SoundCloud channels</h3>
+          <p class="resident-audio-copy">Quick-embed cards for each resident profile linked in this archive.</p>
+          <ul class="resident-audio-grid">
+            {residentSoundcloudProfiles.map((profile) => (
+              <li>
+                <h4>{profile.name}</h4>
+                <p>{profile.role}</p>
+                <iframe
+                  title={`${profile.name} SoundCloud profile`}
+                  width="100%"
+                  height="166"
+                  allow="autoplay"
+                  loading="lazy"
+                  src="about:blank"
+                  data-embed-src={buildSoundCloudEmbedSrc(profile.href, false)}
+                ></iframe>
+                <a href={profile.href} target="_blank" rel="noreferrer">Visit profile ↗</a>
+              </li>
+            ))}
+          </ul>
+        </section>
       </article>
     </main>
 
@@ -537,6 +642,146 @@ const directoryLinks = [
     gap: 0.5rem;
   }
 
+  .audio-intro {
+    margin: 0;
+    color: var(--muted);
+    max-width: 72ch;
+  }
+
+  .audio-actions {
+    margin-top: 0.9rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.7rem;
+  }
+
+  .audio-actions a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    border-bottom: 1px solid var(--line-strong);
+  }
+
+  .audio-actions a:hover {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
+  .audio-grid {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 0;
+    display: grid;
+    gap: 1rem;
+  }
+
+  .audio-card {
+    border: 1px solid var(--line);
+    border-radius: 0.8rem;
+    background: var(--panel-soft);
+    padding: 0.9rem;
+    display: grid;
+    gap: 0.7rem;
+  }
+
+  .audio-card h3 {
+    margin: 0;
+    font-size: 1.05rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .audio-card p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+
+  .audio-card iframe {
+    width: 100%;
+    border: 0;
+    border-radius: 0.65rem;
+    background: #111;
+  }
+
+  .audio-card a {
+    width: fit-content;
+    color: var(--text);
+    font-size: 0.9rem;
+    text-decoration: none;
+    border-bottom: 1px solid var(--line-strong);
+  }
+
+  .audio-card a:hover {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
+
+  .resident-audio {
+    margin-top: 1.4rem;
+    border-top: 1px solid var(--line);
+    padding-top: 1rem;
+    display: grid;
+    gap: 0.65rem;
+  }
+
+  .resident-audio h3,
+  .resident-audio h4 {
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .resident-audio-copy {
+    margin: 0;
+    color: var(--muted);
+  }
+
+  .resident-audio-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.9rem;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+
+  .resident-audio-grid li {
+    border: 1px solid var(--line);
+    border-radius: 0.75rem;
+    background: var(--panel-soft);
+    padding: 0.8rem;
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  .resident-audio-grid p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  .resident-audio-grid iframe {
+    width: 100%;
+    border: 0;
+    border-radius: 0.55rem;
+    background: #101010;
+  }
+
+  .resident-audio-grid a {
+    width: fit-content;
+    color: var(--text);
+    text-decoration: none;
+    border-bottom: 1px solid var(--line-strong);
+  }
+
+  .resident-audio-grid a:hover {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
   .card {
     border: 1px solid #2d2d2d;
     border-radius: 0.8rem;
@@ -776,6 +1021,7 @@ const directoryLinks = [
   const chips = document.querySelectorAll('.chip');
   const resetFilters = document.getElementById('resetFilters');
   const eventsEmptyState = document.getElementById('eventsEmptyState');
+  const loadAudioEmbeds = document.getElementById('loadAudioEmbeds');
 
   const deckTag = document.getElementById('deckTag');
   const deckTitle = document.getElementById('deckTitle');
@@ -789,6 +1035,19 @@ const directoryLinks = [
     confidence: 'all',
     status: 'all'
   };
+
+  function hydrateAudioEmbeds() {
+    const targets = document.querySelectorAll('iframe[data-embed-src]');
+    targets.forEach((frame) => {
+      const src = frame.getAttribute('data-embed-src');
+      if (!src || frame.getAttribute('src') === src) return;
+      frame.setAttribute('src', src);
+    });
+    if (loadAudioEmbeds) {
+      loadAudioEmbeds.setAttribute('disabled', 'true');
+      loadAudioEmbeds.textContent = 'Embeds loaded';
+    }
+  }
 
   function activateTab(tab, { focus = false } = {}) {
     const panelId = tab.getAttribute('data-panel');
@@ -804,6 +1063,8 @@ const directoryLinks = [
       panel.classList.toggle('active', isActive);
       panel.hidden = !isActive;
     });
+
+    if (panelId === 'panel-audio') hydrateAudioEmbeds();
 
     if (focus) tab.focus();
   }
@@ -906,6 +1167,10 @@ const directoryLinks = [
         deckToggle.textContent = 'Hide details panel';
       }
     }
+  }
+
+  if (loadAudioEmbeds) {
+    loadAudioEmbeds.addEventListener('click', () => hydrateAudioEmbeds());
   }
 
   if (deckToggle && detailDeck) {

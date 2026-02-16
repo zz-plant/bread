@@ -12,7 +12,6 @@ tags:
 
 This page is the working event ledger for BREAD. It prioritizes structured fields over prose so each row can be tracked and updated over time.
 
-![BREAD event ledger banner](/images/events/bread-event-ledger-banner.svg)
 
 ## Field schema
 

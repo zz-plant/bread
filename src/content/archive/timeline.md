@@ -56,13 +56,6 @@ For row-level event tracking with source-basis fields, use the [Event Ledger (Wo
 | 2021-03-13 | Twitch | Six Years stream | Anniversary stream window and mutual-aid framing. | `strong` |
 | 2021-07-10 | Twitch | Long Bread Summer | Fundraiser for Rebuilding Alliance and Oxygen for India. | `strong` |
 
-## Visual references
-
-- [Pilot flyer card](/images/events/bread-pilot-f8-2015.svg)
-- [Six Years fundraiser card](/images/events/bread-six-years-2021.svg)
-- [Long Bread Summer card](/images/events/bread-long-summer-2021.svg)
-- [Timeline collage card](/images/events/bread-event-collage.svg)
-
 ## Event discovery leads from research
 
 A Facebook indexing pass recovered event URLs tied to BREAD naming variants. These are preserved as archival leads and should be migrated into event-level records with per-link review status:

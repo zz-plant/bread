@@ -62,10 +62,24 @@ const isEditorial = isArchive || isNarrative;
 
 <style>
   :root {
+    --surface-base: #f8fafc;
+    --surface-raised: #ffffff;
+    --surface-muted: #e2e8f0;
+    --surface-dark-base: #020617;
+    --surface-dark-raised: #0b1220;
+    --surface-dark-muted: #1f2937;
+    --text-base: #111827;
+    --text-muted: #475569;
+    --text-dark-base: #e5e7eb;
+    --text-dark-muted: #94a3b8;
+    --accent-link: #0f766e;
+    --accent-link-dark: #f97316;
+    --radius-pill: 999px;
+    --radius-md: 0.5rem;
     color-scheme: light;
     font-family: Inter, system-ui, -apple-system, Segoe UI, sans-serif;
-    color: #111827;
-    background: #f8fafc;
+    color: var(--text-base);
+    background: var(--surface-base);
   }
 
   body {
@@ -76,7 +90,7 @@ const isEditorial = isArchive || isNarrative;
 
   body.editorial-theme {
     color-scheme: dark;
-    color: #e5e7eb;
+    color: var(--text-dark-base);
     background: radial-gradient(circle at top, #111827, #09090b 55%, #020617 100%);
   }
 
@@ -142,7 +156,7 @@ const isEditorial = isArchive || isNarrative;
   nav a {
     color: #1e293b;
     text-decoration: none;
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     padding: 0.4rem 0.75rem;
   }
 
@@ -199,11 +213,11 @@ const isEditorial = isArchive || isNarrative;
   }
 
   :global(a) {
-    color: #0f766e;
+    color: var(--accent-link);
   }
 
   body.editorial-theme :global(a) {
-    color: #f97316;
+    color: var(--accent-link-dark);
   }
 
   :global(hr) {

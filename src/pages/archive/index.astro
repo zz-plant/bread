@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import { toContentSlug } from '../../utils/content';
+import CardLink from '../../components/CardLink.astro';
 
 const archivePages = (await getCollection('archive')).sort((a, b) => a.data.order - b.data.order);
 ---
@@ -17,7 +18,7 @@ const archivePages = (await getCollection('archive')).sort((a, b) => a.data.orde
     {
       archivePages.map((page) => (
         <li>
-          <a href={`/archive/${toContentSlug(page.id)}/`}>{page.data.title}</a>
+          <CardLink href={`/archive/${toContentSlug(page.id)}/`} label={page.data.title} />
           <p>{page.data.description}</p>
         </li>
       ))
@@ -40,20 +41,20 @@ const archivePages = (await getCollection('archive')).sort((a, b) => a.data.orde
   }
 
   .archive-map li {
-    border: 1px solid #1f2937;
-    background: #0b1220;
-    border-radius: 0.5rem;
+    border: 1px solid var(--surface-dark-muted);
+    background: var(--surface-dark-raised);
+    border-radius: var(--radius-md);
     padding: 0.9rem 1rem;
   }
 
-  .archive-map a {
-    color: #f97316;
+  .archive-map :global(.card-link) {
+    color: var(--accent-link-dark);
     font-weight: 600;
     text-decoration: none;
   }
 
-  .archive-map a:hover,
-  .archive-map a:focus-visible {
+  .archive-map :global(.card-link:hover),
+  .archive-map :global(.card-link:focus-visible) {
     text-decoration: underline;
   }
 

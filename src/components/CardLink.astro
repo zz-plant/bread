@@ -1,0 +1,19 @@
+---
+interface Props {
+  href: string;
+  label: string;
+  external?: boolean;
+  className?: string;
+}
+
+const { href, label, external = false, className } = Astro.props;
+---
+
+<a
+  href={href}
+  class:list={['card-link', className]}
+  target={external ? '_blank' : undefined}
+  rel={external ? 'noreferrer' : undefined}
+>
+  {label}
+</a>

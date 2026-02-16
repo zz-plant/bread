@@ -13,12 +13,14 @@ const archivePages = (await getCollection('archive')).sort((a, b) => a.data.orde
 >
   <h1>BREAD Archive</h1>
   <p class="intro">A durable map of timeline, people, venues, methods, and narrative context.</p>
+  <p class="context">Use this archive as the canonical source map. For the long-form storyline, continue to <a href="/blog/the-story-of-bread/">Narrative history</a>.</p>
 
   <ul class="archive-map">
     {
       archivePages.map((page) => (
         <li>
-          <CardLink href={`/archive/${toContentSlug(page.id)}/`} label={page.data.title} />
+          <p class="section-kicker">Archive section</p>
+          <CardLink href={`/archive/${toContentSlug(page.id)}/`} label={`${page.data.title} →`} />
           <p>{page.data.description}</p>
         </li>
       ))
@@ -40,11 +42,30 @@ const archivePages = (await getCollection('archive')).sort((a, b) => a.data.orde
     gap: 0.85rem;
   }
 
+  .context {
+    margin: 0 0 1rem;
+    color: #a3b4cc;
+  }
+
   .archive-map li {
     border: 1px solid var(--surface-dark-muted);
-    background: var(--surface-dark-raised);
+    background: linear-gradient(180deg, #111827, #0b1220);
     border-radius: var(--radius-md);
     padding: 0.9rem 1rem;
+    transition: border-color 160ms ease, transform 160ms ease;
+  }
+
+  .archive-map li:hover {
+    border-color: #334155;
+    transform: translateY(-1px);
+  }
+
+  .section-kicker {
+    margin: 0 0 0.3rem;
+    color: #94a3b8;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
   }
 
   .archive-map :global(.card-link) {

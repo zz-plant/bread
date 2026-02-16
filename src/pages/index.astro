@@ -524,6 +524,8 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     line-height: 0.9;
     text-transform: lowercase;
     transition: color 160ms ease, transform 160ms ease;
+    min-height: 44px;
+    touch-action: manipulation;
   }
 
   .tab.active {
@@ -571,10 +573,12 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     border-radius: 999px;
     background: #0d0d0d;
     color: #ddd;
-    padding: 0.3rem 0.58rem;
+    padding: 0.5rem 0.75rem;
+    min-height: 44px;
     font-size: 0.72rem;
     font-family: 'JetBrains Mono', monospace;
     cursor: pointer;
+    touch-action: manipulation;
   }
 
   .chip.active,
@@ -805,6 +809,8 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     gap: 0.8rem;
     padding: 0;
     cursor: pointer;
+    min-height: 44px;
+    touch-action: manipulation;
   }
 
   .card:hover {
@@ -955,6 +961,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     .shell {
       grid-template-columns: 1fr;
       padding: 0.7rem;
+      padding-bottom: calc(6rem + env(safe-area-inset-bottom));
       max-width: none;
       min-height: auto;
     }
@@ -980,7 +987,16 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     }
 
     .deck {
-      overflow: hidden;
+      position: fixed;
+      left: 0.7rem;
+      right: 0.7rem;
+      bottom: calc(0.7rem + env(safe-area-inset-bottom));
+      max-height: min(54vh, 28rem);
+      margin: 0;
+      z-index: 35;
+      overflow: auto;
+      box-shadow: 0 20px 45px rgb(0 0 0 / 56%), inset 0 1px 0 rgb(255 255 255 / 3%);
+      backdrop-filter: blur(8px);
     }
 
     .deck-toggle {
@@ -994,6 +1010,8 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
       text-align: left;
       font-weight: 600;
       margin-bottom: 0.6rem;
+      min-height: 44px;
+      touch-action: manipulation;
     }
 
     .deck-content {
@@ -1013,6 +1031,83 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
       font-size: 1.02rem;
     }
   }
+
+  @media (hover: none) {
+    .tab:hover,
+    .card:hover,
+    .primary-routes :global(.card-link:hover),
+    .route-list :global(.card-link:hover) {
+      transform: none;
+      box-shadow: none;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .deck {
+      left: 0.55rem;
+      right: 0.55rem;
+      bottom: calc(0.55rem + env(safe-area-inset-bottom));
+    }
+
+    .topline {
+      gap: 0.35rem;
+      font-size: 0.57rem;
+      letter-spacing: 0.08em;
+      padding-inline: max(0.75rem, env(safe-area-inset-left)) max(0.75rem, env(safe-area-inset-right));
+    }
+
+    .shell {
+      padding: 0.55rem;
+      padding-bottom: calc(5.6rem + env(safe-area-inset-bottom));
+      gap: 0.6rem;
+    }
+
+    .nav-rail,
+    .content,
+    .deck {
+      padding: 0.8rem;
+    }
+
+    .tablist {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.45rem;
+    }
+
+    .tab {
+      border: 1px solid #333;
+      border-radius: 999px;
+      padding: 0.55rem 0.75rem;
+      font-size: 1.1rem;
+      text-align: center;
+      background: #0d0d0d;
+      line-height: 1;
+    }
+
+    .tab.active {
+      border-color: var(--accent);
+      background: rgb(255 90 31 / 12%);
+    }
+
+    .card {
+      min-height: 96px;
+      padding: 0.75rem;
+    }
+
+    .pick-btn {
+      gap: 0.55rem;
+    }
+
+    .confidence {
+      font-size: 0.62rem;
+      padding: 0.25rem 0.45rem;
+    }
+
+    .meta,
+    .status {
+      font-size: 0.68rem;
+    }
+  }
 </style>
 
 <script is:inline define:vars={{ documentedChronology, roster }}>
@@ -1030,11 +1125,41 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
   const deckLinks = document.getElementById('deckLinks');
   const detailDeck = document.getElementById('detailDeck');
   const deckToggle = document.getElementById('deckToggle');
+  const deckStateStorageKey = 'bread:detailDeckOpen';
 
   const activeFilters = {
     confidence: 'all',
     status: 'all'
   };
+
+  function setDeckOpenState(isOpen, { persist = true } = {}) {
+    if (!detailDeck || !deckToggle) return;
+
+    detailDeck.classList.toggle('is-open', isOpen);
+    deckToggle.setAttribute('aria-expanded', String(isOpen));
+    deckToggle.textContent = isOpen ? 'Hide details panel' : 'Show details panel';
+
+    if (!persist) return;
+    try {
+      window.localStorage.setItem(deckStateStorageKey, String(isOpen));
+    } catch {
+      // Ignore storage access restrictions.
+    }
+  }
+
+  function hydrateDeckState() {
+    if (!detailDeck || !deckToggle) return;
+
+    let storedPreference = null;
+    try {
+      storedPreference = window.localStorage.getItem(deckStateStorageKey);
+    } catch {
+      storedPreference = null;
+    }
+
+    const shouldOpenByDefault = storedPreference === null ? true : storedPreference === 'true';
+    setDeckOpenState(shouldOpenByDefault, { persist: false });
+  }
 
   function hydrateAudioEmbeds() {
     const targets = document.querySelectorAll('iframe[data-embed-src]');
@@ -1160,13 +1285,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
       deckLinks.append(a);
     });
 
-    if (detailDeck) {
-      detailDeck.classList.add('is-open');
-      if (deckToggle) {
-        deckToggle.setAttribute('aria-expanded', 'true');
-        deckToggle.textContent = 'Hide details panel';
-      }
-    }
+    setDeckOpenState(true);
   }
 
   if (loadAudioEmbeds) {
@@ -1175,11 +1294,12 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
 
   if (deckToggle && detailDeck) {
     deckToggle.addEventListener('click', () => {
-      const isOpen = detailDeck.classList.toggle('is-open');
-      deckToggle.setAttribute('aria-expanded', String(isOpen));
-      deckToggle.textContent = isOpen ? 'Hide details panel' : 'Show details panel';
+      const isOpen = !detailDeck.classList.contains('is-open');
+      setDeckOpenState(isOpen);
     });
   }
+
+  hydrateDeckState();
 
   document.querySelectorAll('.pick-btn').forEach((row) => {
     row.addEventListener('click', () => {

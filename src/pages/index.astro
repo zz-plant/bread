@@ -1108,11 +1108,41 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
   const deckLinks = document.getElementById('deckLinks');
   const detailDeck = document.getElementById('detailDeck');
   const deckToggle = document.getElementById('deckToggle');
+  const deckStateStorageKey = 'bread:detailDeckOpen';
 
   const activeFilters = {
     confidence: 'all',
     status: 'all'
   };
+
+  function setDeckOpenState(isOpen, { persist = true } = {}) {
+    if (!detailDeck || !deckToggle) return;
+
+    detailDeck.classList.toggle('is-open', isOpen);
+    deckToggle.setAttribute('aria-expanded', String(isOpen));
+    deckToggle.textContent = isOpen ? 'Hide details panel' : 'Show details panel';
+
+    if (!persist) return;
+    try {
+      window.localStorage.setItem(deckStateStorageKey, String(isOpen));
+    } catch {
+      // Ignore storage access restrictions.
+    }
+  }
+
+  function hydrateDeckState() {
+    if (!detailDeck || !deckToggle) return;
+
+    let storedPreference = null;
+    try {
+      storedPreference = window.localStorage.getItem(deckStateStorageKey);
+    } catch {
+      storedPreference = null;
+    }
+
+    const shouldOpenByDefault = storedPreference === null ? true : storedPreference === 'true';
+    setDeckOpenState(shouldOpenByDefault, { persist: false });
+  }
 
   function hydrateAudioEmbeds() {
     const targets = document.querySelectorAll('iframe[data-embed-src]');
@@ -1238,13 +1268,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
       deckLinks.append(a);
     });
 
-    if (detailDeck) {
-      detailDeck.classList.add('is-open');
-      if (deckToggle) {
-        deckToggle.setAttribute('aria-expanded', 'true');
-        deckToggle.textContent = 'Hide details panel';
-      }
-    }
+    setDeckOpenState(true);
   }
 
   if (loadAudioEmbeds) {
@@ -1253,11 +1277,12 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
 
   if (deckToggle && detailDeck) {
     deckToggle.addEventListener('click', () => {
-      const isOpen = detailDeck.classList.toggle('is-open');
-      deckToggle.setAttribute('aria-expanded', String(isOpen));
-      deckToggle.textContent = isOpen ? 'Hide details panel' : 'Show details panel';
+      const isOpen = !detailDeck.classList.contains('is-open');
+      setDeckOpenState(isOpen);
     });
   }
+
+  hydrateDeckState();
 
   document.querySelectorAll('.pick-btn').forEach((row) => {
     row.addEventListener('click', () => {

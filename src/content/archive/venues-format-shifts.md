@@ -31,12 +31,12 @@ These should be represented as event-linked venue records rather than one-off me
 - **Radio format:** BREAD FM continuity between parties and later digital programming traces.
 - **Telethon format:** pandemic-era livestream fundraising.
 
-## Evidence and validation posture
+## Source status notes
 
 - Venue assertions currently mix indexed web snippets, screenshot-derived notes, and user-supplied archival claims.
 - Resident Advisor event confirmation is currently constrained by anti-bot blocking in this environment.
-- Facebook event URLs are preserved as discovery leads and require event-by-event validation.
+- Facebook event URLs are preserved as discovery leads and require event-by-event review.
 
-For source caveats and verification workflow, see [Research Methods & Source Confidence](/archive/research-methods-confidence/).
+For source caveats and review workflow, see [Research Methods & Source Notes](/archive/research-methods-confidence/).
 
 Related: [Timeline & Eras](/archive/timeline/) and [People & Network](/archive/people-network/).

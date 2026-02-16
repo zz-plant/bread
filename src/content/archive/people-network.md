@@ -41,9 +41,9 @@ BREAD operated as more than a party series:
 - A local incubator linked to later projects by resident artists.
 - A radio/streaming node between in-person events and distributed communities.
 
-## Confidence notes
+## Source notes
 
 - Founding names and core resident structure are currently treated as **strong/user-archive** pending line-by-line primary-source binding.
-- Later-career claims for individuals should remain **unverified** unless directly tied to authoritative references in this repo.
+- Later-career claims for individuals should remain **open** unless directly tied to authoritative references in this repo.
 
-Related: [Timeline & Eras](/archive/timeline/), [Venues & Format Shifts](/archive/venues-format-shifts/), and [Research Methods & Source Confidence](/archive/research-methods-confidence/).
+Related: [Timeline & Eras](/archive/timeline/), [Venues & Format Shifts](/archive/venues-format-shifts/), and [Research Methods & Source Notes](/archive/research-methods-confidence/).

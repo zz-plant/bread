@@ -26,6 +26,6 @@ In the mid-2010s, San Francisco nightlife was shifting under rapid economic and 
 
 ## Why this page exists
 
-This narrative is for quick orientation; the rest of the archive keeps row-level evidence and confidence labels.
+This narrative is for quick orientation; the rest of the archive keeps row-level materials and source-note labels.
 
 If you want the original blog-format narrative, see [The Story of BREAD](/blog/the-story-of-bread/).

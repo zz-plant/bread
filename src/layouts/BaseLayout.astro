@@ -22,7 +22,7 @@ const isEditorial = isArchive || isNarrative;
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
@@ -123,7 +123,7 @@ const isEditorial = isArchive || isNarrative;
     justify-content: space-between;
     align-items: center;
     gap: 1rem;
-    padding: 0.9rem 1rem;
+    padding: 0.9rem max(1rem, env(safe-area-inset-right)) 0.9rem max(1rem, env(safe-area-inset-left));
     border-bottom: 1px solid #dbe4f5;
     background: rgb(255 255 255 / 88%);
     backdrop-filter: blur(8px);
@@ -150,14 +150,18 @@ const isEditorial = isArchive || isNarrative;
     list-style: none;
     margin: 0;
     padding: 0;
-    gap: 0.25rem;
+    gap: 0.35rem;
   }
 
   nav a {
     color: #1e293b;
     text-decoration: none;
     border-radius: var(--radius-pill);
-    padding: 0.4rem 0.75rem;
+    padding: 0.55rem 0.85rem;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    touch-action: manipulation;
   }
 
   body.editorial-theme nav a {
@@ -182,7 +186,7 @@ const isEditorial = isArchive || isNarrative;
   .content-wrap {
     width: min(52rem, calc(100% - 2rem));
     margin: 0 auto;
-    padding: 1.5rem 0 3rem;
+    padding: 1.5rem 0 calc(3rem + env(safe-area-inset-bottom));
   }
 
   .site-footer {
@@ -234,6 +238,27 @@ const isEditorial = isArchive || isNarrative;
     .site-header {
       flex-direction: column;
       align-items: flex-start;
+      padding-bottom: 0.65rem;
+      gap: 0.65rem;
+    }
+
+    nav {
+      width: 100%;
+    }
+
+    nav ul {
+      overflow-x: auto;
+      padding-bottom: 0.2rem;
+      scrollbar-width: thin;
+    }
+
+    nav li {
+      flex: 0 0 auto;
+    }
+
+    .content-wrap {
+      width: min(52rem, calc(100% - 1.25rem));
+      padding-top: 1.1rem;
     }
   }
 </style>

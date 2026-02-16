@@ -42,7 +42,7 @@ On Friday, February 13, 2015, they threw their pilot event at F8 on Folsom Stree
 
 **The big win:** Jlin's SF debut period is treated as a pivotal high-risk booking in collected archive notes.
 
-**The wider run:** records from the same era include Distal, Celestial Trax, Neana, Deadboy, Murlo, and a Tectonic / Different Circles-adjacent billing period that helped define the party's curatorial confidence.
+**The wider run:** records from the same era include Distal, Celestial Trax, Neana, Deadboy, Murlo, and a Tectonic / Different Circles-adjacent billing period that helped define the party's curatorial direction.
 
 ## Chapter 3: The Bunker (2017–2018)
 
@@ -63,10 +63,10 @@ When pandemic shutdowns erased dance-floor infrastructure, BREAD pivoted to onli
 | Date | Event | Format | Detail highlights |
 | --- | --- | --- | --- |
 | 2015-02-13 | Pilot at F8 | Club night | Helix + residents; first known formal event marker. |
-| 2015-05-29 | BREAD #1 period | Club night | Public screenshot evidence confirms active programming cadence by May 2015. |
+| 2015-05-29 | BREAD #1 period | Club night | Public screenshot materials confirm active programming cadence by May 2015. |
 | 2015-11-06 | BREAD #3 period | Club night | Doctor Jeep-era booking window appears in screenshot records. |
 | 2016-03-25 | BREAD #5 / Jlin window | Club night | Defining growth-era booking and reputation milestone in archive notes. |
-| 2016-09-04 | Weekend special period | Club night | Dehousy / Nargiz / The Dance Pit screenshot evidence aligns with broadening booking scope. |
+| 2016-09-04 | Weekend special period | Club night | Dehousy / Nargiz / The Dance Pit screenshot materials align with broadening booking scope. |
 | 2017-05-26 | UGSF phase marker | Club night | Mr. Mitch + Kozee appears in user-provided canonical timeline notes. |
 | 2018-05-12 | Final phase marker | Club night | Final chapter context linked to late-period lineup notes. |
 | 2021-01-02 | New Year fundraiser stream | Twitch telethon | Fundraiser framing includes NBDA + Atlanta Solidarity Fund and global time-zone scheduling. |

@@ -42,6 +42,12 @@ const roster = [
 ];
 
 const documentedChronology = chronology.filter((event) => event.confidence !== 'unverified');
+const sourceLabelByConfidence: Record<string, string> = {
+  strong: 'flyer-backed',
+  verified: 'published',
+  'user-archive': 'archive notes',
+  unverified: 'open'
+};
 
 const directoryLinks = [
   { label: 'BREAD SoundCloud ↗', href: 'https://soundcloud.com/breadfm', external: true },
@@ -50,32 +56,32 @@ const directoryLinks = [
   { label: 'Radio Valencia ↗', href: 'http://www.radiovalencia.fm/', external: true },
   { label: 'Channel & profile directory →', href: '/archive/channel-profile-directory/', external: false },
   { label: 'Timeline & eras →', href: '/archive/timeline/', external: false },
-  { label: 'Methods + confidence →', href: '/archive/research-methods-confidence/', external: false },
+  { label: 'Research notes →', href: '/archive/research-methods-confidence/', external: false },
   { label: 'Narrative story →', href: '/archive/narrative-history/', external: false }
 ];
 
 ---
 
 <BaseLayout
-  title="BREAD // Confirmed Archive"
-  description="Confirmed-only BREAD archive interface."
+  title="BREAD // Archive"
+  description="BREAD archive timeline, people, and links."
   showSiteFrame={false}
 >
   <div class="bg-mark">BREAD</div>
   <header class="topline">
     <span>ARCHIVE NODE // SAN FRANCISCO</span>
-    <span>DOCUMENTED HISTORY</span>
+    <span>HISTORY</span>
     <span>2015—2021</span>
   </header>
 
   <section class="shell">
     <aside class="nav-rail">
       <h1 class="wordmark">BREAD</h1>
-      <p class="sub">PANORAMA VIEW<br/>DOCUMENTED HISTORY</p>
+      <p class="sub">PANORAMA VIEW<br/>BREAD HISTORY</p>
       <nav class="primary-routes" aria-label="Primary routes">
         <CardLink href="/archive/timeline/" label="Timeline & eras →" />
         <CardLink href="/archive/event-ledger/" label="Event ledger →" />
-        <CardLink href="/archive/research-methods-confidence/" label="Methods + confidence →" />
+        <CardLink href="/archive/research-methods-confidence/" label="Research notes →" />
         <CardLink href="/archive/narrative-history/" label="Narrative story →" />
       </nav>
       <nav class="tabs" id="tabs">
@@ -85,7 +91,7 @@ const directoryLinks = [
           <button class="tab" role="tab" aria-selected="false" aria-controls="panel-links" id="tab-links" data-panel="panel-links">links</button>
         </div>
       </nav>
-      <p class="policy">Documented events from archive notes and links in this repository.</p>
+      <p class="policy">Events gathered from archive notes and published links in this repository.</p>
     </aside>
 
     <main class="content">
@@ -93,10 +99,10 @@ const directoryLinks = [
         <h2>Event History</h2>
         <fieldset class="filter-group">
           <legend>Filter events</legend>
-          <div class="chips" role="group" aria-label="Filter events by confidence">
-            <button class="chip active" aria-pressed="true" data-filter="all" data-type="confidence">All confidence</button>
-            <button class="chip" aria-pressed="false" data-filter="strong" data-type="confidence">Strong only</button>
-            <button class="chip" aria-pressed="false" data-filter="user-archive" data-type="confidence">User-archive only</button>
+          <div class="chips" role="group" aria-label="Filter events by source notes">
+            <button class="chip active" aria-pressed="true" data-filter="all" data-type="confidence">All notes</button>
+            <button class="chip" aria-pressed="false" data-filter="strong" data-type="confidence">Flyer-backed</button>
+            <button class="chip" aria-pressed="false" data-filter="user-archive" data-type="confidence">Archive notes</button>
           </div>
           <div class="chips" role="group" aria-label="Filter events by status">
             <button class="chip active" aria-pressed="true" data-filter="all" data-type="status">All statuses</button>
@@ -115,7 +121,7 @@ const directoryLinks = [
                   <p class="lineup">{event.lineup}</p>
                   <p class="status">status: {event.status}</p>
                 </div>
-                <span class={`confidence ${event.confidence}`}>{event.confidence}</span>
+                <span class={`confidence ${event.confidence}`}>{sourceLabelByConfidence[event.confidence] ?? 'archive notes'}</span>
               </button>
             </li>
           ))}
@@ -157,7 +163,7 @@ const directoryLinks = [
       <p class="deck-tag" id="deckTag">ENTRY</p>
       <h3 id="deckTitle">SELECT ITEM</h3>
       <p id="deckData">Click an event or resident profile.</p>
-      <p id="deckDesc">This panel renders documented event details and known resident links.</p>
+      <p id="deckDesc">This panel shows event details and resident links.</p>
       <div id="deckLinks" class="deck-links"></div>
       </div>
     </aside>
@@ -844,7 +850,7 @@ const directoryLinks = [
           tag: 'EVENT',
           title: event.title,
           data: `${event.year} · ${event.date} · ${event.venue}`,
-          desc: `${event.lineup}. Status: ${event.status}. Confidence: ${event.confidence}.`,
+          desc: `${event.lineup}. Status: ${event.status}. Source note: ${sourceLabelByConfidence[event.confidence] ?? 'archive notes'}.`,
           links: [{ href: '/archive/timeline/', label: 'Open timeline notes →', external: false }]
         });
         return;
@@ -863,7 +869,7 @@ const directoryLinks = [
           tag: 'PERSON',
           title: person.name,
           data: person.role,
-          desc: 'Resident profile from documented archive network and profile directory entries.',
+          desc: 'Resident profile pulled from archive network and profile directory entries.',
           links
         });
       }

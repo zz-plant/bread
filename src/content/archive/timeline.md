@@ -26,12 +26,12 @@ tags:
 
 - Programming moves toward Underground SF in a changed city context.
 - Sound direction broadens toward warmer, diasporic rhythmic frameworks.
-- Timeline evidence includes Mr. Mitch + Kozee and Kelman Duran periods, with 2018 marking final club-night phase.
+- Timeline materials include Mr. Mitch + Kozee and Kelman Duran periods, with 2018 marking final club-night phase.
 
 ## Era 4 — Remote Mutual Aid + Radio Network (2020–2023)
 
 - **2020–2021:** livestream/telethon format focused on fundraising.
-- Screenshot evidence and user-archive notes align on approximately **USD 12K** raised across multiple streams.
+- Screenshot materials and user-archive notes align on approximately **USD 12K** raised across multiple streams.
 - **2021-01-02:** New Year telethon with multi-time-zone schedule and no-cover framing.
 - **2021-03-13:** Six Years stream appears as anniversary fundraiser period.
 - **2021-07-10:** "Long Bread Summer" stream staged as a fundraiser for Rebuilding Alliance and Oxygen for India.
@@ -41,7 +41,7 @@ tags:
 
 For row-level event tracking with source-basis fields, use the [Event Ledger (Working)](/archive/event-ledger/).
 
-| Date | Venue / Platform | Event label | Primary details | Confidence |
+| Date | Venue / Platform | Event label | Primary details | Source notes |
 | --- | --- | --- | --- | --- |
 | 2015-02-13 | F8, SF | Pilot (Grime City vs BREAD) | Helix + residents; first known formal BREAD event. | `user-archive` |
 | 2015-05-29 | SF listing | BREAD #1 period | Early public cadence marker via screenshot trace. | `strong` |
@@ -65,13 +65,13 @@ For row-level event tracking with source-basis fields, use the [Event Ledger (Wo
 
 ## Event discovery leads from research
 
-A Facebook indexing pass recovered event URLs tied to BREAD naming variants. These are preserved as archival leads and should be migrated into event-level records with per-link validation status:
+A Facebook indexing pass recovered event URLs tied to BREAD naming variants. These are preserved as archival leads and should be migrated into event-level records with per-link review status:
 
 - [Facebook event URL list (channel directory)](/archive/channel-profile-directory/)
 
 ## Notes for timeline hardening
 
-- Add per-event records with: date, venue, lineup, flyer, source links, and confidence.
-- Mark each entry by confidence status (`verified`, `strong`, `user-archive`, `unverified`).
+- Add per-event records with: date, venue, lineup, flyer, source links, and source notes.
+- Mark each entry by source notes status (`published`, `strong`, `user-archive`, `open`).
 - Cross-link each event into [Venues & Format Shifts](/archive/venues-format-shifts/) and [People & Network](/archive/people-network/).
-- Document source methodology and anti-bot limitations in [Research Methods & Source Confidence](/archive/research-methods-confidence/).
+- Document source methodology and anti-bot limitations in [Research Methods & Source Notes](/archive/research-methods-confidence/).

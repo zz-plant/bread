@@ -51,7 +51,7 @@ tags:
 
 ## Discovered Facebook event URLs (indexing pass)
 
-These were discovered via public search indexing and should be treated as archival leads pending record-level verification:
+These were discovered via public search indexing and should be treated as archival leads pending record-level review:
 
 1. <https://www.facebook.com/events/588841281252200/>
 2. <https://www.facebook.com/events/1694286880828782/>
@@ -67,4 +67,4 @@ These were discovered via public search indexing and should be treated as archiv
 12. <https://www.facebook.com/events/d41d8cd9/bread-12-w-na-dubbel-dutch-tsvi/1793167794291121/>
 13. <https://www.facebook.com/events/public-works-sf/bread-9-w-dbm-deadboy-murlo-blackdown/813388422095198/>
 
-Related: [Research Methods & Source Confidence](/archive/research-methods-confidence/).
+Related: [Research Methods & Source Notes](/archive/research-methods-confidence/).

@@ -16,6 +16,13 @@ const isHome = pathname === '/';
 const isNarrative = pathname.startsWith('/blog/');
 const isArchive = pathname.startsWith('/archive/') && !isNarrative;
 const isEditorial = isArchive || isNarrative;
+const routeContext = isHome
+  ? 'You are here: Home overview'
+  : isArchive
+    ? 'You are here: Archive records'
+    : isNarrative
+      ? 'You are here: Narrative history'
+      : undefined;
 ---
 
 <!doctype html>
@@ -38,12 +45,13 @@ const isEditorial = isArchive || isNarrative;
               <ul>
                 <li><a href="/" aria-current={isHome ? 'page' : undefined} class={isHome ? 'active' : undefined}>Home</a></li>
                 <li><a href="/archive/" aria-current={isArchive ? 'page' : undefined} class={isArchive ? 'active' : undefined}>Archive</a></li>
-                <li><a href="/blog/the-story-of-bread/" aria-current={isNarrative ? 'page' : undefined} class={isNarrative ? 'active' : undefined}>Story</a></li>
+                <li><a href="/blog/the-story-of-bread/" aria-current={isNarrative ? 'page' : undefined} class={isNarrative ? 'active' : undefined}>Narrative</a></li>
               </ul>
             </nav>
           </header>
 
           <main id="main-content" class="content-wrap">
+            {routeContext && <p class="route-context">{routeContext}</p>}
             <slot />
           </main>
 
@@ -187,6 +195,26 @@ const isEditorial = isArchive || isNarrative;
     width: min(52rem, calc(100% - 2rem));
     margin: 0 auto;
     padding: 1.5rem 0 calc(3rem + env(safe-area-inset-bottom));
+  }
+
+  .route-context {
+    margin: 0 0 0.8rem;
+    display: inline-flex;
+    border: 1px solid #cbd5e1;
+    border-radius: var(--radius-pill);
+    padding: 0.3rem 0.7rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #334155;
+    background: #f8fafc;
+  }
+
+  body.editorial-theme .route-context {
+    border-color: #334155;
+    background: #0f172a;
+    color: #cbd5e1;
   }
 
   .site-footer {

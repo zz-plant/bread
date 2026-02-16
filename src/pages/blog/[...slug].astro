@@ -19,7 +19,38 @@ const { Content } = await render(post);
 <BaseLayout title={post.data.title} description={post.data.description}>
   <h1>{post.data.title}</h1>
   <p>{post.data.description}</p>
+  <p class="route-note">Narrative history lives here. For source-first records, use the <a href="/archive/">archive index</a>.</p>
   <small>{formatDate(post.data.date)}</small>
+  <nav class="story-links" aria-label="Story route links">
+    <a href="/archive/">Open archive index →</a>
+    <a href="/archive/timeline/">Open timeline →</a>
+  </nav>
   <hr />
   <Content />
 </BaseLayout>
+
+
+<style>
+  .route-note {
+    margin: 0.6rem 0 0.45rem;
+    color: #cbd5e1;
+  }
+
+  .story-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin: 0.5rem 0 0;
+    font-size: 0.92rem;
+  }
+
+  .story-links a {
+    text-decoration: none;
+    border-bottom: 1px solid #334155;
+  }
+
+  .story-links a:hover,
+  .story-links a:focus-visible {
+    border-bottom-color: #f97316;
+  }
+</style>

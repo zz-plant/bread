@@ -67,6 +67,13 @@ const directoryLinks = [
   { label: 'Story archive →', href: '/blog/the-story-of-bread/', external: false }
 ];
 
+const sectionJumpLinks = [
+  { panelId: 'panel-ledger', label: 'Event history', description: `${documentedChronology.length} entries with filters` },
+  { panelId: 'panel-people', label: 'People network', description: `${roster.length} resident profiles` },
+  { panelId: 'panel-audio', label: 'Audio hub', description: 'SoundCloud playlists and resident channels' },
+  { panelId: 'panel-links', label: 'External links', description: `${directoryLinks.length} curated outbound references` }
+];
+
 const soundcloudEmbedCollections = [
   {
     title: 'BREAD profile stream',
@@ -151,12 +158,25 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
           ))}
         </ul>
       </section>
-      <nav class="primary-routes" aria-label="Primary routes">
-        <CardLink href="/archive/timeline/" label="Timeline & eras →" />
-        <CardLink href="/archive/event-ledger/" label="Event ledger →" />
-        <CardLink href="/archive/research-methods-confidence/" label="Research notes →" />
-        <CardLink href="/blog/the-story-of-bread/" label="Story archive →" />
-      </nav>
+      <section class="route-start" aria-label="Primary routes">
+        <p class="route-start-title">Start here</p>
+        <nav class="primary-routes" aria-label="Primary routes">
+          <CardLink href="/archive/timeline/" label="Timeline & eras →" />
+          <CardLink href="/archive/event-ledger/" label="Event ledger →" />
+          <CardLink href="/archive/research-methods-confidence/" label="Research notes →" />
+          <CardLink href="/blog/the-story-of-bread/" label="Narrative history →" />
+        </nav>
+      </section>
+      <section class="section-jumps" aria-label="Archive section overview">
+        {
+          sectionJumpLinks.map((item) => (
+            <button class="section-jump" type="button" data-jump-panel={item.panelId}>
+              <span>{item.label}</span>
+              <small>{item.description}</small>
+            </button>
+          ))
+        }
+      </section>
       <nav class="tabs" id="tabs">
         <div class="tablist" role="tablist" aria-label="Archive sections">
           <button class="tab active" role="tab" aria-selected="true" aria-controls="panel-ledger" id="tab-ledger" data-panel="panel-ledger">events</button>
@@ -171,6 +191,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     <main class="content">
       <article class="panel active" id="panel-ledger" role="tabpanel" aria-labelledby="tab-ledger">
         <h2>Event History</h2>
+        <p class="result-count" id="eventsResultCount" aria-live="polite"></p>
         <fieldset class="filter-group">
           <legend>Filter events</legend>
           <div class="chips" role="group" aria-label="Filter events by source notes">
@@ -285,8 +306,8 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
       <div id="deckContent" class="deck-content">
       <p class="deck-tag" id="deckTag">ENTRY</p>
       <h3 id="deckTitle">SELECT ITEM</h3>
-      <p id="deckData">Click an event or resident profile.</p>
-      <p id="deckDesc">This panel shows event details and resident links.</p>
+      <p id="deckData">Choose an event or resident to inspect metadata.</p>
+      <p id="deckDesc">This panel shows source notes and outbound profile links.</p>
       <div id="deckLinks" class="deck-links"></div>
       </div>
     </aside>
@@ -467,10 +488,50 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     text-align: right;
   }
 
+  .route-start-title {
+    margin: 0 0 0.45rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    color: #cecece;
+  }
+
   .primary-routes {
     display: grid;
     gap: 0.35rem;
     margin: 0.3rem 0 0.1rem;
+  }
+
+  .section-jumps {
+    margin-top: 0.65rem;
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .section-jump {
+    border: 1px solid #333;
+    border-radius: 0.65rem;
+    background: #0d0d0d;
+    color: #e3e3e3;
+    display: grid;
+    gap: 0.15rem;
+    padding: 0.55rem 0.7rem;
+    text-align: left;
+    cursor: pointer;
+    min-height: 44px;
+  }
+
+  .section-jump small {
+    color: #a4a4a4;
+    font-size: 0.72rem;
+  }
+
+  .section-jump:hover,
+  .section-jump:focus-visible {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px var(--accent-soft);
+    outline: none;
   }
 
   .primary-routes :global(.card-link),
@@ -551,6 +612,14 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     padding: 0.7rem;
     display: grid;
     gap: 0.45rem;
+  }
+
+  .result-count {
+    margin: 0 0 0.65rem;
+    color: #c8c8c8;
+    font-size: 0.84rem;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.04em;
   }
 
   .filter-group legend {
@@ -1117,6 +1186,8 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
   const resetFilters = document.getElementById('resetFilters');
   const eventsEmptyState = document.getElementById('eventsEmptyState');
   const loadAudioEmbeds = document.getElementById('loadAudioEmbeds');
+  const sectionJumps = document.querySelectorAll('[data-jump-panel]');
+  const eventsResultCount = document.getElementById('eventsResultCount');
 
   const deckTag = document.getElementById('deckTag');
   const deckTitle = document.getElementById('deckTitle');
@@ -1191,6 +1262,11 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
 
     if (panelId === 'panel-audio') hydrateAudioEmbeds();
 
+    sectionJumps.forEach((item) => {
+      const isActive = item.getAttribute('data-jump-panel') === panelId;
+      item.setAttribute('aria-pressed', String(isActive));
+    });
+
     if (focus) tab.focus();
   }
 
@@ -1215,6 +1291,16 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     });
   });
 
+  sectionJumps.forEach((jump) => {
+    jump.addEventListener('click', () => {
+      const panelId = jump.getAttribute('data-jump-panel');
+      if (!panelId) return;
+      const tab = tabs.find((item) => item.getAttribute('data-panel') === panelId);
+      if (!tab) return;
+      activateTab(tab, { focus: true });
+    });
+  });
+
   function applyFilters() {
     let visibleCount = 0;
 
@@ -1229,6 +1315,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     });
 
     if (eventsEmptyState) eventsEmptyState.hidden = visibleCount > 0;
+    if (eventsResultCount) eventsResultCount.textContent = `${visibleCount} event${visibleCount === 1 ? '' : 's'} shown`;
   }
 
   chips.forEach((chip) => {

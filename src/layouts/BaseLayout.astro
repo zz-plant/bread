@@ -13,7 +13,7 @@ const {
 
 const pathname = Astro.url.pathname;
 const isHome = pathname === '/';
-const isNarrative = pathname.startsWith('/blog/') || pathname.startsWith('/archive/narrative-history/');
+const isNarrative = pathname.startsWith('/blog/');
 const isArchive = pathname.startsWith('/archive/') && !isNarrative;
 const isEditorial = isArchive || isNarrative;
 ---
@@ -38,7 +38,7 @@ const isEditorial = isArchive || isNarrative;
               <ul>
                 <li><a href="/" aria-current={isHome ? 'page' : undefined} class={isHome ? 'active' : undefined}>Home</a></li>
                 <li><a href="/archive/" aria-current={isArchive ? 'page' : undefined} class={isArchive ? 'active' : undefined}>Archive</a></li>
-                <li><a href="/archive/narrative-history/" aria-current={isNarrative ? 'page' : undefined} class={isNarrative ? 'active' : undefined}>Narrative</a></li>
+                <li><a href="/blog/the-story-of-bread/" aria-current={isNarrative ? 'page' : undefined} class={isNarrative ? 'active' : undefined}>Story</a></li>
               </ul>
             </nav>
           </header>

@@ -12,11 +12,9 @@ tags:
 
 Here is the full story of BREAD, told not as a list of dates, but as a narrative about a group of friends who tried to carve out a space for "weird" culture in a city that was rapidly becoming normal.
 
-For the durable, research-friendly version of this material, use [Narrative History](/archive/narrative-history/) and the [BREAD Archive index](/archive/).
+For the durable, research-friendly version of this material, use the [BREAD Archive index](/archive/) and its source-linked pages.
 
 For source-oriented event rows, use the [Event Ledger (Working)](/archive/event-ledger/).
-
-![BREAD event visual timeline collage](/images/events/bread-event-collage.svg)
 
 ## The Setting: San Francisco, 2014
 
@@ -33,8 +31,6 @@ They formed a collective called BREAD. The name was simple, but the mission was 
 ## Chapter 1: The Experiment (2015)
 
 On Friday, February 13, 2015, they threw their pilot event at F8 on Folsom Street. The launch-period sequence then accelerated through spring and fall with numbered events and early guest bookings.
-
-![BREAD pilot flyer card](/images/events/bread-pilot-f8-2015.svg)
 
 ## Chapter 2: The Golden Era (2016)
 
@@ -53,10 +49,6 @@ This era includes lineups around Mr. Mitch + Kozee and later Kelman Duran + Suda
 ## Chapter 4: Mutual Aid Streams (2021)
 
 When pandemic shutdowns erased dance-floor infrastructure, BREAD pivoted to online telethon-style programming. The streams preserved community ties while explicitly raising funds for mutual-aid and relief work.
-
-![Six years fundraiser flyer card](/images/events/bread-six-years-2021.svg)
-
-![Long Bread Summer fundraiser flyer card](/images/events/bread-long-summer-2021.svg)
 
 ## Event Detail Snapshot (expanded)
 

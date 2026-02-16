@@ -524,6 +524,8 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     line-height: 0.9;
     text-transform: lowercase;
     transition: color 160ms ease, transform 160ms ease;
+    min-height: 44px;
+    touch-action: manipulation;
   }
 
   .tab.active {
@@ -571,10 +573,12 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     border-radius: 999px;
     background: #0d0d0d;
     color: #ddd;
-    padding: 0.3rem 0.58rem;
+    padding: 0.5rem 0.75rem;
+    min-height: 44px;
     font-size: 0.72rem;
     font-family: 'JetBrains Mono', monospace;
     cursor: pointer;
+    touch-action: manipulation;
   }
 
   .chip.active,
@@ -805,6 +809,8 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     gap: 0.8rem;
     padding: 0;
     cursor: pointer;
+    min-height: 44px;
+    touch-action: manipulation;
   }
 
   .card:hover {
@@ -994,6 +1000,8 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
       text-align: left;
       font-weight: 600;
       margin-bottom: 0.6rem;
+      min-height: 44px;
+      touch-action: manipulation;
     }
 
     .deck-content {
@@ -1011,6 +1019,76 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
 
     .title {
       font-size: 1.02rem;
+    }
+  }
+
+  @media (hover: none) {
+    .tab:hover,
+    .card:hover,
+    .primary-routes :global(.card-link:hover),
+    .route-list :global(.card-link:hover) {
+      transform: none;
+      box-shadow: none;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .topline {
+      gap: 0.35rem;
+      font-size: 0.57rem;
+      letter-spacing: 0.08em;
+      padding-inline: max(0.75rem, env(safe-area-inset-left)) max(0.75rem, env(safe-area-inset-right));
+    }
+
+    .shell {
+      padding: 0.55rem;
+      gap: 0.6rem;
+    }
+
+    .nav-rail,
+    .content,
+    .deck {
+      padding: 0.8rem;
+    }
+
+    .tablist {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.45rem;
+    }
+
+    .tab {
+      border: 1px solid #333;
+      border-radius: 999px;
+      padding: 0.55rem 0.75rem;
+      font-size: 1.1rem;
+      text-align: center;
+      background: #0d0d0d;
+      line-height: 1;
+    }
+
+    .tab.active {
+      border-color: var(--accent);
+      background: rgb(255 90 31 / 12%);
+    }
+
+    .card {
+      min-height: 96px;
+      padding: 0.75rem;
+    }
+
+    .pick-btn {
+      gap: 0.55rem;
+    }
+
+    .confidence {
+      font-size: 0.62rem;
+      padding: 0.25rem 0.45rem;
+    }
+
+    .meta,
+    .status {
+      font-size: 0.68rem;
     }
   }
 </style>

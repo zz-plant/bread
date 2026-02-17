@@ -155,7 +155,9 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
       </section>
       <section class="route-start rail-card" aria-label="Primary routes">
         <p class="route-start-title">Start here</p>
+        <p class="route-start-copy">Top-level destinations stay pinned here for quick route switching.</p>
         <nav class="primary-routes" aria-label="Primary routes">
+          <CardLink href="/archive/" label="Archive index →" />
           <CardLink href="/archive/timeline/" label="Timeline & eras →" />
           <CardLink href="/archive/event-ledger/" label="Event ledger →" />
           <CardLink href="/blog/the-story-of-bread/" label="Narrative history →" />
@@ -508,6 +510,13 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     display: grid;
     gap: 0.35rem;
     margin: 0.3rem 0 0.1rem;
+  }
+
+  .route-start-copy {
+    margin: 0;
+    color: #ababab;
+    font-size: 0.74rem;
+    line-height: 1.4;
   }
 
   .section-jumps {

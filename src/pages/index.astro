@@ -49,13 +49,6 @@ const summaryStats = [
   { label: 'Residents listed', value: roster.length }
 ];
 
-const sourceLabelByConfidence: Record<string, string> = {
-  strong: 'flyer-backed',
-  verified: 'published',
-  'user-archive': 'archive notes',
-  unverified: 'open'
-};
-
 const directoryLinks = [
   { label: 'BREAD SoundCloud ↗', href: 'https://soundcloud.com/breadfm', external: true },
   { label: 'BREAD Instagram ↗', href: 'https://instagram.com/bread_sf', external: true },
@@ -63,7 +56,6 @@ const directoryLinks = [
   { label: 'Radio Valencia ↗', href: 'http://www.radiovalencia.fm/', external: true },
   { label: 'Channel & profile directory →', href: '/archive/channel-profile-directory/', external: false },
   { label: 'Timeline & eras →', href: '/archive/timeline/', external: false },
-  { label: 'Research notes →', href: '/archive/research-methods-confidence/', external: false },
   { label: 'Story archive →', href: '/blog/the-story-of-bread/', external: false }
 ];
 
@@ -77,7 +69,7 @@ const sectionJumpLinks = [
 const soundcloudEmbedCollections = [
   {
     title: 'BREAD profile stream',
-    description: 'Main profile feed with published uploads and profile context.',
+    description: 'Main profile feed with published uploads and artist updates.',
     href: 'https://soundcloud.com/breadfm',
     height: 420,
     visual: true
@@ -166,7 +158,6 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
         <nav class="primary-routes" aria-label="Primary routes">
           <CardLink href="/archive/timeline/" label="Timeline & eras →" />
           <CardLink href="/archive/event-ledger/" label="Event ledger →" />
-          <CardLink href="/archive/research-methods-confidence/" label="Research notes →" />
           <CardLink href="/blog/the-story-of-bread/" label="Narrative history →" />
         </nav>
       </section>
@@ -190,7 +181,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
           <button class="tab" role="tab" aria-selected="false" aria-controls="panel-links" id="tab-links" data-panel="panel-links">links</button>
         </div>
       </nav>
-      <p class="policy rail-policy">Events gathered from archive notes and published links in this repository.</p>
+      <p class="policy rail-policy">Events gathered from public records in this repository.</p>
     </aside>
 
     <main class="content">
@@ -207,7 +198,6 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
                   <p class="lineup">{event.lineup}</p>
                   <p class="status">status: {event.status}</p>
                 </div>
-                <span class={`confidence ${event.confidence}`}>{sourceLabelByConfidence[event.confidence] ?? 'archive notes'}</span>
               </button>
             </li>
           ))}
@@ -297,7 +287,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
       <p class="deck-tag" id="deckTag">ENTRY</p>
       <h3 id="deckTitle">SELECT ITEM</h3>
       <p id="deckData">Choose an event or resident to inspect metadata.</p>
-      <p id="deckDesc">This panel shows source notes and outbound profile links.</p>
+      <p id="deckDesc">This panel shows event and profile details with quick links.</p>
       <div id="deckLinks" class="deck-links"></div>
       </div>
     </aside>
@@ -907,8 +897,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     letter-spacing: -0.01em;
   }
 
-  .meta,
-  .confidence {
+  .meta {
     font-family: 'JetBrains Mono', monospace;
   }
 
@@ -929,28 +918,6 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     color: #b7b7b7;
     font-size: 0.74rem;
     text-transform: uppercase;
-  }
-
-  .confidence {
-    border: 1px solid #3a3a3a;
-    border-radius: 999px;
-    padding: 0.28rem 0.52rem;
-    height: fit-content;
-    font-size: 0.68rem;
-    text-transform: uppercase;
-    background: #101010;
-  }
-
-  .confidence.strong {
-    color: #93c5fd;
-  }
-
-  .confidence.verified {
-    color: #86efac;
-  }
-
-  .confidence.user-archive {
-    color: #fdba74;
   }
 
   .deck-tag {
@@ -1152,11 +1119,6 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
       gap: 0.55rem;
     }
 
-    .confidence {
-      font-size: 0.62rem;
-      padding: 0.25rem 0.45rem;
-    }
-
     .meta,
     .status {
       font-size: 0.68rem;
@@ -1164,7 +1126,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
   }
 </style>
 
-<script is:inline define:vars={{ documentedChronology, roster, sourceLabelByConfidence }}>
+<script is:inline define:vars={{ documentedChronology, roster }}>
   const tabs = Array.from(document.querySelectorAll('.tab'));
   const panels = document.querySelectorAll('.panel');
   const loadAudioEmbeds = document.getElementById('loadAudioEmbeds');
@@ -1326,7 +1288,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
           tag: 'EVENT',
           title: event.title,
           data: `${event.year} · ${event.date} · ${event.venue}`,
-          desc: `${event.lineup}. Status: ${event.status}. Source note: ${sourceLabelByConfidence[event.confidence] ?? 'archive notes'}.`,
+          desc: `${event.lineup}. Status: ${event.status}.`,
           links: [{ href: '/archive/timeline/', label: 'Open timeline notes →', external: false }]
         });
         return;

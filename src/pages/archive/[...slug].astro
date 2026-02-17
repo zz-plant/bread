@@ -19,7 +19,7 @@ const { Content } = await render(page);
 <BaseLayout title={page.data.title} description={page.data.description}>
   <h1>{page.data.title}</h1>
   <p>{page.data.description}</p>
-  <p class="route-note">This page is part of the source-first archive. For the narrative chapter view, open <a href="/blog/the-story-of-bread/">Narrative history</a>.</p>
+  <p class="route-note">This page is part of the archive collection. For the narrative chapter view, open <a href="/blog/the-story-of-bread/">Narrative history</a>.</p>
   <small>Last updated: {formatDate(page.data.updated)}</small>
   <hr />
   <Content />

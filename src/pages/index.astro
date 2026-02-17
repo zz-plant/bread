@@ -68,7 +68,7 @@ const directoryLinks = [
 ];
 
 const sectionJumpLinks = [
-  { panelId: 'panel-ledger', label: 'Event history', description: `${documentedChronology.length} entries with filters` },
+  { panelId: 'panel-ledger', label: 'Event history', description: `${documentedChronology.length} documented entries` },
   { panelId: 'panel-people', label: 'People network', description: `${roster.length} resident profiles` },
   { panelId: 'panel-audio', label: 'Audio hub', description: 'SoundCloud playlists and resident channels' },
   { panelId: 'panel-links', label: 'External links', description: `${directoryLinks.length} curated outbound references` }
@@ -191,24 +191,10 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     <main class="content">
       <article class="panel active" id="panel-ledger" role="tabpanel" aria-labelledby="tab-ledger">
         <h2>Event History</h2>
-        <p class="result-count" id="eventsResultCount" aria-live="polite"></p>
-        <fieldset class="filter-group">
-          <legend>Filter events</legend>
-          <div class="chips" role="group" aria-label="Filter events by source notes">
-            <button class="chip active" aria-pressed="true" data-filter="all" data-type="confidence">All notes</button>
-            <button class="chip" aria-pressed="false" data-filter="strong" data-type="confidence">Flyer-backed</button>
-            <button class="chip" aria-pressed="false" data-filter="user-archive" data-type="confidence">Archive notes</button>
-          </div>
-          <div class="chips" role="group" aria-label="Filter events by status">
-            <button class="chip active" aria-pressed="true" data-filter="all" data-type="status">All statuses</button>
-            <button class="chip" aria-pressed="false" data-filter="played" data-type="status">Played</button>
-            <button class="chip" aria-pressed="false" data-filter="unlisted/canceled claim" data-type="status">Unlisted / canceled</button>
-          </div>
-          <button class="chip reset-chip" type="button" id="resetFilters">Reset filters</button>
-        </fieldset>
+        <p class="result-count" id="eventsResultCount">{documentedChronology.length} events shown</p>
         <ul class="cards">
           {documentedChronology.map((event, index) => (
-            <li class="card" data-kind="event" data-index={index} data-confidence={event.confidence} data-status={event.status}>
+            <li class="card" data-kind="event" data-index={index}>
               <button class="pick-btn" data-kind="event" data-index={index} aria-label={`View details for ${event.title}`}>
                 <div>
                   <p class="title">{event.title}</p>
@@ -221,7 +207,6 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
             </li>
           ))}
         </ul>
-        <p class="empty-state" id="eventsEmptyState" role="status" aria-live="polite" hidden>No events match this filter combination. Try selecting "All" for one or both filters.</p>
       </article>
 
       <article class="panel" id="panel-people" role="tabpanel" aria-labelledby="tab-people" hidden>
@@ -605,30 +590,12 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     line-height: 1.45;
   }
 
-  .filter-group {
-    margin: 0 0 0.85rem;
-    border: 1px solid #333;
-    border-radius: 0.75rem;
-    padding: 0.7rem;
-    display: grid;
-    gap: 0.45rem;
-  }
-
   .result-count {
     margin: 0 0 0.65rem;
     color: #c8c8c8;
     font-size: 0.84rem;
     font-family: 'JetBrains Mono', monospace;
     letter-spacing: 0.04em;
-  }
-
-  .filter-group legend {
-    padding: 0 0.35rem;
-    font-family: 'JetBrains Mono', monospace;
-    color: #ddd;
-    font-size: 0.7rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
   }
 
   .chips {
@@ -658,25 +625,10 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     outline: none;
   }
 
-  .reset-chip {
-    justify-self: start;
-    margin-top: 0.1rem;
-  }
-
   .pick-btn.is-selected {
     outline: 2px solid var(--accent);
     outline-offset: 3px;
     border-radius: 0.5rem;
-  }
-
-  .empty-state {
-    margin: 0.8rem 0 0;
-    border: 1px dashed #3f3f3f;
-    border-radius: 0.7rem;
-    padding: 0.8rem 0.9rem;
-    color: #d1d1d1;
-    background: rgb(20 20 20 / 60%);
-    font-size: 0.88rem;
   }
 
   .content,
@@ -1182,12 +1134,8 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
 <script is:inline define:vars={{ documentedChronology, roster, sourceLabelByConfidence }}>
   const tabs = Array.from(document.querySelectorAll('.tab'));
   const panels = document.querySelectorAll('.panel');
-  const chips = document.querySelectorAll('.chip');
-  const resetFilters = document.getElementById('resetFilters');
-  const eventsEmptyState = document.getElementById('eventsEmptyState');
   const loadAudioEmbeds = document.getElementById('loadAudioEmbeds');
   const sectionJumps = document.querySelectorAll('[data-jump-panel]');
-  const eventsResultCount = document.getElementById('eventsResultCount');
 
   const deckTag = document.getElementById('deckTag');
   const deckTitle = document.getElementById('deckTitle');
@@ -1197,11 +1145,6 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
   const detailDeck = document.getElementById('detailDeck');
   const deckToggle = document.getElementById('deckToggle');
   const deckStateStorageKey = 'bread:detailDeckOpen';
-
-  const activeFilters = {
-    confidence: 'all',
-    status: 'all'
-  };
 
   function setDeckOpenState(isOpen, { persist = true } = {}) {
     if (!detailDeck || !deckToggle) return;
@@ -1301,59 +1244,6 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     });
   });
 
-  function applyFilters() {
-    let visibleCount = 0;
-
-    document.querySelectorAll('#panel-ledger .card').forEach((row) => {
-      const confidence = row.getAttribute('data-confidence') || '';
-      const status = row.getAttribute('data-status') || '';
-      const confidenceMatch = activeFilters.confidence === 'all' || confidence === activeFilters.confidence;
-      const statusMatch = activeFilters.status === 'all' || status === activeFilters.status;
-      const shouldShow = confidenceMatch && statusMatch;
-      row.hidden = !shouldShow;
-      if (shouldShow) visibleCount += 1;
-    });
-
-    if (eventsEmptyState) eventsEmptyState.hidden = visibleCount > 0;
-    if (eventsResultCount) eventsResultCount.textContent = `${visibleCount} event${visibleCount === 1 ? '' : 's'} shown`;
-  }
-
-  chips.forEach((chip) => {
-    chip.addEventListener('click', () => {
-      const type = chip.getAttribute('data-type');
-      const value = chip.getAttribute('data-filter') || 'all';
-      if (!type) return;
-
-      activeFilters[type] = value;
-
-      document.querySelectorAll(`.chip[data-type="${type}"]`).forEach((item) => {
-        const isActive = item === chip;
-        item.classList.toggle('active', isActive);
-        item.setAttribute('aria-pressed', String(isActive));
-      });
-
-      applyFilters();
-    });
-  });
-
-
-  if (resetFilters) {
-    resetFilters.addEventListener('click', () => {
-      activeFilters.confidence = 'all';
-      activeFilters.status = 'all';
-
-      document.querySelectorAll('.chip[data-type]').forEach((item) => {
-        const type = item.getAttribute('data-type');
-        const isActive = item.getAttribute('data-filter') === 'all';
-        if (!type) return;
-        item.classList.toggle('active', isActive);
-        item.setAttribute('aria-pressed', String(isActive));
-      });
-
-      applyFilters();
-    });
-  }
-
   function updateDeck(payload) {
     if (!deckTag || !deckTitle || !deckData || !deckDesc || !deckLinks) return;
     deckTag.textContent = payload.tag;
@@ -1428,7 +1318,5 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
       }
     });
   });
-
-  applyFilters();
 
 </script>

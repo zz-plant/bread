@@ -3,11 +3,12 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import { toContentSlug } from '../../utils/content';
 import CardLink from '../../components/CardLink.astro';
+import { primaryRoutes } from '../../utils/routes';
 
 const archivePages = (await getCollection('archive')).sort((a, b) => a.data.order - b.data.order);
 const overviewStats = [
   { label: 'Archive sections', value: archivePages.length },
-  { label: 'Primary routes', value: 3 },
+  { label: 'Primary routes', value: primaryRoutes.length },
   { label: 'Coverage period', value: '2015—2021' }
 ];
 ---

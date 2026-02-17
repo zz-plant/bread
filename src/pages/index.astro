@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CardLink from '../components/CardLink.astro';
+import { primaryRoutes } from '../utils/routes';
 
 const chronology = [
   { year: '2015', date: 'Feb 13', title: 'Pilot: Grime City vs BREAD', venue: 'F8', lineup: 'Helix + locals', confidence: 'user-archive', status: 'played' },
@@ -164,11 +165,11 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
       <section class="route-start rail-card" aria-label="Primary routes">
         <p class="route-start-title">Start here</p>
         <nav class="primary-routes" aria-label="Primary routes">
-          <CardLink href="/archive/" label="Archive index →" />
-          <CardLink href="/archive/timeline/" label="Timeline & eras →" />
-          <CardLink href="/archive/event-ledger/" label="Event ledger →" />
-          <CardLink href="/archive/research-methods-confidence/" label="Research notes →" />
-          <CardLink href="/blog/the-story-of-bread/" label="Narrative history →" />
+          {
+            primaryRoutes.map((route) => (
+              <CardLink href={route.href} label={route.label} />
+            ))
+          }
         </nav>
       </section>
       <section class="section-jumps rail-card" aria-label="Archive section overview">

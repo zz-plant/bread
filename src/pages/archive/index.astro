@@ -1,19 +1,41 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
-import { toContentSlug } from '../../utils/content';
+import { formatDate, toContentSlug } from '../../utils/content';
 import CardLink from '../../components/CardLink.astro';
 
 const archivePages = (await getCollection('archive')).sort((a, b) => a.data.order - b.data.order);
+const latestArchiveUpdate = archivePages.reduce((latest, page) =>
+  page.data.updated > latest ? page.data.updated : latest,
+  archivePages[0]?.data.updated ?? new Date()
+);
+
+const overviewStats = [
+  { label: 'Archive sections', value: archivePages.length },
+  { label: 'Canonical route', value: 'Archive index' },
+  { label: 'Last synced', value: formatDate(latestArchiveUpdate) }
+];
 ---
 
 <BaseLayout
   title="BREAD Archive"
   description="An information architecture for a long-living BREAD archive: overview, timeline, people, and venue shifts."
 >
-  <h1>BREAD Archive</h1>
-  <p class="intro">A durable map of timeline, people, venues, methods, and narrative context.</p>
-  <p class="context">Use this archive as the canonical map. For the long-form storyline, continue to <a href="/blog/the-story-of-bread/">Narrative history</a>.</p>
+  <header class="archive-header">
+    <p class="section-kicker">Archive overview</p>
+    <h1>BREAD Archive</h1>
+    <p class="intro">A durable map of timeline, people, venues, methods, and narrative context.</p>
+    <p class="context">Use this archive as the canonical map. For the long-form storyline, continue to <a href="/blog/the-story-of-bread/">Narrative history</a>.</p>
+  </header>
+
+  <section class="overview-stats" aria-label="Archive overview stats">
+    {overviewStats.map((item) => (
+      <p>
+        <span>{item.value}</span>
+        <small>{item.label}</small>
+      </p>
+    ))}
+  </section>
 
   <ul class="archive-map">
     {
@@ -29,9 +51,53 @@ const archivePages = (await getCollection('archive')).sort((a, b) => a.data.orde
 </BaseLayout>
 
 <style>
-  .intro {
-    margin-bottom: 1.2rem;
+  .archive-header {
+    display: grid;
+    gap: 0.4rem;
+  }
+
+  .section-kicker {
+    margin: 0;
+    color: #94a3b8;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .intro,
+  .context {
+    margin: 0;
     color: #cbd5e1;
+  }
+
+  .overview-stats {
+    margin: 1rem 0 1.1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.7rem;
+  }
+
+  .overview-stats p {
+    margin: 0;
+    border: 1px solid var(--surface-dark-muted);
+    border-radius: var(--radius-md);
+    background: linear-gradient(180deg, #111827, #0b1220);
+    padding: 0.75rem 0.85rem;
+    display: grid;
+    gap: 0.2rem;
+  }
+
+  .overview-stats span {
+    color: #f8fafc;
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+
+  .overview-stats small {
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    font-size: 0.64rem;
   }
 
   .archive-map {
@@ -42,30 +108,18 @@ const archivePages = (await getCollection('archive')).sort((a, b) => a.data.orde
     gap: 0.85rem;
   }
 
-  .context {
-    margin: 0 0 1rem;
-    color: #a3b4cc;
-  }
-
   .archive-map li {
     border: 1px solid var(--surface-dark-muted);
     background: linear-gradient(180deg, #111827, #0b1220);
     border-radius: var(--radius-md);
     padding: 0.9rem 1rem;
-    transition: border-color 160ms ease, transform 160ms ease;
+    transition: border-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
   }
 
   .archive-map li:hover {
-    border-color: #334155;
+    border-color: #475569;
     transform: translateY(-1px);
-  }
-
-  .section-kicker {
-    margin: 0 0 0.3rem;
-    color: #94a3b8;
-    font-size: 0.68rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
+    box-shadow: 0 10px 26px rgb(2 6 23 / 35%);
   }
 
   .archive-map :global(.card-link) {

@@ -17,18 +17,28 @@ const { Content } = await render(page);
 ---
 
 <BaseLayout title={page.data.title} description={page.data.description}>
+  <p class="section-kicker">Archive records</p>
   <h1>{page.data.title}</h1>
   <p>{page.data.description}</p>
-  <p class="route-note">This page is part of the source-first archive. For the narrative chapter view, open <a href="/blog/the-story-of-bread/">Narrative history</a>.</p>
-  <small>Last updated: {formatDate(page.data.updated)}</small>
+  <small class="updated-at">Last updated: {formatDate(page.data.updated)}</small>
   <hr />
   <Content />
 </BaseLayout>
 
 
 <style>
-  .route-note {
-    margin: 0.5rem 0 0.35rem;
+  .section-kicker {
+    margin: 0;
+    color: #94a3b8;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .updated-at {
+    display: inline-block;
+    margin-top: 0.35rem;
     color: #cbd5e1;
   }
 </style>

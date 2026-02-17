@@ -97,3 +97,46 @@ Method: manual route traversal using Playwright against local Astro dev server.
 - `npm run dev -- --host 0.0.0.0 --port 4321`
 - Playwright script traversal over `/`, `/archive`, `/blog/the-story-of-bread`, and deep links.
 - `npm run build`
+
+---
+
+## Three designs to rethink (selection)
+
+### 1) Home route navigation model (tabs/panels controlling primary links)
+
+**Why this design is selected**
+- It currently gates core route discovery behind UI state, making first-click behavior unreliable.
+- It has direct impact on all first-time visitors.
+
+**Rethink direction**
+- Promote all primary route links (Timeline, Narrative, Methods, Archive) to a persistent top-level block visible without interaction.
+- Keep tabs/panels only for optional depth content, not for route access.
+
+**Success criteria**
+- A new visitor can reach any primary route in one obvious click, with no hidden states.
+
+### 2) Content page wayfinding pattern (duplicated navigation)
+
+**Why this design is selected**
+- Header nav, in-page back links, and inline route links currently compete, creating unnecessary cognitive load.
+- This friction repeats on every narrative/archive detail page.
+
+**Rethink direction**
+- Choose one dominant back/orientation pattern per template (global header + active state).
+- Demote secondary links into a clearly labeled "Related" region when needed.
+
+**Success criteria**
+- Users report clear orientation and fewer navigation choices at the top of content pages.
+
+### 3) Cross-route visual system continuity (home vs archive/detail)
+
+**Why this design is selected**
+- Home has a strong visual identity, but archive/detail pages feel disconnected and utilitarian.
+- Inconsistent visual language weakens perceived cohesion of the product.
+
+**Rethink direction**
+- Define shared tokens/layout primitives (spacing scale, type hierarchy, section headers, card/list treatment) and apply across templates.
+- Preserve readability while carrying forward brand cues from home.
+
+**Success criteria**
+- Route transitions feel like one product family while maintaining content legibility.

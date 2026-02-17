@@ -5,15 +5,31 @@ import { toContentSlug } from '../../utils/content';
 import CardLink from '../../components/CardLink.astro';
 
 const archivePages = (await getCollection('archive')).sort((a, b) => a.data.order - b.data.order);
+const overviewStats = [
+  { label: 'Archive sections', value: archivePages.length },
+  { label: 'Primary routes', value: 3 },
+  { label: 'Coverage period', value: '2015—2021' }
+];
 ---
 
 <BaseLayout
   title="BREAD Archive"
   description="An information architecture for a long-living BREAD archive: overview, timeline, people, and venue shifts."
 >
+  <p class="section-kicker">Archive records</p>
   <h1>BREAD Archive</h1>
   <p class="intro">A durable map of timeline, people, venues, methods, and narrative context.</p>
-  <p class="context">Use this archive as the canonical source map. For the long-form storyline, continue to <a href="/blog/the-story-of-bread/">Narrative history</a>.</p>
+
+  <ul class="overview-stats" aria-label="Archive overview stats">
+    {
+      overviewStats.map((item) => (
+        <li>
+          <span class="stat-value">{item.value}</span>
+          <span class="stat-label">{item.label}</span>
+        </li>
+      ))
+    }
+  </ul>
 
   <ul class="archive-map">
     {
@@ -29,11 +45,21 @@ const archivePages = (await getCollection('archive')).sort((a, b) => a.data.orde
 </BaseLayout>
 
 <style>
+  .section-kicker {
+    margin: 0;
+    color: #94a3b8;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+  }
+
   .intro {
-    margin-bottom: 1.2rem;
+    margin-bottom: 1rem;
     color: #cbd5e1;
   }
 
+  .overview-stats,
   .archive-map {
     list-style: none;
     padding: 0;
@@ -42,30 +68,43 @@ const archivePages = (await getCollection('archive')).sort((a, b) => a.data.orde
     gap: 0.85rem;
   }
 
-  .context {
-    margin: 0 0 1rem;
-    color: #a3b4cc;
+  .overview-stats {
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+    margin-bottom: 1rem;
   }
 
+  .overview-stats li,
   .archive-map li {
     border: 1px solid var(--surface-dark-muted);
     background: linear-gradient(180deg, #111827, #0b1220);
     border-radius: var(--radius-md);
     padding: 0.9rem 1rem;
+  }
+
+  .stat-value {
+    display: block;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #f8fafc;
+    line-height: 1;
+  }
+
+  .stat-label {
+    display: block;
+    margin-top: 0.35rem;
+    color: #94a3b8;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .archive-map li {
     transition: border-color 160ms ease, transform 160ms ease;
   }
 
   .archive-map li:hover {
     border-color: #334155;
     transform: translateY(-1px);
-  }
-
-  .section-kicker {
-    margin: 0 0 0.3rem;
-    color: #94a3b8;
-    font-size: 0.68rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
   }
 
   .archive-map :global(.card-link) {

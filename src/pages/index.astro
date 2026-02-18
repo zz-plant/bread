@@ -63,13 +63,6 @@ const directoryLinks = [
   { label: 'Story archive →', href: '/blog/the-story-of-bread/', external: false }
 ];
 
-const sectionJumpLinks = [
-  { panelId: 'panel-ledger', label: 'Event history', description: `${documentedChronology.length} documented entries` },
-  { panelId: 'panel-people', label: 'People network', description: `${roster.length} resident profiles` },
-  { panelId: 'panel-audio', label: 'Audio hub', description: 'SoundCloud playlists and resident channels' },
-  { panelId: 'panel-links', label: 'External links', description: `${directoryLinks.length} curated outbound references` }
-];
-
 const soundcloudEmbedCollections = [
   {
     title: 'BREAD profile stream',
@@ -164,19 +157,9 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
           <CardLink href="/blog/the-story-of-bread/" label="Narrative history →" />
         </nav>
       </section>
-      <section class="section-jumps rail-card" aria-label="Archive section overview">
-        <p class="section-jumps-title">Jump to panel</p>
-        {
-          sectionJumpLinks.map((item) => (
-            <button class="section-jump" type="button" data-jump-panel={item.panelId}>
-              <span>{item.label}</span>
-              <small>{item.description}</small>
-            </button>
-          ))
-        }
-      </section>
       <nav class="tabs rail-card" id="tabs">
         <p class="tabs-title">Browse sections</p>
+        <p class="tabs-copy">Use this single switcher for events, people, audio, and links.</p>
         <div class="tablist" role="tablist" aria-label="Archive sections">
           <button class="tab active" role="tab" aria-selected="true" aria-controls="panel-ledger" id="tab-ledger" data-panel="panel-ledger">events</button>
           <button class="tab" role="tab" aria-selected="false" aria-controls="panel-people" id="tab-people" data-panel="panel-people">people</button>
@@ -518,13 +501,6 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     line-height: 1.5;
   }
 
-  .section-jumps {
-    margin-top: 0;
-    display: grid;
-    gap: 0.35rem;
-  }
-
-  .section-jumps-title,
   .tabs-title {
     margin: 0 0 0.35rem;
     font-family: 'JetBrains Mono', monospace;
@@ -534,31 +510,12 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     text-transform: uppercase;
   }
 
-  .section-jump {
-    border: 1px solid #383838;
-    border-radius: 0.65rem;
-    background: #0d0d0d;
-    color: #e3e3e3;
-    display: grid;
-    gap: 0.2rem;
-    padding: 0.55rem 0.7rem;
-    text-align: left;
-    cursor: pointer;
-    min-height: 44px;
+  .tabs-copy {
+    margin: 0 0 0.5rem;
+    color: #bdbdbd;
+    font-size: 0.8rem;
+    line-height: 1.4;
   }
-
-  .section-jump small {
-    color: #bbbbbb;
-    font-size: 0.76rem;
-  }
-
-  .section-jump:hover,
-  .section-jump:focus-visible {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 1px var(--accent-soft);
-    outline: none;
-  }
-
   .primary-routes :global(.card-link),
   .route-list :global(.card-link) {
     display: block;
@@ -1136,7 +1093,6 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
   const tabs = Array.from(document.querySelectorAll('.tab'));
   const panels = document.querySelectorAll('.panel');
   const loadAudioEmbeds = document.getElementById('loadAudioEmbeds');
-  const sectionJumps = document.querySelectorAll('[data-jump-panel]');
 
   const deckTag = document.getElementById('deckTag');
   const deckTitle = document.getElementById('deckTitle');
@@ -1205,12 +1161,6 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     });
 
     if (panelId === 'panel-audio') hydrateAudioEmbeds();
-
-    sectionJumps.forEach((item) => {
-      const isActive = item.getAttribute('data-jump-panel') === panelId;
-      item.setAttribute('aria-pressed', String(isActive));
-    });
-
     if (focus) tab.focus();
   }
 
@@ -1234,17 +1184,6 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
       activateTab(tabs[nextIndex], { focus: true });
     });
   });
-
-  sectionJumps.forEach((jump) => {
-    jump.addEventListener('click', () => {
-      const panelId = jump.getAttribute('data-jump-panel');
-      if (!panelId) return;
-      const tab = tabs.find((item) => item.getAttribute('data-panel') === panelId);
-      if (!tab) return;
-      activateTab(tab, { focus: true });
-    });
-  });
-
   function updateDeck(payload) {
     if (!deckTag || !deckTitle || !deckData || !deckDesc || !deckLinks) return;
     deckTag.textContent = payload.tag;

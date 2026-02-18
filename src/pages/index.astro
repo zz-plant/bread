@@ -40,11 +40,19 @@ const chronology = [
 const roster = [
   { name: 'Cage A (Kanav)', role: 'Founder', links: { sc: 'https://soundcloud.com/cage_a' } },
   { name: 'Prawns', role: 'Founder', links: { sc: 'https://soundcloud.com/prawns', ig: 'https://instagram.com/_prawns' } },
+  {
+    name: 'Judy (dhra)',
+    role: 'Co-founder',
+    notes: 'Co-founding member; later artistic direction shifted away from the lane that originally brought the crew together.',
+    links: {}
+  },
   { name: 'Botaz', role: 'Resident', links: { sc: 'https://soundcloud.com/botaz', ig: 'https://instagram.com/brian_aviles' } },
+  { name: 'Misoh', role: 'Resident (through ~2018)', notes: 'Part of the resident era through the 2018 transition.', links: {} },
   { name: 'TF1000 / Tranespotting', role: 'Resident', links: { sc: 'https://soundcloud.com/tranespotting', ig: 'https://instagram.com/tf1000_' } },
   { name: 'Adam Kraft', role: 'Resident', links: { sc: 'https://soundcloud.com/adamkraftneindanke', ig: 'https://instagram.com/adamkraft_', ra: 'https://ra.co/dj/adamkraft' } },
   { name: 'Gewzer', role: 'Resident', links: { sc: 'https://soundcloud.com/gewzer', ig: 'https://instagram.com/gewzer', bc: 'https://cyberspa.bandcamp.com/album/g-love-s' } },
-  { name: 'Exteeng', role: 'Resident', links: { sc: 'https://soundcloud.com/exteeng', ig: 'https://instagram.com/exteeng', ra: 'https://ra.co/dj/exteeng' } }
+  { name: 'Exteeng', role: 'Resident (from 2018)', links: { sc: 'https://soundcloud.com/exteeng', ig: 'https://instagram.com/exteeng', ra: 'https://ra.co/dj/exteeng' } },
+  { name: 'Shl', role: 'Resident (from 2021)', links: {} }
 ];
 
 const documentedChronology = chronology.filter((event) => event.confidence !== 'unverified');
@@ -100,8 +108,35 @@ const soundcloudEmbedCollections = [
   }
 ];
 
+const platformEmbeds = {
+  ipr: {
+    title: 'Internet Public Radio episode (via Mixcloud)',
+    href: 'https://www.internetpublicradio.live/episodes/bread-fm-w-botaz-shl-28th-september-2022',
+    src: 'https://player-widget.mixcloud.com/widget/iframe/?hide_cover=0&mini=0&light=1&feed=%2Finternetpublicradio%2Fbread-fm-w-botaz-shl-28th-september-2022%2F',
+    height: 120
+  },
+  appleShow: {
+    title: 'Apple Podcasts show embed',
+    href: 'https://podcasts.apple.com/us/podcast/bread-fm/id1227134378',
+    src: 'https://embed.podcasts.apple.com/us/podcast/bread-fm/id1227134378',
+    height: 450
+  },
+  appleEpisode: {
+    title: 'Apple Podcasts episode embed (Prawns + Botaz live)',
+    href: 'https://podcasts.apple.com/us/podcast/bread-fm-on-internet-public-radio-prawns-botaz-live/id1227134378?i=1000610844660',
+    src: 'https://embed.podcasts.apple.com/us/podcast/bread-fm-on-internet-public-radio-prawns-botaz-live/id1227134378?i=1000610844660',
+    height: 450
+  },
+  facebook: {
+    title: 'Facebook page plugin',
+    href: 'https://www.facebook.com/breadfm/',
+    src: 'https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fbreadfm%2F&tabs=timeline&width=500&height=540&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId',
+    height: 540
+  }
+};
+
 const residentSoundcloudProfiles = roster
-  .filter((person) => person.links.sc)
+  .filter((person): person is (typeof roster)[number] & { links: { sc: string } } => Boolean(person.links.sc))
   .map((person) => ({
     name: person.name,
     role: person.role,
@@ -276,6 +311,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
                 <div>
                   <p class="title">{person.name}</p>
                   <p class="meta">{person.role}</p>
+                  {person.notes && <p class="lineup">{person.notes}</p>}
                 </div>
               </button>
             </li>
@@ -339,6 +375,65 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
                 <a href={profile.href} target="_blank" rel="noreferrer">Visit profile ↗</a>
               </li>
             ))}
+          </ul>
+        </section>
+        <section class="platform-embeds" aria-label="Other platform embeds">
+          <h3>Other platform embeds</h3>
+          <p class="resident-audio-copy">Integrated where supported: Internet Public Radio via Mixcloud, Apple Podcasts embeds, and Facebook page timeline. Instagram and RA are linked in the links tab.</p>
+          <ul class="audio-grid">
+            <li class="audio-card">
+              <h4>{platformEmbeds.ipr.title}</h4>
+              <iframe
+                title={platformEmbeds.ipr.title}
+                width="100%"
+                height={platformEmbeds.ipr.height}
+                loading="lazy"
+                src="about:blank"
+                data-embed-src={platformEmbeds.ipr.src}
+              ></iframe>
+              <a href={platformEmbeds.ipr.href} target="_blank" rel="noreferrer">Open IPR episode ↗</a>
+            </li>
+            <li class="audio-card">
+              <h4>{platformEmbeds.appleShow.title}</h4>
+              <iframe
+                title={platformEmbeds.appleShow.title}
+                width="100%"
+                height={platformEmbeds.appleShow.height}
+                loading="lazy"
+                allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
+                sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation"
+                src="about:blank"
+                data-embed-src={platformEmbeds.appleShow.src}
+              ></iframe>
+              <a href={platformEmbeds.appleShow.href} target="_blank" rel="noreferrer">Open Apple show ↗</a>
+            </li>
+            <li class="audio-card">
+              <h4>{platformEmbeds.appleEpisode.title}</h4>
+              <iframe
+                title={platformEmbeds.appleEpisode.title}
+                width="100%"
+                height={platformEmbeds.appleEpisode.height}
+                loading="lazy"
+                allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
+                sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation"
+                src="about:blank"
+                data-embed-src={platformEmbeds.appleEpisode.src}
+              ></iframe>
+              <a href={platformEmbeds.appleEpisode.href} target="_blank" rel="noreferrer">Open Apple episode ↗</a>
+            </li>
+            <li class="audio-card">
+              <h4>{platformEmbeds.facebook.title}</h4>
+              <iframe
+                title={platformEmbeds.facebook.title}
+                width="100%"
+                height={platformEmbeds.facebook.height}
+                loading="lazy"
+                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                src="about:blank"
+                data-embed-src={platformEmbeds.facebook.src}
+              ></iframe>
+              <a href={platformEmbeds.facebook.href} target="_blank" rel="noreferrer">Open Facebook page ↗</a>
+            </li>
           </ul>
         </section>
       </article>

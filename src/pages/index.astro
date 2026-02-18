@@ -1284,7 +1284,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
       if (kind === 'event') {
         const event = documentedChronology[index];
         if (!event) return;
-        const statusDescription = hasMeaningfulStatus(event) ? ` Status: ${event.status}.` : '';
+        const statusDescription = event.status && event.status !== 'played' ? ` Status: ${event.status}.` : '';
 
         updateDeck({
           tag: 'EVENT',

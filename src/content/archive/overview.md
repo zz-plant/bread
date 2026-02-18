@@ -17,7 +17,7 @@ This archive is structured for ongoing updates and source-linked history.
 - **Event ledger**: row-level records with source-basis columns. See [Event Ledger (Working)](/archive/event-ledger/).
 - **People & Network**: founders, residents, collaborators, and scene effects. See [People & Network](/archive/people-network/).
 - **Venues & Format Shifts**: venue phases and format evolution. See [Venues & Format Shifts](/archive/venues-format-shifts/).
-- **Methods & source notes**: materials model and review limits. See [Research Methods & Source Notes](/archive/research-methods-confidence/).
+- **Verification model**: materials model and review limits are summarized within each archive section.
 - **Channel directory**: canonical links and discovered event URLs. See [Channel & Profile Directory](/archive/channel-profile-directory/).
 - **Story onboarding**: narrative-form context and legacy framing. See [The Story of BREAD](/blog/the-story-of-bread/).
 

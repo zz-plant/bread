@@ -20,11 +20,11 @@ This page is the working event ledger for BREAD. It prioritizes structured field
 - **Venue/platform**: physical venue or stream platform.
 - **Lineup highlights**: short, non-exhaustive roster.
 - **Source basis**: where this row currently comes from.
-- **Source notes**: `published`, `strong`, `user-archive`, or `open`.
+- **Verification status**: `published`, `strong`, `user-archive`, or `open`.
 
 ## 2015–2018 club-night ledger (working)
 
-| Date | Series | Venue/platform | Lineup highlights | Source basis | Source notes |
+| Date | Series | Venue/platform | Lineup highlights | Source basis | Verification status |
 | --- | --- | --- | --- | --- | --- |
 | 2015-02-13 | Pilot / Grime City vs BREAD | F8 (SF) | Helix + residents | User canonical notes + timeline alignment | `user-archive` |
 | 2015-05-29 | BREAD #1 period | SF listing context | Kid Antoine, Rushmore, residents | Screenshot-derived listing materials | `strong` |
@@ -44,7 +44,7 @@ This page is the working event ledger for BREAD. It prioritizes structured field
 
 ## 2021 fundraiser-stream ledger (working)
 
-| Date | Series | Venue/platform | Lineup highlights | Source basis | Source notes |
+| Date | Series | Venue/platform | Lineup highlights | Source basis | Verification status |
 | --- | --- | --- | --- | --- | --- |
 | 2021-01-02 | BREAD New Year | Twitch | Color Plus, Gila, Zaida, Wonja + residents | Screenshot post text + user notes | `strong` |
 | 2021-03-13 | Six Years of BREAD | Twitch | Resident-led anniversary lineup | Screenshot archive + user notes | `strong` |
@@ -56,4 +56,4 @@ This page is the working event ledger for BREAD. It prioritizes structured field
 2. Add a **lineup full-text field** so partial highlights are not overloaded.
 3. Promote rows from `user-archive` to `strong` or `published` as direct artifacts are captured.
 
-For method caveats, see [Research Methods & Source Notes](/archive/research-methods-confidence/).
+Method caveats are summarized inline with relevant records.

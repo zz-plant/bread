@@ -41,7 +41,7 @@ tags:
 
 For row-level event tracking with source-basis fields, use the [Event Ledger (Working)](/archive/event-ledger/).
 
-| Date | Venue / Platform | Event label | Primary details | Source notes |
+| Date | Venue / Platform | Event label | Primary details | Verification status |
 | --- | --- | --- | --- | --- |
 | 2015-02-13 | F8, SF | Pilot (Grime City vs BREAD) | Helix + residents; first known formal BREAD event. | `user-archive` |
 | 2015-05-29 | SF listing | BREAD #1 period | Early public cadence marker via screenshot trace. | `strong` |
@@ -64,7 +64,7 @@ A Facebook indexing pass recovered event URLs tied to BREAD naming variants. The
 
 ## Notes for timeline hardening
 
-- Add per-event records with: date, venue, lineup, flyer, source links, and source notes.
-- Mark each entry by source notes status (`published`, `strong`, `user-archive`, `open`).
+- Add per-event records with: date, venue, lineup, flyer, and source links.
+- Mark each entry by verification status (`published`, `strong`, `user-archive`, `open`).
 - Cross-link each event into [Venues & Format Shifts](/archive/venues-format-shifts/) and [People & Network](/archive/people-network/).
-- Document source methodology and anti-bot limitations in [Research Methods & Source Notes](/archive/research-methods-confidence/).
+- Keep method caveats documented inline with the relevant event records.

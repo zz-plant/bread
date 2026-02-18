@@ -84,4 +84,4 @@ These were discovered via public search indexing and should be treated as archiv
 12. <https://www.facebook.com/events/d41d8cd9/bread-12-w-na-dubbel-dutch-tsvi/1793167794291121/>
 13. <https://www.facebook.com/events/public-works-sf/bread-9-w-dbm-deadboy-murlo-blackdown/813388422095198/>
 
-Related: [Research Methods & Source Notes](/archive/research-methods-confidence/).
+Related: [Event Ledger](/archive/event-ledger/) and [Timeline & Eras](/archive/timeline/).

@@ -4,13 +4,21 @@ interface Props {
   description?: string;
   showSiteFrame?: boolean;
   structuredData?: Record<string, unknown> | Record<string, unknown>[];
+  canonical?: string;
+  ogImage?: string;
+  noindex?: boolean;
+  ogType?: 'website' | 'article';
 }
 
 const {
   title,
   description = 'Bread static site powered by Astro.',
   showSiteFrame = true,
-  structuredData
+  structuredData,
+  canonical,
+  ogImage = '/og-default.svg',
+  noindex = false,
+  ogType
 } = Astro.props;
 
 const structuredDataEntries = (Array.isArray(structuredData) ? structuredData : [structuredData]).filter(
@@ -32,6 +40,19 @@ const routeContext = isHome
     : isNarrative
       ? 'You are here: Story history'
       : undefined;
+
+const toAbsoluteUrl = (value: string | undefined): string | undefined => {
+  if (!value) return undefined;
+
+  if (value.startsWith('http://') || value.startsWith('https://')) return value;
+  if (!Astro.site) return undefined;
+
+  return new URL(value.startsWith('/') ? value : `/${value}`, Astro.site).toString();
+};
+
+const canonicalUrl = canonical ? toAbsoluteUrl(canonical) : toAbsoluteUrl(Astro.url.pathname);
+const ogImageUrl = toAbsoluteUrl(ogImage);
+const resolvedOgType = ogType ?? (isNarrative ? 'article' : 'website');
 ---
 
 <!doctype html>
@@ -42,6 +63,19 @@ const routeContext = isHome
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
+
+    {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+    <meta property="og:site_name" content="BREAD" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={resolvedOgType} />
+    {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
+    {ogImageUrl && <meta property="og:image" content={ogImageUrl} />}
+    <meta name="twitter:card" content={ogImageUrl ? 'summary_large_image' : 'summary'} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {ogImageUrl && <meta name="twitter:image" content={ogImageUrl} />}
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     {
       structuredDataEntries.map((entry) => (
         <script is:inline type="application/ld+json" set:html={serializeJsonForScript(entry)} />

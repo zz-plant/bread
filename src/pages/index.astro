@@ -1,6 +1,12 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CardLink from '../components/CardLink.astro';
+import {
+  createCollectionPageSchema,
+  createEventSchema,
+  createItemListSchema,
+  createWebsiteSchema
+} from '../utils/structuredData';
 
 const chronology = [
   { year: '2015', date: 'Feb 13', title: 'Pilot: Grime City vs BREAD', venue: 'F8', lineup: 'Helix + locals', confidence: 'user-archive', status: 'played' },
@@ -102,6 +108,76 @@ const residentSoundcloudProfiles = roster
     href: person.links.sc
   }));
 
+
+
+const monthMap: Record<string, number> = {
+  Jan: 1,
+  Feb: 2,
+  Mar: 3,
+  Apr: 4,
+  May: 5,
+  Jun: 6,
+  Jul: 7,
+  Aug: 8,
+  Sep: 9,
+  Oct: 10,
+  Nov: 11,
+  Dec: 12
+};
+
+const toIsoDate = (year: string, shortDate: string): string | undefined => {
+  const [monthLabel, dayRaw] = shortDate.split(' ');
+  const month = monthMap[monthLabel];
+  const day = Number(dayRaw);
+  if (!month || Number.isNaN(day)) return undefined;
+
+  return `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+};
+
+const mapEventStatus = (status: string): string | undefined => {
+  if (status.includes('canceled')) return 'https://schema.org/EventCancelled';
+  if (status === 'played') return 'https://schema.org/EventCompleted';
+  return undefined;
+};
+
+const eventSchemas = documentedChronology
+  .map((event, index) => {
+    const startDate = toIsoDate(event.year, event.date);
+    if (!startDate) return undefined;
+
+    return createEventSchema({
+      site: Astro.site,
+      pagePathname: Astro.url.pathname,
+      position: index + 1,
+      name: event.title,
+      startDate,
+      venueName: event.venue,
+      description: event.lineup,
+      status: mapEventStatus(event.status)
+    });
+  })
+  .filter((entry): entry is Record<string, unknown> => Boolean(entry));
+
+const homeStructuredData = [
+  createWebsiteSchema({
+    site: Astro.site,
+    name: 'BREAD',
+    description: 'BREAD historical archive and narrative resources.'
+  }),
+  createCollectionPageSchema({
+    site: Astro.site,
+    pathname: Astro.url.pathname,
+    name: 'BREAD Home',
+    description: 'Primary discovery page for chronology, residents, archive routes, and listening resources.',
+    isPartOf: 'BREAD'
+  }),
+  createItemListSchema({
+    name: 'BREAD Event History',
+    description: 'Chronological event records from the BREAD archive homepage.',
+    itemListElement: eventSchemas
+  })
+].filter((entry): entry is Record<string, unknown> => Boolean(entry));
+
 const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
   const params = new URLSearchParams({
     url: href,
@@ -124,6 +200,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
   title="BREAD // Archive"
   description="BREAD archive timeline, people, and links."
   showSiteFrame={false}
+  structuredData={homeStructuredData}
 >
   <div class="bg-mark">BREAD</div>
   <header class="topline">
@@ -176,7 +253,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
         <p class="result-count" id="eventsResultCount">{documentedChronology.length} events shown</p>
         <ul class="cards">
           {documentedChronology.map((event, index) => (
-            <li class="card" data-kind="event" data-index={index}>
+            <li class="card" id={`event-${index + 1}`} data-kind="event" data-index={index}>
               <button class="pick-btn" data-kind="event" data-index={index} aria-label={`View details for ${event.title}`}>
                 <div>
                   <p class="title">{event.title}</p>

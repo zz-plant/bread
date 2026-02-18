@@ -5,7 +5,8 @@ import { formatDate, toContentSlug } from '../../utils/content';
 import { createCollectionPageSchema } from '../../utils/structuredData';
 
 export async function getStaticPaths() {
-  const pages = (await getCollection('archive')).filter((page) => page.slug !== 'timeline');
+  const hiddenSlugs = new Set(['timeline', 'research-methods-confidence']);
+  const pages = (await getCollection('archive')).filter((page) => !hiddenSlugs.has(page.slug));
 
   return pages.map((page) => ({
     params: { slug: toContentSlug(page.id) },

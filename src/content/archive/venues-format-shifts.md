@@ -37,6 +37,6 @@ These should be represented as event-linked venue records rather than one-off me
 - Resident Advisor event confirmation is currently constrained by anti-bot blocking in this environment.
 - Facebook event URLs are preserved as discovery leads and require event-by-event review.
 
-For source caveats and review workflow, see [Research Methods & Source Notes](/archive/research-methods-confidence/).
+Verification caveats are documented inline in each archive section where relevant.
 
 Related: [Timeline & Eras](/archive/timeline/) and [People & Network](/archive/people-network/).

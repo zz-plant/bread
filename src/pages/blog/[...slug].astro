@@ -15,6 +15,13 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const currentIndex = posts.findIndex((entry) => entry.id === post.id);
+const newerPost = currentIndex > 0 ? posts[currentIndex - 1] : undefined;
+const olderPost = currentIndex >= 0 && currentIndex < posts.length - 1
+  ? posts[currentIndex + 1]
+  : undefined;
 
 const postStructuredData = createArticleSchema({
   site: Astro.site,
@@ -23,16 +30,22 @@ const postStructuredData = createArticleSchema({
   description: post.data.description,
   datePublished: post.data.date,
   dateModified: post.data.date,
-  section: 'Narrative chapter',
+  section: 'Story post',
   siteName: 'BREAD'
 });
 ---
 
 <BaseLayout title={post.data.title} description={post.data.description} structuredData={postStructuredData}>
-  <p class="section-kicker">Narrative chapter</p>
+  <p class="section-kicker">Story post</p>
   <h1>{post.data.title}</h1>
   <p>{post.data.description}</p>
   <p class="section-meta">Published {formatDate(post.data.date)}</p>
+  <nav class="section-links" aria-label="Story links">
+    <a href="/">Home</a>
+    <a href="/archive/">Archive index</a>
+    {newerPost && <a href={`/blog/${toContentSlug(newerPost.id)}/`}>← {newerPost.data.title}</a>}
+    {olderPost && <a href={`/blog/${toContentSlug(olderPost.id)}/`}>{olderPost.data.title} →</a>}
+  </nav>
   <hr />
   <Content />
 </BaseLayout>
@@ -53,5 +66,27 @@ const postStructuredData = createArticleSchema({
     font-size: 0.82rem;
     letter-spacing: 0.03em;
     text-transform: uppercase;
+  }
+
+  .section-links {
+    margin-top: 0.85rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .section-links a {
+    border: 1px solid var(--surface-dark-muted);
+    border-radius: 999px;
+    padding: 0.3rem 0.7rem;
+    color: var(--accent-link-dark);
+    text-decoration: none;
+    font-size: 0.85rem;
+  }
+
+  .section-links a:hover,
+  .section-links a:focus-visible {
+    border-color: #475569;
+    text-decoration: underline;
   }
 </style>

@@ -30,7 +30,7 @@ const routeContext = isHome
   : isArchive
     ? 'You are here: Archive records'
     : isNarrative
-      ? 'You are here: Narrative history'
+      ? 'You are here: Story history'
       : undefined;
 ---
 
@@ -59,7 +59,7 @@ const routeContext = isHome
               <ul>
                 <li><a href="/" aria-current={isHome ? 'page' : undefined} class={isHome ? 'active' : undefined}>Home</a></li>
                 <li><a href="/archive/" aria-current={isArchive ? 'page' : undefined} class={isArchive ? 'active' : undefined}>Archive</a></li>
-                <li><a href="/blog/the-story-of-bread/" aria-current={isNarrative ? 'page' : undefined} class={isNarrative ? 'active' : undefined}>Narrative</a></li>
+                <li><a href="/blog/the-story-of-bread/" aria-current={isNarrative ? 'page' : undefined} class={isNarrative ? 'active' : undefined}>Story</a></li>
               </ul>
             </nav>
           </header>

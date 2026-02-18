@@ -14,7 +14,7 @@ This is a retrospective of BREAD: how a group of friends carved out a lane for l
 
 For the durable, research-friendly version of this material, use the [BREAD Archive index](/archive/) and its source-linked pages.
 
-For source-oriented event rows, use the [Event Ledger (Working)](/archive/event-ledger/).
+For source-oriented event rows, use the [Event List (Working)](/archive/event-ledger/).
 
 ## The Setting: San Francisco, 2014
 

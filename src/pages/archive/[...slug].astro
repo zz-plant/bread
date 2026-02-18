@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection, render } from 'astro:content';
 import { formatDate, toContentSlug } from '../../utils/content';
+import { createCollectionPageSchema } from '../../utils/structuredData';
 
 export async function getStaticPaths() {
   const pages = (await getCollection('archive')).filter((page) => page.slug !== 'timeline');
@@ -14,9 +15,17 @@ export async function getStaticPaths() {
 
 const { page } = Astro.props;
 const { Content } = await render(page);
+
+const archivePageStructuredData = createCollectionPageSchema({
+  site: Astro.site,
+  pathname: Astro.url.pathname,
+  name: page.data.title,
+  description: page.data.description,
+  isPartOf: 'BREAD Archive'
+});
 ---
 
-<BaseLayout title={page.data.title} description={page.data.description}>
+<BaseLayout title={page.data.title} description={page.data.description} structuredData={archivePageStructuredData}>
   <p class="section-kicker">Archive section</p>
   <h1>{page.data.title}</h1>
   <p>{page.data.description}</p>

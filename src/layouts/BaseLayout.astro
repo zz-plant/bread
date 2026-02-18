@@ -3,13 +3,19 @@ interface Props {
   title: string;
   description?: string;
   showSiteFrame?: boolean;
+  structuredData?: Record<string, unknown> | Record<string, unknown>[];
 }
 
 const {
   title,
   description = 'Bread static site powered by Astro.',
-  showSiteFrame = true
+  showSiteFrame = true,
+  structuredData
 } = Astro.props;
+
+const structuredDataEntries = (Array.isArray(structuredData) ? structuredData : [structuredData]).filter(
+  (entry): entry is Record<string, unknown> => Boolean(entry)
+);
 
 const pathname = Astro.url.pathname;
 const isHome = pathname === '/';
@@ -33,6 +39,11 @@ const routeContext = isHome
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
+    {
+      structuredDataEntries.map((entry) => (
+        <script is:inline type="application/ld+json" set:html={JSON.stringify(entry)} />
+      ))
+    }
   </head>
   <body class={isEditorial ? 'editorial-theme' : undefined}>
     {

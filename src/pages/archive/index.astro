@@ -3,12 +3,21 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import { formatDate, toContentSlug } from '../../utils/content';
 import CardLink from '../../components/CardLink.astro';
+import { createCollectionPageSchema } from '../../utils/structuredData';
 
 const archivePages = (await getCollection('archive')).sort((a, b) => a.data.order - b.data.order);
 const latestArchiveUpdate = archivePages.reduce((latest, page) =>
   page.data.updated > latest ? page.data.updated : latest,
   archivePages[0]?.data.updated ?? new Date()
 );
+
+const archiveIndexStructuredData = createCollectionPageSchema({
+  site: Astro.site,
+  pathname: Astro.url.pathname,
+  name: 'BREAD Archive',
+  description: 'Overview page for BREAD archive sections including timeline, venues, and people.',
+  isPartOf: 'BREAD'
+});
 
 const overviewStats = [
   { label: 'Archive sections', value: archivePages.length },
@@ -20,6 +29,7 @@ const overviewStats = [
 <BaseLayout
   title="BREAD Archive"
   description="An information architecture for a long-living BREAD archive: overview, timeline, people, and venue shifts."
+  structuredData={archiveIndexStructuredData}
 >
   <header class="archive-header">
     <p class="section-kicker">Archive overview</p>

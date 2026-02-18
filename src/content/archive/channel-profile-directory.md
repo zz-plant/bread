@@ -12,8 +12,12 @@ tags:
 ## Collective channels
 
 - SoundCloud (BREAD): <https://soundcloud.com/breadfm>
+- SoundCloud tracks list (BREAD): <https://soundcloud.com/breadfm/tracks>
 - SoundCloud mix example (Prawns + Botaz on Internet Public Radio, 2023-04-26): <https://soundcloud.com/breadfm/bread-fm-on-internet-public-radio-prawns-botaz-04262023>
+- SoundCloud mix example (bastiengoat on Internet Public Radio, 2023-03-29): <https://soundcloud.com/breadfm/bread-fm-on-internet-public-radio-bastiengoat-03292023>
 - Internet Public Radio show page: <https://www.internetpublicradio.live/shows/bread-fm>
+- Internet Public Radio episode page (Bread FM w/ Botaz & Shl, 2022-09-28): <https://www.internetpublicradio.live/episodes/bread-fm-w-botaz-shl-28th-september-2022>
+- Apple Podcasts episode page (Exteeng & Baowao, 2022-11-30): <https://podcasts.apple.com/gb/podcast/bread-fm-on-internet-public-radio-exteeng-baowao-11-30-2022/id1227134378?i=1000588387545>
 - Instagram (BREAD): <https://instagram.com/bread_sf>
 - X / Twitter (BREAD SF): <https://x.com/breadsf>
 - Resident Advisor promoter page: <https://ra.co/promoters/51043>

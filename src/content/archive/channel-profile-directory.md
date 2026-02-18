@@ -56,6 +56,16 @@ tags:
 - Instagram: <https://instagram.com/exteeng>
 - RA: <https://ra.co/dj/exteeng>
 
+### Judy (dhra)
+- Role note: Co-founding member.
+- Archive note: Later artistic direction shifted away from the lane that originally anchored BREAD's core founders.
+
+### Misoh
+- Role note: Resident through the ~2018 transition era.
+
+### Shl
+- Role note: Resident from 2021 onward.
+
 ## Discovered Facebook event URLs (indexing pass)
 
 These were discovered via public search indexing and should be treated as archival leads pending record-level review:

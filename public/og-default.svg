@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">BREAD.fm</title>
+  <desc id="desc">BREAD archive and story index.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#101725"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="56" y="56" width="1088" height="518" rx="24" fill="none" stroke="#334155" stroke-width="2"/>
+  <text x="90" y="290" fill="#ff5a1f" font-family="Inter, Arial, sans-serif" font-size="128" font-weight="700" letter-spacing="6">BREAD</text>
+  <text x="90" y="360" fill="#e2e8f0" font-family="Inter, Arial, sans-serif" font-size="38">San Francisco archive and narrative history</text>
+  <text x="90" y="420" fill="#94a3b8" font-family="Inter, Arial, sans-serif" font-size="28">bread.fm</text>
+</svg>

@@ -521,6 +521,11 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     background: #0b0b0b;
   }
 
+  .topline span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
   .shell {
     position: relative;
     z-index: 2;
@@ -595,6 +600,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     transform: scaleX(1.22);
     transform-origin: left center;
     text-transform: uppercase;
+    overflow-wrap: anywhere;
   }
 
   .sub {
@@ -1161,6 +1167,11 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
       padding: 0.65rem;
     }
 
+    .wordmark {
+      font-size: clamp(1.9rem, 9vw, 2.2rem);
+      transform: scaleX(1.08);
+    }
+
     .deck {
       position: fixed;
       left: 0.7rem;
@@ -1245,6 +1256,19 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     .tab {
       font-size: 0.74rem;
       padding-inline: 0.5rem;
+    }
+
+    .tablist {
+      grid-template-columns: 1fr;
+    }
+
+    .snapshot-list li {
+      flex-wrap: wrap;
+    }
+
+    .snapshot-label {
+      width: 100%;
+      text-align: left;
     }
 
     .card {

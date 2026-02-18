@@ -39,7 +39,7 @@ tags:
 
 ## Event-level detail set (expanded)
 
-For row-level event tracking with source-basis fields, use the [Event Ledger (Working)](/archive/event-ledger/).
+For row-level event tracking with source-basis fields, use the [Event List (Working)](/archive/event-ledger/).
 
 | Date | Venue / Platform | Event label | Primary details | Source notes |
 | --- | --- | --- | --- | --- |

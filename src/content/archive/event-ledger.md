@@ -1,16 +1,16 @@
 ---
-title: Event Ledger (Working)
-description: Event-by-event ledger with source basis and source-note labels for archival review.
+title: Event List (Working)
+description: Event-by-event list with source basis and source-note labels for review.
 order: 3
 updated: 2026-02-14
 tags:
   - archive
   - events
-  - ledger
+  - event-list
   - review
 ---
 
-This page is the working event ledger for BREAD. It prioritizes structured fields over prose so each row can be tracked and updated over time.
+This page is the working event list for BREAD. It uses clear row-by-row fields so each entry can be tracked and updated over time.
 
 
 ## Field schema
@@ -22,7 +22,7 @@ This page is the working event ledger for BREAD. It prioritizes structured field
 - **Source basis**: where this row currently comes from.
 - **Verification status**: `published`, `strong`, `user-archive`, or `open`.
 
-## 2015–2018 club-night ledger (working)
+## 2015–2018 club-night event list (working)
 
 | Date | Series | Venue/platform | Lineup highlights | Source basis | Verification status |
 | --- | --- | --- | --- | --- | --- |
@@ -42,7 +42,7 @@ This page is the working event ledger for BREAD. It prioritizes structured field
 | 2017-09-22 | Late UGSF marker | Underground SF | Kelman Duran, Suda | Screenshot + notes alignment | `strong` |
 | 2018-05-12 | Final club-night marker | OMG (noted) | Gila, Neana | User canonical notes | `user-archive` |
 
-## 2021 fundraiser-stream ledger (working)
+## 2021 fundraiser-stream event list (working)
 
 | Date | Series | Venue/platform | Lineup highlights | Source basis | Verification status |
 | --- | --- | --- | --- | --- | --- |

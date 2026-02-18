@@ -16,6 +16,14 @@ export async function getStaticPaths() {
 
 const { page } = Astro.props;
 const { Content } = await render(page);
+const archivePages = (await getCollection('archive'))
+  .filter((entry) => entry.slug !== 'timeline')
+  .sort((a, b) => a.data.order - b.data.order);
+const currentIndex = archivePages.findIndex((entry) => entry.id === page.id);
+const previousPage = currentIndex > 0 ? archivePages[currentIndex - 1] : undefined;
+const nextPage = currentIndex >= 0 && currentIndex < archivePages.length - 1
+  ? archivePages[currentIndex + 1]
+  : undefined;
 
 const archivePageStructuredData = createCollectionPageSchema({
   site: Astro.site,
@@ -31,6 +39,12 @@ const archivePageStructuredData = createCollectionPageSchema({
   <h1>{page.data.title}</h1>
   <p>{page.data.description}</p>
   <p class="section-meta">Last updated {formatDate(page.data.updated)}</p>
+  <nav class="section-links" aria-label="Archive section links">
+    <a href="/archive/">Archive index</a>
+    <a href="/blog/the-story-of-bread/">Story history</a>
+    {previousPage && <a href={`/archive/${toContentSlug(previousPage.id)}/`}>← {previousPage.data.title}</a>}
+    {nextPage && <a href={`/archive/${toContentSlug(nextPage.id)}/`}>{nextPage.data.title} →</a>}
+  </nav>
   <hr />
   <Content />
 </BaseLayout>
@@ -51,5 +65,27 @@ const archivePageStructuredData = createCollectionPageSchema({
     font-size: 0.82rem;
     letter-spacing: 0.03em;
     text-transform: uppercase;
+  }
+
+  .section-links {
+    margin-top: 0.85rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .section-links a {
+    border: 1px solid var(--surface-dark-muted);
+    border-radius: 999px;
+    padding: 0.3rem 0.7rem;
+    color: var(--accent-link-dark);
+    text-decoration: none;
+    font-size: 0.85rem;
+  }
+
+  .section-links a:hover,
+  .section-links a:focus-visible {
+    border-color: #475569;
+    text-decoration: underline;
   }
 </style>

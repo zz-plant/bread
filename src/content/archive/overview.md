@@ -14,7 +14,7 @@ This archive is structured for ongoing updates and source-linked history.
 ## How this archive is structured
 
 - **Timeline**: chronology and era framing. See [Timeline & Eras](/archive/timeline/).
-- **Event ledger**: row-level records with source-basis columns. See [Event Ledger (Working)](/archive/event-ledger/).
+- **Event list**: row-level records with source-basis columns. See [Event List (Working)](/archive/event-ledger/).
 - **People & Network**: founders, residents, collaborators, and scene effects. See [People & Network](/archive/people-network/).
 - **Venues & Format Shifts**: venue phases and format evolution. See [Venues & Format Shifts](/archive/venues-format-shifts/).
 - **Verification model**: materials model and review limits are summarized within each archive section.

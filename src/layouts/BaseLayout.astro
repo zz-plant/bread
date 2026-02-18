@@ -92,14 +92,14 @@ const routeContext = isHome
 
   body {
     margin: 0;
-    background: radial-gradient(circle at top, #ffffff, #eef2ff 50%, #f8fafc 100%);
+    background: linear-gradient(180deg, #fbfcfe 0%, #f8fafc 100%);
     min-height: 100vh;
   }
 
   body.editorial-theme {
     color-scheme: dark;
     color: var(--text-dark-base);
-    background: radial-gradient(circle at top, #111827, #09090b 55%, #020617 100%);
+    background: linear-gradient(180deg, #101725 0%, #020617 100%);
   }
 
   .site-shell {
@@ -133,13 +133,12 @@ const routeContext = isHome
     gap: 1rem;
     padding: 0.9rem max(1rem, env(safe-area-inset-right)) 0.9rem max(1rem, env(safe-area-inset-left));
     border-bottom: 1px solid #dbe4f5;
-    background: rgb(255 255 255 / 88%);
-    backdrop-filter: blur(8px);
+    background: rgb(255 255 255 / 94%);
   }
 
   body.editorial-theme .site-header {
     border-bottom-color: #1f2937;
-    background: rgb(2 6 23 / 86%);
+    background: rgb(2 6 23 / 92%);
   }
 
   .brand {

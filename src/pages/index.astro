@@ -42,6 +42,7 @@ const roster = [
 ];
 
 const documentedChronology = chronology.filter((event) => event.confidence !== 'unverified');
+const hasMeaningfulStatus = (event: (typeof chronology)[number]) => event.status && event.status !== 'played';
 const activeYears = new Set(documentedChronology.map((event) => event.year)).size;
 const summaryStats = [
   { label: 'Documented events', value: documentedChronology.length },
@@ -195,7 +196,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
                   <p class="title">{event.title}</p>
                   <p class="meta">{event.year} · {event.date} · {event.venue}</p>
                   <p class="lineup">{event.lineup}</p>
-                  <p class="status">status: {event.status}</p>
+                  {hasMeaningfulStatus(event) && <p class="status">status: {event.status}</p>}
                 </div>
               </button>
             </li>
@@ -860,7 +861,6 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     display: flex;
     justify-content: space-between;
     gap: 0.8rem;
-    min-height: 108px;
     transition: border-color 180ms ease, box-shadow 180ms ease;
   }
 
@@ -1112,7 +1112,6 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     }
 
     .card {
-      min-height: 96px;
       padding: 0.75rem;
     }
 
@@ -1285,11 +1284,13 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
       if (kind === 'event') {
         const event = documentedChronology[index];
         if (!event) return;
+        const statusDescription = hasMeaningfulStatus(event) ? ` Status: ${event.status}.` : '';
+
         updateDeck({
           tag: 'EVENT',
           title: event.title,
           data: `${event.year} · ${event.date} · ${event.venue}`,
-          desc: `${event.lineup}. Status: ${event.status}.`,
+          desc: `${event.lineup}.${statusDescription}`,
           links: [{ href: '/archive/timeline/', label: 'Open timeline notes →', external: false }]
         });
         return;

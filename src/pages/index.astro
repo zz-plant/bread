@@ -1103,6 +1103,11 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
   const deckToggle = document.getElementById('deckToggle');
   const deckStateStorageKey = 'bread:detailDeckOpen';
 
+  function triggerHaptic(pattern = 10) {
+    if (!('vibrate' in navigator)) return;
+    navigator.vibrate(pattern);
+  }
+
   function setDeckOpenState(isOpen, { persist = true } = {}) {
     if (!detailDeck || !deckToggle) return;
 
@@ -1162,6 +1167,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
 
     if (panelId === 'panel-audio') hydrateAudioEmbeds();
     if (focus) tab.focus();
+    triggerHaptic(8);
   }
 
   tabs.forEach((tab, index) => {
@@ -1206,13 +1212,17 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
   }
 
   if (loadAudioEmbeds) {
-    loadAudioEmbeds.addEventListener('click', () => hydrateAudioEmbeds());
+    loadAudioEmbeds.addEventListener('click', () => {
+      hydrateAudioEmbeds();
+      triggerHaptic(12);
+    });
   }
 
   if (deckToggle && detailDeck) {
     deckToggle.addEventListener('click', () => {
       const isOpen = !detailDeck.classList.contains('is-open');
       setDeckOpenState(isOpen);
+      triggerHaptic(14);
     });
   }
 
@@ -1222,6 +1232,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     row.addEventListener('click', () => {
       document.querySelectorAll('.pick-btn').forEach((item) => item.classList.remove('is-selected'));
       row.classList.add('is-selected');
+      triggerHaptic([10, 24, 10]);
 
       const kind = row.getAttribute('data-kind');
       const index = Number(row.getAttribute('data-index') || 0);

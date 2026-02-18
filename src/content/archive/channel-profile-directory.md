@@ -2,7 +2,7 @@
 title: Channel & Profile Directory
 description: Canonical link directory for BREAD channels, member profiles, and discovered event URLs.
 order: 7
-updated: 2026-02-14
+updated: 2026-02-18
 tags:
   - archive
   - links
@@ -12,8 +12,11 @@ tags:
 ## Collective channels
 
 - SoundCloud (BREAD): <https://soundcloud.com/breadfm>
+- SoundCloud mix example (Prawns + Botaz on Internet Public Radio, 2023-04-26): <https://soundcloud.com/breadfm/bread-fm-on-internet-public-radio-prawns-botaz-04262023>
+- Internet Public Radio show page: <https://www.internetpublicradio.live/shows/bread-fm>
 - Instagram (BREAD): <https://instagram.com/bread_sf>
-- Resident Advisor promoter page: <https://ra.co/promoters/50634>
+- X / Twitter (BREAD SF): <https://x.com/breadsf>
+- Resident Advisor promoter page: <https://ra.co/promoters/51043>
 - Radio Valencia (host site): <http://www.radiovalencia.fm/>
 
 ## Resident directory (as preserved in research)

@@ -261,7 +261,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
       </section>
       <section class="route-start rail-card" aria-label="Primary routes">
         <p class="route-start-title">Start here</p>
-        <p class="route-start-copy">Top-level destinations stay pinned here for quick route switching.</p>
+        <p class="route-start-copy">Top-level destinations stay pinned here for quick route switching. The event list now focuses on date, series, venue, and lineup.</p>
         <nav class="primary-routes" aria-label="Primary routes">
           <CardLink href="/archive/" label="Archive index →" />
           <CardLink href="/archive/timeline/" label="Timeline & eras →" />
@@ -286,6 +286,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
       <article class="panel active" id="panel-ledger" role="tabpanel" aria-labelledby="tab-ledger">
         <h2>Event History</h2>
         <p class="result-count" id="eventsResultCount">{documentedChronology.length} events shown</p>
+        <p class="events-intro">Cards highlight the same core fields used in the event list: date, series, venue, and lineup.</p>
         <ul class="cards">
           {documentedChronology.map((event, index) => (
             <li class="card" id={`event-${index + 1}`} data-kind="event" data-index={index}>

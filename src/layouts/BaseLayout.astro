@@ -17,6 +17,9 @@ const structuredDataEntries = (Array.isArray(structuredData) ? structuredData : 
   (entry): entry is Record<string, unknown> => Boolean(entry)
 );
 
+const serializeJsonForScript = (value: Record<string, unknown>) =>
+  JSON.stringify(value).replace(/</g, '\\u003c');
+
 const pathname = Astro.url.pathname;
 const isHome = pathname === '/';
 const isNarrative = pathname.startsWith('/blog/');
@@ -41,7 +44,7 @@ const routeContext = isHome
     <title>{title}</title>
     {
       structuredDataEntries.map((entry) => (
-        <script is:inline type="application/ld+json" set:html={JSON.stringify(entry)} />
+        <script is:inline type="application/ld+json" set:html={serializeJsonForScript(entry)} />
       ))
     }
   </head>

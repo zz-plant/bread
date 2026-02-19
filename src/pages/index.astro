@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CardLink from '../components/CardLink.astro';
+import { readdirSync } from 'node:fs';
+import { extname } from 'node:path';
 import {
   createCollectionPageSchema,
   createEventSchema,
@@ -107,6 +109,129 @@ const soundcloudEmbedCollections = [
     visual: false
   }
 ];
+
+const graphicExtensions = new Set(['.jpg', '.jpeg', '.png', '.webp', '.gif']);
+
+const graphicDetailsByFile: Record<
+  string,
+  {
+    title: string;
+    date: string;
+    venue: string;
+    lineup: string;
+    format: 'club' | 'stream' | 'radio';
+  }
+> = {
+  'bread-no-3-doctor-jeep-november-6.jpg': {
+    title: 'BREAD #3',
+    date: '2015-11-06',
+    venue: 'F8',
+    lineup: 'Doctor Jeep, Sha Sha Kimbo + support',
+    format: 'club'
+  },
+  'bread-jlin-planet-mu-iyer-2016-03-25-flyer.jpg': {
+    title: 'BREAD #5',
+    date: '2016-03-25',
+    venue: 'F8',
+    lineup: 'Jlin + Iyer + residents',
+    format: 'club'
+  },
+  'bread-jlin-planet-mu-iyer-2016-03-25-instagram.jpg': {
+    title: 'BREAD #5',
+    date: '2016-03-25',
+    venue: 'F8',
+    lineup: 'Jlin + Iyer + residents',
+    format: 'club'
+  },
+  'bread-jlin-planet-mu-iyer-2016-03-25-poster.jpg': {
+    title: 'BREAD #5',
+    date: '2016-03-25',
+    venue: 'F8',
+    lineup: 'Jlin + Iyer + residents',
+    format: 'club'
+  },
+  'bread-number-seven-celestial-trax-may-21.jpg': {
+    title: 'BREAD #7',
+    date: '2016-05-20',
+    venue: 'F8 / UGSF',
+    lineup: 'Distal, Celestial Trax, Endgame',
+    format: 'club'
+  },
+  'toasted-trax-number-one-june-29.jpg': {
+    title: 'Toasted Trax #1',
+    date: '2016-06-29',
+    venue: 'Codeword',
+    lineup: 'Abyss X, DJ Spider',
+    format: 'club'
+  },
+  'bread-long-weekend-special-september-4.jpg': {
+    title: 'BREAD #11 Long Weekend Special',
+    date: '2016-09-04',
+    venue: "Bruno's",
+    lineup: 'Dehousy, The Dance Pit',
+    format: 'club'
+  },
+  'bread-suda-kelman-duran-bread-djs-sept-22.jpg': {
+    title: 'UGSF Night',
+    date: '2017-09-22',
+    venue: 'Underground SF',
+    lineup: 'Kelman Duran, Suda, BREAD DJs',
+    format: 'club'
+  },
+  'bread-new-year-fundraiser-story-jan-2.png': {
+    title: 'BREAD New Year Stream',
+    date: '2021-01-02',
+    venue: 'Twitch',
+    lineup: 'Zaida, Wonja, Color Plus, Gila',
+    format: 'stream'
+  },
+  'bread-new-year-yxexaxr-jan-2.jpg': {
+    title: 'BREAD New Year Stream',
+    date: '2021-01-02',
+    venue: 'Twitch',
+    lineup: 'Zaida, Wonja, Color Plus, Gila',
+    format: 'stream'
+  },
+  'bread-long-bread-summer-fundraiser-july-10.png': {
+    title: 'Long Bread Summer Stream',
+    date: '2021-07-10',
+    venue: 'Twitch',
+    lineup: 'Residents + collaborators',
+    format: 'stream'
+  }
+};
+
+const inferGraphicDetails = (fileName: string) => ({
+  title: fileName.replace(/\.[^/.]+$/, '').replace(/-/g, ' '),
+  date: 'Date tbd in archive',
+  venue: 'Archive record pending',
+  lineup: 'See linked channels and episode sources',
+  format: fileName.startsWith('bread-fm-') || fileName.startsWith('bread-botaz-') ? 'radio' : 'club'
+});
+
+const publicGraphics = readdirSync('public')
+  .filter((fileName) => graphicExtensions.has(extname(fileName).toLowerCase()))
+  .sort((a, b) => a.localeCompare(b))
+  .map((fileName) => {
+    const details = graphicDetailsByFile[fileName] ?? inferGraphicDetails(fileName);
+
+    return {
+      fileName,
+      src: `/${fileName}`,
+      alt: fileName.replace(/\.[^/.]+$/, '').replace(/-/g, ' '),
+      details
+    };
+  });
+
+const radioShowIndex = publicGraphics
+  .filter((graphic) => graphic.details.format === 'radio')
+  .map((graphic) => ({
+    title: graphic.details.title,
+    date: graphic.details.date,
+    venue: graphic.details.venue,
+    lineup: graphic.details.lineup,
+    artSrc: graphic.src
+  }));
 
 const platformEmbeds = {
   ipr: {
@@ -287,6 +412,23 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
         <h2>Event History</h2>
         <p class="result-count" id="eventsResultCount">{documentedChronology.length} events shown</p>
         <p class="events-intro">Cards highlight the same core fields used in the event list: date, series, venue, and lineup.</p>
+        <section class="flyer-gallery" aria-label="Archive graphics">
+          <h3>Archive graphics</h3>
+          <p>Flyers and promo graphics currently in <code>/public</code>.</p>
+          <ul class="flyer-grid">
+            {publicGraphics.map((graphic) => (
+              <li>
+                <img src={graphic.src} alt={graphic.alt} loading="lazy" />
+                <div class="flyer-meta">
+                  <p class="flyer-title">{graphic.details.title}</p>
+                  <p>{graphic.details.date}</p>
+                  <p>{graphic.details.venue}</p>
+                  <p>{graphic.details.lineup}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </section>
         <ul class="cards">
           {documentedChronology.map((event, index) => (
             <li class="card" id={`event-${index + 1}`} data-kind="event" data-index={index}>
@@ -356,6 +498,23 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
             </li>
           ))}
         </ul>
+        <section class="radio-index" aria-label="Radio show index">
+          <h3>Radio show index</h3>
+          <p class="resident-audio-copy">Indexed BREAD FM/radio graphics with available archive details.</p>
+          <ul class="radio-list">
+            {radioShowIndex.map((show) => (
+              <li>
+                <div>
+                  <p class="title">{show.title}</p>
+                  <p class="meta">{show.date} · {show.venue}</p>
+                  <p class="lineup">{show.lineup}</p>
+                </div>
+                <a href={show.artSrc} target="_blank" rel="noreferrer">View artwork ↗</a>
+              </li>
+            ))}
+          </ul>
+        </section>
+
         <section class="resident-audio" aria-label="Resident SoundCloud channels">
           <h3>Resident SoundCloud channels</h3>
           <p class="resident-audio-copy">Quick-embed cards for each resident profile linked in this archive.</p>
@@ -844,6 +1003,108 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     padding: 0;
     display: grid;
     gap: 0.5rem;
+  }
+
+
+  .flyer-gallery {
+    margin-bottom: 1rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-card);
+    background: linear-gradient(180deg, #171717 0%, #111 100%);
+    padding: 0.9rem;
+  }
+
+  .flyer-gallery h3 {
+    margin: 0;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+  }
+
+  .flyer-gallery p {
+    margin: 0.45rem 0 0.8rem;
+    color: var(--muted);
+    font-size: 0.88rem;
+  }
+
+  .flyer-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 0.6rem;
+  }
+
+  .flyer-grid li {
+    border: 1px solid var(--line);
+    border-radius: 0.55rem;
+    overflow: hidden;
+    background: #090909;
+    min-height: 270px;
+  }
+
+  .flyer-grid img {
+    display: block;
+    width: 100%;
+    height: 64%;
+    object-fit: cover;
+  }
+
+  .flyer-meta {
+    padding: 0.55rem;
+    display: grid;
+    gap: 0.2rem;
+    font-size: 0.74rem;
+    color: var(--muted);
+  }
+
+  .flyer-meta p {
+    margin: 0;
+    line-height: 1.25;
+  }
+
+  .flyer-title {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .radio-index {
+    margin-top: 1.4rem;
+    border-top: 1px solid var(--line);
+    padding-top: 1rem;
+    display: grid;
+    gap: 0.65rem;
+  }
+
+  .radio-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.65rem;
+  }
+
+  .radio-list li {
+    border: 1px solid var(--line);
+    border-radius: 0.65rem;
+    padding: 0.7rem;
+    background: var(--panel-soft);
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .radio-list a {
+    width: fit-content;
+    color: var(--muted);
+    font-size: 0.85rem;
+    text-decoration: none;
+    border-bottom: 1px solid var(--line-strong);
+  }
+
+  .radio-list a:hover {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
   }
 
   .audio-intro {

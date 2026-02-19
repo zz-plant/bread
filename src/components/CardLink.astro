@@ -13,7 +13,7 @@ const { href, label, external = false, className } = Astro.props;
   href={href}
   class:list={['card-link', className]}
   target={external ? '_blank' : undefined}
-  rel={external ? 'noreferrer' : undefined}
+  rel={external ? 'noreferrer noopener' : undefined}
 >
   {label}
 </a>

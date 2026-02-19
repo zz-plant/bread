@@ -41,7 +41,6 @@ const archivePageStructuredData = createCollectionPageSchema({
   <p class="section-meta">Last updated {formatDate(page.data.updated)}</p>
   <nav class="section-links" aria-label="Archive section links">
     <a href="/archive/">Archive index</a>
-    <a href="/blog/the-story-of-bread/">Story history</a>
     {previousPage && <a href={`/archive/${toContentSlug(previousPage.id)}/`}>← {previousPage.data.title}</a>}
     {nextPage && <a href={`/archive/${toContentSlug(nextPage.id)}/`}>{nextPage.data.title} →</a>}
   </nav>

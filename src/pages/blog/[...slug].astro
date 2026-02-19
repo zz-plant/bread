@@ -41,7 +41,6 @@ const postStructuredData = createArticleSchema({
   <p>{post.data.description}</p>
   <p class="section-meta">Published {formatDate(post.data.date)}</p>
   <nav class="section-links" aria-label="Story links">
-    <a href="/">Home</a>
     <a href="/archive/">Archive index</a>
     {newerPost && <a href={`/blog/${toContentSlug(newerPost.id)}/`}>← {newerPost.data.title}</a>}
     {olderPost && <a href={`/blog/${toContentSlug(olderPost.id)}/`}>{olderPost.data.title} →</a>}

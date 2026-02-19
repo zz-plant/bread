@@ -239,9 +239,19 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
 >
   <div class="bg-mark">BREAD</div>
   <header class="topline">
-    <span>ARCHIVE NODE // SAN FRANCISCO</span>
+    <span>BREAD // SAN FRANCISCO</span>
     <span>2015—2021</span>
   </header>
+
+  <nav class="topline-nav" aria-label="Global routes">
+    <a href="/" aria-current="page">Home overview</a>
+    <a href="/archive/">Archive index</a>
+    <a href="/archive/timeline/">Timeline & eras</a>
+    <a href="/archive/event-ledger/">Event list</a>
+    <a href="/blog/the-story-of-bread/">Story history</a>
+  </nav>
+
+  <a class="skip-link-home" href="#home-main">Skip to content</a>
 
   <section class="shell">
     <aside class="nav-rail">
@@ -261,7 +271,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
       </section>
       <section class="route-start rail-card" aria-label="Primary routes">
         <p class="route-start-title">Start here</p>
-        <nav class="primary-routes" aria-label="Primary routes">
+        <nav class="primary-routes" aria-label="Quick start routes">
           <CardLink href="/archive/" label="Archive index →" />
           <CardLink href="/archive/timeline/" label="Timeline & eras →" />
           <CardLink href="/archive/event-ledger/" label="Event list →" />
@@ -279,7 +289,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
       </nav>
     </aside>
 
-    <main class="content">
+    <main id="home-main" class="content">
       <article class="panel active" id="panel-ledger" role="tabpanel" aria-labelledby="tab-ledger">
         <h2>Event History</h2>
         <p class="result-count" id="eventsResultCount">{documentedChronology.length} events shown</p>
@@ -333,7 +343,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
         <p class="audio-intro">Listen to BREAD&apos;s profile, playlists, likes, reposts, plus resident SoundCloud profiles in one place.</p>
         <div class="audio-actions">
           <button class="chip" type="button" id="loadAudioEmbeds">Load audio embeds</button>
-          <a href="https://soundcloud.com/breadfm" target="_blank" rel="noreferrer">Open BREAD profile ↗</a>
+          <a href="https://soundcloud.com/breadfm" target="_blank" rel="noreferrer noopener">Open BREAD profile ↗</a>
         </div>
         <ul class="audio-grid">
           {soundcloudEmbedCollections.map((item) => (
@@ -349,7 +359,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
                 src="about:blank"
                 data-embed-src={buildSoundCloudEmbedSrc(item.href, item.visual)}
               ></iframe>
-              <a href={item.href} target="_blank" rel="noreferrer">Open on SoundCloud ↗</a>
+              <a href={item.href} target="_blank" rel="noreferrer noopener">Open on SoundCloud ↗</a>
             </li>
           ))}
         </ul>
@@ -370,7 +380,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
                   src="about:blank"
                   data-embed-src={buildSoundCloudEmbedSrc(profile.href, false)}
                 ></iframe>
-                <a href={profile.href} target="_blank" rel="noreferrer">Visit profile ↗</a>
+                <a href={profile.href} target="_blank" rel="noreferrer noopener">Visit profile ↗</a>
               </li>
             ))}
           </ul>
@@ -389,7 +399,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
                 src="about:blank"
                 data-embed-src={platformEmbeds.ipr.src}
               ></iframe>
-              <a href={platformEmbeds.ipr.href} target="_blank" rel="noreferrer">Open IPR episode ↗</a>
+              <a href={platformEmbeds.ipr.href} target="_blank" rel="noreferrer noopener">Open IPR episode ↗</a>
             </li>
             <li class="audio-card">
               <h4>{platformEmbeds.appleShow.title}</h4>
@@ -403,7 +413,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
                 src="about:blank"
                 data-embed-src={platformEmbeds.appleShow.src}
               ></iframe>
-              <a href={platformEmbeds.appleShow.href} target="_blank" rel="noreferrer">Open Apple show ↗</a>
+              <a href={platformEmbeds.appleShow.href} target="_blank" rel="noreferrer noopener">Open Apple show ↗</a>
             </li>
             <li class="audio-card">
               <h4>{platformEmbeds.appleEpisode.title}</h4>
@@ -417,7 +427,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
                 src="about:blank"
                 data-embed-src={platformEmbeds.appleEpisode.src}
               ></iframe>
-              <a href={platformEmbeds.appleEpisode.href} target="_blank" rel="noreferrer">Open Apple episode ↗</a>
+              <a href={platformEmbeds.appleEpisode.href} target="_blank" rel="noreferrer noopener">Open Apple episode ↗</a>
             </li>
             <li class="audio-card">
               <h4>{platformEmbeds.facebook.title}</h4>
@@ -430,7 +440,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
                 src="about:blank"
                 data-embed-src={platformEmbeds.facebook.src}
               ></iframe>
-              <a href={platformEmbeds.facebook.href} target="_blank" rel="noreferrer">Open Facebook page ↗</a>
+              <a href={platformEmbeds.facebook.href} target="_blank" rel="noreferrer noopener">Open Facebook page ↗</a>
             </li>
           </ul>
         </section>
@@ -440,10 +450,10 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     <aside class="deck" id="detailDeck" aria-live="polite">
       <button class="deck-toggle" type="button" id="deckToggle" aria-expanded="false" aria-controls="deckContent">Show details panel</button>
       <div id="deckContent" class="deck-content">
-      <p class="deck-tag" id="deckTag">ENTRY</p>
-      <h3 id="deckTitle">SELECT ITEM</h3>
-      <p id="deckData">Choose an event or resident to inspect metadata.</p>
-      <p id="deckDesc">This panel shows event and profile details with quick links.</p>
+      <p class="deck-tag" id="deckTag">Details</p>
+      <h3 id="deckTitle">Select an entry</h3>
+      <p id="deckData">Choose an event or resident to view details.</p>
+      <p id="deckDesc">Pick any event or resident card to view dates, venues, and links.</p>
       <div id="deckLinks" class="deck-links"></div>
       </div>
     </aside>
@@ -502,6 +512,22 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     user-select: none;
   }
 
+  .skip-link-home {
+    position: absolute;
+    left: 0.75rem;
+    top: -3rem;
+    z-index: 40;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.4rem;
+    background: #111827;
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .skip-link-home:focus {
+    top: 0.75rem;
+  }
+
   .topline {
     position: relative;
     z-index: 2;
@@ -516,6 +542,48 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     text-transform: uppercase;
     color: #bcbcbc;
     background: #0b0b0b;
+  }
+
+  .topline-nav {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    padding: 0.55rem 1rem 0;
+  }
+
+  .topline-nav a {
+    border: 1px solid #343434;
+    border-radius: 999px;
+    padding: 0.25rem 0.65rem;
+    color: #d4d4d4;
+    font-size: 0.78rem;
+    text-decoration: none;
+  }
+
+  .topline-nav a:hover,
+  .topline-nav a:focus-visible {
+    border-color: var(--accent);
+    color: #fff;
+  }
+
+  .topline-nav a[aria-current='page'] {
+    border-color: var(--accent);
+    color: #fff;
+    background: rgb(255 90 31 / 20%);
+  }
+
+  .tab:focus-visible,
+  .pick-btn:focus-visible,
+  .deck-toggle:focus-visible,
+  .chip:focus-visible,
+  .audio-actions a:focus-visible,
+  .audio-card a:focus-visible,
+  .resident-audio-grid a:focus-visible,
+  .platform-grid a:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
   }
 
   .shell {
@@ -1257,6 +1325,30 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
       font-size: 0.74rem;
     }
   }
+
+  @media (max-width: 760px) {
+    .topline {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.35rem;
+    }
+
+    .topline-nav {
+      padding-top: 0.35rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
 </style>
 
 <script is:inline define:vars={{ documentedChronology, roster }}>
@@ -1373,7 +1465,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
       a.textContent = link.label;
       if (link.external) {
         a.target = '_blank';
-        a.rel = 'noreferrer';
+        a.rel = 'noreferrer noopener';
       }
       deckLinks.append(a);
     });
@@ -1417,7 +1509,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
           title: event.title,
           data: `${event.year} · ${event.date} · ${event.venue}`,
           desc: `${event.lineup}.${statusDescription}`,
-          links: [{ href: '/archive/timeline/', label: 'Open timeline notes →', external: false }]
+          links: [{ href: '/archive/timeline/', label: 'View full timeline →', external: false }]
         });
         return;
       }
@@ -1435,7 +1527,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
           tag: 'PERSON',
           title: person.name,
           data: person.role,
-          desc: 'Resident profile pulled from archive network and profile directory entries.',
+          desc: "Profile highlights with quick links to each resident's channels.",
           links
         });
       }

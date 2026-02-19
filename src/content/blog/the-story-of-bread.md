@@ -38,7 +38,7 @@ By 2016, BREAD had a clearer rhythm: steadier residency cadence, tighter visual 
 
 **Key booking:** Archive notes treat the Jlin SF debut period as a defining booking in this phase.
 
-**Related run:** The same period includes Distal, Celestial Trax, Neana, Deadboy, Murlo, and a Tectonic / Different Circles-adjacent billing period that helped shape the party's direction. It also includes a Bok Bok + Girl Unit booking run produced in collaboration with Sure Thing and Parameter.
+**Related run:** The same period includes Distal, Celestial Trax, Neana, Deadboy, Murlo, and a Tectonic / Different Circles-adjacent billing period that helped shape the party's direction. It also includes a Bok Bok + Girl Unit booking run produced in collaboration with [Sure Thing](https://surething.info) and [Parameter](https://parameterpresents.com).
 
 ## Chapter 3: Venue-Pressure Period (2017–2018)
 
@@ -46,7 +46,9 @@ As venue pressure and scene conditions shifted citywide, BREAD moved into a bunk
 
 This phase includes lineups around Mr. Mitch + Kozee and later Kelman Duran + Suda before the final club-night chapter closes in 2018.
 
-This phase also includes a Rabit + Pinch + Logos + Mumdance + Caski booking run in collaboration with Parameter.
+This phase also includes a Rabit + Pinch + Logos + Mumdance + Caski booking run in collaboration with [Parameter](https://parameterpresents.com).
+
+Related collaborators from this era include [Nightsweats](https://www.instagram.com/fakeandgayinc) and [Fake and Gay](https://www.instagram.com/fakeandgayinc).
 
 ## Chapter 4: Mutual Aid Streams (2021)
 

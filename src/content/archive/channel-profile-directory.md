@@ -23,6 +23,12 @@ tags:
 - Resident Advisor promoter page: <https://ra.co/promoters/51043>
 - Radio Valencia (host site): <http://www.radiovalencia.fm/>
 
+## Collaboration links
+
+- Sure Thing: <https://surething.info>
+- Parameter: <https://parameterpresents.com>
+- Nightsweats / Fake and Gay: <https://www.instagram.com/fakeandgayinc>
+
 ## Resident directory (as preserved in research)
 
 ### Prawns

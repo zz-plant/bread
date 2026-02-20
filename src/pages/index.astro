@@ -238,18 +238,18 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
   structuredData={homeStructuredData}
 >
   <div class="bg-mark">BREAD</div>
-  <header class="topline">
-    <span>BREAD // SAN FRANCISCO</span>
-    <span>2015—2021</span>
-  </header>
+  <div class="top-chrome">
+    <header class="topline">
+      <span>BREAD // SAN FRANCISCO</span>
+      <span>2015—2021</span>
+    </header>
 
-  <nav class="topline-nav" aria-label="Global routes">
-    <a href="/" aria-current="page">Home overview</a>
-    <a href="/archive/">Archive index</a>
-    <a href="/archive/timeline/">Timeline & eras</a>
-    <a href="/archive/event-ledger/">Event list</a>
-    <a href="/blog/the-story-of-bread/">Story history</a>
-  </nav>
+    <nav class="topline-nav" aria-label="Primary routes">
+      <a href="/" aria-current="page">Home</a>
+      <a href="/archive/">Archive</a>
+      <a href="/blog/the-story-of-bread/">Story</a>
+    </nav>
+  </div>
 
   <a class="skip-link-home" href="#home-main">Skip to content</a>
 
@@ -269,13 +269,14 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
           ))}
         </ul>
       </section>
-      <section class="route-start rail-card" aria-label="Primary routes">
-        <p class="route-start-title">Start here</p>
-        <nav class="primary-routes" aria-label="Quick start routes">
-          <CardLink href="/archive/" label="Archive index →" />
+      <section class="route-start rail-card" aria-label="Archive pathways">
+        <p class="route-start-title">Archive pathways</p>
+        <p class="route-start-copy">Primary nav covers site-level routes. Use these links to move through archive records.</p>
+        <nav class="primary-routes" aria-label="Archive pathways">
           <CardLink href="/archive/timeline/" label="Timeline & eras →" />
           <CardLink href="/archive/event-ledger/" label="Event list →" />
-          <CardLink href="/blog/the-story-of-bread/" label="Story history →" />
+          <CardLink href="/archive/people-network/" label="People & network →" />
+          <CardLink href="/archive/venues-format-shifts/" label="Venues & formats →" />
         </nav>
       </section>
       <nav class="tabs rail-card" id="tabs">
@@ -458,6 +459,15 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
       </div>
     </aside>
   </section>
+
+  <footer class="home-footer" aria-label="Site footer">
+    <p>BREAD archive • long-lived publishing</p>
+    <nav aria-label="Footer routes">
+      <a href="/">Home</a>
+      <a href="/archive/">Archive</a>
+      <a href="/blog/the-story-of-bread/">Story</a>
+    </nav>
+  </footer>
 </BaseLayout>
 
 <style>
@@ -528,14 +538,25 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     top: 0.75rem;
   }
 
+  .top-chrome {
+    position: sticky;
+    top: 0;
+    z-index: 45;
+    background: rgb(8 8 8 / 92%);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid #1f1f1f;
+  }
+
   .topline {
     position: relative;
+    max-width: 1440px;
+    margin: 0 auto;
     z-index: 2;
     display: flex;
     justify-content: space-between;
     gap: 1rem;
-    border-bottom: 1px solid #1f1f1f;
-    padding: 0.55rem 1rem;
+    border-bottom: 0;
+    padding: 0.55rem max(1rem, env(safe-area-inset-right)) 0.4rem max(1rem, env(safe-area-inset-left));
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.68rem;
     letter-spacing: 0.12em;
@@ -546,20 +567,29 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
 
   .topline-nav {
     position: relative;
+    max-width: 1440px;
+    margin: 0 auto;
     z-index: 2;
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-    padding: 0.55rem 1rem 0;
+    flex-wrap: nowrap;
+    gap: 0.45rem;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    padding: 0.35rem max(1rem, env(safe-area-inset-right)) 0.55rem max(1rem, env(safe-area-inset-left));
   }
 
   .topline-nav a {
     border: 1px solid #343434;
     border-radius: 999px;
-    padding: 0.25rem 0.65rem;
+    padding: 0.42rem 0.72rem;
     color: #d4d4d4;
-    font-size: 0.78rem;
+    font-size: 0.8rem;
+    line-height: 1.1;
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
     text-decoration: none;
+    touch-action: manipulation;
   }
 
   .topline-nav a:hover,
@@ -572,6 +602,51 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     border-color: var(--accent);
     color: #fff;
     background: rgb(255 90 31 / 20%);
+  }
+
+  .home-footer {
+    position: relative;
+    z-index: 2;
+    width: min(1440px, calc(100% - 1.2rem));
+    margin: 0 auto 0.8rem;
+    border: 1px solid var(--line);
+    border-radius: 0.8rem;
+    background: linear-gradient(180deg, #111 0%, #0d0d0d 100%);
+    padding: 0.8rem 0.9rem calc(0.9rem + env(safe-area-inset-bottom));
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.7rem;
+    flex-wrap: wrap;
+  }
+
+  .home-footer p {
+    margin: 0;
+    color: #c8c8c8;
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .home-footer nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+  }
+
+  .home-footer a {
+    color: #d9d9d9;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    min-height: 32px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .home-footer a:hover,
+  .home-footer a:focus-visible {
+    color: #fff;
+    border-bottom-color: var(--accent);
   }
 
   .tab:focus-visible,
@@ -593,7 +668,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     grid-template-columns: minmax(240px, 280px) minmax(0, 1fr) minmax(280px, 340px);
     gap: 0.9rem;
     padding: 0.9rem;
-    min-height: calc(100vh - 36px);
+    min-height: calc(100vh - 104px);
     max-width: 1440px;
     margin: 0 auto;
   }
@@ -1182,7 +1257,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
   @media (max-width: 1200px) {
     .shell {
       grid-template-columns: 220px minmax(0, 1fr);
-      min-height: calc(100vh - 36px);
+      min-height: calc(100vh - 104px);
     }
 
     .nav-rail {
@@ -1295,6 +1370,17 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
       padding-inline: max(0.75rem, env(safe-area-inset-left)) max(0.75rem, env(safe-area-inset-right));
     }
 
+    .topline-nav {
+      padding-inline: max(0.75rem, env(safe-area-inset-left)) max(0.75rem, env(safe-area-inset-right));
+      gap: 0.3rem;
+    }
+
+    .topline-nav a {
+      min-height: 34px;
+      font-size: 0.72rem;
+      padding: 0.28rem 0.52rem;
+    }
+
     .shell {
       padding: 0.55rem;
       padding-bottom: calc(5.6rem + env(safe-area-inset-bottom));
@@ -1324,17 +1410,46 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     .status {
       font-size: 0.74rem;
     }
+
+    .home-footer {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.45rem;
+      padding: 0.7rem 0.75rem calc(0.8rem + env(safe-area-inset-bottom));
+    }
   }
 
   @media (max-width: 760px) {
     .topline {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.35rem;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      padding-bottom: 0.35rem;
     }
 
     .topline-nav {
-      padding-top: 0.35rem;
+      width: 100%;
+      gap: 0.35rem;
+      padding-top: 0.3rem;
+      padding-bottom: 0.5rem;
+    }
+
+    .topline-nav a {
+      white-space: nowrap;
+      min-height: 36px;
+      font-size: 0.74rem;
+      padding: 0.32rem 0.6rem;
+    }
+
+    .home-footer {
+      width: calc(100% - 1.1rem);
+      margin-bottom: 0.55rem;
+    }
+  }
+
+  @media (max-width: 360px) {
+    .home-footer nav {
+      width: 100%;
+      justify-content: space-between;
     }
   }
 

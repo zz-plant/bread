@@ -88,14 +88,16 @@ const resolvedOgType = ogType ?? (isNarrative ? 'article' : 'website');
         <div class="site-shell">
           <a class="skip-link" href="#main-content">Skip to content</a>
           <header class="site-header">
-            <a class="brand" href="/">BREAD</a>
-            <nav aria-label="Primary">
-              <ul>
-                <li><a href="/" aria-current={isHome ? 'page' : undefined} class={isHome ? 'active' : undefined}>Home</a></li>
-                <li><a href="/archive/" aria-current={isArchive ? 'page' : undefined} class={isArchive ? 'active' : undefined}>Archive</a></li>
-                <li><a href="/blog/the-story-of-bread/" aria-current={isNarrative ? 'page' : undefined} class={isNarrative ? 'active' : undefined}>Story</a></li>
-              </ul>
-            </nav>
+            <div class="site-header-inner">
+              <a class="brand" href="/">BREAD</a>
+              <nav aria-label="Primary">
+                <ul>
+                  <li><a href="/" aria-current={isHome ? 'page' : undefined} class={isHome ? 'active' : undefined}>Home</a></li>
+                  <li><a href="/archive/" aria-current={isArchive ? 'page' : undefined} class={isArchive ? 'active' : undefined}>Archive</a></li>
+                  <li><a href="/blog/the-story-of-bread/" aria-current={isNarrative ? 'page' : undefined} class={isNarrative ? 'active' : undefined}>Story</a></li>
+                </ul>
+              </nav>
+            </div>
           </header>
 
           <main id="main-content" class="content-wrap">
@@ -104,7 +106,16 @@ const resolvedOgType = ogType ?? (isNarrative ? 'article' : 'website');
           </main>
 
           <footer class="site-footer">
-            <p>Built with Astro for long-lived archival publishing.</p>
+            <div class="site-footer-inner">
+              <p>Built with Astro for long-lived archival publishing.</p>
+              <nav aria-label="Footer">
+                <ul>
+                  <li><a href="/">Home</a></li>
+                  <li><a href="/archive/">Archive</a></li>
+                  <li><a href="/blog/the-story-of-bread/">Story</a></li>
+                </ul>
+              </nav>
+            </div>
           </footer>
         </div>
       ) : (
@@ -176,18 +187,24 @@ const resolvedOgType = ogType ?? (isNarrative ? 'article' : 'website');
     position: sticky;
     top: 0;
     z-index: 20;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-    padding: 0.9rem max(1rem, env(safe-area-inset-right)) 0.9rem max(1rem, env(safe-area-inset-left));
+    padding: 0.8rem max(1rem, env(safe-area-inset-right)) 0.8rem max(1rem, env(safe-area-inset-left));
     border-bottom: 1px solid #dbe4f5;
     background: rgb(255 255 255 / 94%);
+    backdrop-filter: blur(10px);
   }
 
   body.editorial-theme .site-header {
     border-bottom-color: #1f2937;
     background: rgb(2 6 23 / 92%);
+  }
+
+  .site-header-inner {
+    width: min(64rem, 100%);
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
   }
 
   .brand {
@@ -206,7 +223,9 @@ const resolvedOgType = ogType ?? (isNarrative ? 'article' : 'website');
     list-style: none;
     margin: 0;
     padding: 0;
-    gap: 0.35rem;
+    gap: 0.45rem;
+    flex-wrap: wrap;
+    justify-content: flex-end;
   }
 
   nav a {
@@ -269,8 +288,40 @@ const resolvedOgType = ogType ?? (isNarrative ? 'article' : 'website');
     border-top: 1px solid #dbe4f5;
     color: #475569;
     font-size: 0.9rem;
-    text-align: center;
-    padding: 1.2rem 1rem 1.6rem;
+    padding: 1.2rem max(1rem, env(safe-area-inset-right)) calc(1.6rem + env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));
+  }
+
+  .site-footer-inner {
+    width: min(64rem, 100%);
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .site-footer p {
+    margin: 0;
+  }
+
+  .site-footer ul {
+    list-style: none;
+    display: flex;
+    gap: 0.8rem;
+    margin: 0;
+    padding: 0;
+    flex-wrap: wrap;
+  }
+
+  .site-footer a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .site-footer a:hover,
+  .site-footer a:focus-visible {
+    text-decoration: underline;
   }
 
   body.editorial-theme .site-footer {
@@ -311,10 +362,9 @@ const resolvedOgType = ogType ?? (isNarrative ? 'article' : 'website');
   }
 
   @media (max-width: 640px) {
-    .site-header {
+    .site-header-inner {
       flex-direction: column;
       align-items: flex-start;
-      padding-bottom: 0.65rem;
       gap: 0.65rem;
     }
 
@@ -323,18 +373,34 @@ const resolvedOgType = ogType ?? (isNarrative ? 'article' : 'website');
     }
 
     nav ul {
-      overflow-x: auto;
-      padding-bottom: 0.2rem;
-      scrollbar-width: thin;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.4rem;
+      width: 100%;
+      justify-content: stretch;
     }
 
-    nav li {
-      flex: 0 0 auto;
+    nav li,
+    nav a {
+      width: 100%;
+    }
+
+    nav a {
+      justify-content: center;
     }
 
     .content-wrap {
       width: min(52rem, calc(100% - 1.25rem));
       padding-top: 1.1rem;
+    }
+
+    .site-footer-inner {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .site-footer ul {
+      gap: 0.55rem 0.8rem;
     }
   }
 </style>

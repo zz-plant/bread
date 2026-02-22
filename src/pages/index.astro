@@ -1519,8 +1519,9 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     const targets = document.querySelectorAll('iframe[data-embed-src]');
     targets.forEach((frame) => {
       const src = frame.getAttribute('data-embed-src');
-      if (!src || frame.getAttribute('src') === src) return;
-      frame.setAttribute('src', src);
+      const safeSrc = sanitizeClientHref(src);
+      if (!safeSrc || frame.getAttribute('src') === safeSrc) return;
+      frame.setAttribute('src', safeSrc);
     });
     if (loadAudioEmbeds) {
       loadAudioEmbeds.setAttribute('disabled', 'true');
@@ -1576,8 +1577,11 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     deckDesc.textContent = payload.desc;
     deckLinks.innerHTML = '';
     (payload.links || []).forEach((link) => {
+      const safeHref = sanitizeClientHref(link.href);
+      if (!safeHref) return;
+
       const a = document.createElement('a');
-      a.href = link.href;
+      a.href = safeHref;
       a.textContent = link.label;
       if (link.external) {
         a.target = '_blank';
@@ -1587,6 +1591,18 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     });
 
     setDeckOpenState(true);
+  }
+
+  function sanitizeClientHref(value) {
+    if (!value) return null;
+    if (value.startsWith('/') || value.startsWith('#') || value.startsWith('?')) return value;
+
+    try {
+      const parsed = new URL(value, window.location.origin);
+      return ['http:', 'https:', 'mailto:', 'tel:'].includes(parsed.protocol) ? value : null;
+    } catch {
+      return null;
+    }
   }
 
   if (loadAudioEmbeds) {

@@ -12,13 +12,25 @@ const FALLBACK_HREF = '#';
 const ALLOWED_PROTOCOLS = new Set(['http:', 'https:', 'mailto:', 'tel:']);
 
 const sanitizeHref = (value: string): string => {
-  if (!value) return FALLBACK_HREF;
+  const normalizedValue = value.trim();
+  if (!normalizedValue) return FALLBACK_HREF;
 
-  if (value.startsWith('/') || value.startsWith('#') || value.startsWith('?')) return value;
+  if (
+    normalizedValue.startsWith('/') ||
+    normalizedValue.startsWith('#') ||
+    normalizedValue.startsWith('?') ||
+    normalizedValue.startsWith('./') ||
+    normalizedValue.startsWith('../')
+  ) {
+    return normalizedValue;
+  }
+
+  const hasExplicitScheme = /^[a-zA-Z][a-zA-Z\d+.-]*:/.test(normalizedValue);
+  if (!hasExplicitScheme) return normalizedValue;
 
   try {
-    const parsed = new URL(value);
-    return ALLOWED_PROTOCOLS.has(parsed.protocol) ? value : FALLBACK_HREF;
+    const parsed = new URL(normalizedValue, 'https://bread.invalid');
+    return ALLOWED_PROTOCOLS.has(parsed.protocol) ? normalizedValue : FALLBACK_HREF;
   } catch {
     return FALLBACK_HREF;
   }

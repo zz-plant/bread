@@ -35,21 +35,38 @@ const archivePageStructuredData = createCollectionPageSchema({
 ---
 
 <BaseLayout title={page.data.title} description={page.data.description} structuredData={archivePageStructuredData}>
-  <p class="section-kicker">Archive section</p>
-  <h1>{page.data.title}</h1>
-  <p>{page.data.description}</p>
-  <p class="section-meta">Last updated {formatDate(page.data.updated)}</p>
-  <nav class="section-links" aria-label="Archive section links">
-    <a href="/archive/">Archive index</a>
-    {previousPage && <a href={`/archive/${toContentSlug(previousPage.id)}/`}>← {previousPage.data.title}</a>}
-    {nextPage && <a href={`/archive/${toContentSlug(nextPage.id)}/`}>{nextPage.data.title} →</a>}
-  </nav>
-  <hr />
-  <Content />
+  <article class="archive-shell">
+    <header class="archive-header">
+      <p class="section-kicker">Archive section</p>
+      <h1>{page.data.title}</h1>
+      <p>{page.data.description}</p>
+      <p class="section-meta">Last updated {formatDate(page.data.updated)}</p>
+      <nav class="section-links" aria-label="Archive section links">
+        <a href="/archive/">Archive index</a>
+        {previousPage && <a href={`/archive/${toContentSlug(previousPage.id)}/`}>← {previousPage.data.title}</a>}
+        {nextPage && <a href={`/archive/${toContentSlug(nextPage.id)}/`}>{nextPage.data.title} →</a>}
+      </nav>
+    </header>
+    <hr />
+    <Content />
+  </article>
 </BaseLayout>
 
 
 <style>
+
+  .archive-shell {
+    border: 1px solid var(--surface-dark-muted);
+    border-radius: var(--radius-md);
+    background: rgb(15 23 42 / 55%);
+    padding: 1rem;
+  }
+
+  .archive-header {
+    display: grid;
+    gap: 0.35rem;
+  }
+
   .section-kicker {
     margin: 0;
     color: #94a3b8;
@@ -76,10 +93,11 @@ const archivePageStructuredData = createCollectionPageSchema({
   .section-links a {
     border: 1px solid var(--surface-dark-muted);
     border-radius: 999px;
-    padding: 0.3rem 0.7rem;
+    padding: 0.45rem 0.8rem;
     color: var(--accent-link-dark);
     text-decoration: none;
-    font-size: 0.85rem;
+    font-size: 0.84rem;
+    background: rgb(2 6 23 / 45%);
   }
 
   .section-links a:hover,

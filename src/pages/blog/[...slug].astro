@@ -36,21 +36,37 @@ const postStructuredData = createArticleSchema({
 ---
 
 <BaseLayout title={post.data.title} description={post.data.description} structuredData={postStructuredData}>
-  <p class="section-kicker">Story post</p>
-  <h1>{post.data.title}</h1>
-  <p>{post.data.description}</p>
-  <p class="section-meta">Published {formatDate(post.data.date)}</p>
-  <nav class="section-links" aria-label="Story links">
-    <a href="/archive/">Archive index</a>
-    {newerPost && <a href={`/blog/${toContentSlug(newerPost.id)}/`}>← {newerPost.data.title}</a>}
-    {olderPost && <a href={`/blog/${toContentSlug(olderPost.id)}/`}>{olderPost.data.title} →</a>}
-  </nav>
-  <hr />
-  <Content />
+  <article class="story-shell">
+    <header class="story-header">
+      <p class="section-kicker">Story post</p>
+      <h1>{post.data.title}</h1>
+      <p>{post.data.description}</p>
+      <p class="section-meta">Published {formatDate(post.data.date)}</p>
+      <nav class="section-links" aria-label="Story links">
+        <a href="/archive/">Archive index</a>
+        {newerPost && <a href={`/blog/${toContentSlug(newerPost.id)}/`}>← {newerPost.data.title}</a>}
+        {olderPost && <a href={`/blog/${toContentSlug(olderPost.id)}/`}>{olderPost.data.title} →</a>}
+      </nav>
+    </header>
+    <hr />
+    <Content />
+  </article>
 </BaseLayout>
 
 
 <style>
+  .story-shell {
+    border: 1px solid var(--surface-dark-muted);
+    border-radius: var(--radius-md);
+    background: rgb(15 23 42 / 55%);
+    padding: 1rem;
+  }
+
+  .story-header {
+    display: grid;
+    gap: 0.35rem;
+  }
+
   .section-kicker {
     margin: 0;
     color: #94a3b8;
@@ -77,10 +93,11 @@ const postStructuredData = createArticleSchema({
   .section-links a {
     border: 1px solid var(--surface-dark-muted);
     border-radius: 999px;
-    padding: 0.3rem 0.7rem;
+    padding: 0.45rem 0.8rem;
     color: var(--accent-link-dark);
     text-decoration: none;
-    font-size: 0.85rem;
+    font-size: 0.84rem;
+    background: rgb(2 6 23 / 45%);
   }
 
   .section-links a:hover,

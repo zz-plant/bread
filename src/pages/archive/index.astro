@@ -31,7 +31,7 @@ const overviewStats = [
   description="An information architecture for a long-living BREAD archive: overview, timeline, people, and venue shifts."
   structuredData={archiveIndexStructuredData}
 >
-  <header class="archive-header">
+  <header class="archive-header panel">
     <p class="section-kicker">Archive overview</p>
     <h1>BREAD Archive</h1>
     <p class="intro">A durable map of timeline, people, venues, methods, and narrative context.</p>
@@ -66,6 +66,13 @@ const overviewStats = [
     gap: 0.4rem;
   }
 
+  .panel {
+    border: 1px solid var(--surface-dark-muted);
+    border-radius: var(--radius-md);
+    background: rgb(15 23 42 / 55%);
+    padding: 1rem;
+  }
+
   .section-kicker {
     margin: 0;
     color: #94a3b8;
@@ -91,7 +98,7 @@ const overviewStats = [
     margin: 0;
     border: 1px solid var(--surface-dark-muted);
     border-radius: var(--radius-md);
-    background: linear-gradient(180deg, #111827, #0b1220);
+    background: rgb(2 6 23 / 45%);
     padding: 0.75rem 0.85rem;
     display: grid;
     gap: 0.2rem;
@@ -120,7 +127,7 @@ const overviewStats = [
 
   .archive-map li {
     border: 1px solid var(--surface-dark-muted);
-    background: linear-gradient(180deg, #111827, #0b1220);
+    background: rgb(15 23 42 / 55%);
     border-radius: var(--radius-md);
     padding: 0.9rem 1rem;
     transition: border-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;

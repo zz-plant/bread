@@ -34,7 +34,13 @@ const archivePageStructuredData = createCollectionPageSchema({
 });
 ---
 
-<BaseLayout title={page.data.title} description={page.data.description} structuredData={archivePageStructuredData}>
+<BaseLayout
+  title={page.data.title}
+  description={page.data.description}
+  structuredData={archivePageStructuredData}
+  ogImage={`/og/archive/${toContentSlug(page.id)}.svg`}
+  ogImageAlt={`${page.data.title} — ${page.data.description}`}
+>
   <article class="archive-shell">
     <header class="archive-header">
       <p class="section-kicker">Archive section</p>

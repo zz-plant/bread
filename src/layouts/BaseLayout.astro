@@ -1,4 +1,6 @@
 ---
+import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from '../utils/ogImage';
+
 interface Props {
   title: string;
   description?: string;
@@ -6,6 +8,7 @@ interface Props {
   structuredData?: Record<string, unknown> | Record<string, unknown>[];
   canonical?: string;
   ogImage?: string;
+  ogImageAlt?: string;
   noindex?: boolean;
   ogType?: 'website' | 'article';
 }
@@ -17,6 +20,7 @@ const {
   structuredData,
   canonical,
   ogImage = '/og-default.svg',
+  ogImageAlt,
   noindex = false,
   ogType
 } = Astro.props;
@@ -53,6 +57,7 @@ const toAbsoluteUrl = (value: string | undefined): string | undefined => {
 const canonicalUrl = canonical ? toAbsoluteUrl(canonical) : toAbsoluteUrl(Astro.url.pathname);
 const ogImageUrl = toAbsoluteUrl(ogImage);
 const resolvedOgType = ogType ?? (isNarrative ? 'article' : 'website');
+const resolvedOgImageAlt = ogImageAlt ?? `${title} — ${description}`;
 ---
 
 <!doctype html>
@@ -71,10 +76,14 @@ const resolvedOgType = ogType ?? (isNarrative ? 'article' : 'website');
     <meta property="og:type" content={resolvedOgType} />
     {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
     {ogImageUrl && <meta property="og:image" content={ogImageUrl} />}
+    {ogImageUrl && <meta property="og:image:width" content={String(OG_IMAGE_WIDTH)} />}
+    {ogImageUrl && <meta property="og:image:height" content={String(OG_IMAGE_HEIGHT)} />}
+    {ogImageUrl && <meta property="og:image:alt" content={resolvedOgImageAlt} />}
     <meta name="twitter:card" content={ogImageUrl ? 'summary_large_image' : 'summary'} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     {ogImageUrl && <meta name="twitter:image" content={ogImageUrl} />}
+    {ogImageUrl && <meta name="twitter:image:alt" content={resolvedOgImageAlt} />}
     {noindex && <meta name="robots" content="noindex, nofollow" />}
     {
       structuredDataEntries.map((entry) => (

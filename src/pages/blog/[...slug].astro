@@ -35,7 +35,13 @@ const postStructuredData = createArticleSchema({
 });
 ---
 
-<BaseLayout title={post.data.title} description={post.data.description} structuredData={postStructuredData}>
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+  structuredData={postStructuredData}
+  ogImage={`/og/blog/${toContentSlug(post.id)}.svg`}
+  ogImageAlt={`${post.data.title} — ${post.data.description}`}
+>
   <article class="story-shell">
     <header class="story-header">
       <p class="section-kicker">Story post</p>

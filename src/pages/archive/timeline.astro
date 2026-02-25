@@ -61,7 +61,12 @@ const milestones = [
 ];
 ---
 
-<BaseLayout title={timelinePage.data.title} description={timelinePage.data.description}>
+<BaseLayout
+  title={timelinePage.data.title}
+  description={timelinePage.data.description}
+  ogImage="/og/timeline.svg"
+  ogImageAlt="BREAD timeline from 2015 club events through 2021 streaming chapters"
+>
   <header class="timeline-hero">
     <p class="eyebrow">Archive section</p>
     <h1>{timelinePage.data.title}</h1>

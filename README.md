@@ -31,8 +31,16 @@ Open <http://localhost:4321>.
 - Starter content skill: `.agents/skills/static-site-author/SKILL.md`
 - Optional Codex + MCP local defaults: `.codex/config.toml`
 
-## Next setup tasks
+## Implementation status
 
-1. Set the production `site` URL in `astro.config.mjs`.
-2. Configure deployment target (Netlify/Cloudflare Pages/GitHub Pages).
-3. Add additional skills for QA and release automation.
+### Done
+
+- [x] Set production `site` URL in `astro.config.mjs` (`https://bread.fm`).
+- [x] Add CI checks for lint/build on pull requests and pushes to `main`.
+
+### Still to implement
+
+- [ ] Configure a deployment target (Netlify/Cloudflare Pages/GitHub Pages).
+- [ ] Enable deployment from CI after selecting the target platform.
+- [ ] Add additional skills for QA and release automation.
+- [ ] Add more posts in `src/content/blog`.

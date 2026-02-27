@@ -1,6 +1,6 @@
 ---
 title: The Story of BREAD
-description: A retrospective on how a group of friends built space for adventurous club music in San Francisco.
+description: A concise, evidence-aware history of BREAD's activity across club events and livestream fundraising.
 date: 2026-02-14
 draft: false
 tags:
@@ -10,71 +10,58 @@ tags:
   - community
 ---
 
-This is a retrospective of BREAD: how a group of friends carved out a lane for left-field club music in a city that was changing fast.
+This page summarizes the currently documented history of BREAD.
 
-For the durable, research-friendly version of this material, use the [BREAD Archive index](/archive/) and its source-linked pages.
+It is intentionally conservative: where claims are incomplete or still being verified, this text uses cautious language and points readers to the archive.
 
-For source-oriented event rows, use the [Event List (Working)](/archive/event-ledger/).
+For source-linked records, use the [BREAD Archive index](/archive/) and the [Event List (Working)](/archive/event-ledger/).
 
-## The Setting: San Francisco, 2014
+## Scope and evidence
 
-In the mid-2010s, San Francisco nightlife was shifting alongside the second tech boom. The Mission was changing quickly, and a lot of rooms were leaning into safer, more polished booking.
+The chronology below is based on materials currently tracked in this repository (archive notes, screenshot-derived records, and related working documents). It should be treated as a maintained draft history rather than a final account.
 
-A big part of that landscape was accessible tech-house and "work hard, play hard" party culture.
+## Chronological summary
 
-## Early Direction (2014–2015)
+### 2014–2015: Formation and first recurring events
 
-Cage A (Kanav) and Prawns wanted to hear a different range: sounds they were finding through SoundCloud and scenes in London and Chicago that felt rougher, faster, and more off-center.
+Current records indicate a planning phase in 2014 and public event activity by 2015, including an early F8 run and numbered events through that year.
 
-They started BREAD with a straightforward intention: book under-the-radar club music in venues that did not usually center it.
+Founding credit is most consistently associated with Cage A (Kanav) and Prawns, with resident and collaborator participation expanding over time.
 
-## Chapter 1: The Experiment (2015)
+### 2016: Higher event cadence and broader bookings
 
-On Friday, February 13, 2015, they ran a pilot at F8 on Folsom. Through spring and fall, that test phase turned into a regular run of numbered events and early guest bookings.
+Materials for 2016 show a denser event schedule and more frequent guest bookings.
 
-## Chapter 2: Growth Period (2016)
+Archive notes identify this period as a key phase for profile growth, including the often-referenced Jlin booking window and collaboration periods involving [Sure Thing](https://surething.info) and [Parameter](https://parameterpresents.com).
 
-By 2016, BREAD had a clearer rhythm: steadier residency cadence, tighter visual identity, and bigger swings on guests.
+### 2017–2018: Venue shift and end of the original run
 
-**Key booking:** Archive notes treat the Jlin SF debut period as a defining booking in this phase.
+Records indicate a shift in venue center-of-gravity toward Underground SF-era programming and related rooms.
 
-**Related run:** The same period includes Distal, Celestial Trax, Neana, Deadboy, Murlo, and a Tectonic / Different Circles-adjacent billing period that helped shape the party's direction. It also includes a Bok Bok + Girl Unit booking run produced in collaboration with [Sure Thing](https://surething.info) and [Parameter](https://parameterpresents.com).
+The available timeline places the end of the original recurring club-night chapter in 2018.
 
-## Chapter 3: Venue-Pressure Period (2017–2018)
+### 2020–2021: Livestream and mutual-aid fundraising
 
-As venue pressure and scene conditions shifted citywide, BREAD moved into a bunker-era stretch around Underground SF. The sound opened into warmer, diasporic rhythmic frameworks and a broader floor mix.
+During pandemic shutdowns, activity moved from in-person events to remote broadcasts and fundraiser streams.
 
-This phase includes lineups around Mr. Mitch + Kozee and later Kelman Duran + Suda before the final club-night chapter closes in 2018.
+Documented campaigns reference support for organizations including NBDA, Atlanta Solidarity Fund, Rebuilding Alliance, and Oxygen for India.
 
-This phase also includes a Rabit + Pinch + Logos + Mumdance + Caski booking run in collaboration with [Parameter](https://parameterpresents.com).
+## Working timeline snapshot
 
-Related collaborators from this era include [Nightsweats](https://www.instagram.com/fakeandgayinc) and [Fake and Gay](https://www.instagram.com/fakeandgayinc).
+This table lists currently consolidated milestone markers. For full source rows and caveats, use the archive ledger.
 
-## Chapter 4: Mutual Aid Streams (2021)
-
-When pandemic shutdowns erased dance-floor infrastructure, BREAD shifted to telethon-style streams. Those broadcasts kept community ties active while raising funds for mutual-aid and relief work.
-
-## Event Detail Snapshot (expanded)
-
-| Date | Event | Format | Detail highlights |
+| Date | Marker | Format | Notes |
 | --- | --- | --- | --- |
-| 2015-02-13 | Pilot at F8 | Club night | Helix + residents; first known formal event marker. |
-| 2015-05-29 | BREAD #1 period | Club night | Public screenshot materials confirm active programming cadence by May 2015. |
-| 2015-11-06 | BREAD #3 period | Club night | Doctor Jeep-era booking window appears in screenshot records. |
-| 2016-03-25 | BREAD #5 / Jlin window | Club night | Defining growth-era booking and reputation milestone in archive notes. |
-| 2016-09-04 | Weekend special period | Club night | Dehousy / Nargiz / The Dance Pit screenshot materials align with broadening booking scope. |
-| 2017-05-26 | UGSF phase marker | Club night | Mr. Mitch + Kozee appears in user-provided canonical timeline notes. |
-| 2018-05-12 | Final phase marker | Club night | Final chapter context linked to late-period lineup notes. |
-| 2021-01-02 | New Year fundraiser stream | Twitch telethon | Fundraiser framing includes NBDA + Atlanta Solidarity Fund and global time-zone scheduling. |
-| 2021-03-13 | Six Years stream | Twitch telethon | Anniversary stream period in broader mutual-aid chapter. |
-| 2021-07-10 | Long Bread Summer | Twitch telethon | Fundraiser for Rebuilding Alliance and Oxygen for India. |
+| 2015-02-13 | F8 pilot phase | Club night | Earliest stable marker for formal BREAD event activity in current records. |
+| 2015-05-29 | Numbered-run onset | Club night | Confirms recurring programming cadence by spring 2015. |
+| 2016-03-25 | Jlin-era milestone | Club night | Frequently cited booking period in archive notes. |
+| 2016-08-19 | Tectonic / Different Circles-adjacent period | Club night | Indicates wider inter-scene collaboration in available materials. |
+| 2017-05-26 | Underground SF-era marker | Club night | Represents late-stage venue transition period. |
+| 2018-05-12 | Final chapter marker | Club night | End marker for the original club-night run in current timeline records. |
+| 2021-01-02 | New Year fundraiser stream | Livestream | Mutual-aid fundraiser period. |
+| 2021-03-13 | Six Years stream | Livestream | Anniversary stream in the same fundraising phase. |
+| 2021-07-10 | Long Bread Summer | Livestream | Later fundraiser stream period with collaborators. |
 
-## The Legacy
+## Ongoing verification
 
-BREAD's club-night run had a clear beginning, middle, and end.
-
-It showed there was sustained room in SF for experimental, forward-looking club programming.
-
-It also left behind a network that continued beyond the original dance floor.
-
-In crisis years, that same network was redirected toward material-aid fundraising.
+This page should continue to be updated as additional primary artifacts are verified. Priority gaps include complete venue chronology, lineup-level attribution, and reconciliation of disputed dates across sources.

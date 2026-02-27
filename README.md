@@ -22,7 +22,8 @@ Open <http://localhost:4321>.
 
 - Blog content lives in `src/content/blog/*.md`.
 - Collection schema is defined in `src/content/config.ts`.
-- Blog post route is generated at `/blog/<slug>/`.
+- Canonical story route lives at `/story/` (legacy `/blog/the-story-of-bread/` redirects).
+- Journal index is available at `/blog/` and non-canonical editorial posts continue at `/blog/<slug>/`.
 
 ## Agentic workflow
 

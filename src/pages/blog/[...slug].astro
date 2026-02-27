@@ -7,22 +7,16 @@ import { createArticleSchema } from '../../utils/structuredData';
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
 
-  return posts.map((post) => ({
-    params: { slug: toContentSlug(post.id) },
-    props: { post }
-  }));
+  return posts
+    .filter((post) => toContentSlug(post.id) !== 'the-story-of-bread')
+    .map((post) => ({
+      params: { slug: toContentSlug(post.id) },
+      props: { post }
+    }));
 }
 
 const { post } = Astro.props;
 const { Content } = await render(post);
-const posts = (await getCollection('blog', ({ data }) => !data.draft))
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
-const currentIndex = posts.findIndex((entry) => entry.id === post.id);
-const newerPost = currentIndex > 0 ? posts[currentIndex - 1] : undefined;
-const olderPost = currentIndex >= 0 && currentIndex < posts.length - 1
-  ? posts[currentIndex + 1]
-  : undefined;
-
 const postStructuredData = createArticleSchema({
   site: Astro.site,
   pathname: Astro.url.pathname,
@@ -50,8 +44,7 @@ const postStructuredData = createArticleSchema({
       <p class="section-meta">Published {formatDate(post.data.date)}</p>
       <nav class="section-links" aria-label="Story links">
         <a href="/archive/">Archive index</a>
-        {newerPost && <a href={`/blog/${toContentSlug(newerPost.id)}/`}>← {newerPost.data.title}</a>}
-        {olderPost && <a href={`/blog/${toContentSlug(olderPost.id)}/`}>{olderPost.data.title} →</a>}
+        <a href="/story/">Story</a>
       </nav>
     </header>
     <hr />

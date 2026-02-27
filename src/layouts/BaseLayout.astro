@@ -34,17 +34,11 @@ const serializeJsonForScript = (value: Record<string, unknown>) =>
 
 const pathname = Astro.url.pathname;
 const isHome = pathname === '/';
-const isNarrative = pathname.startsWith('/blog/');
+const isStory = pathname.startsWith('/story/');
+const isBlog = pathname.startsWith('/blog/');
+const isNarrative = isStory || isBlog;
 const isArchive = pathname.startsWith('/archive/') && !isNarrative;
 const isEditorial = isArchive || isNarrative;
-const routeContext = isHome
-  ? 'You are here: Home overview'
-  : isArchive
-    ? 'You are here: Archive records'
-    : isNarrative
-      ? 'You are here: Story history'
-      : undefined;
-
 const toAbsoluteUrl = (value: string | undefined): string | undefined => {
   if (!value) return undefined;
 
@@ -103,25 +97,28 @@ const resolvedOgImageAlt = ogImageAlt ?? `${title} — ${description}`;
                 <ul>
                   <li><a href="/" aria-current={isHome ? 'page' : undefined} class={isHome ? 'active' : undefined}>Home</a></li>
                   <li><a href="/archive/" aria-current={isArchive ? 'page' : undefined} class={isArchive ? 'active' : undefined}>Archive</a></li>
-                  <li><a href="/blog/the-story-of-bread/" aria-current={isNarrative ? 'page' : undefined} class={isNarrative ? 'active' : undefined}>Story</a></li>
+                  <li><a href="/archive/timeline/">Timeline</a></li>
+                  <li><a href="/story/" aria-current={isStory ? 'page' : undefined} class={isStory ? 'active' : undefined}>Story</a></li>
+                  <li><a href="/blog/" aria-current={isBlog ? 'page' : undefined} class={isBlog ? 'active' : undefined}>Journal</a></li>
                 </ul>
               </nav>
             </div>
           </header>
 
           <main id="main-content" class="content-wrap">
-            {routeContext && <p class="route-context">{routeContext}</p>}
             <slot />
           </main>
 
           <footer class="site-footer">
             <div class="site-footer-inner">
-              <p>Built with Astro for long-lived archival publishing.</p>
+              <p>BREAD archive.</p>
               <nav aria-label="Footer">
                 <ul>
                   <li><a href="/">Home</a></li>
                   <li><a href="/archive/">Archive</a></li>
-                  <li><a href="/blog/the-story-of-bread/">Story</a></li>
+                  <li><a href="/archive/timeline/">Timeline</a></li>
+                  <li><a href="/story/">Story</a></li>
+                  <li><a href="/blog/">Journal</a></li>
                 </ul>
               </nav>
             </div>
@@ -271,26 +268,6 @@ const resolvedOgImageAlt = ogImageAlt ?? `${title} — ${description}`;
     width: min(52rem, calc(100% - 2rem));
     margin: 0 auto;
     padding: 1.5rem 0 calc(3rem + env(safe-area-inset-bottom));
-  }
-
-  .route-context {
-    margin: 0 0 0.8rem;
-    display: inline-flex;
-    border: 1px solid #cbd5e1;
-    border-radius: var(--radius-pill);
-    padding: 0.3rem 0.7rem;
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: #334155;
-    background: #f8fafc;
-  }
-
-  body.editorial-theme .route-context {
-    border-color: #334155;
-    background: #0f172a;
-    color: #cbd5e1;
   }
 
   .site-footer {

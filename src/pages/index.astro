@@ -74,7 +74,8 @@ const directoryLinks = [
   { label: 'Radio Valencia ↗', href: 'http://www.radiovalencia.fm/', external: true },
   { label: 'Channel & profile directory →', href: '/archive/channel-profile-directory/', external: false },
   { label: 'Timeline & eras →', href: '/archive/timeline/', external: false },
-  { label: 'Story archive →', href: '/blog/the-story-of-bread/', external: false }
+  { label: 'Read the story →', href: '/story/', external: false },
+  { label: 'Browse journal posts →', href: '/blog/', external: false }
 ];
 
 const soundcloudEmbedCollections = [
@@ -249,7 +250,9 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     <nav class="topline-nav" aria-label="Primary routes">
       <a href="/" aria-current="page">Home</a>
       <a href="/archive/">Archive</a>
-      <a href="/blog/the-story-of-bread/">Story</a>
+      <a href="/archive/timeline/">Timeline</a>
+      <a href="/story/">Story</a>
+      <a href="/blog/">Journal</a>
     </nav>
   </div>
 
@@ -273,8 +276,11 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
       </section>
       <section class="route-start rail-card" aria-label="Archive pathways">
         <p class="route-start-title">Archive pathways</p>
-        <p class="route-start-copy">Primary nav covers site-level routes. Use these links to move through archive records.</p>
+        <p class="route-start-copy">Start here: Archive or Story.</p>
         <nav class="primary-routes" aria-label="Archive pathways">
+          <CardLink href="/archive/" label="Explore archive →" />
+          <CardLink href="/story/" label="Read the story →" />
+          <CardLink href="/blog/" label="Browse journal →" />
           <CardLink href="/archive/timeline/" label="Timeline & eras →" />
           <CardLink href="/archive/event-ledger/" label="Event list →" />
           <CardLink href="/archive/people-network/" label="People & network →" />
@@ -296,7 +302,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
       <article class="panel active" id="panel-ledger" role="tabpanel" aria-labelledby="tab-ledger">
         <h2>Event History</h2>
         <p class="result-count" id="eventsResultCount">{documentedChronology.length} events shown</p>
-        <p class="events-intro">Cards highlight the same core fields used in the event list: date, series, venue, and lineup.</p>
+        <p class="events-intro">Each card shows date, series, venue, and lineup.</p>
         <ul class="cards">
           {documentedChronology.map((event, index) => (
             <li class="card" id={`event-${index + 1}`} data-kind="event" data-index={index}>
@@ -343,7 +349,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
 
       <article class="panel" id="panel-audio" role="tabpanel" aria-labelledby="tab-audio" hidden>
         <h2>SoundCloud listening hub</h2>
-        <p class="audio-intro">Listen to BREAD&apos;s profile, playlists, likes, reposts, plus resident SoundCloud profiles in one place.</p>
+        <p class="audio-intro">Listen to profile, playlists, and resident SoundCloud links.</p>
         <div class="audio-actions">
           <button class="chip" type="button" id="loadAudioEmbeds">Load audio embeds</button>
           <a href="https://soundcloud.com/breadfm" target="_blank" rel="noreferrer noopener">Open BREAD profile ↗</a>
@@ -467,7 +473,9 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     <nav aria-label="Footer routes">
       <a href="/">Home</a>
       <a href="/archive/">Archive</a>
-      <a href="/blog/the-story-of-bread/">Story</a>
+      <a href="/archive/timeline/">Timeline</a>
+      <a href="/story/">Story</a>
+      <a href="/blog/">Journal</a>
     </nav>
   </footer>
 </BaseLayout>

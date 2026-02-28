@@ -52,12 +52,76 @@ const roster = [
   { name: 'Shl', role: 'Resident (from 2021)', links: {} }
 ];
 
-const documentedChronology = chronology.filter((event) => event.confidence !== 'unverified');
+const eventSourceDirectory: Record<
+  string,
+  {
+    label: string;
+    href?: string;
+    external?: boolean;
+  }
+> = {
+  'Pilot: Grime City vs BREAD': { label: 'Facebook event', href: 'https://www.facebook.com/events/588841281252200/', external: true },
+  'BREAD #1': { label: 'Archive notes (pending direct URL)' },
+  'BREAD #2': { label: 'Archive notes (pending direct URL)' },
+  'BREAD #3': {
+    label: 'Facebook event',
+    href: 'https://www.facebook.com/events/d41d8cd9/bread-3-wdoctor-jeep-patrick-brian-ballast-javascript-sha-sha-kimbo/1013123788738124/',
+    external: true
+  },
+  'Addison Groove special': { label: 'Archive notes (pending direct URL)' },
+  'BREAD #5': { label: 'Flyer image', href: '/bread-jlin-planet-mu-iyer-2016-03-25-flyer.jpg' },
+  'BREAD #7': { label: 'Flyer image', href: '/bread-number-seven-celestial-trax-may-21.jpg' },
+  'BREAD #8': { label: 'Facebook event', href: 'https://www.facebook.com/events/1755008908099419/', external: true },
+  'Toasted Trax #1': { label: 'Flyer image', href: '/toasted-trax-number-one-june-29.jpg' },
+  'BREAD #9': {
+    label: 'Facebook event',
+    href: 'https://www.facebook.com/events/public-works-sf/bread-9-w-dbm-deadboy-murlo-blackdown/813388422095198/',
+    external: true
+  },
+  'BREAD #10 / Parameter x BREAD': { label: 'Flyer image', href: '/bread-number-ten-pinch-rabit-mumdance-logos-caski-ganesa-aug-19.png' },
+  'BREAD weekend special': { label: 'Flyer image', href: '/bread-long-weekend-special-september-4.jpg' },
+  'Toasted Trax #2': {
+    label: 'Facebook event',
+    href: 'https://www.facebook.com/events/d41d8cd9/bread-sf-presents-toasted-trax-2/1792378097640992/',
+    external: true
+  },
+  'Sure Thing x BREAD showcase': {
+    label: 'Facebook event',
+    href: 'https://www.facebook.com/events/60-6th-st-san-francisco-ca-94103-1609-united-states/sure-thing-bread-sf-lobster-theremin-showcase/1062894940491694/',
+    external: true
+  },
+  'BREAD #12': {
+    label: 'Facebook event',
+    href: 'https://www.facebook.com/events/d41d8cd9/bread-12-w-na-dubbel-dutch-tsvi/1793167794291121/',
+    external: true
+  },
+  'BREAD SF: DJ J Heat': {
+    label: 'Facebook event',
+    href: 'https://www.facebook.com/events/d41d8cd9/bread-sf-dj-j-heat-night-slugs-kieran-loftus/1603512559678229/',
+    external: true
+  },
+  'UGSF marker': { label: 'Facebook event', href: 'https://www.facebook.com/events/d41d8cd9/bread-sf-mr-mitch-planet-mu-kozee-prawns/277151372731142/', external: true },
+  'Roska night': { label: 'Facebook event', href: 'https://www.facebook.com/events/1422866204488341/', external: true },
+  'Late UGSF marker': { label: 'Flyer image', href: '/bread-suda-kelman-duran-bread-djs-sept-22.jpg' },
+  'Final club-night marker': { label: 'Archive notes (pending direct URL)' },
+  'BREAD New Year "YXEXAXR"': { label: 'Flyer image', href: '/bread-new-year-yxexaxr-jan-2.jpg' },
+  'Six Years of BREAD': { label: 'Archive notes (pending direct URL)' },
+  'Long Bread Summer Stream': { label: 'Flyer image', href: '/bread-long-bread-summer-fundraiser-july-10.png' }
+};
+
+const documentedChronology = chronology
+  .filter((event) => event.confidence !== 'unverified')
+  .map((event) => ({
+    ...event,
+    source: eventSourceDirectory[event.title] ?? { label: 'Archive notes (pending direct URL)' }
+  }));
 const hasMeaningfulStatus = (event: (typeof chronology)[number]) => event.status && event.status !== 'played';
 const activeYears = new Set(documentedChronology.map((event) => event.year)).size;
+const sourceLinkedEvents = documentedChronology.filter((event) => Boolean(event.source.href)).length;
 const summaryStats = [
   { label: 'Documented events', value: documentedChronology.length },
   { label: 'Active years', value: activeYears },
+  { label: 'Events with direct sources', value: sourceLinkedEvents },
   { label: 'Residents listed', value: roster.length }
 ];
 
@@ -299,7 +363,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
       <article class="panel active" id="panel-ledger" role="tabpanel" aria-labelledby="tab-ledger">
         <h2>Event History</h2>
         <p class="result-count" id="eventsResultCount">{documentedChronology.length} events shown</p>
-        <p class="events-intro">Each card shows date, series, venue, and lineup.</p>
+        <p class="events-intro">Each card shows date, series, venue, lineup, and source status from the event ledger.</p>
         <ul class="cards">
           {documentedChronology.map((event, index) => (
             <li class="card" id={`event-${index + 1}`} data-kind="event" data-index={index}>
@@ -308,6 +372,11 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
                   <p class="title">{event.title}</p>
                   <p class="meta">{event.year} · {event.date} · {event.venue}</p>
                   <p class="lineup">{event.lineup}</p>
+                  {event.source.href ? (
+                    <p class="status">source: <a href={event.source.href} target={event.source.external ? '_blank' : undefined} rel={event.source.external ? 'noreferrer noopener' : undefined}>{event.source.label}</a></p>
+                  ) : (
+                    <p class="status">source: {event.source.label}</p>
+                  )}
                   {hasMeaningfulStatus(event) && <p class="status">status: {event.status}</p>}
                 </div>
               </button>
@@ -1643,12 +1712,20 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
         if (!event) return;
         const statusDescription = event.status && event.status !== 'played' ? ` Status: ${event.status}.` : '';
 
+        const eventLinks = [
+          { href: '/archive/timeline/', label: 'View full timeline →', external: false },
+          { href: '/archive/event-ledger/', label: 'Open event ledger →', external: false }
+        ];
+        if (event.source.href) {
+          eventLinks.push({ href: event.source.href, label: `${event.source.label} ↗`, external: Boolean(event.source.external) });
+        }
+
         updateDeck({
           tag: 'EVENT',
           title: event.title,
           data: `${event.year} · ${event.date} · ${event.venue}`,
-          desc: `${event.lineup}.${statusDescription}`,
-          links: [{ href: '/archive/timeline/', label: 'View full timeline →', external: false }]
+          desc: `${event.lineup}. Source: ${event.source.label}.${statusDescription}`,
+          links: eventLinks
         });
         return;
       }

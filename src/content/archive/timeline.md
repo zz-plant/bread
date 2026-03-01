@@ -37,28 +37,15 @@ tags:
 - **2021-07-10:** "Long Bread Summer" stream staged as a fundraiser for Rebuilding Alliance and Oxygen for India.
 - **2022–2023:** indexed traces show BREAD FM programming activity via Internet Public Radio and HKCR.
 
-## Event-level detail set (expanded)
+## Canonical timeline rendering
 
-For row-level event tracking with source-basis fields, use the [Event List (Working)](/archive/event-ledger/).
+The canonical timeline experience is maintained in the dedicated route at [/archive/timeline/](/archive/timeline/).
 
-| Date | Venue / Platform | Event label | Primary details | Verification status |
-| --- | --- | --- | --- | --- |
-| 2015-02-13 | F8, SF | Pilot (Grime City vs BREAD) | Nevermind + Helix listed in recovered event page metadata. | `strong` |
-| 2015-05-29 | SF listing | BREAD #1 period | Early public cadence marker via screenshot trace. | `strong` |
-| 2015-11-06 | F8, SF | BREAD #3 period | Doctor Jeep + supporting lineup recovered via event listing metadata. | `strong` |
-| 2016-03-25 | F8, SF | BREAD #5 / Jlin window | Jlin + Iyer flyer artifact and event URL are both tracked in archive assets. | `strong` |
-| 2016-06-29 | Codeword, SF | Toasted Trax #1 | Abyss X / DHRA / DJ Spider / Gabes / Gewzer b2b Cage A. | `strong` |
-| 2016-08-19 | F8, SF | BREAD #10 / Parameter x BREAD | Pinch, Rabit, Mumdance, Logos, Caski and Ganesa in flyer corpus. | `strong` |
-| 2016-09-04 | 2389 Mission St context | BREAD weekend special | Dehousy / Nargiz / The Dance Pit appears in screenshot corpus. | `strong` |
-| 2016-10-21 | SF listing | Toasted Trax #2 | Event URL recovered; lineup extraction still in progress. | `strong` |
-| 2016-11-19 | 60 6th St, SF | Sure Thing x BREAD showcase | Lobster Theremin showcase listed in recovered event metadata. | `strong` |
-| 2017-05-26 | Underground SF | UGSF phase marker | Mr. Mitch + Kozee (+ Prawns) recovered via event metadata. | `strong` |
-| 2017-07-28 | SF listing | Roska night | Roska, misoh, tf1000 listed in recovered event metadata. | `strong` |
-| 2017-09-22 | Underground SF | Late UGSF marker | Kelman Duran + Suda appears in screenshot/notes alignment. | `strong` |
-| 2018-05-12 | OMG (noted) | Final club-night era marker | Closing period associated with Gila + Neana framing in archive notes. | `user-archive` |
-| 2021-01-02 | Twitch | New Year fundraiser | Multi-time-zone telethon; NBDA + ASF noted in post text. | `strong` |
-| 2021-03-13 | Twitch | Six Years stream | Anniversary stream window and mutual-aid framing (direct link still pending). | `user-archive` |
-| 2021-07-10 | Twitch | Long Bread Summer | Fundraiser for Rebuilding Alliance and Oxygen for India. | `strong` |
+To avoid timeline drift, dated milestones and era cards are intentionally managed in that route component.
+
+## Event-level detail set
+
+For row-level event tracking with source-basis fields and source links, use the [Event List (Working)](/archive/event-ledger/).
 
 ## Event discovery leads from research
 

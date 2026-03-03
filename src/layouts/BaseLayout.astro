@@ -126,6 +126,11 @@ const resolvedOgImageAlt = ogImageAlt ?? `${title} — ${description}`;
         </main>
       )
     }
+    <script>
+      import { enableHapticNavigation } from '../utils/haptics';
+
+      enableHapticNavigation();
+    </script>
   </body>
 </html>
 

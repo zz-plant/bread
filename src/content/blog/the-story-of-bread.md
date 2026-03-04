@@ -48,22 +48,22 @@ Documented campaigns reference support for organizations including NBDA, Atlanta
 
 ## Quick timeline snapshot
 
-This table lists key milestones. For full rows and notes, use the event list.
+This table gives a quick, plain-English timeline. For full rows and links, use the event list.
 
-| Date       | Marker                      | Format     | Notes                                                                                 |
-| ---------- | --------------------------- | ---------- | ------------------------------------------------------------------------------------- |
-| 2015-02-13 | F8 pilot phase              | Club night | Grime City x BREAD pilot with Nevermind and Helix appears in recovered event listings. |
-| 2015-11-06 | BREAD #3 marker             | Club night | Doctor Jeep-era lineup appears in recovered listings.                                  |
-| 2016-03-25 | Jlin-era milestone          | Club night | Jlin / Iyer period is represented in both event URLs and flyer assets.                |
-| 2016-06-29 | Toasted Trax #1             | Club night | Codeword event with Abyss X, DHRA, DJ Spider, Gabes, Gewzer b2b Cage A.               |
-| 2016-08-19 | Parameter x BREAD marker    | Club night | Pinch, Rabit, Mumdance, Logos, Caski, Ganesa in tracked flyer corpus.                 |
-| 2016-11-19 | Sure Thing x BREAD showcase | Club night | Lobster Theremin showcase appears in recovered listings.                               |
-| 2017-05-26 | Underground SF-era marker   | Club night | Mr. Mitch, Kozee, and Prawns marker appears in recovered listings.                     |
-| 2017-09-22 | Late Underground SF marker  | Club night | Kelman Duran + Suda period represented in tracked flyer assets.                       |
-| 2018-05-12 | Final chapter marker        | Club night | End marker for the original club-night run in current records.                        |
-| 2021-01-02 | New Year fundraiser stream  | Livestream | Multi-time-zone no-cover fundraiser lineup in tracked flyer assets.                   |
-| 2021-03-13 | Six Years stream            | Livestream | Anniversary stream remains tracked as a user-archive row pending direct link capture. |
-| 2021-07-10 | Long Bread Summer           | Livestream | Fundraiser stream for Rebuilding Alliance and Oxygen for India.                       |
+| Date       | Moment                     | Type       | What happened                                                                        |
+| ---------- | -------------------------- | ---------- | ------------------------------------------------------------------------------------ |
+| 2015-02-13 | Early F8 pilot             | Club night | Grime City x BREAD pilot night with Nevermind and Helix.                             |
+| 2015-11-06 | BREAD #3                   | Club night | One of the early numbered BREAD nights, featuring Doctor Jeep.                       |
+| 2016-03-25 | Jlin night                 | Club night | Jlin and Iyer appear in this period, documented in event links and flyers.           |
+| 2016-06-29 | Toasted Trax #1            | Club night | Codeword event with Abyss X, DHRA, DJ Spider, Gabes, and Gewzer b2b Cage A.          |
+| 2016-08-19 | Parameter x BREAD          | Club night | Lineup included Pinch, Rabit, Mumdance, Logos, Caski, and Ganesa.                    |
+| 2016-11-19 | Sure Thing x BREAD         | Club night | Collaboration with the Lobster Theremin showcase.                                    |
+| 2017-05-26 | Underground SF period      | Club night | Lineup included Mr. Mitch, Kozee, and Prawns.                                        |
+| 2017-09-22 | Late Underground SF period | Club night | Lineup included Kelman Duran and Suda.                                               |
+| 2018-05-12 | End of original run        | Club night | Current records place the end of the original BREAD run here.                        |
+| 2021-01-02 | New Year fundraiser        | Livestream | No-cover fundraiser stream with a multi-artist lineup.                               |
+| 2021-03-13 | Six Years stream           | Livestream | Anniversary stream listed in the archive; direct source links are still being added. |
+| 2021-07-10 | Long Bread Summer          | Livestream | Fundraiser stream supporting Rebuilding Alliance and Oxygen for India.               |
 
 ## Still being updated
 

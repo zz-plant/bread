@@ -2,7 +2,7 @@
 title: Event List
 description: Event-by-event list in plain language for ongoing archive updates.
 order: 3
-updated: 2026-02-28
+updated: 2026-03-04
 tags:
   - archive
   - events
@@ -41,21 +41,36 @@ This page tracks known BREAD events and open leads. Rows are sorted by date.
 | 2016-11-19 | Sure Thing x BREAD showcase   | 60 6th St (SF)            | Lobster Theremin showcase billing                              | [Facebook event](https://www.facebook.com/events/60-6th-st-san-francisco-ca-94103-1609-united-states/sure-thing-bread-sf-lobster-theremin-showcase/1062894940491694/) | strong       |
 | 2016-12-09 | BREAD #12                     | Club 6ix (noted)          | NA/Nguzunguzu, TSVI, Dubbel Dutch                              | [Facebook event](https://www.facebook.com/events/d41d8cd9/bread-12-w-na-dubbel-dutch-tsvi/1793167794291121/)                                                          | strong       |
 | 2017-03-24 | BREAD SF: DJ J Heat           | SF (noted)                | DJ J Heat, Kieran Loftus                                       | [Facebook event](https://www.facebook.com/events/d41d8cd9/bread-sf-dj-j-heat-night-slugs-kieran-loftus/1603512559678229/)                                             | strong       |
-| 2017-05-26 | UGSF marker                   | Underground SF            | Mr. Mitch, Kozee, Prawns                                       | [Facebook event](https://www.facebook.com/events/d41d8cd9/bread-sf-mr-mitch-planet-mu-kozee-prawns/277151372731142/)                                                  | strong       |
+| 2017-05-26 | UGSF period event             | Underground SF            | Mr. Mitch, Kozee, Prawns                                       | [Facebook event](https://www.facebook.com/events/d41d8cd9/bread-sf-mr-mitch-planet-mu-kozee-prawns/277151372731142/)                                                  | strong       |
 | 2017-07-28 | Roska night                   | SF (noted)                | Roska, misoh, tf1000                                           | [Facebook event](https://www.facebook.com/events/1422866204488341/)                                                                                                   | strong       |
-| 2017-09-22 | Late UGSF marker              | Underground SF            | Kelman Duran, Suda, BREAD DJs                                  | [Flyer image](/bread-suda-kelman-duran-bread-djs-sept-22.jpg)                                                                                                         | strong       |
-| 2018-05-12 | Final club-night marker       | OMG (noted)               | Gila, Neana                                                    | archive notes (link coming soon)                                                                                                                                      | user-archive |
+| 2017-09-22 | Late UGSF period event        | Underground SF            | Kelman Duran, Suda, BREAD DJs                                  | [Flyer image](/bread-suda-kelman-duran-bread-djs-sept-22.jpg)                                                                                                         | strong       |
+| 2018-05-12 | Final club-night era event    | OMG (noted)               | Gila, Neana                                                    | archive notes (link coming soon)                                                                                                                                      | user-archive |
 
 ## 2021 fundraiser streams
 
 | Date       | Series                   | Venue/platform | Lineup highlights                                                               | Main source                                                    | Status       |
 | ---------- | ------------------------ | -------------- | ------------------------------------------------------------------------------- | -------------------------------------------------------------- | ------------ |
-| 2021-01-02 | BREAD New Year "YXEXAXR" | Twitch         | Color Plus, Gila, Zaida, Wonja, Prawns, Adam Kraft, exteeng, botaz, tf1000, shl | [Flyer image](/bread-new-year-yxexaxr-jan-2.jpg)               | strong       |
-| 2021-03-13 | Six Years of BREAD       | Twitch         | Resident-led anniversary lineup                                                 | archive notes (link coming soon)                               | user-archive |
+| 2021-01-02 | BREAD New Year "YXEXAXR" | Twitch         | Color Plus, Gila, Zaida, Wonja, Prawns, Adam Kraft, exteeng, botaz, tf1000, shl | [Instagram post](https://www.instagram.com/p/CJed4dGFKbz/)     | strong       |
+| 2021-03-13 | Six Years of BREAD       | Twitch         | Resident-led anniversary lineup                                                 | [Instagram post](https://www.instagram.com/p/CL44SfGli4d/)     | strong       |
 | 2021-07-10 | Long Bread Summer        | Twitch         | Anónima, Bahar Khadem, Exteeng, residents                                       | [Flyer image](/bread-long-bread-summer-fundraiser-july-10.png) | strong       |
+
+## 2022–2024 radio and return-to-events updates
+
+| Date       | Series / program                 | Venue/platform               | Lineup highlights                                             | Main source                                               | Status |
+| ---------- | -------------------------------- | ---------------------------- | ------------------------------------------------------------- | --------------------------------------------------------- | ------ |
+| 2022-07-27 | BREAD FM monthly launch announcement | Internet Public Radio     | New monthly show framing                                      | [Instagram post](https://www.instagram.com/p/Cgfdlh4Pdtx/) | strong |
+| 2022-09-28 | IPR monthly series episode       | Internet Public Radio        | Resident format announcement                                  | [Instagram post](https://www.instagram.com/p/CjDoP1aLQjh/) | strong |
+| 2023-03-16 | Tokyo run (show 1) announcement  | Kagurane Tokyo               | Wao Nao, Bao Nao, S_ IDNEY, Exteeng                           | [Instagram post](https://www.instagram.com/p/CpjVIOdrupR/) | strong |
+| 2023-03-19 | Tokyo run (show 2) announcement  | Space Tokyo                  | Ratchimera live + DJs                                         | [Instagram post](https://www.instagram.com/p/CpjVlkxLNqW/) | strong |
+| 2023-03-29 | IPR monthly series episode       | Internet Public Radio        | Guest mix from Bastiengoat                                    | [Instagram post](https://www.instagram.com/p/CqYuOcTyg7v/) | strong |
+| 2023-04-19 | Slug Bar Oakland event announcement | Slug Bar, Oakland         | BREAD billing announcement                                    | [Instagram post](https://www.instagram.com/p/CrPCp7ivZ52/) | strong |
+| 2023-06-15 | HKCR residency announcement      | HKCR (Hong Kong Community Radio) | Residency announcement                                     | [Instagram post](https://www.instagram.com/p/CthThTOpds1/) | strong |
+| 2023-06-15 | HKCR premiere episode            | HKCR                         | Lethal Trax + live set + resident slice                       | [Instagram post](https://www.instagram.com/p/CthVnIVpIgv/) | strong |
+| 2023-09-28 | HKCR episode                     | HKCR / hkcr.live             | Guest Nate (@goondere)                                        | [Instagram post](https://www.instagram.com/p/CxvngwCxnU2/) | strong |
+| 2024-03-21 | SF event post (secret location)  | SOMA area, SF (address by text) | Nhac Gay + Ngo Linh + Mess Vndtown + Exteeng + Weeaboo Diaspora | [Instagram post](https://www.instagram.com/p/C4ygjDoynTY/) | strong |
 
 ## Next clean-up tasks
 
-1. Add missing direct links for currently `user-archive` rows.
-2. Backfill exact venue fields for rows marked `SF (noted)`.
+1. Add direct Instagram links for older `user-archive` rows where captions are minimal or blank.
+2. Backfill exact venue fields for rows still marked `SF (noted)`.
 3. Add a normalized full-lineup field per row once all flyer text is transcribed.

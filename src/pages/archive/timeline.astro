@@ -34,35 +34,37 @@ const eras = [
     title: 'UGSF / Bunker Shift',
     summary: 'More events move toward Underground SF as the sound widens.',
     highlights: [
-      '2017 markers include DJ J Heat, Mr. Mitch + Kozee, Roska, and Kelman Duran period events.',
+      '2017 events include DJ J Heat, Mr. Mitch + Kozee, Roska, and Kelman Duran period bookings.',
       'Event records reflect broader venue shifts happening across the city.',
       '2018 appears as the end of the original recurring club-night run.'
     ]
   },
   {
-    range: '2020–2023',
+    range: '2020–2024',
     title: 'Remote Mutual Aid + Radio Network',
-    summary: 'Activity shifts from in-person nights to fundraiser streams and radio shows.',
+    summary: 'Activity shifts from in-person nights to fundraiser streams, then into radio chapters and later event announcements.',
     highlights: [
       '2020–2021 streams and telethons focus on mutual-aid fundraising.',
       'Available notes point to roughly USD 12K raised across multiple streams.',
-      '2022–2023 traces show BREAD FM activity through Internet Public Radio and HKCR.'
+      '2022 onward traces show BREAD FM activity through Internet Public Radio and HKCR.',
+      'Most recent public post in this pass is a March 21, 2024 SF event announcement.'
     ]
   }
 ];
 
 const milestones = [
-  { date: '2015-02-13', venue: 'F8, SF', label: 'Pilot (Grime City vs BREAD)' },
-  { date: '2016-03-25', venue: 'F8, SF', label: 'BREAD #5 / Jlin window' },
-  { date: '2016-06-29', venue: 'Codeword, SF', label: 'Toasted Trax #1' },
-  { date: '2016-08-19', venue: 'F8, SF', label: 'BREAD #10 / Parameter x BREAD' },
-  { date: '2016-11-19', venue: '60 6th St, SF', label: 'Sure Thing x BREAD showcase' },
-  { date: '2017-05-26', venue: 'Underground SF', label: 'UGSF marker' },
-  { date: '2017-09-22', venue: 'Underground SF', label: 'Late UGSF marker' },
-  { date: '2018-05-12', venue: 'OMG (noted)', label: 'Final club-night era marker' },
-  { date: '2021-01-02', venue: 'Twitch', label: 'New Year fundraiser' },
-  { date: '2021-03-13', venue: 'Twitch', label: 'Six Years anniversary stream (link pending)' },
-  { date: '2021-07-10', venue: 'Twitch', label: 'Long Bread Summer fundraiser' }
+  { date: '2015-02-13', venue: 'F8, SF', label: 'Pilot (Grime City vs BREAD)', sourceLabel: 'Facebook event', sourceHref: 'https://www.facebook.com/events/588841281252200/' },
+  { date: '2016-03-25', venue: 'F8, SF', label: 'BREAD #5 / Jlin window', sourceLabel: 'Flyer image', sourceHref: '/bread-jlin-planet-mu-iyer-2016-03-25-flyer.jpg' },
+  { date: '2016-06-29', venue: 'Codeword, SF', label: 'Toasted Trax #1', sourceLabel: 'Flyer image', sourceHref: '/toasted-trax-number-one-june-29.jpg' },
+  { date: '2016-08-19', venue: 'F8, SF', label: 'BREAD #10 / Parameter x BREAD', sourceLabel: 'Flyer image', sourceHref: '/bread-number-ten-pinch-rabit-mumdance-logos-caski-ganesa-aug-19.png' },
+  { date: '2016-11-19', venue: '60 6th St, SF', label: 'Sure Thing x BREAD showcase', sourceLabel: 'Facebook event', sourceHref: 'https://www.facebook.com/events/60-6th-st-san-francisco-ca-94103-1609-united-states/sure-thing-bread-sf-lobster-theremin-showcase/1062894940491694/' },
+  { date: '2017-05-26', venue: 'Underground SF', label: 'UGSF period event', sourceLabel: 'Facebook event', sourceHref: 'https://www.facebook.com/events/d41d8cd9/bread-sf-mr-mitch-planet-mu-kozee-prawns/277151372731142/' },
+  { date: '2017-09-22', venue: 'Underground SF', label: 'Late UGSF period event', sourceLabel: 'Flyer image', sourceHref: '/bread-suda-kelman-duran-bread-djs-sept-22.jpg' },
+  { date: '2021-01-02', venue: 'Twitch', label: 'New Year fundraiser', sourceLabel: 'Instagram post', sourceHref: 'https://www.instagram.com/p/CJed4dGFKbz/' },
+  { date: '2021-03-13', venue: 'Twitch', label: 'Six Years anniversary stream', sourceLabel: 'Instagram post', sourceHref: 'https://www.instagram.com/p/CL44SfGli4d/' },
+  { date: '2022-07-27', venue: 'Internet Public Radio', label: 'Monthly show launch announcement', sourceLabel: 'Instagram post', sourceHref: 'https://www.instagram.com/p/Cgfdlh4Pdtx/' },
+  { date: '2023-06-15', venue: 'HKCR', label: 'HKCR residency announcement', sourceLabel: 'Instagram post', sourceHref: 'https://www.instagram.com/p/CthThTOpds1/' },
+  { date: '2024-03-21', venue: 'SOMA area, SF', label: 'SF event announcement (secret location flow)', sourceLabel: 'Instagram post', sourceHref: 'https://www.instagram.com/p/C4ygjDoynTY/' }
 ];
 ---
 
@@ -70,7 +72,7 @@ const milestones = [
   title={timelinePage.data.title}
   description={timelinePage.data.description}
   ogImage="/og/timeline.svg"
-  ogImageAlt="BREAD timeline from 2015 club events through 2021 streaming chapters"
+  ogImageAlt="BREAD timeline from 2015 club events through 2024 radio and event announcements"
 >
   <header class="timeline-hero">
     <p class="eyebrow">Archive section</p>
@@ -95,7 +97,7 @@ const milestones = [
     }
   </section>
 
-  <section class="milestones" aria-label="Key dated markers">
+  <section class="milestones" aria-label="Key dated events">
     <h2>Key dates</h2>
     <ol>
       {
@@ -104,6 +106,18 @@ const milestones = [
             <p class="date">{milestone.date}</p>
             <p class="label">{milestone.label}</p>
             <p class="venue">{milestone.venue}</p>
+            {milestone.sourceHref && (
+              <p class="source">
+                source:{' '}
+                <a
+                  href={milestone.sourceHref}
+                  target={milestone.sourceHref.startsWith('http') ? '_blank' : undefined}
+                  rel={milestone.sourceHref.startsWith('http') ? 'noreferrer noopener' : undefined}
+                >
+                  {milestone.sourceLabel ?? 'link'}
+                </a>
+              </p>
+            )}
           </li>
         ))
       }
@@ -215,7 +229,8 @@ const milestones = [
 
   .date,
   .label,
-  .venue {
+  .venue,
+  .source {
     margin: 0;
   }
 
@@ -234,6 +249,12 @@ const milestones = [
     color: #94a3b8;
     margin-top: 0.1rem;
     font-size: 0.92rem;
+  }
+
+  .source {
+    color: #cbd5e1;
+    margin-top: 0.2rem;
+    font-size: 0.88rem;
   }
 
   .next-links ul {

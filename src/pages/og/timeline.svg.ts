@@ -5,7 +5,7 @@ export function GET() {
     createOgSvg({
       eyebrow: "BREAD ARCHIVE",
       title: "Timeline",
-      subtitle: "From 2015 club nights to 2021 mutual-aid streaming chapters.",
+      subtitle: "From 2015 club nights to 2024 radio and event announcements.",
       variant: "archive",
     }),
   );

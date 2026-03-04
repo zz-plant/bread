@@ -1,8 +1,8 @@
 ---
 title: Timeline
-description: A plain timeline of BREAD from early club nights to mutual-aid streams.
+description: A plain timeline of BREAD from early club nights to radio chapters and 2024 event announcements.
 order: 2
-updated: 2026-02-28
+updated: 2026-03-04
 tags:
   - archive
   - timeline
@@ -28,14 +28,16 @@ tags:
 - The sound broadens toward warmer, diasporic rhythmic frameworks.
 - Timeline materials include Mr. Mitch + Kozee and Kelman Duran periods, with 2018 marking final club-night phase.
 
-## Era 4 — Remote Mutual Aid + Radio Network (2020–2023)
+## Era 4 — Remote Mutual Aid + Radio Network (2020–2024)
 
 - **2020–2021:** livestream/telethon format focused on fundraising.
 - Screenshot materials and user-archive notes align on approximately **USD 12K** raised across multiple streams.
-- **2021-01-02:** New Year telethon with multi-time-zone schedule and no-cover framing.
-- **2021-03-13:** Six Years stream appears as anniversary fundraiser period.
+- **2021-01-02:** New Year telethon with multi-time-zone schedule and no-cover framing ([Instagram post](https://www.instagram.com/p/CJed4dGFKbz/)).
+- **2021-03-13:** Six Years stream appears as anniversary fundraiser period ([Instagram post](https://www.instagram.com/p/CL44SfGli4d/)).
 - **2021-07-10:** "Long Bread Summer" stream staged as a fundraiser for Rebuilding Alliance and Oxygen for India.
-- **2022–2023:** public traces show BREAD FM activity via Internet Public Radio and HKCR.
+- **2022-07 onward:** monthly BREAD FM programming appears on Internet Public Radio ([Instagram post](https://www.instagram.com/p/Cgfdlh4Pdtx/)).
+- **2023-06:** residency announcement and premiere appear on HKCR ([announcement](https://www.instagram.com/p/CthThTOpds1/), [premiere](https://www.instagram.com/p/CthVnIVpIgv/)).
+- **2024-03-21:** latest public post in this pass is an SF event announcement with a secret SOMA location flow ([Instagram post](https://www.instagram.com/p/C4ygjDoynTY/)).
 
 ## Timeline page
 

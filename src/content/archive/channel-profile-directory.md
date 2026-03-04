@@ -2,7 +2,7 @@
 title: Links
 description: Link list for BREAD channels, member profiles, and recovered event URLs.
 order: 7
-updated: 2026-02-18
+updated: 2026-03-04
 tags:
   - archive
   - links
@@ -22,6 +22,17 @@ tags:
 - X / Twitter (BREAD SF): <https://x.com/breadsf>
 - Resident Advisor promoter page: <https://ra.co/promoters/51043>
 - Radio Valencia (host site): <http://www.radiovalencia.fm/>
+
+## Selected Instagram post references (timeline)
+
+- 2024-03-21 SF event announcement: <https://www.instagram.com/p/C4ygjDoynTY/>
+- 2023-06-15 HKCR residency announcement: <https://www.instagram.com/p/CthThTOpds1/>
+- 2023-06-15 HKCR premiere episode: <https://www.instagram.com/p/CthVnIVpIgv/>
+- 2023-03-29 Internet Public Radio monthly episode: <https://www.instagram.com/p/CqYuOcTyg7v/>
+- 2022-07-26 Internet Public Radio monthly launch announcement: <https://www.instagram.com/p/Cgfdlh4Pdtx/>
+- 2021-03-01 Six Years fundraiser stream announcement: <https://www.instagram.com/p/CL44SfGli4d/>
+- 2021-01-02 New Year fundraiser stream announcement: <https://www.instagram.com/p/CJed4dGFKbz/>
+- 2017-09-22 Underground SF period event: <https://www.instagram.com/p/BZUfch2nGBD/>
 
 ## Collaboration links
 

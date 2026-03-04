@@ -25,13 +25,18 @@ const chronology = [
   { year: '2016', date: 'Nov 19', title: 'Sure Thing x BREAD showcase', venue: '60 6th St', lineup: 'Lobster Theremin showcase billing', confidence: 'strong', status: 'played' },
   { year: '2016', date: 'Dec 09', title: 'BREAD #12', venue: 'Club 6ix (noted)', lineup: 'NA, TSVI, Dubbel Dutch', confidence: 'strong', status: 'played' },
   { year: '2017', date: 'Mar 24', title: 'BREAD SF: DJ J Heat', venue: 'SF (noted)', lineup: 'DJ J Heat, Kieran Loftus', confidence: 'strong', status: 'played' },
-  { year: '2017', date: 'May 26', title: 'UGSF marker', venue: 'Underground SF', lineup: 'Mr. Mitch, Kozee, Prawns', confidence: 'strong', status: 'played' },
+  { year: '2017', date: 'May 26', title: 'UGSF period event', venue: 'Underground SF', lineup: 'Mr. Mitch, Kozee, Prawns', confidence: 'strong', status: 'played' },
   { year: '2017', date: 'Jul 28', title: 'Roska night', venue: 'SF (noted)', lineup: 'Roska, misoh, tf1000', confidence: 'strong', status: 'played' },
-  { year: '2017', date: 'Sep 22', title: 'Late UGSF marker', venue: 'Underground SF', lineup: 'Kelman Duran, Suda, BREAD DJs', confidence: 'strong', status: 'played' },
-  { year: '2018', date: 'May 12', title: 'Final club-night marker', venue: 'OMG (noted)', lineup: 'Gila, Neana', confidence: 'user-archive', status: 'played' },
+  { year: '2017', date: 'Sep 22', title: 'Late UGSF period event', venue: 'Underground SF', lineup: 'Kelman Duran, Suda, BREAD DJs', confidence: 'strong', status: 'played' },
+  { year: '2018', date: 'May 12', title: 'Final club-night era event', venue: 'OMG (noted)', lineup: 'Gila, Neana', confidence: 'user-archive', status: 'played' },
   { year: '2021', date: 'Jan 02', title: 'BREAD New Year "YXEXAXR"', venue: 'Twitch', lineup: 'Color Plus, Gila, Zaida, Wonja + residents', confidence: 'strong', status: 'played' },
-  { year: '2021', date: 'Mar 13', title: 'Six Years of BREAD', venue: 'Twitch', lineup: 'Resident-led anniversary lineup', confidence: 'user-archive', status: 'played' },
-  { year: '2021', date: 'Jul 10', title: 'Long Bread Summer Stream', venue: 'Twitch', lineup: 'Anónima, Bahar Khadem, Exteeng, residents', confidence: 'strong', status: 'played' }
+  { year: '2021', date: 'Mar 13', title: 'Six Years of BREAD', venue: 'Twitch', lineup: 'Resident-led anniversary lineup', confidence: 'strong', status: 'played' },
+  { year: '2021', date: 'Jul 10', title: 'Long Bread Summer Stream', venue: 'Twitch', lineup: 'Anónima, Bahar Khadem, Exteeng, residents', confidence: 'strong', status: 'played' },
+  { year: '2022', date: 'Jul 27', title: 'BREAD FM monthly launch announcement', venue: 'Internet Public Radio', lineup: 'Monthly show launch announcement', confidence: 'strong', status: 'played' },
+  { year: '2023', date: 'Mar 29', title: 'IPR monthly series episode', venue: 'Internet Public Radio', lineup: 'Guest mix from Bastiengoat', confidence: 'strong', status: 'played' },
+  { year: '2023', date: 'Jun 15', title: 'HKCR residency announcement', venue: 'HKCR', lineup: 'Residency announcement post', confidence: 'strong', status: 'played' },
+  { year: '2023', date: 'Sep 28', title: 'HKCR episode', venue: 'HKCR / hkcr.live', lineup: 'Guest Nate (goondere)', confidence: 'strong', status: 'played' },
+  { year: '2024', date: 'Mar 21', title: 'SF event announcement (secret SOMA location)', venue: 'SOMA area, SF', lineup: 'Nhac Gay, Ngo Linh, Mess Vndtown, Exteeng, Weeaboo Diaspora', confidence: 'strong', status: 'played' }
 ];
 
 const roster = [
@@ -100,13 +105,18 @@ const eventSourceDirectory: Record<
     href: 'https://www.facebook.com/events/d41d8cd9/bread-sf-dj-j-heat-night-slugs-kieran-loftus/1603512559678229/',
     external: true
   },
-  'UGSF marker': { label: 'Facebook event', href: 'https://www.facebook.com/events/d41d8cd9/bread-sf-mr-mitch-planet-mu-kozee-prawns/277151372731142/', external: true },
+  'UGSF period event': { label: 'Facebook event', href: 'https://www.facebook.com/events/d41d8cd9/bread-sf-mr-mitch-planet-mu-kozee-prawns/277151372731142/', external: true },
   'Roska night': { label: 'Facebook event', href: 'https://www.facebook.com/events/1422866204488341/', external: true },
-  'Late UGSF marker': { label: 'Flyer image', href: '/bread-suda-kelman-duran-bread-djs-sept-22.jpg' },
-  'Final club-night marker': { label: 'Archive notes (link coming soon)' },
-  'BREAD New Year "YXEXAXR"': { label: 'Flyer image', href: '/bread-new-year-yxexaxr-jan-2.jpg' },
-  'Six Years of BREAD': { label: 'Archive notes (link coming soon)' },
-  'Long Bread Summer Stream': { label: 'Flyer image', href: '/bread-long-bread-summer-fundraiser-july-10.png' }
+  'Late UGSF period event': { label: 'Flyer image', href: '/bread-suda-kelman-duran-bread-djs-sept-22.jpg' },
+  'Final club-night era event': { label: 'Archive notes (link coming soon)' },
+  'BREAD New Year "YXEXAXR"': { label: 'Instagram post', href: 'https://www.instagram.com/p/CJed4dGFKbz/', external: true },
+  'Six Years of BREAD': { label: 'Instagram post', href: 'https://www.instagram.com/p/CL44SfGli4d/', external: true },
+  'Long Bread Summer Stream': { label: 'Flyer image', href: '/bread-long-bread-summer-fundraiser-july-10.png' },
+  'BREAD FM monthly launch announcement': { label: 'Instagram post', href: 'https://www.instagram.com/p/Cgfdlh4Pdtx/', external: true },
+  'IPR monthly series episode': { label: 'Instagram post', href: 'https://www.instagram.com/p/CqYuOcTyg7v/', external: true },
+  'HKCR residency announcement': { label: 'Instagram post', href: 'https://www.instagram.com/p/CthThTOpds1/', external: true },
+  'HKCR episode': { label: 'Instagram post', href: 'https://www.instagram.com/p/CxvngwCxnU2/', external: true },
+  'SF event announcement (secret SOMA location)': { label: 'Instagram post', href: 'https://www.instagram.com/p/C4ygjDoynTY/', external: true }
 };
 
 const documentedChronology = chronology
@@ -338,7 +348,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
   <div class="top-chrome">
     <header class="topline">
       <span>BREAD // SAN FRANCISCO</span>
-      <span>2015—2021</span>
+      <span>2015—2024</span>
     </header>
 
     <nav class="topline-nav" aria-label="Primary routes">

@@ -1,8 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import { getCollection, render } from 'astro:content';
 import { formatDate, toContentSlug } from '../../utils/content';
-import { createArticleSchema } from '../../utils/structuredData';
+import { createArticleSchema, createBreadcrumbListSchema } from '../../utils/structuredData';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
@@ -17,6 +18,7 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+const currentSlug = toContentSlug(post.id);
 const postStructuredData = createArticleSchema({
   site: Astro.site,
   pathname: Astro.url.pathname,
@@ -27,12 +29,29 @@ const postStructuredData = createArticleSchema({
   section: 'Story post',
   siteName: 'BREAD'
 });
+
+const breadcrumbItems = [
+  { label: 'Home', href: '/' },
+  { label: 'Story', href: '/story/' },
+  { label: post.data.title }
+];
+
+const breadcrumbStructuredData = createBreadcrumbListSchema({
+  site: Astro.site,
+  items: [
+    { name: 'Home', pathname: '/' },
+    { name: 'Story', pathname: '/story/' },
+    { name: post.data.title, pathname: `/blog/${currentSlug}/` }
+  ]
+});
+
+const structuredDataEntries = [postStructuredData, breadcrumbStructuredData].filter((entry): entry is Record<string, unknown> => Boolean(entry));
 ---
 
 <BaseLayout
   title={post.data.title}
   description={post.data.description}
-  structuredData={postStructuredData}
+  structuredData={structuredDataEntries}
   ogImage={`/og/blog/${toContentSlug(post.id)}.svg`}
   ogImageAlt={`${post.data.title} — ${post.data.description}`}
 >
@@ -42,9 +61,10 @@ const postStructuredData = createArticleSchema({
       <h1>{post.data.title}</h1>
       <p>{post.data.description}</p>
       <p class="section-meta">Published {formatDate(post.data.date)}</p>
+      <Breadcrumbs items={breadcrumbItems} />
       <nav class="section-links" aria-label="Story links">
+        <a href="/story/">Story overview</a>
         <a href="/archive/">Archive index</a>
-        <a href="/story/">Story</a>
       </nav>
     </header>
     <hr />

@@ -3,7 +3,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import { formatDate, toContentSlug } from '../../utils/content';
 import CardLink from '../../components/CardLink.astro';
-import { createCollectionPageSchema } from '../../utils/structuredData';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { createBreadcrumbListSchema, createCollectionPageSchema } from '../../utils/structuredData';
 
 const archivePages = (await getCollection('archive')).sort((a, b) => a.data.order - b.data.order);
 const latestArchiveUpdate = archivePages.reduce((latest, page) =>
@@ -19,6 +20,21 @@ const archiveIndexStructuredData = createCollectionPageSchema({
   isPartOf: 'BREAD'
 });
 
+const breadcrumbItems = [
+  { label: 'Home', href: '/' },
+  { label: 'Archive' }
+];
+
+const breadcrumbStructuredData = createBreadcrumbListSchema({
+  site: Astro.site,
+  items: [
+    { name: 'Home', pathname: '/' },
+    { name: 'Archive', pathname: '/archive/' }
+  ]
+});
+
+const structuredDataEntries = [archiveIndexStructuredData, breadcrumbStructuredData].filter((entry): entry is Record<string, unknown> => Boolean(entry));
+
 const overviewStats = [
   { label: 'Archive sections', value: archivePages.length },
   { label: 'Canonical route', value: 'Archive index' },
@@ -29,7 +45,7 @@ const overviewStats = [
 <BaseLayout
   title="BREAD Archive"
   description="An information architecture for a long-living BREAD archive: overview, timeline, people, and venue shifts."
-  structuredData={archiveIndexStructuredData}
+  structuredData={structuredDataEntries}
   ogImage="/og/archive.svg"
   ogImageAlt="BREAD Archive index covering eras, venues, people, and records"
 >
@@ -38,6 +54,7 @@ const overviewStats = [
     <h1>BREAD Archive</h1>
     <p class="intro">Browse core records: timeline, people, venues, and methods.</p>
     <p class="context">Need narrative context? Read <a href="/story/">Story</a>.</p>
+    <Breadcrumbs items={breadcrumbItems} />
   </header>
 
   <section class="overview-stats" aria-label="Archive overview stats">

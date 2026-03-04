@@ -1,8 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import { getCollection, render } from 'astro:content';
 import { formatDate, toContentSlug } from '../../utils/content';
-import { createCollectionPageSchema } from '../../utils/structuredData';
+import { createBreadcrumbListSchema, createCollectionPageSchema } from '../../utils/structuredData';
 
 export async function getStaticPaths() {
   const hiddenSlugs = new Set(['timeline', 'research-methods-confidence']);
@@ -24,6 +25,7 @@ const previousPage = currentIndex > 0 ? archivePages[currentIndex - 1] : undefin
 const nextPage = currentIndex >= 0 && currentIndex < archivePages.length - 1
   ? archivePages[currentIndex + 1]
   : undefined;
+const currentSlug = toContentSlug(page.id);
 
 const archivePageStructuredData = createCollectionPageSchema({
   site: Astro.site,
@@ -32,12 +34,29 @@ const archivePageStructuredData = createCollectionPageSchema({
   description: page.data.description,
   isPartOf: 'BREAD Archive'
 });
+
+const breadcrumbItems = [
+  { label: 'Home', href: '/' },
+  { label: 'Archive', href: '/archive/' },
+  { label: page.data.title }
+];
+
+const breadcrumbStructuredData = createBreadcrumbListSchema({
+  site: Astro.site,
+  items: [
+    { name: 'Home', pathname: '/' },
+    { name: 'Archive', pathname: '/archive/' },
+    { name: page.data.title, pathname: `/archive/${currentSlug}/` }
+  ]
+});
+
+const structuredDataEntries = [archivePageStructuredData, breadcrumbStructuredData].filter((entry): entry is Record<string, unknown> => Boolean(entry));
 ---
 
 <BaseLayout
   title={page.data.title}
   description={page.data.description}
-  structuredData={archivePageStructuredData}
+  structuredData={structuredDataEntries}
   ogImage={`/og/archive/${toContentSlug(page.id)}.svg`}
   ogImageAlt={`${page.data.title} — ${page.data.description}`}
 >
@@ -47,8 +66,8 @@ const archivePageStructuredData = createCollectionPageSchema({
       <h1>{page.data.title}</h1>
       <p>{page.data.description}</p>
       <p class="section-meta">Last updated {formatDate(page.data.updated)}</p>
-      <nav class="section-links" aria-label="Archive section links">
-        <a href="/archive/">Archive index</a>
+      <Breadcrumbs items={breadcrumbItems} />
+      <nav class="section-pagination" aria-label="Archive section pagination">
         {previousPage && <a href={`/archive/${toContentSlug(previousPage.id)}/`}>← {previousPage.data.title}</a>}
         {nextPage && <a href={`/archive/${toContentSlug(nextPage.id)}/`}>{nextPage.data.title} →</a>}
       </nav>
@@ -89,14 +108,14 @@ const archivePageStructuredData = createCollectionPageSchema({
     text-transform: uppercase;
   }
 
-  .section-links {
+  .section-pagination {
     margin-top: 0.85rem;
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
   }
 
-  .section-links a {
+  .section-pagination a {
     border: 1px solid var(--surface-dark-muted);
     border-radius: 999px;
     padding: 0.45rem 0.8rem;
@@ -106,8 +125,8 @@ const archivePageStructuredData = createCollectionPageSchema({
     background: rgb(2 6 23 / 45%);
   }
 
-  .section-links a:hover,
-  .section-links a:focus-visible {
+  .section-pagination a:hover,
+  .section-pagination a:focus-visible {
     border-color: #475569;
     text-decoration: underline;
   }

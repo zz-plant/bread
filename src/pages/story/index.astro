@@ -1,8 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import { getCollection, render } from 'astro:content';
 import { formatDate, toContentSlug } from '../../utils/content';
-import { createArticleSchema } from '../../utils/structuredData';
+import { createArticleSchema, createBreadcrumbListSchema } from '../../utils/structuredData';
 
 const posts = await getCollection('blog', ({ data }) => !data.draft);
 const storyPost = posts.find((post) => toContentSlug(post.id) === 'the-story-of-bread');
@@ -23,12 +24,27 @@ const postStructuredData = createArticleSchema({
   section: 'Story history',
   siteName: 'BREAD'
 });
+
+const breadcrumbItems = [
+  { label: 'Home', href: '/' },
+  { label: 'Story' }
+];
+
+const breadcrumbStructuredData = createBreadcrumbListSchema({
+  site: Astro.site,
+  items: [
+    { name: 'Home', pathname: '/' },
+    { name: 'Story', pathname: '/story/' }
+  ]
+});
+
+const structuredDataEntries = [postStructuredData, breadcrumbStructuredData].filter((entry): entry is Record<string, unknown> => Boolean(entry));
 ---
 
 <BaseLayout
   title={storyPost.data.title}
   description={storyPost.data.description}
-  structuredData={postStructuredData}
+  structuredData={structuredDataEntries}
   canonical="/story/"
   ogImage="/og/blog/the-story-of-bread.svg"
   ogImageAlt={`${storyPost.data.title} — ${storyPost.data.description}`}
@@ -39,6 +55,7 @@ const postStructuredData = createArticleSchema({
       <h1>{storyPost.data.title}</h1>
       <p>{storyPost.data.description}</p>
       <p class="section-meta">Published {formatDate(storyPost.data.date)}</p>
+      <Breadcrumbs items={breadcrumbItems} />
       <nav class="section-links" aria-label="Story links">
         <a href="/archive/">Archive</a>
         <a href="/archive/timeline/">Timeline</a>

@@ -312,7 +312,7 @@ const homeStructuredData = [
     isPartOf: 'BREAD'
   }),
   createItemListSchema({
-    name: 'BREAD Event History',
+    name: 'BREAD Events',
     description: 'Event timeline shown on the BREAD homepage.',
     itemListElement: eventSchemas
   })
@@ -337,12 +337,12 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
 ---
 
 <BaseLayout
-  title="BREAD // Archive"
+  title="BREAD"
   description="Timeline, people, visuals, and listening links from BREAD."
   showSiteFrame={false}
   structuredData={homeStructuredData}
   ogImage="/og/home.svg"
-  ogImageAlt="BREAD archive home with timeline, people, and radio pathways"
+  ogImageAlt="BREAD home page with timeline, people, and listening links"
 >
   <div class="bg-mark">BREAD</div>
   <div class="top-chrome">
@@ -369,8 +369,8 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
       <div class="rail-head">
         <h1 class="wordmark">BREAD</h1>
       </div>
-      <section class="snapshot rail-card" aria-label="Summary">
-        <p class="snapshot-title">Summary</p>
+      <section class="snapshot rail-card" aria-label="At a glance">
+        <p class="snapshot-title">At a glance</p>
         <ul class="snapshot-list">
           {summaryStats.map((item) => (
             <li>
@@ -380,10 +380,10 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
           ))}
         </ul>
       </section>
-      <section class="route-start rail-card" aria-label="Archive pathways">
-        <p class="route-start-title">Start here</p>
+      <section class="route-start rail-card" aria-label="Quick links">
+        <p class="route-start-title">Quick links</p>
         <p class="route-start-copy">Jump into the archive or read the story.</p>
-        <nav class="primary-routes" aria-label="Archive pathways">
+        <nav class="primary-routes" aria-label="Quick links">
           <CardLink href="/archive/" label="Explore archive →" />
           <CardLink href="/archive/flyers/" label="Flyers →" />
           <CardLink href="/archive/radio-shows/" label="Radio shows →" />
@@ -396,8 +396,8 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
         </nav>
       </section>
       <nav class="tabs rail-card" id="tabs">
-        <p class="tabs-title">Browse sections</p>
-        <div class="tablist" role="tablist" aria-label="Archive sections">
+        <p class="tabs-title">Pick a section</p>
+        <div class="tablist" role="tablist" aria-label="Sections">
           <button class="tab active" role="tab" aria-selected="true" aria-controls="panel-ledger" id="tab-ledger" data-panel="panel-ledger">events</button>
           <button class="tab" role="tab" aria-selected="false" aria-controls="panel-people" id="tab-people" data-panel="panel-people">people</button>
           <button class="tab" role="tab" aria-selected="false" aria-controls="panel-audio" id="tab-audio" data-panel="panel-audio">audio</button>
@@ -408,12 +408,12 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
 
     <main id="home-main" class="content">
       <article class="panel active" id="panel-ledger" role="tabpanel" aria-labelledby="tab-ledger">
-        <h2>Event History</h2>
+        <h2>Events</h2>
         <p class="result-count" id="eventsResultCount">{documentedChronology.length} events shown</p>
         <p class="events-intro">Each card shows date, series, venue, lineup, and where the info came from.</p>
         <section class="featured-visuals" aria-label="Featured visuals">
           <div class="featured-visuals-head">
-            <h3>Featured visuals</h3>
+            <h3>Flyers + photos</h3>
             <p>A few flyer and party photos from the archive.</p>
           </div>
           <ul class="featured-visual-grid">
@@ -434,7 +434,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
         <ul class="cards">
           {documentedChronology.map((event, index) => (
             <li class="card" id={`event-${index + 1}`} data-kind="event" data-index={index}>
-              <button class="pick-btn" data-kind="event" data-index={index} aria-label={`View details for ${event.title}`}>
+              <button class="pick-btn" data-kind="event" data-index={index} aria-label={`Open info for ${event.title}`}>
                 <div>
                   <p class="title">{event.title}</p>
                   <p class="meta">{event.year} · {event.date} · {event.venue}</p>
@@ -457,7 +457,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
         <ul class="cards people">
           {roster.map((person, index) => (
             <li class="card" data-kind="person" data-index={index}>
-              <button class="pick-btn" data-kind="person" data-index={index} aria-label={`View profile links for ${person.name}`}>
+              <button class="pick-btn" data-kind="person" data-index={index} aria-label={`Open links for ${person.name}`}>
                 <div>
                   <p class="title">{person.name}</p>
                   <p class="meta">{person.role}</p>
@@ -470,7 +470,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
       </article>
 
       <article class="panel" id="panel-links" role="tabpanel" aria-labelledby="tab-links" hidden>
-        <h2>Where to explore next</h2>
+        <h2>More links</h2>
         <ul class="route-list">
           {directoryLinks.map((item) => (
             <li>
@@ -505,8 +505,8 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
             </li>
           ))}
         </ul>
-        <section class="resident-audio" aria-label="Resident SoundCloud channels">
-          <h3>Resident SoundCloud channels</h3>
+        <section class="resident-audio" aria-label="Resident channels">
+          <h3>Resident pages</h3>
           <p class="resident-audio-copy">Quick player cards for each resident profile in this archive.</p>
           <ul class="resident-audio-grid">
             {residentSoundcloudProfiles.map((profile) => (
@@ -527,8 +527,8 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
             ))}
           </ul>
         </section>
-        <section class="platform-embeds" aria-label="Other platform embeds">
-          <h3>Other platform embeds</h3>
+        <section class="platform-embeds" aria-label="Other players">
+          <h3>Other players</h3>
           <p class="resident-audio-copy">More listening spots: Internet Public Radio, Apple Podcasts, and Facebook. Instagram and RA are linked in the links tab.</p>
           <ul class="audio-grid">
             <li class="audio-card">
@@ -590,12 +590,12 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     </main>
 
     <aside class="deck" id="detailDeck" aria-live="polite">
-      <button class="deck-toggle" type="button" id="deckToggle" aria-expanded="false" aria-controls="deckContent">Show details</button>
+      <button class="deck-toggle" type="button" id="deckToggle" aria-expanded="false" aria-controls="deckContent">Show info</button>
       <div id="deckContent" class="deck-content">
-      <p class="deck-tag" id="deckTag">Details</p>
-      <h3 id="deckTitle">Pick an item</h3>
-      <p id="deckData">Choose an event or resident to see details.</p>
-      <p id="deckDesc">Dates, venue, lineup, and links will show here.</p>
+      <p class="deck-tag" id="deckTag">Info</p>
+      <h3 id="deckTitle">Pick a card</h3>
+      <p id="deckData">Choose an event or resident.</p>
+      <p id="deckDesc">Dates, venue, lineup, and links show here.</p>
       <div id="deckLinks" class="deck-links"></div>
       </div>
     </aside>
@@ -1734,7 +1734,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
 
     detailDeck.classList.toggle('is-open', isOpen);
     deckToggle.setAttribute('aria-expanded', String(isOpen));
-    deckToggle.textContent = isOpen ? 'Hide details' : 'Show details';
+    deckToggle.textContent = isOpen ? 'Hide info' : 'Show info';
 
     if (!persist) return;
     try {
@@ -1888,7 +1888,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
         }
 
         updateDeck({
-          tag: 'EVENT',
+          tag: 'Event',
           title: event.title,
           data: `${event.year} · ${event.date} · ${event.venue}`,
           desc: `${event.lineup}. Link: ${event.source.label}.${statusDescription}`,
@@ -1907,7 +1907,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
         if (person.links.bc) links.push({ href: person.links.bc, label: 'Bandcamp reference ↗', external: true });
 
         updateDeck({
-          tag: 'PERSON',
+          tag: 'Person',
           title: person.name,
           data: person.role,
           desc: "Quick links to each resident's pages.",

@@ -1,15 +1,30 @@
 export type JsonLdRecord = Record<string, unknown>;
 
-const DEFAULT_SITE_NAME = 'BREAD';
-
-function trimTrailingSlash(value: string): string {
-  return value.endsWith('/') ? value.slice(0, -1) : value;
+interface BreadcrumbItem {
+  name: string;
+  pathname: string;
 }
 
-export function toAbsoluteUrl(site: URL | undefined, pathname: string): string | undefined {
+interface BreadcrumbListItem {
+  "@type": "ListItem";
+  position: number;
+  name: string;
+  item: string;
+}
+
+const DEFAULT_SITE_NAME = "BREAD";
+
+function trimTrailingSlash(value: string): string {
+  return value.endsWith("/") ? value.slice(0, -1) : value;
+}
+
+export function toAbsoluteUrl(
+  site: URL | undefined,
+  pathname: string,
+): string | undefined {
   if (!site) return undefined;
 
-  const normalizedPath = pathname.startsWith('/') ? pathname : `/${pathname}`;
+  const normalizedPath = pathname.startsWith("/") ? pathname : `/${pathname}`;
   return new URL(normalizedPath, site).toString();
 }
 
@@ -24,11 +39,11 @@ export function createWebsiteSchema(params: {
   const url = trimTrailingSlash(site.toString());
 
   return {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
+    "@context": "https://schema.org",
+    "@type": "WebSite",
     name,
     url,
-    ...(description ? { description } : {})
+    ...(description ? { description } : {}),
   };
 }
 
@@ -44,12 +59,12 @@ export function createCollectionPageSchema(params: {
   if (!url) return undefined;
 
   return {
-    '@context': 'https://schema.org',
-    '@type': 'CollectionPage',
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
     name,
     url,
     ...(description ? { description } : {}),
-    ...(isPartOf ? { isPartOf: { '@type': 'WebSite', name: isPartOf } } : {})
+    ...(isPartOf ? { isPartOf: { "@type": "WebSite", name: isPartOf } } : {}),
   };
 }
 
@@ -73,33 +88,33 @@ export function createArticleSchema(params: {
     dateModified,
     authorName = DEFAULT_SITE_NAME,
     section,
-    siteName = DEFAULT_SITE_NAME
+    siteName = DEFAULT_SITE_NAME,
   } = params;
 
   const url = toAbsoluteUrl(site, pathname);
   if (!url) return undefined;
 
   return {
-    '@context': 'https://schema.org',
-    '@type': 'BlogPosting',
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
     headline,
     url,
     datePublished: datePublished.toISOString(),
     dateModified: (dateModified ?? datePublished).toISOString(),
     author: {
-      '@type': 'Organization',
-      name: authorName
+      "@type": "Organization",
+      name: authorName,
     },
     publisher: {
-      '@type': 'Organization',
-      name: siteName
+      "@type": "Organization",
+      name: siteName,
     },
     ...(description ? { description } : {}),
     ...(section ? { articleSection: section } : {}),
     mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': url
-    }
+      "@type": "WebPage",
+      "@id": url,
+    },
   };
 }
 
@@ -123,28 +138,28 @@ export function createEventSchema(params: {
     venueName,
     description,
     status,
-    organizerName = DEFAULT_SITE_NAME
+    organizerName = DEFAULT_SITE_NAME,
   } = params;
 
   const pageUrl = toAbsoluteUrl(site, pagePathname);
   if (!pageUrl) return undefined;
 
   return {
-    '@context': 'https://schema.org',
-    '@type': 'Event',
+    "@context": "https://schema.org",
+    "@type": "Event",
     name,
     startDate,
     eventStatus: status,
     description,
     location: {
-      '@type': 'Place',
-      name: venueName
+      "@type": "Place",
+      name: venueName,
     },
     organizer: {
-      '@type': 'Organization',
-      name: organizerName
+      "@type": "Organization",
+      name: organizerName,
     },
-    url: `${pageUrl}#event-${position}`
+    url: `${pageUrl}#event-${position}`,
   };
 }
 
@@ -156,14 +171,44 @@ export function createItemListSchema(params: {
   const { name, itemListElement, description } = params;
 
   return {
-    '@context': 'https://schema.org',
-    '@type': 'ItemList',
+    "@context": "https://schema.org",
+    "@type": "ItemList",
     name,
     ...(description ? { description } : {}),
     itemListElement: itemListElement.map((item, index) => ({
-      '@type': 'ListItem',
+      "@type": "ListItem",
       position: index + 1,
-      item
-    }))
+      item,
+    })),
+  };
+}
+
+export function createBreadcrumbListSchema(params: {
+  site?: URL;
+  items: BreadcrumbItem[];
+}): JsonLdRecord | undefined {
+  const { site, items } = params;
+  if (!site || items.length < 2) return undefined;
+
+  const itemListElement = items
+    .map((item, index): BreadcrumbListItem | undefined => {
+      const itemUrl = toAbsoluteUrl(site, item.pathname);
+      if (!itemUrl) return undefined;
+
+      return {
+        "@type": "ListItem",
+        position: index + 1,
+        name: item.name,
+        item: itemUrl,
+      };
+    })
+    .filter((item): item is BreadcrumbListItem => Boolean(item));
+
+  if (itemListElement.length < 2) return undefined;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement,
   };
 }

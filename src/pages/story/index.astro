@@ -39,6 +39,45 @@ const breadcrumbStructuredData = createBreadcrumbListSchema({
 });
 
 const structuredDataEntries = [postStructuredData, breadcrumbStructuredData].filter((entry): entry is Record<string, unknown> => Boolean(entry));
+
+const storyGallery = [
+  {
+    src: '/drive/bread-x-grime-city_150213-show.png',
+    alt: 'BREAD x Grime City pilot flyer from February 2015',
+    title: 'Pilot flyer',
+    caption: 'BREAD x Grime City · February 2015'
+  },
+  {
+    src: '/drive/bread2-smaller.jpg',
+    alt: 'BREAD #2 flyer with chain visual treatment',
+    title: 'BREAD #2',
+    caption: 'Flyer artwork · July 2015'
+  },
+  {
+    src: '/drive/bread-3-flyer-final-letter.png',
+    alt: 'BREAD no.3 flyer featuring Doctor Jeep, Kieran Loftus, and others',
+    title: 'BREAD no.3',
+    caption: 'Flyer artwork · November 2015'
+  },
+  {
+    src: '/drive/bread7c-01.png',
+    alt: 'Bread Number Seven poster with bread slice and utility crew imagery',
+    title: 'BREAD Number Seven',
+    caption: 'Flyer artwork · May 2016'
+  },
+  {
+    src: '/drive/2015-07-19-08.54.27.jpg',
+    alt: 'Street documentation of BREAD #2 poster on a utility pole in San Francisco',
+    title: 'Street posting',
+    caption: 'Poster in the city'
+  },
+  {
+    src: '/drive/img_0530.jpg',
+    alt: 'Photo of attendees at a BREAD night',
+    title: 'Inside the venue',
+    caption: 'Night documentation'
+  }
+];
 ---
 
 <BaseLayout
@@ -62,6 +101,25 @@ const structuredDataEntries = [postStructuredData, breadcrumbStructuredData].fil
         <a href="/blog/">Journal</a>
       </nav>
     </header>
+    <section class="story-gallery" aria-label="Story gallery">
+      <p class="section-kicker">Visual trail</p>
+      <h2>Story Gallery</h2>
+      <p class="story-gallery-intro">Selected visuals from flyers and event documentation, placed inline with the long-form narrative.</p>
+      <ul class="story-gallery-grid">
+        {storyGallery.map((item) => (
+          <li>
+            <figure>
+              <img src={item.src} alt={item.alt} loading="lazy" decoding="async" />
+              <figcaption>
+                <p>{item.title}</p>
+                <small>{item.caption}</small>
+              </figcaption>
+            </figure>
+          </li>
+        ))}
+      </ul>
+      <p class="story-gallery-route"><a href="/archive/flyers/">Open full flyer archive →</a></p>
+    </section>
     <hr />
     <Content />
   </article>
@@ -78,6 +136,87 @@ const structuredDataEntries = [postStructuredData, breadcrumbStructuredData].fil
   .story-header {
     display: grid;
     gap: 0.35rem;
+  }
+
+  .story-gallery {
+    margin: 1rem 0 1.2rem;
+    border: 1px solid var(--surface-dark-muted);
+    border-radius: var(--radius-md);
+    background: rgb(2 6 23 / 45%);
+    padding: 0.85rem;
+    display: grid;
+    gap: 0.65rem;
+  }
+
+  .story-gallery h2 {
+    margin: 0;
+    line-height: 1;
+  }
+
+  .story-gallery-intro {
+    margin: 0;
+    color: #cbd5e1;
+  }
+
+  .story-gallery-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.7rem;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+
+  .story-gallery-grid li {
+    border: 1px solid #334155;
+    border-radius: 0.55rem;
+    background: rgb(15 23 42 / 52%);
+    overflow: hidden;
+  }
+
+  .story-gallery-grid figure {
+    margin: 0;
+    display: grid;
+  }
+
+  .story-gallery-grid img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-bottom: 1px solid #334155;
+  }
+
+  .story-gallery-grid figcaption {
+    display: grid;
+    gap: 0.2rem;
+    padding: 0.55rem 0.65rem 0.6rem;
+  }
+
+  .story-gallery-grid figcaption p {
+    margin: 0;
+    color: #f8fafc;
+    font-weight: 600;
+  }
+
+  .story-gallery-grid figcaption small {
+    color: #cbd5e1;
+    font-size: 0.78rem;
+  }
+
+  .story-gallery-route {
+    margin: 0.15rem 0 0;
+  }
+
+  .story-gallery-route a {
+    color: var(--accent-link-dark);
+    text-decoration: none;
+    border-bottom: 1px solid #334155;
+  }
+
+  .story-gallery-route a:hover,
+  .story-gallery-route a:focus-visible {
+    text-decoration: underline;
+    border-bottom-color: #475569;
   }
 
   .section-kicker {
@@ -117,5 +256,11 @@ const structuredDataEntries = [postStructuredData, breadcrumbStructuredData].fil
   .section-links a:focus-visible {
     border-color: #475569;
     text-decoration: underline;
+  }
+
+  @media (max-width: 620px) {
+    .story-gallery-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

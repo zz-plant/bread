@@ -34,9 +34,10 @@ const breadcrumbStructuredData = createBreadcrumbListSchema({
 });
 
 const structuredDataEntries = [archiveIndexStructuredData, breadcrumbStructuredData].filter((entry): entry is Record<string, unknown> => Boolean(entry));
+const archiveRouteCount = archivePages.length + 2;
 
 const overviewStats = [
-  { label: 'Archive sections', value: archivePages.length },
+  { label: 'Archive sections', value: archiveRouteCount },
   { label: 'Canonical route', value: 'Archive index' },
   { label: 'Last synced', value: formatDate(latestArchiveUpdate) }
 ];
@@ -67,6 +68,16 @@ const overviewStats = [
   </section>
 
   <ul class="archive-map">
+    <li>
+      <p class="section-kicker">Archive section</p>
+      <CardLink href="/archive/flyers/" label="Flyers →" />
+      <p>Browse BREAD and Toasted Trax flyer/poster images from top-level assets plus imported archive folders.</p>
+    </li>
+    <li>
+      <p class="section-kicker">Archive section</p>
+      <CardLink href="/archive/radio-shows/" label="Radio shows →" />
+      <p>Browse all BREAD FM artwork cards, with lineup/date details parsed from each radio image filename.</p>
+    </li>
     {
       archivePages.map((page) => (
         <li>

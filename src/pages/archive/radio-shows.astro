@@ -1,0 +1,351 @@
+---
+import { readdirSync } from 'node:fs';
+import { extname } from 'node:path';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import {
+  createBreadcrumbListSchema,
+  createCollectionPageSchema,
+  createItemListSchema
+} from '../../utils/structuredData';
+
+interface ParsedRadioShow {
+  filename: string;
+  imagePath: string;
+  guests: string;
+  dateLabel: string;
+  sortKey: number;
+}
+
+const supportedImageExtensions = new Set(['.jpg', '.jpeg', '.png', '.webp', '.gif', '.avif']);
+const extensionPriority: Record<string, number> = {
+  '.webp': 5,
+  '.jpg': 4,
+  '.jpeg': 4,
+  '.png': 3,
+  '.avif': 2,
+  '.gif': 1
+};
+
+const monthDirectory: Record<string, { index: number; label: string }> = {
+  jan: { index: 1, label: 'January' },
+  january: { index: 1, label: 'January' },
+  feb: { index: 2, label: 'February' },
+  february: { index: 2, label: 'February' },
+  mar: { index: 3, label: 'March' },
+  march: { index: 3, label: 'March' },
+  apr: { index: 4, label: 'April' },
+  april: { index: 4, label: 'April' },
+  may: { index: 5, label: 'May' },
+  jun: { index: 6, label: 'June' },
+  june: { index: 6, label: 'June' },
+  jul: { index: 7, label: 'July' },
+  july: { index: 7, label: 'July' },
+  aug: { index: 8, label: 'August' },
+  august: { index: 8, label: 'August' },
+  sep: { index: 9, label: 'September' },
+  sept: { index: 9, label: 'September' },
+  september: { index: 9, label: 'September' },
+  oct: { index: 10, label: 'October' },
+  october: { index: 10, label: 'October' },
+  nov: { index: 11, label: 'November' },
+  november: { index: 11, label: 'November' },
+  dec: { index: 12, label: 'December' },
+  december: { index: 12, label: 'December' }
+};
+
+const tokenOverrides: Record<string, string> = {
+  dj: 'DJ',
+  djs: 'DJs',
+  tf1000: 'TF1000',
+  shl: 'SHL'
+};
+
+const toTitleToken = (token: string): string => {
+  const normalized = token.toLowerCase();
+  if (tokenOverrides[normalized]) return tokenOverrides[normalized];
+  if (/^\d+$/.test(token)) return token;
+  if (token.length === 1) return token.toUpperCase();
+
+  return token[0].toUpperCase() + token.slice(1).toLowerCase();
+};
+
+const toPersonLabel = (rawSlug: string): string =>
+  rawSlug
+    .split('-')
+    .filter(Boolean)
+    .map((token) => toTitleToken(token))
+    .join(' ');
+
+const getPreferredImageBySlug = () => {
+  const radioDirectory = new URL('../../../public/radio/', import.meta.url);
+  const files = readdirSync(radioDirectory, { withFileTypes: true })
+    .filter((entry) => entry.isFile())
+    .map((entry) => entry.name);
+  const preferredBySlug = new Map<string, string>();
+
+  for (const filename of files) {
+    const extension = extname(filename).toLowerCase();
+    if (!supportedImageExtensions.has(extension)) continue;
+
+    const slug = filename.slice(0, -extension.length).toLowerCase();
+    if (!slug || slug === 'null') continue;
+
+    const current = preferredBySlug.get(slug);
+    if (!current) {
+      preferredBySlug.set(slug, filename);
+      continue;
+    }
+
+    const currentExtension = extname(current).toLowerCase();
+    const nextScore = extensionPriority[extension] ?? 0;
+    const currentScore = extensionPriority[currentExtension] ?? 0;
+    if (nextScore > currentScore) preferredBySlug.set(slug, filename);
+  }
+
+  return [...preferredBySlug.values()].sort((left, right) => left.localeCompare(right));
+};
+
+const parseRadioShow = (filename: string): ParsedRadioShow | undefined => {
+  const extension = extname(filename).toLowerCase();
+  const basename = filename.slice(0, -extension.length);
+  if (!basename.startsWith('bread-fm-')) return undefined;
+
+  const detailSlug = basename.replace(/^bread-fm-/, '');
+  const parts = detailSlug.split('-').filter(Boolean);
+  if (parts.length < 3) return undefined;
+
+  const dayToken = parts[parts.length - 1];
+  const monthToken = parts[parts.length - 2].toLowerCase();
+  const month = monthDirectory[monthToken];
+  const day = Number.parseInt(dayToken, 10);
+  if (!month || Number.isNaN(day) || day < 1 || day > 31) return undefined;
+
+  const guestSlug = parts.slice(0, -2).join('-');
+  if (!guestSlug) return undefined;
+
+  return {
+    filename,
+    imagePath: `/radio/${filename}`,
+    guests: toPersonLabel(guestSlug),
+    dateLabel: `${month.label} ${day}`,
+    sortKey: month.index * 100 + day
+  };
+};
+
+const radioShows = getPreferredImageBySlug()
+  .map((filename) => parseRadioShow(filename))
+  .filter((show): show is ParsedRadioShow => Boolean(show))
+  .sort((left, right) => right.sortKey - left.sortKey || left.guests.localeCompare(right.guests));
+
+const uniqueGuestCount = new Set(radioShows.map((show) => show.guests)).size;
+const monthCount = new Set(radioShows.map((show) => show.dateLabel.split(' ')[0])).size;
+
+const breadcrumbItems = [
+  { label: 'Home', href: '/' },
+  { label: 'Archive', href: '/archive/' },
+  { label: 'Radio shows' }
+];
+
+const breadcrumbStructuredData = createBreadcrumbListSchema({
+  site: Astro.site,
+  items: [
+    { name: 'Home', pathname: '/' },
+    { name: 'Archive', pathname: '/archive/' },
+    { name: 'Radio shows', pathname: '/archive/radio-shows/' }
+  ]
+});
+
+const pageStructuredData = createCollectionPageSchema({
+  site: Astro.site,
+  pathname: Astro.url.pathname,
+  name: 'BREAD Radio Shows',
+  description: 'Gallery of BREAD FM show artwork, with names and dates parsed from radio image assets.',
+  isPartOf: 'BREAD'
+});
+
+const imageListStructuredData = createItemListSchema({
+  name: 'BREAD FM Radio Show Artwork',
+  description: 'Radio show cards generated from the public/radio image filenames.',
+  itemListElement: radioShows.map((show, index) => ({
+    '@type': 'ImageObject',
+    name: `${show.guests} — ${show.dateLabel}`,
+    position: index + 1,
+    contentUrl: Astro.site ? new URL(show.imagePath, Astro.site).toString() : show.imagePath
+  }))
+});
+
+const structuredDataEntries = [pageStructuredData, breadcrumbStructuredData, imageListStructuredData].filter(
+  (entry): entry is Record<string, unknown> => Boolean(entry)
+);
+
+const summaryStats = [
+  { label: 'Shows indexed', value: radioShows.length },
+  { label: 'Unique show bills', value: uniqueGuestCount },
+  { label: 'Months represented', value: monthCount }
+];
+---
+
+<BaseLayout
+  title="BREAD Archive: Radio Shows"
+  description="Browse all BREAD FM radio show images, with lineup and date details extracted from filename metadata."
+  structuredData={structuredDataEntries}
+  ogImageAlt="BREAD FM radio show artwork gallery"
+>
+  <header class="page-header panel">
+    <p class="section-kicker">Archive section</p>
+    <h1>Radio Shows</h1>
+    <p class="intro">All radio image assets, mapped into cards using filename details for lineup and date.</p>
+    <p class="context">Need full channel links? Open <a href="/archive/channel-profile-directory/">Channel &amp; Profile Directory</a>. Looking for club-night visuals? Open <a href="/archive/flyers/">Flyers</a>.</p>
+    <Breadcrumbs items={breadcrumbItems} />
+  </header>
+
+  <section class="overview-stats" aria-label="Radio show stats">
+    {summaryStats.map((item) => (
+      <p>
+        <span>{item.value}</span>
+        <small>{item.label}</small>
+      </p>
+    ))}
+  </section>
+
+  <section class="show-grid" aria-label="Radio show artwork gallery">
+    {radioShows.map((show, index) => (
+      <article class="show-card panel" id={`show-${index + 1}`}>
+        <img src={show.imagePath} alt={`BREAD FM artwork for ${show.guests} on ${show.dateLabel}`} loading="lazy" decoding="async" />
+        <div class="show-meta">
+          <p class="show-title">{show.guests}</p>
+          <p class="show-date">{show.dateLabel}</p>
+          <p class="show-file">asset: <code>{show.filename}</code></p>
+          <p class="show-action"><a href={show.imagePath} target="_blank" rel="noreferrer noopener">Open full image ↗</a></p>
+        </div>
+      </article>
+    ))}
+  </section>
+</BaseLayout>
+
+<style>
+  .panel {
+    border: 1px solid var(--surface-dark-muted);
+    border-radius: var(--radius-md);
+    background: rgb(15 23 42 / 55%);
+    padding: 1rem;
+  }
+
+  .page-header {
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .section-kicker {
+    margin: 0;
+    color: #94a3b8;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .intro,
+  .context {
+    margin: 0;
+    color: #cbd5e1;
+  }
+
+  .overview-stats {
+    margin: 1rem 0 1.2rem;
+    display: grid;
+    gap: 0.7rem;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  }
+
+  .overview-stats p {
+    margin: 0;
+    border: 1px solid var(--surface-dark-muted);
+    border-radius: var(--radius-md);
+    background: rgb(2 6 23 / 45%);
+    padding: 0.75rem 0.85rem;
+    display: grid;
+    gap: 0.2rem;
+  }
+
+  .overview-stats span {
+    color: #f8fafc;
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+
+  .overview-stats small {
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    font-size: 0.64rem;
+  }
+
+  .show-grid {
+    display: grid;
+    gap: 0.9rem;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+
+  .show-card {
+    padding: 0.8rem;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .show-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 0.45rem;
+    border: 1px solid #334155;
+    display: block;
+    object-fit: cover;
+  }
+
+  .show-meta {
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .show-title {
+    margin: 0;
+    color: #f8fafc;
+    font-size: 1rem;
+    font-weight: 650;
+  }
+
+  .show-date {
+    margin: 0;
+    color: #fdba74;
+    font-size: 0.92rem;
+  }
+
+  .show-file {
+    margin: 0;
+    color: #94a3b8;
+    font-size: 0.78rem;
+    overflow-wrap: anywhere;
+  }
+
+  .show-file code {
+    background: rgb(15 23 42 / 70%);
+    border: 1px solid #334155;
+    border-radius: 0.35rem;
+    padding: 0.08rem 0.28rem;
+  }
+
+  .show-action {
+    margin: 0;
+    font-size: 0.86rem;
+  }
+
+  .show-action a {
+    color: var(--accent-link-dark);
+    text-decoration: none;
+  }
+
+  .show-action a:hover,
+  .show-action a:focus-visible {
+    text-decoration: underline;
+  }
+</style>

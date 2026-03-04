@@ -125,9 +125,42 @@ const summaryStats = [
   { label: 'Residents listed', value: roster.length }
 ];
 
+const featuredVisuals = [
+  {
+    src: '/drive/bread-x-grime-city_150213-show.png',
+    alt: 'BREAD x Grime City flyer featuring Nevermind and Helix',
+    title: 'Pilot flyer · February 2015',
+    caption: 'BREAD x Grime City at F8',
+    href: '/archive/flyers/'
+  },
+  {
+    src: '/drive/bread2-smaller.jpg',
+    alt: 'BREAD #2 flyer with chain and blue artwork treatment',
+    title: 'BREAD #2 flyer',
+    caption: 'Rabit, Sheen, Korma, Lyeform',
+    href: '/archive/flyers/'
+  },
+  {
+    src: '/drive/2015-07-19-08.54.27.jpg',
+    alt: 'Street photo of a BREAD #2 poster on a San Francisco utility pole',
+    title: 'Street placement',
+    caption: 'Poster in the wild, San Francisco',
+    href: '/story/'
+  },
+  {
+    src: '/drive/img_0530.jpg',
+    alt: 'Party photo showing three attendees at a BREAD event',
+    title: 'Night documentation',
+    caption: 'From the venue photo archive',
+    href: '/story/'
+  }
+];
+
 const directoryLinks = [
   { label: 'BREAD SoundCloud ↗', href: 'https://soundcloud.com/breadfm', external: true },
   { label: 'IPR show page ↗', href: 'https://www.internetpublicradio.live/shows/bread-fm', external: true },
+  { label: 'Flyer gallery →', href: '/archive/flyers/', external: false },
+  { label: 'Radio shows gallery →', href: '/archive/radio-shows/', external: false },
   { label: 'Featured mix (Prawns + Botaz, 2023-04-26) ↗', href: 'https://soundcloud.com/breadfm/bread-fm-on-internet-public-radio-prawns-botaz-04262023', external: true },
   { label: 'BREAD Instagram ↗', href: 'https://instagram.com/bread_sf', external: true },
   { label: 'BREAD X / Twitter ↗', href: 'https://x.com/breadsf', external: true },
@@ -311,6 +344,8 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     <nav class="topline-nav" aria-label="Primary routes">
       <a href="/" aria-current="page">Home</a>
       <a href="/archive/">Archive</a>
+      <a href="/archive/flyers/">Flyers</a>
+      <a href="/archive/radio-shows/">Radio shows</a>
       <a href="/archive/timeline/">Timeline</a>
       <a href="/story/">Story</a>
       <a href="/blog/">Journal</a>
@@ -340,6 +375,8 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
         <p class="route-start-copy">Start here: Archive or Story.</p>
         <nav class="primary-routes" aria-label="Archive pathways">
           <CardLink href="/archive/" label="Explore archive →" />
+          <CardLink href="/archive/flyers/" label="Flyers →" />
+          <CardLink href="/archive/radio-shows/" label="Radio shows →" />
           <CardLink href="/story/" label="Read the story →" />
           <CardLink href="/blog/" label="Browse journal →" />
           <CardLink href="/archive/timeline/" label="Timeline & eras →" />
@@ -364,6 +401,26 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
         <h2>Event History</h2>
         <p class="result-count" id="eventsResultCount">{documentedChronology.length} events shown</p>
         <p class="events-intro">Each card shows date, series, venue, lineup, and source status from the event ledger.</p>
+        <section class="featured-visuals" aria-label="Featured visuals">
+          <div class="featured-visuals-head">
+            <h3>Featured visuals</h3>
+            <p>Flyers and documentary stills from the imported archive now surfaced directly on the home timeline panel.</p>
+          </div>
+          <ul class="featured-visual-grid">
+            {featuredVisuals.map((item) => (
+              <li>
+                <figure>
+                  <img src={item.src} alt={item.alt} loading="lazy" decoding="async" />
+                  <figcaption>
+                    <p>{item.title}</p>
+                    <small>{item.caption}</small>
+                    <a href={item.href}>Open related archive →</a>
+                  </figcaption>
+                </figure>
+              </li>
+            ))}
+          </ul>
+        </section>
         <ul class="cards">
           {documentedChronology.map((event, index) => (
             <li class="card" id={`event-${index + 1}`} data-kind="event" data-index={index}>
@@ -539,6 +596,8 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     <nav aria-label="Footer routes">
       <a href="/">Home</a>
       <a href="/archive/">Archive</a>
+      <a href="/archive/flyers/">Flyers</a>
+      <a href="/archive/radio-shows/">Radio shows</a>
       <a href="/archive/timeline/">Timeline</a>
       <a href="/story/">Story</a>
       <a href="/blog/">Journal</a>
@@ -1069,6 +1128,100 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     max-width: 72ch;
   }
 
+  .featured-visuals {
+    margin: 1rem 0 1.1rem;
+    border: 1px solid #383838;
+    border-radius: var(--radius-card);
+    background: linear-gradient(180deg, #141414 0%, #101010 100%);
+    padding: 0.8rem;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .featured-visuals-head {
+    display: grid;
+    gap: 0.3rem;
+  }
+
+  .featured-visuals-head h3 {
+    margin: 0;
+    font-family: 'JetBrains Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.76rem;
+    color: #d5d5d5;
+  }
+
+  .featured-visuals-head p {
+    margin: 0;
+    color: #bdbdbd;
+    font-size: 0.86rem;
+    line-height: 1.5;
+  }
+
+  .featured-visual-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.7rem;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+
+  .featured-visual-grid li {
+    border: 1px solid #303030;
+    border-radius: 0.7rem;
+    background: #0f0f0f;
+    overflow: hidden;
+  }
+
+  .featured-visual-grid figure {
+    margin: 0;
+    display: grid;
+    gap: 0;
+  }
+
+  .featured-visual-grid img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-bottom: 1px solid #2e2e2e;
+    background: #0a0a0a;
+  }
+
+  .featured-visual-grid figcaption {
+    padding: 0.6rem 0.65rem 0.7rem;
+    display: grid;
+    gap: 0.3rem;
+  }
+
+  .featured-visual-grid figcaption p {
+    margin: 0;
+    color: #f1f1f1;
+    font-size: 0.92rem;
+    font-weight: 600;
+  }
+
+  .featured-visual-grid figcaption small {
+    color: #bcbcbc;
+    font-size: 0.78rem;
+    line-height: 1.4;
+  }
+
+  .featured-visual-grid figcaption a {
+    width: fit-content;
+    color: var(--text);
+    font-size: 0.8rem;
+    text-decoration: none;
+    border-bottom: 1px solid #434343;
+  }
+
+  .featured-visual-grid figcaption a:hover,
+  .featured-visual-grid figcaption a:focus-visible {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
   .audio-actions {
     margin-top: 0.9rem;
     display: flex;
@@ -1477,6 +1630,10 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
 
     .card {
       padding: 0.75rem;
+    }
+
+    .featured-visual-grid {
+      grid-template-columns: 1fr;
     }
 
     .pick-btn {

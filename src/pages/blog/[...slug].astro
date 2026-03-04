@@ -26,7 +26,7 @@ const postStructuredData = createArticleSchema({
   description: post.data.description,
   datePublished: post.data.date,
   dateModified: post.data.date,
-  section: 'Story post',
+  section: 'Journal post',
   siteName: 'BREAD'
 });
 
@@ -57,14 +57,14 @@ const structuredDataEntries = [postStructuredData, breadcrumbStructuredData].fil
 >
   <article class="story-shell">
     <header class="story-header">
-      <p class="section-kicker">Story post</p>
+      <p class="section-kicker">Journal post</p>
       <h1>{post.data.title}</h1>
       <p>{post.data.description}</p>
       <p class="section-meta">Published {formatDate(post.data.date)}</p>
       <Breadcrumbs items={breadcrumbItems} />
       <nav class="section-links" aria-label="Story links">
-        <a href="/story/">Story overview</a>
-        <a href="/archive/">Archive index</a>
+        <a href="/story/">Story</a>
+        <a href="/archive/">Archive</a>
       </nav>
     </header>
     <hr />

@@ -73,7 +73,6 @@ Evidence points to a hybrid format: party nights + radio/stream programming.
 - **2022:** indexed post snippet references a return/relaunch cadence with Internet Public Radio ("bread rises once again", monthly show language).
 - **2023:** strong public trace of radio episodes and collab programming (HKCR + Internet Public Radio).
 
-
 ## Resident Advisor (RA) promoter research
 
 ### What was attempted
@@ -83,7 +82,6 @@ Evidence points to a hybrid format: party nights + radio/stream programming.
 - Web-index discovery for RA pages tied to Bread (`site:ra.co/promoters bread`, `"bread_sf" "ra.co"`, `"bread.fm" "Resident Advisor"`).
 
 ### Observed results
-
 
 ### Browser-based verification run (Playwright)
 
@@ -125,8 +123,6 @@ When you have authenticated access to Instagram, confirm:
 - canonical event chronology (especially pre-2022 years),
 - any official venue partners/residencies not visible in indexed snippets.
 
-
-
 ## Additional evidence from user-provided screenshots
 
 The following details are extracted from screenshots provided in-thread (Instagram profile/posts, legacy `breadsf.club` page capture, and social repost screenshots).
@@ -145,7 +141,7 @@ This is useful as a dated self-description artifact indicating a 2014 founding a
 
 ### Guest-acts history evidence
 
-A screenshot section titled **"Guest Acts since 2015. SF debuts marked with *"** lists many names, including (non-exhaustive):
+A screenshot section titled **"Guest Acts since 2015. SF debuts marked with \*"** lists many names, including (non-exhaustive):
 
 Abyss X, Addison Groove, Air Max '97, Asquith, Ballast, Blackdown, Bleaker, Bok Bok, Caski, Celestial Trax, DBM (Deadboy + Murlo), Dehousy, Distal, DJ J Heat, Doctor Jeep, Dreams, Dubbel Dutch, Endgame, False Witness, Fraxinus, Girl Unit, Helix, Javascript, Jlin, Kid Antoine, Kieran Loftus, Korma, Letta, Logos, Lyeform, Mumdance, NA, Nargiz, Neana, Patrick Brian, Pinch, Rabit (2x), Route 8, Rushmore, Sheen, Supraman, Taraval, The Dance Pit, TSVI, V Kim.
 
@@ -175,7 +171,6 @@ Combined with prior signals, screenshots suggest at least three eras:
 2. **Guest-booking growth era (2015 onward):** substantial guest pipeline and SF debuts.
 3. **Distributed/livestream era (2020–2021):** cross-city online programming + fundraising + `breadfm`/HKCR-oriented identity.
 
-
 ## User-supplied canonical archive notes (added 2026-02-13)
 
 The following dossier was provided by the user as a canonical historical archive draft. It is preserved here for downstream structuring into events/roster/milestones pages.
@@ -204,7 +199,7 @@ The following dossier was provided by the user as a canonical historical archive
   - Cage A in Chicago, Prawns in LA, Botaz in NYC, TF1000 in Tokyo.
 - Other claims:
   - Gewzer co-founded Smokescreen (Fresno).
-  - Gewzer released *G(LOVE)S* on Cyber Spa (May 2016).
+  - Gewzer released _G(LOVE)S_ on Cyber Spa (May 2016).
   - Exteeng later active as multidisciplinary artist/data scientist.
 
 ### Venues (user-supplied)
@@ -293,36 +288,41 @@ This section preserves the latest user-provided source-of-truth links for channe
 ### Resident directory (user-supplied)
 
 #### Prawns (Co-Founder)
+
 - SoundCloud: https://soundcloud.com/prawns
 - Instagram: https://instagram.com/_prawns
 - RA Profile: https://ra.co/dj/prawns
 
 #### Botaz (Brian Aviles)
+
 - SoundCloud: https://soundcloud.com/botaz
 - Bandcamp: https://botaz.bandcamp.com/
 - Instagram: https://instagram.com/brian_aviles
 - RA Profile: https://ra.co/dj/botaz
 
 #### TF1000 (Tranespotting)
+
 - SoundCloud: https://soundcloud.com/tranespotting
 - Instagram: https://instagram.com/tf1000_
 - RA Profile: https://ra.co/dj/tf1000
 
 #### Adam Kraft
+
 - SoundCloud: https://soundcloud.com/adamkraftneindanke
 - Instagram: https://instagram.com/adamkraft_
 - RA Profile: https://ra.co/dj/adamkraft
 
 #### Gewzer
+
 - SoundCloud: https://soundcloud.com/gewzer
 - Bandcamp (Album): https://cyberspa.bandcamp.com/album/g-love-s
 - Instagram: https://instagram.com/gewzer
 
 #### Exteeng
+
 - SoundCloud: https://soundcloud.com/exteeng
 - Instagram: https://instagram.com/exteeng
 - RA Profile: https://ra.co/dj/exteeng
-
 
 ## Link verification pass (requested: "visit or pull from the ones you can")
 
@@ -357,6 +357,7 @@ Treat directory links as "canonical pointers" and separate from "fully verified 
 Date: 2026-02-14
 
 Method:
+
 - Queried DuckDuckGo HTML results for `site:facebook.com/events` + Bread SF terms.
 - Extracted event URLs from indexed result links.
 - Ran `curl -L -I` checks against each URL (all returned HTTP 200 in this environment, though event content itself may still require login).
@@ -378,4 +379,5 @@ Discovered event URLs (deduplicated):
 13. https://www.facebook.com/events/public-works-sf/bread-9-w-dbm-deadboy-murlo-blackdown/813388422095198/
 
 Caveat:
+
 - This is the complete set discoverable from accessible public search indexing during this pass; additional private/unindexed/deleted events may exist.

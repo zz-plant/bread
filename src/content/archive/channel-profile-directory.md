@@ -1,6 +1,6 @@
 ---
-title: Channel & Profile Directory
-description: Canonical link directory for BREAD channels, member profiles, and discovered event URLs.
+title: Links
+description: Link list for BREAD channels, member profiles, and recovered event URLs.
 order: 7
 updated: 2026-02-18
 tags:
@@ -29,52 +29,61 @@ tags:
 - Parameter: <https://parameterpresents.com>
 - Nightsweats / Fake and Gay: <https://www.instagram.com/fakeandgayinc>
 
-## Resident directory (as preserved in research)
+## Resident directory (from archived notes)
 
 ### Prawns
+
 - SoundCloud: <https://soundcloud.com/prawns>
 - Instagram: <https://instagram.com/_prawns>
 - RA: <https://ra.co/dj/prawns>
 
 ### Botaz
+
 - SoundCloud: <https://soundcloud.com/botaz>
 - Bandcamp: <https://botaz.bandcamp.com/>
 - Instagram: <https://instagram.com/brian_aviles>
 - RA: <https://ra.co/dj/botaz>
 
 ### TF1000 / Tranespotting
+
 - SoundCloud: <https://soundcloud.com/tranespotting>
 - Instagram: <https://instagram.com/tf1000_>
 - RA: <https://ra.co/dj/tf1000>
 
 ### Adam Kraft
+
 - SoundCloud: <https://soundcloud.com/adamkraftneindanke>
 - Instagram: <https://instagram.com/adamkraft_>
 - RA: <https://ra.co/dj/adamkraft>
 
 ### Gewzer
+
 - SoundCloud: <https://soundcloud.com/gewzer>
 - Bandcamp release reference: <https://cyberspa.bandcamp.com/album/g-love-s>
 - Instagram: <https://instagram.com/gewzer>
 
 ### Exteeng
+
 - SoundCloud: <https://soundcloud.com/exteeng>
 - Instagram: <https://instagram.com/exteeng>
 - RA: <https://ra.co/dj/exteeng>
 
 ### Judy (dhra)
+
 - Role note: Co-founding member.
 - Archive note: Later artistic direction shifted away from the lane that originally anchored BREAD's core founders.
 
 ### Misoh
+
 - Role note: Resident through the ~2018 transition era.
 
 ### Shl
+
 - Role note: Resident from 2021 onward.
 
-## Discovered Facebook event URLs (indexing pass)
+## Recovered Facebook event URLs
 
-These were discovered via public search indexing and should be treated as archival leads pending record-level review:
+These were found in public search results and should be treated as leads until each event is reviewed:
 
 1. <https://www.facebook.com/events/588841281252200/>
 2. <https://www.facebook.com/events/1694286880828782/>
@@ -90,4 +99,4 @@ These were discovered via public search indexing and should be treated as archiv
 12. <https://www.facebook.com/events/d41d8cd9/bread-12-w-na-dubbel-dutch-tsvi/1793167794291121/>
 13. <https://www.facebook.com/events/public-works-sf/bread-9-w-dbm-deadboy-murlo-blackdown/813388422095198/>
 
-Related: [Event Ledger](/archive/event-ledger/) and [Timeline & Eras](/archive/timeline/).
+Related: [Event List](/archive/event-ledger/) and [Timeline](/archive/timeline/).

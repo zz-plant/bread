@@ -1,6 +1,6 @@
 ---
-title: BREAD Archive Overview
-description: A durable map of the BREAD archive, with links to timeline, people, venues, and source status.
+title: Start Here
+description: A plain map of the BREAD archive, with links to timeline, people, venues, and event notes.
 order: 1
 updated: 2026-02-14
 tags:
@@ -9,24 +9,23 @@ tags:
   - methodology
 ---
 
-This archive is structured for ongoing updates and source-linked history.
+This archive is built to keep growing as more history is confirmed.
 
-## How this archive is structured
+## How this archive is organized
 
-- **Timeline**: chronology and era framing. See [Timeline & Eras](/archive/timeline/).
-- **Event list**: row-level records with source-basis columns. See [Event List (Working)](/archive/event-ledger/).
-- **People & Network**: founders, residents, collaborators, and scene effects. See [People & Network](/archive/people-network/).
-- **Venues & Format Shifts**: venue phases and format evolution. See [Venues & Format Shifts](/archive/venues-format-shifts/).
-- **Verification model**: materials model and review limits are summarized within each archive section.
-- **Channel directory**: canonical links and discovered event URLs. See [Channel & Profile Directory](/archive/channel-profile-directory/).
-- **Story onboarding**: narrative-form context and legacy framing. See [The Story of BREAD](/story/).
+- **Timeline**: key eras and dates. See [Timeline](/archive/timeline/).
+- **Event list**: event-by-event rows with links. See [Event List](/archive/event-ledger/).
+- **People**: founders, residents, collaborators, and local impact. See [People](/archive/people-network/).
+- **Venues**: where things happened and how formats changed. See [Venues](/archive/venues-format-shifts/).
+- **Links**: main links and recovered event URLs. See [Links](/archive/channel-profile-directory/).
+- **Story page**: a narrative walkthrough. See [The Story of BREAD](/story/).
 
-## Archival principles
+## Archive principles
 
 - Preserve claims with clear dates where possible.
 - Separate **confirmed** facts from **pending review** notes.
-- Keep pages linkable and updatable as new primary materials appears.
+- Keep pages linkable and easy to update as new materials appear.
 
-## Current source status
+## Current status
 
-The archive currently incorporates the in-repo research brief, user-supplied canonical draft notes, and link-discovery passes. As primary artifacts are attached event-by-event, source-note labels can be upgraded from directional to published documentation.
+The archive currently combines in-repo research notes, user-supplied draft notes, and recovered links. As more primary material is attached event by event, status notes can be tightened.

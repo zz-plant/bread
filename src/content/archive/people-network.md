@@ -1,6 +1,6 @@
 ---
-title: People & Network
-description: Founders, residents, collaborators, and how BREAD functioned as a scene network.
+title: People
+description: Founders, residents, collaborators, and the community around BREAD.
 order: 4
 updated: 2026-02-14
 tags:
@@ -14,11 +14,11 @@ tags:
 - **Cage A (Kanav Jain)**
 - **Prawns**
 
-Their initial intention, as reflected in user-archive notes, was to open room in San Francisco for less-safe, less-commercial club sounds.
+Their early goal, based on archive notes, was to make space in San Francisco for riskier and less-commercial club sounds.
 
-## Expanded resident ecosystem
+## Expanded resident circle
 
-Recurring names associated with BREAD history across user-archive notes and indexed platform traces include:
+Recurring names across archive notes and public traces include:
 
 - Adam Kraft
 - Gewzer
@@ -27,11 +27,11 @@ Recurring names associated with BREAD history across user-archive notes and inde
 - Exteeng
 - Additional era-specific collaborators reflected in flyers, streams, and radio episodes
 
-## Handle and alias signals from research
+## Handles and aliases
 
-The research brief preserves cross-platform handle signals, including Instagram-bio and SoundCloud roster listings. These indicate a roster that evolved over time and sometimes differs by alias or platform profile style.
+Names vary by platform, including Instagram bios and SoundCloud profiles. Together they show a roster that changed over time.
 
-For canonical pointers and profile URLs, see [Channel & Profile Directory](/archive/channel-profile-directory/).
+For profile links, see [Links](/archive/channel-profile-directory/).
 
 ## Network effects
 
@@ -41,9 +41,9 @@ BREAD operated as more than a party series:
 - A local incubator linked to later projects by resident artists.
 - A radio/streaming node between in-person events and distributed communities.
 
-## Verification status
+## What still needs confirmation
 
-- Founding names and core resident structure are currently treated as **strong/user-archive** pending line-by-line primary-source binding.
-- Later-career claims for individuals should remain **open** unless directly tied to authoritative references in this repo.
+- Founding names and the core resident structure are currently marked **strong/user-archive** until line-by-line sources are attached.
+- Later-career claims for individuals should stay **open** unless directly tied to reliable references in this repo.
 
-Related: [Timeline & Eras](/archive/timeline/) and [Venues & Format Shifts](/archive/venues-format-shifts/).
+Related: [Timeline](/archive/timeline/) and [Venues](/archive/venues-format-shifts/).

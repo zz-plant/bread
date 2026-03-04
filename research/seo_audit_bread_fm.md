@@ -15,6 +15,7 @@ Scope: Technical SEO + on-page signals from the Astro codebase and production bu
 **Current state:** The site has a good baseline (indexable static HTML, descriptive titles on most pages, sitemap generation enabled, and JSON-LD present), but several high-impact SEO fundamentals are missing or misconfigured.
 
 **Most important blockers:**
+
 1. `site` is configured as `https://example.com`, causing incorrect canonical-like absolute URLs in structured data and sitemap output.
 2. No global canonical tags are emitted on most pages.
 3. No Open Graph/Twitter metadata is emitted, reducing social discovery and click-through quality.

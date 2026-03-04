@@ -3,7 +3,9 @@
 Date: 2026-02-27
 
 ## Goal
+
 Create a clearer, archive-first structure so visitors can quickly find:
+
 1. what BREAD is,
 2. key history pathways,
 3. browsable records (timeline, people, venues, events),
@@ -12,6 +14,7 @@ Create a clearer, archive-first structure so visitors can quickly find:
 ## Current IA snapshot
 
 ### Primary routes today
+
 - `/` (home)
 - `/archive/` and archive detail routes
 - `/archive/timeline/`
@@ -19,6 +22,7 @@ Create a clearer, archive-first structure so visitors can quickly find:
 - `/blog/<slug>/` (including `the-story-of-bread`)
 
 ### Main friction
+
 1. **Parallel history pathways**: users can reach narrative history from both archive and blog semantics (`/archive/narrative-history/` vs `/blog/the-story-of-bread/`).
 2. **Taxonomy mismatch**: the product positioning is archival-first, but long-form history lives under `/blog/`.
 3. **Entry-point ambiguity**: home promotes multiple pathways with overlapping labels, making first-click decisions harder than needed.
@@ -26,28 +30,34 @@ Create a clearer, archive-first structure so visitors can quickly find:
 ## Proposed target IA
 
 ### Top-level navigation model
+
 Use a stable four-item model:
+
 1. **Home** (`/`)
 2. **Archive** (`/archive/`)
 3. **Timeline** (`/archive/timeline/`)
-4. **Story** (`/story/`) 
+4. **Story** (`/story/`)
 
 Rationale: keep discovery shallow while preserving the archive-first mental model.
 
 ### Route architecture changes
 
 #### 1) Promote a canonical Story route
+
 - Add canonical route: `/story/` (or `/story/the-story-of-bread/` if multi-story is expected).
 - Keep `/blog/the-story-of-bread/` as a redirect during transition.
 - Update internal CTAs to point to canonical Story URL.
 
 #### 2) Keep archive as system of record
+
 - Maintain `/archive/` as the index for structured records.
 - Retain current archive children (`event-ledger`, `timeline`, `people-network`, etc.).
 - Ensure every archive detail page links back to `/archive/` and optionally to `/story/` for narrative context.
 
 #### 3) Clarify home as decision hub
+
 Home should answer two primary intents above the fold:
+
 - “Browse records” → `/archive/`
 - “Read the history” → `/story/`
 
@@ -78,15 +88,18 @@ Secondary links (timeline, people, venues) should remain visible but subordinate
 ## Migration plan
 
 ### Phase 1 (low risk)
+
 - Introduce `/story/` route with canonical metadata.
 - Add redirects from current story blog slug.
 - Update global nav labels and primary CTAs.
 
 ### Phase 2 (consistency)
+
 - Audit all internal links and Open Graph references to canonical Story URL.
 - Update structured data (`BreadcrumbList` / `CollectionPage`) for new route semantics.
 
 ### Phase 3 (cleanup)
+
 - Remove or hide `/blog/` from primary nav if only one narrative page remains.
 - Keep legacy redirects for SEO continuity.
 
@@ -98,6 +111,7 @@ Secondary links (timeline, people, venues) should remain visible but subordinate
 4. Faster time-to-content in first-session analytics.
 
 ## Validation checklist for implementation PR
+
 - `npm run lint`
 - `npm run build`
 - Manual route checks:

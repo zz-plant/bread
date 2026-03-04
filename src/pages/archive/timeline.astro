@@ -12,40 +12,40 @@ const eras = [
   {
     range: '2014–2015',
     title: 'Formation & Pilot',
-    summary: 'The project identity takes shape, then quickly moves into recurring public programming in San Francisco.',
+    summary: 'BREAD takes shape, then quickly becomes a recurring night in San Francisco.',
     highlights: [
-      '2014 project framing appears publicly as "since 2014."',
-      '2015-02-13 pilot event at F8 with Nevermind + Helix.',
-      '2015-05 onward recurring event cadence appears in SF listings.'
+      'Public profile language points to a 2014 start.',
+      'A pilot event appears on February 13, 2015 at F8 with Nevermind and Helix.',
+      'By May 2015, regular events are visible in San Francisco listings.'
     ]
   },
   {
     range: '2015–2016',
     title: 'Booking Expansion',
-    summary: 'Residency structure and visual identity tighten while bookings expand into UK/US crossover club networks.',
+    summary: 'Resident structure and visuals sharpen as bookings widen across connected club scenes.',
     highlights: [
-      'Growth phase includes a stronger resident framework and clear flyer language.',
-      'A May 29, 2015 listing confirms mid-2015 public programming cadence.',
-      '2016 records cluster around Jlin, Distal, Celestial Trax, Deadboy, Murlo, Rabit, Logos, Mumdance, and partner showcases (Parameter / Sure Thing / Toasted Trax).'
+      'Flyers and listings show a stronger resident core during this stretch.',
+      'A May 29, 2015 listing confirms steady public programming by mid-2015.',
+      '2016 highlights include Jlin, Distal, Celestial Trax, Deadboy, Murlo, Rabit, Logos, Mumdance, and partner showcases (Parameter / Sure Thing / Toasted Trax).'
     ]
   },
   {
     range: '2017–2018',
     title: 'UGSF / Bunker Shift',
-    summary: 'Programming moves toward Underground SF while the sonic direction widens toward warmer, diasporic rhythmic frameworks.',
+    summary: 'More events move toward Underground SF as the sound widens.',
     highlights: [
-      '2017 timeline markers include DJ J Heat, Mr. Mitch + Kozee, Roska, and Kelman Duran period events.',
-      'Context from citywide venue shifts appears in event-level records.',
-      '2018 tracks as the final core club-night phase in the current archive model.'
+      '2017 markers include DJ J Heat, Mr. Mitch + Kozee, Roska, and Kelman Duran period events.',
+      'Event records reflect broader venue shifts happening across the city.',
+      '2018 appears as the end of the original recurring club-night run.'
     ]
   },
   {
     range: '2020–2023',
     title: 'Remote Mutual Aid + Radio Network',
-    summary: 'The archive pivots from in-room events to fundraising streams and distributed radio programming.',
+    summary: 'Activity shifts from in-person nights to fundraiser streams and radio shows.',
     highlights: [
-      '2020–2021 livestream and telethon formats focus on mutual-aid fundraising.',
-      'Captured notes align around approximately USD 12K raised across multiple streams.',
+      '2020–2021 streams and telethons focus on mutual-aid fundraising.',
+      'Available notes point to roughly USD 12K raised across multiple streams.',
       '2022–2023 traces show BREAD FM activity through Internet Public Radio and HKCR.'
     ]
   }
@@ -76,7 +76,7 @@ const milestones = [
     <p class="eyebrow">Archive section</p>
     <h1>{timelinePage.data.title}</h1>
     <p>{timelinePage.data.description}</p>
-    <p class="route-note">Want the full event list? Continue to the <a href="/archive/event-ledger/">Event List (Working)</a>.</p>
+    <p class="route-note">Want the full event list? Open the <a href="/archive/event-ledger/">Event List</a>.</p>
     <small>Last updated: {timelinePage.data.updated.toISOString().slice(0, 10)}</small>
   </header>
 
@@ -96,7 +96,7 @@ const milestones = [
   </section>
 
   <section class="milestones" aria-label="Key dated markers">
-    <h2>Key dated markers</h2>
+    <h2>Key dates</h2>
     <ol>
       {
         milestones.map((milestone) => (
@@ -111,12 +111,12 @@ const milestones = [
   </section>
 
   <section class="next-links" aria-label="Related archive material">
-    <h2>Where to deepen the timeline</h2>
+    <h2>Keep exploring</h2>
     <ul>
-      <li><a href="/archive/event-ledger/">Event List (Working)</a> for the full event-by-event chronology.</li>
-      <li><a href="/archive/venues-format-shifts/">Venues &amp; Format Shifts</a> for place and format transitions.</li>
-      <li><a href="/archive/people-network/">People &amp; Network</a> for recurring collaborators and lineup context.</li>
-      <li><a href="/archive/overview/">Overview</a> for archive scope, assumptions, and update context.</li>
+      <li><a href="/archive/event-ledger/">Event List</a> for a full event-by-event timeline.</li>
+      <li><a href="/archive/venues-format-shifts/">Venues &amp; Format Shifts</a> for where things happened and how formats changed.</li>
+      <li><a href="/archive/people-network/">People &amp; Network</a> for recurring collaborators and lineups.</li>
+      <li><a href="/archive/overview/">Start Here</a> for a plain map of the archive.</li>
     </ul>
   </section>
 </BaseLayout>

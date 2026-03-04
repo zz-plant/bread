@@ -61,14 +61,14 @@ const eventSourceDirectory: Record<
   }
 > = {
   'Pilot: Grime City vs BREAD': { label: 'Facebook event', href: 'https://www.facebook.com/events/588841281252200/', external: true },
-  'BREAD #1': { label: 'Archive notes (pending direct URL)' },
-  'BREAD #2': { label: 'Archive notes (pending direct URL)' },
+  'BREAD #1': { label: 'Archive notes (link coming soon)' },
+  'BREAD #2': { label: 'Archive notes (link coming soon)' },
   'BREAD #3': {
     label: 'Facebook event',
     href: 'https://www.facebook.com/events/d41d8cd9/bread-3-wdoctor-jeep-patrick-brian-ballast-javascript-sha-sha-kimbo/1013123788738124/',
     external: true
   },
-  'Addison Groove special': { label: 'Archive notes (pending direct URL)' },
+  'Addison Groove special': { label: 'Archive notes (link coming soon)' },
   'BREAD #5': { label: 'Flyer image', href: '/bread-jlin-planet-mu-iyer-2016-03-25-flyer.jpg' },
   'BREAD #7': { label: 'Flyer image', href: '/bread-number-seven-celestial-trax-may-21.jpg' },
   'BREAD #8': { label: 'Facebook event', href: 'https://www.facebook.com/events/1755008908099419/', external: true },
@@ -103,9 +103,9 @@ const eventSourceDirectory: Record<
   'UGSF marker': { label: 'Facebook event', href: 'https://www.facebook.com/events/d41d8cd9/bread-sf-mr-mitch-planet-mu-kozee-prawns/277151372731142/', external: true },
   'Roska night': { label: 'Facebook event', href: 'https://www.facebook.com/events/1422866204488341/', external: true },
   'Late UGSF marker': { label: 'Flyer image', href: '/bread-suda-kelman-duran-bread-djs-sept-22.jpg' },
-  'Final club-night marker': { label: 'Archive notes (pending direct URL)' },
+  'Final club-night marker': { label: 'Archive notes (link coming soon)' },
   'BREAD New Year "YXEXAXR"': { label: 'Flyer image', href: '/bread-new-year-yxexaxr-jan-2.jpg' },
-  'Six Years of BREAD': { label: 'Archive notes (pending direct URL)' },
+  'Six Years of BREAD': { label: 'Archive notes (link coming soon)' },
   'Long Bread Summer Stream': { label: 'Flyer image', href: '/bread-long-bread-summer-fundraiser-july-10.png' }
 };
 
@@ -113,16 +113,16 @@ const documentedChronology = chronology
   .filter((event) => event.confidence !== 'unverified')
   .map((event) => ({
     ...event,
-    source: eventSourceDirectory[event.title] ?? { label: 'Archive notes (pending direct URL)' }
+    source: eventSourceDirectory[event.title] ?? { label: 'Archive notes (link coming soon)' }
   }));
 const hasMeaningfulStatus = (event: (typeof chronology)[number]) => event.status && event.status !== 'played';
 const activeYears = new Set(documentedChronology.map((event) => event.year)).size;
 const sourceLinkedEvents = documentedChronology.filter((event) => Boolean(event.source.href)).length;
 const summaryStats = [
-  { label: 'Documented events', value: documentedChronology.length },
-  { label: 'Active years', value: activeYears },
-  { label: 'Events with direct sources', value: sourceLinkedEvents },
-  { label: 'Residents listed', value: roster.length }
+  { label: 'Events listed', value: documentedChronology.length },
+  { label: 'Years active', value: activeYears },
+  { label: 'Events with links', value: sourceLinkedEvents },
+  { label: 'Residents', value: roster.length }
 ];
 
 const featuredVisuals = [
@@ -150,7 +150,7 @@ const featuredVisuals = [
   {
     src: '/drive/img_0530.jpg',
     alt: 'Party photo showing three attendees at a BREAD event',
-    title: 'Night documentation',
+    title: 'Party photo',
     caption: 'From the venue photo archive',
     href: '/story/'
   }
@@ -166,37 +166,37 @@ const directoryLinks = [
   { label: 'BREAD X / Twitter ↗', href: 'https://x.com/breadsf', external: true },
   { label: 'RA promoter page ↗', href: 'https://ra.co/promoters/51043', external: true },
   { label: 'Radio Valencia ↗', href: 'http://www.radiovalencia.fm/', external: true },
-  { label: 'Channel & profile directory →', href: '/archive/channel-profile-directory/', external: false },
-  { label: 'Timeline & eras →', href: '/archive/timeline/', external: false },
+  { label: 'Links →', href: '/archive/channel-profile-directory/', external: false },
+  { label: 'Timeline →', href: '/archive/timeline/', external: false },
   { label: 'Read the story →', href: '/story/', external: false },
-  { label: 'Browse journal posts →', href: '/blog/', external: false }
+  { label: 'Journal posts →', href: '/blog/', external: false }
 ];
 
 const soundcloudEmbedCollections = [
   {
     title: 'BREAD profile stream',
-    description: 'Main profile feed with published uploads and artist updates.',
+    description: 'Main feed with uploads and mixes.',
     href: 'https://soundcloud.com/breadfm',
     height: 420,
     visual: true
   },
   {
     title: 'BREAD playlists',
-    description: 'Dive into set-based listening with curated archives and series.',
+    description: 'Curated playlists and series.',
     href: 'https://soundcloud.com/breadfm/sets',
     height: 300,
     visual: false
   },
   {
     title: 'BREAD likes',
-    description: 'Explore adjacent scenes and inspirations via liked tracks.',
+    description: 'Tracks the crew has been into.',
     href: 'https://soundcloud.com/breadfm/likes',
     height: 300,
     visual: false
   },
   {
     title: 'BREAD reposts',
-    description: 'Browse network signals and collaborations through repost activity.',
+    description: 'Reposts from friends and collaborators.',
     href: 'https://soundcloud.com/breadfm/reposts',
     height: 300,
     visual: false
@@ -205,25 +205,25 @@ const soundcloudEmbedCollections = [
 
 const platformEmbeds = {
   ipr: {
-    title: 'Internet Public Radio episode (via Mixcloud)',
+    title: 'Internet Public Radio episode',
     href: 'https://www.internetpublicradio.live/episodes/bread-fm-w-botaz-shl-28th-september-2022',
     src: 'https://player-widget.mixcloud.com/widget/iframe/?hide_cover=0&mini=0&light=1&feed=%2Finternetpublicradio%2Fbread-fm-w-botaz-shl-28th-september-2022%2F',
     height: 120
   },
   appleShow: {
-    title: 'Apple Podcasts show embed',
+    title: 'Apple Podcasts show',
     href: 'https://podcasts.apple.com/us/podcast/bread-fm/id1227134378',
     src: 'https://embed.podcasts.apple.com/us/podcast/bread-fm/id1227134378',
     height: 450
   },
   appleEpisode: {
-    title: 'Apple Podcasts episode embed (Prawns + Botaz live)',
+    title: 'Apple Podcasts episode (Prawns + Botaz live)',
     href: 'https://podcasts.apple.com/us/podcast/bread-fm-on-internet-public-radio-prawns-botaz-live/id1227134378?i=1000610844660',
     src: 'https://embed.podcasts.apple.com/us/podcast/bread-fm-on-internet-public-radio-prawns-botaz-live/id1227134378?i=1000610844660',
     height: 450
   },
   facebook: {
-    title: 'Facebook page plugin',
+    title: 'Facebook page',
     href: 'https://www.facebook.com/breadfm/',
     src: 'https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fbreadfm%2F&tabs=timeline&width=500&height=540&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId',
     height: 540
@@ -292,18 +292,18 @@ const homeStructuredData = [
   createWebsiteSchema({
     site: Astro.site,
     name: 'BREAD',
-    description: 'BREAD historical archive and narrative resources.'
+    description: 'BREAD history, flyers, and listening links.'
   }),
   createCollectionPageSchema({
     site: Astro.site,
     pathname: Astro.url.pathname,
     name: 'BREAD Home',
-    description: 'Primary discovery page for chronology, residents, archive routes, and listening resources.',
+    description: 'Main page for the timeline, residents, visuals, and listening links.',
     isPartOf: 'BREAD'
   }),
   createItemListSchema({
     name: 'BREAD Event History',
-    description: 'Chronological event records from the BREAD archive homepage.',
+    description: 'Event timeline shown on the BREAD homepage.',
     itemListElement: eventSchemas
   })
 ].filter((entry): entry is Record<string, unknown> => Boolean(entry));
@@ -328,7 +328,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
 
 <BaseLayout
   title="BREAD // Archive"
-  description="BREAD archive timeline, people, and links."
+  description="Timeline, people, visuals, and listening links from BREAD."
   showSiteFrame={false}
   structuredData={homeStructuredData}
   ogImage="/og/home.svg"
@@ -371,18 +371,18 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
         </ul>
       </section>
       <section class="route-start rail-card" aria-label="Archive pathways">
-        <p class="route-start-title">Archive pathways</p>
-        <p class="route-start-copy">Start here: Archive or Story.</p>
+        <p class="route-start-title">Start here</p>
+        <p class="route-start-copy">Jump into the archive or read the story.</p>
         <nav class="primary-routes" aria-label="Archive pathways">
           <CardLink href="/archive/" label="Explore archive →" />
           <CardLink href="/archive/flyers/" label="Flyers →" />
           <CardLink href="/archive/radio-shows/" label="Radio shows →" />
           <CardLink href="/story/" label="Read the story →" />
           <CardLink href="/blog/" label="Browse journal →" />
-          <CardLink href="/archive/timeline/" label="Timeline & eras →" />
+          <CardLink href="/archive/timeline/" label="Timeline →" />
           <CardLink href="/archive/event-ledger/" label="Event list →" />
-          <CardLink href="/archive/people-network/" label="People & network →" />
-          <CardLink href="/archive/venues-format-shifts/" label="Venues & formats →" />
+          <CardLink href="/archive/people-network/" label="People →" />
+          <CardLink href="/archive/venues-format-shifts/" label="Venues →" />
         </nav>
       </section>
       <nav class="tabs rail-card" id="tabs">
@@ -400,11 +400,11 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
       <article class="panel active" id="panel-ledger" role="tabpanel" aria-labelledby="tab-ledger">
         <h2>Event History</h2>
         <p class="result-count" id="eventsResultCount">{documentedChronology.length} events shown</p>
-        <p class="events-intro">Each card shows date, series, venue, lineup, and source status from the event ledger.</p>
+        <p class="events-intro">Each card shows date, series, venue, lineup, and where the info came from.</p>
         <section class="featured-visuals" aria-label="Featured visuals">
           <div class="featured-visuals-head">
             <h3>Featured visuals</h3>
-            <p>Flyers and documentary stills from the imported archive now surfaced directly on the home timeline panel.</p>
+            <p>A few flyer and party photos from the archive.</p>
           </div>
           <ul class="featured-visual-grid">
             {featuredVisuals.map((item) => (
@@ -471,10 +471,10 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
       </article>
 
       <article class="panel" id="panel-audio" role="tabpanel" aria-labelledby="tab-audio" hidden>
-        <h2>SoundCloud listening hub</h2>
-        <p class="audio-intro">Listen to profile, playlists, and resident SoundCloud links.</p>
+        <h2>Listen</h2>
+        <p class="audio-intro">Listen to BREAD uploads, playlists, and resident pages.</p>
         <div class="audio-actions">
-          <button class="chip" type="button" id="loadAudioEmbeds">Load audio embeds</button>
+          <button class="chip" type="button" id="loadAudioEmbeds">Load players</button>
           <a href="https://soundcloud.com/breadfm" target="_blank" rel="noreferrer noopener">Open BREAD profile ↗</a>
         </div>
         <ul class="audio-grid">
@@ -497,7 +497,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
         </ul>
         <section class="resident-audio" aria-label="Resident SoundCloud channels">
           <h3>Resident SoundCloud channels</h3>
-          <p class="resident-audio-copy">Quick-embed cards for each resident profile linked in this archive.</p>
+          <p class="resident-audio-copy">Quick player cards for each resident profile in this archive.</p>
           <ul class="resident-audio-grid">
             {residentSoundcloudProfiles.map((profile) => (
               <li>
@@ -519,7 +519,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
         </section>
         <section class="platform-embeds" aria-label="Other platform embeds">
           <h3>Other platform embeds</h3>
-          <p class="resident-audio-copy">Integrated where supported: Internet Public Radio via Mixcloud, Apple Podcasts embeds, and Facebook page timeline. Instagram and RA are linked in the links tab.</p>
+          <p class="resident-audio-copy">More listening spots: Internet Public Radio, Apple Podcasts, and Facebook. Instagram and RA are linked in the links tab.</p>
           <ul class="audio-grid">
             <li class="audio-card">
               <h4>{platformEmbeds.ipr.title}</h4>
@@ -580,19 +580,19 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     </main>
 
     <aside class="deck" id="detailDeck" aria-live="polite">
-      <button class="deck-toggle" type="button" id="deckToggle" aria-expanded="false" aria-controls="deckContent">Show details panel</button>
+      <button class="deck-toggle" type="button" id="deckToggle" aria-expanded="false" aria-controls="deckContent">Show details</button>
       <div id="deckContent" class="deck-content">
       <p class="deck-tag" id="deckTag">Details</p>
-      <h3 id="deckTitle">Select an entry</h3>
-      <p id="deckData">Choose an event or resident to view details.</p>
-      <p id="deckDesc">Pick any event or resident card to view dates, venues, and links.</p>
+      <h3 id="deckTitle">Pick an item</h3>
+      <p id="deckData">Choose an event or resident to see details.</p>
+      <p id="deckDesc">Dates, venue, lineup, and links will show here.</p>
       <div id="deckLinks" class="deck-links"></div>
       </div>
     </aside>
   </section>
 
   <footer class="home-footer" aria-label="Site footer">
-    <p>BREAD archive • long-lived publishing</p>
+    <p>BREAD archive • San Francisco and beyond</p>
     <nav aria-label="Footer routes">
       <a href="/">Home</a>
       <a href="/archive/">Archive</a>
@@ -1724,7 +1724,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
 
     detailDeck.classList.toggle('is-open', isOpen);
     deckToggle.setAttribute('aria-expanded', String(isOpen));
-    deckToggle.textContent = isOpen ? 'Hide details panel' : 'Show details panel';
+    deckToggle.textContent = isOpen ? 'Hide details' : 'Show details';
 
     if (!persist) return;
     try {
@@ -1758,7 +1758,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     });
     if (loadAudioEmbeds) {
       loadAudioEmbeds.setAttribute('disabled', 'true');
-      loadAudioEmbeds.textContent = 'Embeds loaded';
+      loadAudioEmbeds.textContent = 'Players loaded';
     }
   }
 
@@ -1870,8 +1870,8 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
         const statusDescription = event.status && event.status !== 'played' ? ` Status: ${event.status}.` : '';
 
         const eventLinks = [
-          { href: '/archive/timeline/', label: 'View full timeline →', external: false },
-          { href: '/archive/event-ledger/', label: 'Open event ledger →', external: false }
+          { href: '/archive/timeline/', label: 'Open timeline →', external: false },
+          { href: '/archive/event-ledger/', label: 'Open event list →', external: false }
         ];
         if (event.source.href) {
           eventLinks.push({ href: event.source.href, label: `${event.source.label} ↗`, external: Boolean(event.source.external) });
@@ -1881,7 +1881,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
           tag: 'EVENT',
           title: event.title,
           data: `${event.year} · ${event.date} · ${event.venue}`,
-          desc: `${event.lineup}. Source: ${event.source.label}.${statusDescription}`,
+          desc: `${event.lineup}. Link: ${event.source.label}.${statusDescription}`,
           links: eventLinks
         });
         return;
@@ -1900,7 +1900,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
           tag: 'PERSON',
           title: person.name,
           data: person.role,
-          desc: "Profile highlights with quick links to each resident's channels.",
+          desc: "Quick links to each resident's pages.",
           links
         });
       }

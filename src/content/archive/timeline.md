@@ -1,6 +1,6 @@
 ---
-title: Timeline & Eras
-description: A structured chronology of BREAD from formation through nightlife and mutual-aid streaming.
+title: Timeline
+description: A plain timeline of BREAD from early club nights to mutual-aid streams.
 order: 2
 updated: 2026-02-28
 tags:
@@ -11,21 +11,21 @@ tags:
 
 ## Era 1 — Formation & Pilot (2014–2015)
 
-- **2014:** project framing appears in public profile language as "since 2014".
+- **2014:** public profile language points to a start "since 2014."
 - **2015-02-13:** pilot event at F8 with Helix.
-- **2015-05 onward:** launch phase and recurring event cadence in SF.
+- **2015-05 onward:** launch phase and recurring events in SF.
 
 ## Era 2 — Booking Expansion (2015–2016)
 
-- Growing resident structure and stronger visual identity.
+- Growing resident structure and a stronger visual identity.
 - Guest bookings include artists associated with UK/US club crossover scenes.
-- A 2015 screenshot references a May 29 SF event, confirming public programming by mid-2015.
-- **2016:** growth-year cluster includes Jlin, Distal, Celestial Trax, Deadboy, Murlo, Rabit, Logos, Mumdance, and a run of partner showcases (Parameter, Sure Thing, Toasted Trax).
+- A 2015 screenshot references a May 29 SF event, confirming regular public programming by mid-2015.
+- **2016:** highlights include Jlin, Distal, Celestial Trax, Deadboy, Murlo, Rabit, Logos, Mumdance, and partner showcases (Parameter, Sure Thing, Toasted Trax).
 
 ## Era 3 — UGSF / Bunker Shift (2017–2018)
 
-- Programming moves toward Underground SF in a changed city context.
-- Sound direction broadens toward warmer, diasporic rhythmic frameworks.
+- More programming moves toward Underground SF as city conditions shift.
+- The sound broadens toward warmer, diasporic rhythmic frameworks.
 - Timeline materials include Mr. Mitch + Kozee and Kelman Duran periods, with 2018 marking final club-night phase.
 
 ## Era 4 — Remote Mutual Aid + Radio Network (2020–2023)
@@ -35,27 +35,27 @@ tags:
 - **2021-01-02:** New Year telethon with multi-time-zone schedule and no-cover framing.
 - **2021-03-13:** Six Years stream appears as anniversary fundraiser period.
 - **2021-07-10:** "Long Bread Summer" stream staged as a fundraiser for Rebuilding Alliance and Oxygen for India.
-- **2022–2023:** indexed traces show BREAD FM programming activity via Internet Public Radio and HKCR.
+- **2022–2023:** public traces show BREAD FM activity via Internet Public Radio and HKCR.
 
-## Canonical timeline rendering
+## Timeline page
 
-The canonical timeline experience is maintained in the dedicated route at [/archive/timeline/](/archive/timeline/).
+The main timeline page lives at [/archive/timeline/](/archive/timeline/).
 
-To avoid timeline drift, dated milestones and era cards are intentionally managed in that route component.
+Dated milestones and era cards are kept there so updates stay in one place.
 
-## Event-level detail set
+## Event-by-event detail
 
-For row-level event tracking with source-basis fields and source links, use the [Event List (Working)](/archive/event-ledger/).
+For event-by-event rows and source links, use the [Event List](/archive/event-ledger/).
 
-## Event discovery leads from research
+## Recovered event leads
 
-A Facebook indexing pass recovered event URLs tied to BREAD naming variants. Several have now been migrated into the event ledger, with the remaining links retained as leads for further extraction:
+A search pass recovered Facebook event URLs tied to BREAD naming variants. Several are now in the event list, and the rest are kept as leads:
 
-- [Facebook event URL list (channel directory)](/archive/channel-profile-directory/)
+- [Facebook event URL list (links page)](/archive/channel-profile-directory/)
 
-## Notes for timeline hardening
+## Next timeline updates
 
 - Add direct source links for rows that still carry `user-archive` status.
 - Mark each entry by verification status (`published`, `strong`, `user-archive`, `open`).
-- Cross-link each event into [Venues & Format Shifts](/archive/venues-format-shifts/) and [People & Network](/archive/people-network/).
-- Keep method caveats documented inline with the relevant event records.
+- Cross-link each event into [Venues](/archive/venues-format-shifts/) and [People](/archive/people-network/).
+- Keep caveats noted inline with the relevant event records.

@@ -160,13 +160,13 @@ const pageStructuredData = createCollectionPageSchema({
   site: Astro.site,
   pathname: Astro.url.pathname,
   name: 'BREAD Radio Shows',
-  description: 'Gallery of BREAD FM show artwork, with names and dates parsed from radio image assets.',
+  description: 'Gallery of BREAD FM show artwork with names and dates pulled from radio image file names.',
   isPartOf: 'BREAD'
 });
 
 const imageListStructuredData = createItemListSchema({
   name: 'BREAD FM Radio Show Artwork',
-  description: 'Radio show cards generated from the public/radio image filenames.',
+  description: 'Radio show cards built from image file names in the public radio folder.',
   itemListElement: radioShows.map((show, index) => ({
     '@type': 'ImageObject',
     name: `${show.guests} — ${show.dateLabel}`,
@@ -180,23 +180,23 @@ const structuredDataEntries = [pageStructuredData, breadcrumbStructuredData, ima
 );
 
 const summaryStats = [
-  { label: 'Shows indexed', value: radioShows.length },
-  { label: 'Unique show bills', value: uniqueGuestCount },
-  { label: 'Months represented', value: monthCount }
+  { label: 'Shows', value: radioShows.length },
+  { label: 'Guest lineups', value: uniqueGuestCount },
+  { label: 'Months covered', value: monthCount }
 ];
 ---
 
 <BaseLayout
   title="BREAD Archive: Radio Shows"
-  description="Browse all BREAD FM radio show images, with lineup and date details extracted from filename metadata."
+  description="Browse BREAD FM radio show images with lineup names and dates pulled from file names."
   structuredData={structuredDataEntries}
   ogImageAlt="BREAD FM radio show artwork gallery"
 >
   <header class="page-header panel">
     <p class="section-kicker">Archive section</p>
     <h1>Radio Shows</h1>
-    <p class="intro">All radio image assets, mapped into cards using filename details for lineup and date.</p>
-    <p class="context">Need full channel links? Open <a href="/archive/channel-profile-directory/">Channel &amp; Profile Directory</a>. Looking for club-night visuals? Open <a href="/archive/flyers/">Flyers</a>.</p>
+    <p class="intro">Radio show images turned into cards with guest names and dates.</p>
+    <p class="context">Need all channel links? Open <a href="/archive/channel-profile-directory/">Links</a>. Looking for party visuals? Open <a href="/archive/flyers/">Flyers</a>.</p>
     <Breadcrumbs items={breadcrumbItems} />
   </header>
 
@@ -216,7 +216,7 @@ const summaryStats = [
         <div class="show-meta">
           <p class="show-title">{show.guests}</p>
           <p class="show-date">{show.dateLabel}</p>
-          <p class="show-file">asset: <code>{show.filename}</code></p>
+          <p class="show-file">file: <code>{show.filename}</code></p>
           <p class="show-action"><a href={show.imagePath} target="_blank" rel="noreferrer noopener">Open full image ↗</a></p>
         </div>
       </article>

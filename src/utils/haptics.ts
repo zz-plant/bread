@@ -1,23 +1,27 @@
-import { WebHaptics } from 'web-haptics';
-
 const INTERACTIVE_SELECTOR = [
-  'a[href]',
-  'button',
-  'summary',
+  "a[href]",
+  "button",
+  "summary",
   'input[type="button"]',
   'input[type="submit"]',
-  '[role="button"]'
-].join(',');
+  '[role="button"]',
+].join(",");
+
+const supportsVibration = (): boolean =>
+  typeof navigator !== "undefined" && typeof navigator.vibrate === "function";
+
+const triggerNudge = (): void => {
+  if (!supportsVibration()) return;
+
+  navigator.vibrate(12);
+};
 
 export const enableHapticNavigation = (): void => {
-  if (typeof window === 'undefined' || typeof document === 'undefined') return;
-
-  if (!WebHaptics.isSupported) return;
-
-  const haptics = new WebHaptics();
+  if (typeof window === "undefined" || typeof document === "undefined") return;
+  if (!supportsVibration()) return;
 
   const onPointerDown = (event: PointerEvent): void => {
-    if (event.pointerType !== 'touch') return;
+    if (event.pointerType !== "touch") return;
 
     const target = event.target;
     if (!(target instanceof Element)) return;
@@ -25,16 +29,15 @@ export const enableHapticNavigation = (): void => {
     const interactive = target.closest(INTERACTIVE_SELECTOR);
     if (!interactive) return;
 
-    void haptics.trigger('nudge', { intensity: 0.35 });
+    triggerNudge();
   };
 
-  window.addEventListener('pointerdown', onPointerDown, { passive: true });
+  window.addEventListener("pointerdown", onPointerDown, { passive: true });
   window.addEventListener(
-    'beforeunload',
+    "beforeunload",
     () => {
-      window.removeEventListener('pointerdown', onPointerDown);
-      haptics.destroy();
+      window.removeEventListener("pointerdown", onPointerDown);
     },
-    { once: true }
+    { once: true },
   );
 };

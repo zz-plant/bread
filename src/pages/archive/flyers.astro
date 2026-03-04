@@ -24,7 +24,7 @@ interface ParsedFlyerAsset {
 interface FlyerFileCandidate {
   filename: string;
   imagePath: string;
-  source: 'Top-level public' | 'Imported archive';
+  source: 'Main site folder' | 'Imported archive';
 }
 
 const supportedImageExtensions = new Set(['.jpg', '.jpeg', '.png', '.webp', '.gif', '.avif']);
@@ -238,7 +238,7 @@ const getPreferredFlyerFiles = (): FlyerFileCandidate[] => {
   const driveDirectory = new URL('../../../public/drive/', import.meta.url);
   const driveDirectoryAvailable = existsSync(driveDirectory);
   const candidates = [
-    ...walkImageDirectory(publicDirectory, '/', 'Top-level public', false),
+    ...walkImageDirectory(publicDirectory, '/', 'Main site folder', false),
     ...(driveDirectoryAvailable ? walkImageDirectory(driveDirectory, '/drive/', 'Imported archive', true) : [])
   ];
   const preferredBySlug = new Map<string, FlyerFileCandidate>();
@@ -247,7 +247,7 @@ const getPreferredFlyerFiles = (): FlyerFileCandidate[] => {
     const extension = extname(candidate.filename).toLowerCase();
     const basename = candidate.filename.slice(0, -extension.length).toLowerCase();
     const isTopLevelFlyer =
-      candidate.source === 'Top-level public' && (basename.startsWith('bread-') || basename.startsWith('toasted-trax-'));
+      candidate.source === 'Main site folder' && (basename.startsWith('bread-') || basename.startsWith('toasted-trax-'));
     const isDriveFlyer = candidate.source === 'Imported archive';
     if (!isTopLevelFlyer && !isDriveFlyer) continue;
 
@@ -260,8 +260,8 @@ const getPreferredFlyerFiles = (): FlyerFileCandidate[] => {
     const nextScore = extensionPriority[extension] ?? 0;
     const currentExtension = extname(current.filename).toLowerCase();
     const currentScore = extensionPriority[currentExtension] ?? 0;
-    const nextSourceScore = candidate.source === 'Top-level public' ? 2 : 1;
-    const currentSourceScore = current.source === 'Top-level public' ? 2 : 1;
+    const nextSourceScore = candidate.source === 'Main site folder' ? 2 : 1;
+    const currentSourceScore = current.source === 'Main site folder' ? 2 : 1;
     if (nextScore > currentScore || (nextScore === currentScore && nextSourceScore > currentSourceScore)) {
       preferredBySlug.set(basename, candidate);
     }
@@ -343,7 +343,7 @@ const flyerAssets = getPreferredFlyerFiles()
 const datedAssetCount = flyerAssets.filter((asset) => Boolean(asset.dateLabel)).length;
 const seriesCount = new Set(flyerAssets.map((asset) => asset.series)).size;
 const importedAssetCount = flyerAssets.filter((asset) => asset.source === 'Imported archive').length;
-const topLevelAssetCount = flyerAssets.filter((asset) => asset.source === 'Top-level public').length;
+const topLevelAssetCount = flyerAssets.filter((asset) => asset.source === 'Main site folder').length;
 
 const breadcrumbItems = [
   { label: 'Home', href: '/' },
@@ -364,13 +364,13 @@ const pageStructuredData = createCollectionPageSchema({
   site: Astro.site,
   pathname: Astro.url.pathname,
   name: 'BREAD Flyer Gallery',
-  description: 'Gallery of flyer and promo images sourced from top-level public assets plus imported archive files, parsed from file naming metadata.',
+  description: 'Gallery of BREAD and Toasted Trax flyers and promo images from the main folder and imported archive files.',
   isPartOf: 'BREAD'
 });
 
 const imageListStructuredData = createItemListSchema({
   name: 'BREAD Flyer Assets',
-  description: 'Flyer cards generated from top-level public and imported archive image assets.',
+  description: 'Flyer cards built from the main image folder and imported archive files.',
   itemListElement: flyerAssets.map((asset, index) => ({
     '@type': 'ImageObject',
     name: asset.dateLabel ? `${asset.title} — ${asset.dateLabel}` : asset.title,
@@ -384,24 +384,24 @@ const structuredDataEntries = [pageStructuredData, breadcrumbStructuredData, ima
 );
 
 const summaryStats = [
-  { label: 'Images indexed', value: flyerAssets.length },
-  { label: 'Images with date metadata', value: datedAssetCount },
-  { label: 'Top-level public assets', value: topLevelAssetCount },
-  { label: 'Imported archive assets', value: importedAssetCount },
-  { label: 'Series represented', value: seriesCount }
+  { label: 'Images', value: flyerAssets.length },
+  { label: 'Images with dates', value: datedAssetCount },
+  { label: 'Main folder images', value: topLevelAssetCount },
+  { label: 'Imported images', value: importedAssetCount },
+  { label: 'Series', value: seriesCount }
 ];
 ---
 
 <BaseLayout
   title="BREAD Archive: Flyers"
-  description="Browse BREAD and Toasted Trax flyers and promo images from top-level and imported archive folders."
+  description="Browse BREAD and Toasted Trax flyers and promo images from the main image folder and imported archive files."
   structuredData={structuredDataEntries}
   ogImageAlt="BREAD flyer and poster image gallery"
 >
   <header class="page-header panel">
     <p class="section-kicker">Archive section</p>
     <h1>Flyers</h1>
-    <p class="intro">Top-level image archive plus imported visuals for club-night and stream collateral.</p>
+    <p class="intro">Flyers, posters, and promo images from the main folder and imported archive files.</p>
     <p class="context">Looking for radio episode art? Open <a href="/archive/radio-shows/">Radio shows</a>.</p>
     <Breadcrumbs items={breadcrumbItems} />
   </header>
@@ -423,7 +423,7 @@ const summaryStats = [
           <p class="flyer-title">{asset.title}</p>
           <p class="flyer-subline">{asset.assetType}{asset.dateLabel ? ` · ${asset.dateLabel}` : ''}</p>
           <p class="flyer-source">{asset.source}</p>
-          <p class="flyer-file">asset: <code>{asset.filename}</code></p>
+          <p class="flyer-file">file: <code>{asset.filename}</code></p>
           <p class="flyer-action"><a href={asset.imagePath} target="_blank" rel="noreferrer noopener">Open full image ↗</a></p>
         </div>
       </article>

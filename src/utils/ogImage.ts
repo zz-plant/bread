@@ -4,7 +4,7 @@ const HEIGHT = 630;
 export const OG_IMAGE_WIDTH = WIDTH;
 export const OG_IMAGE_HEIGHT = HEIGHT;
 
-type OgVariant = 'home' | 'archive' | 'story';
+type OgVariant = "home" | "archive" | "story";
 
 interface OgImageConfig {
   eyebrow: string;
@@ -25,57 +25,61 @@ interface Palette {
 
 const palette: Record<OgVariant, Palette> = {
   home: {
-    bg: '#f8fafc',
-    panel: '#ffffff',
-    stroke: '#e2e8f0',
-    title: '#0f172a',
-    body: '#334155',
-    muted: '#64748b',
-    accent: '#ff5a1f'
+    bg: "#f8fafc",
+    panel: "#ffffff",
+    stroke: "#e2e8f0",
+    title: "#0f172a",
+    body: "#334155",
+    muted: "#64748b",
+    accent: "#ff5a1f",
   },
   archive: {
-    bg: '#020617',
-    panel: '#0b1220',
-    stroke: '#1f2937',
-    title: '#f8fafc',
-    body: '#cbd5e1',
-    muted: '#94a3b8',
-    accent: '#fb923c'
+    bg: "#020617",
+    panel: "#0b1220",
+    stroke: "#1f2937",
+    title: "#f8fafc",
+    body: "#cbd5e1",
+    muted: "#94a3b8",
+    accent: "#fb923c",
   },
   story: {
-    bg: '#020617',
-    panel: '#0b1220',
-    stroke: '#1f2937',
-    title: '#f8fafc',
-    body: '#cbd5e1',
-    muted: '#94a3b8',
-    accent: '#fb923c'
-  }
+    bg: "#020617",
+    panel: "#0b1220",
+    stroke: "#1f2937",
+    title: "#f8fafc",
+    body: "#cbd5e1",
+    muted: "#94a3b8",
+    accent: "#fb923c",
+  },
 };
 
 const routeContext: Record<OgVariant, string> = {
-  home: 'Home overview',
-  archive: 'Archive records',
-  story: 'Story history'
+  home: "Home overview",
+  archive: "Archive records",
+  story: "Story history",
 };
 
 const escapeXml = (value: string): string =>
   value
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&apos;');
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
 
-const normalize = (value: string): string => value.replace(/\s+/g, ' ').trim();
+const normalize = (value: string): string => value.replace(/\s+/g, " ").trim();
 
-const wrapLines = (text: string, maxLength: number, maxLines: number): string[] => {
+const wrapLines = (
+  text: string,
+  maxLength: number,
+  maxLines: number,
+): string[] => {
   const clean = normalize(text);
-  if (!clean) return [''];
+  if (!clean) return [""];
 
-  const words = clean.split(' ');
+  const words = clean.split(" ");
   const lines: string[] = [];
-  let line = '';
+  let line = "";
 
   for (const word of words) {
     const next = line ? `${line} ${word}` : word;
@@ -91,14 +95,20 @@ const wrapLines = (text: string, maxLength: number, maxLines: number): string[] 
 
   if (lines.length < maxLines && line) lines.push(line);
 
-  if (lines.length === maxLines && lines.join(' ').length < clean.length) {
-    lines[maxLines - 1] = `${lines[maxLines - 1].replace(/[\s.,;:!?-]+$/g, '')}…`;
+  if (lines.length === maxLines && lines.join(" ").length < clean.length) {
+    lines[maxLines - 1] =
+      `${lines[maxLines - 1].replace(/[\s.,;:!?-]+$/g, "")}…`;
   }
 
   return lines.slice(0, maxLines);
 };
 
-export const createOgSvg = ({ eyebrow, title, subtitle, variant = 'home' }: OgImageConfig): string => {
+export const createOgSvg = ({
+  eyebrow,
+  title,
+  subtitle,
+  variant = "home",
+}: OgImageConfig): string => {
   const colors = palette[variant];
   const safeEyebrow = escapeXml(normalize(eyebrow).toUpperCase());
   const titleLines = wrapLines(title, 24, 3);
@@ -112,14 +122,14 @@ export const createOgSvg = ({ eyebrow, title, subtitle, variant = 'home' }: OgIm
       const y = 248 + index * titleLineHeight;
       return `<text x="112" y="${y}" fill="${colors.title}" font-family="Inter, system-ui, -apple-system, Segoe UI, sans-serif" font-size="${titleFontSize}" font-weight="700" letter-spacing="-0.9">${escapeXml(line)}</text>`;
     })
-    .join('');
+    .join("");
 
   const subtitleMarkup = subtitleLines
     .map((line, index) => {
       const y = 496 + index * 34;
       return `<text x="112" y="${y}" fill="${colors.body}" font-family="Inter, system-ui, -apple-system, Segoe UI, sans-serif" font-size="28" font-weight="450">${escapeXml(line)}</text>`;
     })
-    .join('');
+    .join("");
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${WIDTH}" height="${HEIGHT}" viewBox="0 0 ${WIDTH} ${HEIGHT}" role="img" aria-labelledby="title desc">
   <title id="title">${escapeXml(normalize(title))} — BREAD.fm</title>
@@ -143,7 +153,7 @@ export const createOgSvg = ({ eyebrow, title, subtitle, variant = 'home' }: OgIm
 export const svgResponse = (svg: string): Response =>
   new Response(svg, {
     headers: {
-      'Content-Type': 'image/svg+xml; charset=utf-8',
-      'Cache-Control': 'public, max-age=86400, stale-while-revalidate=604800'
-    }
+      "Content-Type": "image/svg+xml; charset=utf-8",
+      "Cache-Control": "public, max-age=86400, stale-while-revalidate=604800",
+    },
   });

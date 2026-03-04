@@ -38,23 +38,23 @@ const archiveRouteCount = archivePages.length + 2;
 
 const overviewStats = [
   { label: 'Archive sections', value: archiveRouteCount },
-  { label: 'Canonical route', value: 'Archive index' },
-  { label: 'Last synced', value: formatDate(latestArchiveUpdate) }
+  { label: 'Page', value: 'Archive home' },
+  { label: 'Last updated', value: formatDate(latestArchiveUpdate) }
 ];
 ---
 
 <BaseLayout
   title="BREAD Archive"
-  description="An information architecture for a long-living BREAD archive: overview, timeline, people, and venue shifts."
+  description="Browse the BREAD archive: timeline, people, venues, and event notes."
   structuredData={structuredDataEntries}
   ogImage="/og/archive.svg"
-  ogImageAlt="BREAD Archive index covering eras, venues, people, and records"
+  ogImageAlt="BREAD archive home covering eras, venues, people, and events"
 >
   <header class="archive-header panel">
-    <p class="section-kicker">Archive overview</p>
+    <p class="section-kicker">Archive</p>
     <h1>BREAD Archive</h1>
-    <p class="intro">Browse core records: timeline, people, venues, and methods.</p>
-    <p class="context">Need narrative context? Read <a href="/story/">Story</a>.</p>
+    <p class="intro">Start with timeline, people, venues, and event notes.</p>
+    <p class="context">Want the full background? Read <a href="/story/">Story</a>.</p>
     <Breadcrumbs items={breadcrumbItems} />
   </header>
 
@@ -71,12 +71,12 @@ const overviewStats = [
     <li>
       <p class="section-kicker">Archive section</p>
       <CardLink href="/archive/flyers/" label="Flyers →" />
-      <p>Browse BREAD and Toasted Trax flyer/poster images from top-level assets plus imported archive folders.</p>
+      <p>Browse BREAD and Toasted Trax flyers and posters from the main image folder and imported archive files.</p>
     </li>
     <li>
       <p class="section-kicker">Archive section</p>
       <CardLink href="/archive/radio-shows/" label="Radio shows →" />
-      <p>Browse all BREAD FM artwork cards, with lineup/date details parsed from each radio image filename.</p>
+      <p>Browse BREAD FM artwork cards with names and dates pulled from each image filename.</p>
     </li>
     {
       archivePages.map((page) => (

@@ -12,8 +12,7 @@
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.6.0",
-    "astro": "^5.13.2",
-    "web-haptics": "^0.0.6"
+    "astro": "^5.13.2"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.6",

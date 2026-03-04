@@ -21,6 +21,7 @@ This repository is intended for a static-site codebase with repeatable, automati
 ## Pull requests
 
 Include:
+
 1. what changed,
 2. why,
 3. validation commands run,

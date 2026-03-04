@@ -219,6 +219,10 @@ const resolvedOgImageAlt = ogImageAlt ?? `${title} — ${description}`;
     font-weight: 700;
     letter-spacing: 0.08em;
     text-decoration: none;
+    border-radius: 0.35rem;
+    padding: 0.2rem 0.4rem;
+    margin-left: -0.4rem;
+    transition: background-color 160ms ease, transform 160ms ease;
   }
 
   body.editorial-theme .brand {
@@ -244,6 +248,18 @@ const resolvedOgImageAlt = ogImageAlt ?? `${title} — ${description}`;
     display: inline-flex;
     align-items: center;
     touch-action: manipulation;
+    transition: background-color 160ms ease, color 160ms ease, transform 160ms ease;
+  }
+
+  .brand:hover,
+  .brand:focus-visible {
+    background: #e2e8f0;
+    transform: translateY(-1px);
+  }
+
+  body.editorial-theme .brand:hover,
+  body.editorial-theme .brand:focus-visible {
+    background: #1f2937;
   }
 
   body.editorial-theme nav a {
@@ -256,6 +272,7 @@ const resolvedOgImageAlt = ogImageAlt ?? `${title} — ${description}`;
     background: #e2e8f0;
     color: #0f172a;
     font-weight: 600;
+    transform: translateY(-1px);
   }
 
   body.editorial-theme nav a:hover,

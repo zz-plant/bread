@@ -3,11 +3,11 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import { getCollection, render } from 'astro:content';
 import { formatDate, toContentSlug } from '../../utils/content';
+import { includeInArchiveCatchall } from '../../utils/archive';
 import { createBreadcrumbListSchema, createCollectionPageSchema } from '../../utils/structuredData';
 
 export async function getStaticPaths() {
-  const hiddenSlugs = new Set(['timeline', 'research-methods-confidence']);
-  const pages = (await getCollection('archive')).filter((page) => !hiddenSlugs.has(page.slug));
+  const pages = (await getCollection('archive')).filter((page) => includeInArchiveCatchall(page.slug));
 
   return pages.map((page) => ({
     params: { slug: toContentSlug(page.id) },
@@ -18,7 +18,7 @@ export async function getStaticPaths() {
 const { page } = Astro.props;
 const { Content } = await render(page);
 const archivePages = (await getCollection('archive'))
-  .filter((entry) => entry.slug !== 'timeline')
+  .filter((entry) => includeInArchiveCatchall(entry.slug))
   .sort((a, b) => a.data.order - b.data.order);
 const currentIndex = archivePages.findIndex((entry) => entry.id === page.id);
 const previousPage = currentIndex > 0 ? archivePages[currentIndex - 1] : undefined;

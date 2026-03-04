@@ -1,11 +1,11 @@
 import { getCollection } from "astro:content";
 import { createOgSvg, svgResponse } from "../../../utils/ogImage";
 import { toContentSlug } from "../../../utils/content";
+import { includeInArchiveCatchall } from "../../../utils/archive";
 
 export async function getStaticPaths() {
-  const hiddenSlugs = new Set(["timeline", "research-methods-confidence"]);
-  const pages = (await getCollection("archive")).filter(
-    (page) => !hiddenSlugs.has(page.slug),
+  const pages = (await getCollection("archive")).filter((page) =>
+    includeInArchiveCatchall(page.slug),
   );
 
   return pages.map((page) => ({

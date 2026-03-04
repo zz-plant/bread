@@ -439,14 +439,14 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
                   <p class="title">{event.title}</p>
                   <p class="meta">{event.year} · {event.date} · {event.venue}</p>
                   <p class="lineup">{event.lineup}</p>
-                  {event.source.href ? (
-                    <p class="status">source: <a href={event.source.href} target={event.source.external ? '_blank' : undefined} rel={event.source.external ? 'noreferrer noopener' : undefined}>{event.source.label}</a></p>
-                  ) : (
-                    <p class="status">source: {event.source.label}</p>
-                  )}
                   {hasMeaningfulStatus(event) && <p class="status">status: {event.status}</p>}
                 </div>
               </button>
+              {event.source.href ? (
+                <p class="status source-row">source: <a href={event.source.href} target={event.source.external ? '_blank' : undefined} rel={event.source.external ? 'noreferrer noopener' : undefined}>{event.source.label}</a></p>
+              ) : (
+                <p class="status source-row">source: {event.source.label}</p>
+              )}
             </li>
           ))}
         </ul>
@@ -1373,7 +1373,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     background: linear-gradient(165deg, #161616 0%, #111111 100%);
     padding: 0.9rem;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     gap: 0.8rem;
     transition: border-color 180ms ease, box-shadow 180ms ease;
   }
@@ -1436,6 +1436,21 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     font-size: 0.76rem;
     text-transform: uppercase;
     letter-spacing: 0.04em;
+  }
+
+  .source-row {
+    margin-top: 0;
+  }
+
+  .status a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 0.12em;
+  }
+
+  .status a:hover,
+  .status a:focus-visible {
+    color: #ededed;
   }
 
   .deck-tag {

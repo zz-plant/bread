@@ -8,12 +8,10 @@ import { createArticleSchema, createBreadcrumbListSchema } from '../../utils/str
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
 
-  return posts
-    .filter((post) => toContentSlug(post.id) !== 'the-story-of-bread')
-    .map((post) => ({
-      params: { slug: toContentSlug(post.id) },
-      props: { post }
-    }));
+  return posts.map((post) => ({
+    params: { slug: toContentSlug(post.id) },
+    props: { post }
+  }));
 }
 
 const { post } = Astro.props;
@@ -26,13 +24,13 @@ const postStructuredData = createArticleSchema({
   description: post.data.description,
   datePublished: post.data.date,
   dateModified: post.data.date,
-  section: 'Story post',
+  section: 'Journal post',
   siteName: 'BREAD'
 });
 
 const breadcrumbItems = [
   { label: 'Home', href: '/' },
-  { label: 'Story', href: '/story/' },
+  { label: 'Journal', href: '/blog/' },
   { label: post.data.title }
 ];
 
@@ -40,7 +38,7 @@ const breadcrumbStructuredData = createBreadcrumbListSchema({
   site: Astro.site,
   items: [
     { name: 'Home', pathname: '/' },
-    { name: 'Story', pathname: '/story/' },
+    { name: 'Journal', pathname: '/blog/' },
     { name: post.data.title, pathname: `/blog/${currentSlug}/` }
   ]
 });
@@ -57,13 +55,13 @@ const structuredDataEntries = [postStructuredData, breadcrumbStructuredData].fil
 >
   <article class="story-shell">
     <header class="story-header">
-      <p class="section-kicker">Story post</p>
+      <p class="section-kicker">Journal post</p>
       <h1>{post.data.title}</h1>
       <p>{post.data.description}</p>
       <p class="section-meta">Published {formatDate(post.data.date)}</p>
       <Breadcrumbs items={breadcrumbItems} />
-      <nav class="section-links" aria-label="Story links">
-        <a href="/story/">Story overview</a>
+      <nav class="section-links" aria-label="Journal links">
+        <a href="/blog/">Journal overview</a>
         <a href="/archive/">Archive index</a>
       </nav>
     </header>

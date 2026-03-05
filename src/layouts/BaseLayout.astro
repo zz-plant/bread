@@ -34,9 +34,8 @@ const serializeJsonForScript = (value: Record<string, unknown>) =>
 
 const pathname = Astro.url.pathname;
 const isHome = pathname === '/';
-const isStory = pathname.startsWith('/story/');
 const isBlog = pathname.startsWith('/blog/');
-const isNarrative = isStory || isBlog;
+const isNarrative = isBlog;
 const isArchive = pathname.startsWith('/archive/') && !isNarrative;
 const isEditorial = isArchive || isNarrative;
 const toAbsoluteUrl = (value: string | undefined): string | undefined => {
@@ -97,7 +96,7 @@ const resolvedOgImageAlt = ogImageAlt ?? `${title} — ${description}`;
                 <ul>
                   <li><a href="/" aria-current={isHome ? 'page' : undefined} class={isHome ? 'active' : undefined}>Home</a></li>
                   <li><a href="/archive/" aria-current={isArchive ? 'page' : undefined} class={isArchive ? 'active' : undefined}>Archive</a></li>
-                  <li><a href="/story/" aria-current={isStory ? 'page' : undefined} class={isStory ? 'active' : undefined}>Story</a></li>
+                  <li><a href="/blog/" aria-current={isBlog ? 'page' : undefined} class={isBlog ? 'active' : undefined}>Journal</a></li>
                 </ul>
               </nav>
             </div>
@@ -114,7 +113,7 @@ const resolvedOgImageAlt = ogImageAlt ?? `${title} — ${description}`;
                 <ul>
                   <li><a href="/">Home</a></li>
                   <li><a href="/archive/">Archive</a></li>
-                  <li><a href="/story/">Story</a></li>
+                  <li><a href="/blog/">Journal</a></li>
                 </ul>
               </nav>
             </div>

@@ -398,7 +398,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
       <nav class="tabs rail-card" id="tabs">
         <p class="tabs-title">Pick a section</p>
         <div class="tablist" role="tablist" aria-label="Sections">
-          <button class="tab active" role="tab" aria-selected="true" aria-controls="panel-ledger" id="tab-ledger" data-panel="panel-ledger">events</button>
+          <button class="tab active" role="tab" aria-selected="true" aria-controls="panel-events" id="tab-events" data-panel="panel-events">events</button>
           <button class="tab" role="tab" aria-selected="false" aria-controls="panel-people" id="tab-people" data-panel="panel-people">people</button>
           <button class="tab" role="tab" aria-selected="false" aria-controls="panel-audio" id="tab-audio" data-panel="panel-audio">audio</button>
           <button class="tab" role="tab" aria-selected="false" aria-controls="panel-links" id="tab-links" data-panel="panel-links">links</button>
@@ -407,7 +407,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     </aside>
 
     <main id="home-main" class="content">
-      <article class="panel active" id="panel-ledger" role="tabpanel" aria-labelledby="tab-ledger">
+      <article class="panel active" id="panel-events" role="tabpanel" aria-labelledby="tab-events">
         <h2>Events</h2>
         <p class="result-count" id="eventsResultCount">{documentedChronology.length} events shown</p>
         <p class="events-intro">Each card shows date, series, venue, lineup, and where the info came from.</p>

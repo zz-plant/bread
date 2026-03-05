@@ -19,7 +19,7 @@ This archive is structured for ongoing updates and source-linked history.
 - **Venues & Format Shifts**: venue phases and format evolution. See [Venues & Format Shifts](/archive/venues-format-shifts/).
 - **Verification model**: materials model and review limits are summarized within each archive section.
 - **Channel directory**: canonical links and discovered event URLs. See [Channel & Profile Directory](/archive/channel-profile-directory/).
-- **Story onboarding**: narrative-form context and legacy framing. See [The Story of BREAD](/story/).
+- **Story onboarding**: narrative-form context and legacy framing. See [The Story of BREAD](/blog/the-story-of-bread/).
 
 ## Archival principles
 

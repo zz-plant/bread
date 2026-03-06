@@ -138,6 +138,8 @@ const directoryLinks = [
   { label: 'Read the BREAD story →', href: '/blog/the-story-of-bread/', external: false },
   { label: 'Browse journal posts →', href: '/blog/', external: false }
 ];
+const internalDirectoryLinks = directoryLinks.filter((item) => !item.external);
+const externalDirectoryLinks = directoryLinks.filter((item) => item.external);
 
 const soundcloudEmbedCollections = [
   {
@@ -335,19 +337,6 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
           ))}
         </ul>
       </section>
-      <section class="route-start rail-card" aria-label="Archive pathways">
-        <p class="route-start-title">Archive pathways</p>
-        <p class="route-start-copy">Start here: Archive or Journal.</p>
-        <nav class="primary-routes" aria-label="Archive pathways">
-          <CardLink href="/archive/" label="Explore archive →" />
-          <CardLink href="/blog/the-story-of-bread/" label="Read the BREAD story →" />
-          <CardLink href="/blog/" label="Browse journal →" />
-          <CardLink href="/archive/timeline/" label="Timeline & eras →" />
-          <CardLink href="/archive/event-ledger/" label="Event list →" />
-          <CardLink href="/archive/people-network/" label="People & network →" />
-          <CardLink href="/archive/venues-format-shifts/" label="Venues & formats →" />
-        </nav>
-      </section>
       <nav class="tabs rail-card" id="tabs">
         <p class="tabs-title">Browse sections</p>
         <div class="tablist" role="tablist" aria-label="Archive sections">
@@ -364,6 +353,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
         <h2>Event History</h2>
         <p class="result-count" id="eventsResultCount">{documentedChronology.length} events shown</p>
         <p class="events-intro">Each card shows date, series, venue, lineup, and source status from the event ledger.</p>
+        <p class="confidence-legend"><strong>Confidence:</strong> <span>strong</span> = corroborated source, <span>user-archive</span> = community-supplied evidence, <span>unverified</span> = pending confirmation.</p>
         <ul class="cards">
           {documentedChronology.map((event, index) => (
             <li class="card" id={`event-${index + 1}`} data-kind="event" data-index={index}>
@@ -404,13 +394,28 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
 
       <article class="panel" id="panel-links" role="tabpanel" aria-labelledby="tab-links" hidden>
         <h2>Where to explore next</h2>
-        <ul class="route-list">
-          {directoryLinks.map((item) => (
-            <li>
-              <CardLink href={item.href} label={item.label} external={item.external} />
-            </li>
-          ))}
-        </ul>
+        <section class="links-group" aria-label="Internal routes">
+          <h3>On-site routes</h3>
+          <ul class="route-list">
+            {internalDirectoryLinks.map((item) => (
+              <li>
+                <CardLink href={item.href} label={item.label} external={item.external} />
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section class="links-group" aria-label="External routes">
+          <h3>External destinations</h3>
+          <p class="links-note">Links marked ↗ open external platforms.</p>
+          <ul class="route-list">
+            {externalDirectoryLinks.map((item) => (
+              <li>
+                <CardLink href={item.href} label={item.label} external={item.external} />
+              </li>
+            ))}
+          </ul>
+        </section>
       </article>
 
       <article class="panel" id="panel-audio" role="tabpanel" aria-labelledby="tab-audio" hidden>
@@ -536,13 +541,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
 
   <footer class="home-footer" aria-label="Site footer">
     <p>BREAD archive • long-lived publishing</p>
-    <nav aria-label="Footer routes">
-      <a href="/">Home</a>
-      <a href="/archive/">Archive</a>
-      <a href="/archive/timeline/">Timeline</a>
-      <a href="/blog/the-story-of-bread/">Story</a>
-      <a href="/blog/">Journal</a>
-    </nav>
+    <p><a href="/archive/">Open full archive index →</a></p>
   </footer>
 </BaseLayout>
 
@@ -705,12 +704,6 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     text-transform: uppercase;
   }
 
-  .home-footer nav {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.65rem;
-  }
-
   .home-footer a {
     color: #d9d9d9;
     text-decoration: none;
@@ -869,27 +862,6 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     text-align: right;
   }
 
-  .route-start-title {
-    margin: 0 0 0.45rem;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: #cecece;
-  }
-
-  .primary-routes {
-    display: grid;
-    gap: 0.35rem;
-    margin: 0.3rem 0 0.1rem;
-  }
-
-  .route-start-copy {
-    margin: 0;
-    color: #c2c2c2;
-    font-size: 0.8rem;
-    line-height: 1.5;
-  }
 
   .tabs-title {
     margin: 0 0 0.35rem;
@@ -900,12 +872,6 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     text-transform: uppercase;
   }
 
-  .tabs-copy {
-    margin: 0 0 0.5rem;
-    color: #bdbdbd;
-    font-size: 0.8rem;
-    line-height: 1.4;
-  }
   .primary-routes :global(.card-link),
   .route-list :global(.card-link) {
     display: block;
@@ -1061,6 +1027,35 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     padding: 0;
     display: grid;
     gap: 0.5rem;
+  }
+
+  .confidence-legend {
+    margin: 0.55rem 0 1rem;
+    color: #d1d1d1;
+    font-size: 0.84rem;
+    line-height: 1.5;
+  }
+
+  .confidence-legend span {
+    color: #f2f2f2;
+  }
+
+  .links-group + .links-group {
+    margin-top: 1rem;
+  }
+
+  .links-group h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #d5d5d5;
+  }
+
+  .links-note {
+    margin: 0 0 0.6rem;
+    color: var(--muted);
+    font-size: 0.85rem;
   }
 
   .audio-intro {
@@ -1523,13 +1518,6 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     }
   }
 
-  @media (max-width: 360px) {
-    .home-footer nav {
-      width: 100%;
-      justify-content: space-between;
-    }
-  }
-
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
@@ -1645,6 +1633,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
       activateTab(tabs[nextIndex], { focus: true });
     });
   });
+
   function updateDeck(payload) {
     if (!deckTag || !deckTitle || !deckData || !deckDesc || !deckLinks) return;
     deckTag.textContent = payload.tag;

@@ -60,10 +60,6 @@ const structuredDataEntries = [postStructuredData, breadcrumbStructuredData].fil
       <p>{post.data.description}</p>
       <p class="section-meta">Published {formatDate(post.data.date)}</p>
       <Breadcrumbs items={breadcrumbItems} />
-      <nav class="section-links" aria-label="Journal links">
-        <a href="/blog/">Journal overview</a>
-        <a href="/archive/">Archive index</a>
-      </nav>
     </header>
     <hr />
     <Content />
@@ -100,26 +96,4 @@ const structuredDataEntries = [postStructuredData, breadcrumbStructuredData].fil
     text-transform: uppercase;
   }
 
-  .section-links {
-    margin-top: 0.85rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-
-  .section-links a {
-    border: 1px solid var(--surface-dark-muted);
-    border-radius: 999px;
-    padding: 0.45rem 0.8rem;
-    color: var(--accent-link-dark);
-    text-decoration: none;
-    font-size: 0.84rem;
-    background: rgb(2 6 23 / 45%);
-  }
-
-  .section-links a:hover,
-  .section-links a:focus-visible {
-    border-color: #475569;
-    text-decoration: underline;
-  }
 </style>

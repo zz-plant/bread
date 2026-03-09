@@ -12,13 +12,13 @@ tags:
 
 This page summarizes the currently documented history of BREAD.
 
-It is intentionally conservative: where claims are incomplete or still being verified, this text uses cautious language and points readers to the archive.
+It is intentionally conservative: where details are incomplete, this text uses cautious language and points readers to the archive.
 
-For source-linked records, use the [BREAD Archive index](/archive/) and the [Event List (Working)](/archive/event-ledger/).
+For detailed records, use the [BREAD Archive index](/archive/) and the [Event List (Working)](/archive/event-ledger/).
 
-## Scope and evidence
+## Scope
 
-The chronology below is based on materials currently tracked in this repository (archive notes, recovered event URLs, and in-repo flyer assets). It should be treated as a maintained draft history rather than a final account.
+The chronology below is based on materials currently tracked in this repository (crew notes, recovered event URLs, and in-repo flyer assets). It should be treated as a living history rather than a final account.
 
 ## Chronological summary
 
@@ -48,7 +48,7 @@ Documented campaigns reference support for organizations including NBDA, Atlanta
 
 ## Working timeline snapshot
 
-This table lists currently consolidated milestone markers. For full source rows and caveats, use the archive ledger.
+This table lists currently consolidated milestone markers. For full rows and caveats, use the archive ledger.
 
 | Date | Marker | Format | Notes |
 | --- | --- | --- | --- |
@@ -62,9 +62,9 @@ This table lists currently consolidated milestone markers. For full source rows 
 | 2017-09-22 | Late Underground SF marker | Club night | Kelman Duran + Suda period represented in tracked flyer assets. |
 | 2018-05-12 | Final chapter marker | Club night | End marker for the original club-night run in current records. |
 | 2021-01-02 | New Year fundraiser stream | Livestream | Multi-time-zone no-cover fundraiser lineup in tracked flyer assets. |
-| 2021-03-13 | Six Years stream | Livestream | Anniversary stream remains tracked as a user-archive row pending direct link capture. |
+| 2021-03-13 | Six Years stream | Livestream | Anniversary stream remains tracked in archive notes pending direct link capture. |
 | 2021-07-10 | Long Bread Summer | Livestream | Fundraiser stream for Rebuilding Alliance and Oxygen for India. |
 
-## Ongoing verification
+## Ongoing updates
 
-This page should continue to be updated as additional primary artifacts are verified. Priority gaps include complete venue chronology, lineup-level attribution, and reconciliation of disputed dates across sources.
+This page should continue to be updated as additional flyers, links, and recollections are added. Priority gaps include complete venue chronology, lineup-level attribution, and reconciliation of disputed dates across records.

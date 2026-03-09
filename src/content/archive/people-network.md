@@ -14,11 +14,11 @@ tags:
 - **Cage A (Kanav Jain)**
 - **Prawns**
 
-Their initial intention, as reflected in user-archive notes, was to open room in San Francisco for less-safe, less-commercial club sounds.
+Their initial intention, as reflected in archived notes, was to open room in San Francisco for less-safe, less-commercial club sounds.
 
 ## Expanded resident ecosystem
 
-Recurring names associated with BREAD history across user-archive notes and indexed platform traces include:
+Recurring names associated with BREAD history across archived notes and indexed platform traces include:
 
 - Adam Kraft
 - Gewzer
@@ -27,9 +27,9 @@ Recurring names associated with BREAD history across user-archive notes and inde
 - Exteeng
 - Additional era-specific collaborators reflected in flyers, streams, and radio episodes
 
-## Handle and alias signals from research
+## Handle and alias signals
 
-The research brief preserves cross-platform handle signals, including Instagram-bio and SoundCloud roster listings. These indicate a roster that evolved over time and sometimes differs by alias or platform profile style.
+This archive preserves cross-platform handle signals, including Instagram-bio and SoundCloud roster listings. These show a roster that evolved over time and sometimes differs by alias or profile style.
 
 For canonical pointers and profile URLs, see [Channel & Profile Directory](/archive/channel-profile-directory/).
 
@@ -41,9 +41,9 @@ BREAD operated as more than a party series:
 - A local incubator linked to later projects by resident artists.
 - A radio/streaming node between in-person events and distributed communities.
 
-## Verification status
+## Notes on scope
 
-- Founding names and core resident structure are currently treated as **strong/user-archive** pending line-by-line primary-source binding.
-- Later-career claims for individuals should remain **open** unless directly tied to authoritative references in this repo.
+- Founding names and core resident structure reflect the current internal record and can be refined as more flyers and posts are added.
+- Later-career claims for individuals should stay limited to what this archive can currently support.
 
 Related: [Timeline & Eras](/archive/timeline/) and [Venues & Format Shifts](/archive/venues-format-shifts/).

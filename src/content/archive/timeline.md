@@ -31,7 +31,7 @@ tags:
 ## Era 4 — Remote Mutual Aid + Radio Network (2020–2023)
 
 - **2020–2021:** livestream/telethon format focused on fundraising.
-- Screenshot materials and user-archive notes align on approximately **USD 12K** raised across multiple streams.
+- Screenshot materials and archived notes align on approximately **USD 12K** raised across multiple streams.
 - **2021-01-02:** New Year telethon with multi-time-zone schedule and no-cover framing.
 - **2021-03-13:** Six Years stream appears as anniversary fundraiser period.
 - **2021-07-10:** "Long Bread Summer" stream staged as a fundraiser for Rebuilding Alliance and Oxygen for India.
@@ -45,9 +45,9 @@ To avoid timeline drift, dated milestones and era cards are intentionally manage
 
 ## Event-level detail set
 
-For row-level event tracking with source-basis fields and source links, use the [Event List (Working)](/archive/event-ledger/).
+For row-level event tracking with lineup details and context links, use the [Event List (Working)](/archive/event-ledger/).
 
-## Event discovery leads from research
+## Event discovery leads
 
 A Facebook indexing pass recovered event URLs tied to BREAD naming variants. Several have now been migrated into the event ledger, with the remaining links retained as leads for further extraction:
 
@@ -55,7 +55,7 @@ A Facebook indexing pass recovered event URLs tied to BREAD naming variants. Sev
 
 ## Notes for timeline hardening
 
-- Add direct source links for rows that still carry `user-archive` status.
-- Mark each entry by verification status (`published`, `strong`, `user-archive`, `open`).
+- Add links where they help readers jump to flyers, listings, or related posts.
+- Keep each entry clear about whether it points to a public link or a crew note.
 - Cross-link each event into [Venues & Format Shifts](/archive/venues-format-shifts/) and [People & Network](/archive/people-network/).
 - Keep method caveats documented inline with the relevant event records.

@@ -1,5 +1,5 @@
 ---
-title: Event List (Working)
+title: All Events
 description: Event-by-event list in plain language for ongoing archival tracking.
 order: 3
 updated: 2026-02-28
@@ -10,16 +10,16 @@ tags:
   - review
 ---
 
-This working ledger tracks known BREAD events and practical notes from the crew. Rows are sorted chronologically within each era.
+This page tracks known BREAD events and practical notes from the crew. Rows are sorted by date within each era.
 
-## How to read this table
+## How to read this page
 
 - **Date**: ISO date when confirmed from a primary listing or flyer.
 - **Series**: Party number or special program name.
 - **Venue/platform**: Where it happened, in person or online.
 - **Lineup highlights**: Core lineup markers documented from flyers, listings, and firsthand memory.
-- **Main reference**: Supporting link when one is handy (or an internal note when it is not).
-- **Notes**: quick context on whether this row has a public link or is currently logged from crew memory/records.
+- **Main reference**: Helpful link when one is available (or an internal note when it is not).
+- **Notes**: quick context on whether this row has a public link or is currently based on crew memory/notes.
 
 ## 2015–2018 club-night events (expanded draft)
 

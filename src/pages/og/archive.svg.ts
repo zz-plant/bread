@@ -5,7 +5,7 @@ export function GET() {
     createOgSvg({
       eyebrow: 'BREAD ARCHIVE',
       title: 'BREAD Archive',
-      subtitle: 'Overview of eras, venues, people, and source-backed records.',
+      subtitle: 'Overview of eras, venues, people, and supporting records.',
       variant: 'archive'
     })
   );

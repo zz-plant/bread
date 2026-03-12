@@ -61,14 +61,14 @@ const eventSourceDirectory: Record<
   }
 > = {
   'Pilot: Grime City vs BREAD': { label: 'Facebook event', href: 'https://www.facebook.com/events/588841281252200/', external: true },
-  'BREAD #1': { label: 'Archive notes (pending direct URL)' },
-  'BREAD #2': { label: 'Archive notes (pending direct URL)' },
+  'BREAD #1': { label: 'Crew notes (link pending)' },
+  'BREAD #2': { label: 'Crew notes (link pending)' },
   'BREAD #3': {
     label: 'Facebook event',
     href: 'https://www.facebook.com/events/d41d8cd9/bread-3-wdoctor-jeep-patrick-brian-ballast-javascript-sha-sha-kimbo/1013123788738124/',
     external: true
   },
-  'Addison Groove special': { label: 'Archive notes (pending direct URL)' },
+  'Addison Groove special': { label: 'Crew notes (link pending)' },
   'BREAD #5': { label: 'Flyer image', href: '/bread-jlin-planet-mu-iyer-2016-03-25-flyer.jpg' },
   'BREAD #7': { label: 'Flyer image', href: '/bread-number-seven-celestial-trax-may-21.jpg' },
   'BREAD #8': { label: 'Facebook event', href: 'https://www.facebook.com/events/1755008908099419/', external: true },
@@ -103,15 +103,15 @@ const eventSourceDirectory: Record<
   'UGSF marker': { label: 'Facebook event', href: 'https://www.facebook.com/events/d41d8cd9/bread-sf-mr-mitch-planet-mu-kozee-prawns/277151372731142/', external: true },
   'Roska night': { label: 'Facebook event', href: 'https://www.facebook.com/events/1422866204488341/', external: true },
   'Late UGSF marker': { label: 'Flyer image', href: '/bread-suda-kelman-duran-bread-djs-sept-22.jpg' },
-  'Final club-night marker': { label: 'Archive notes (pending direct URL)' },
+  'Final club-night marker': { label: 'Crew notes (link pending)' },
   'BREAD New Year "YXEXAXR"': { label: 'Flyer image', href: '/bread-new-year-yxexaxr-jan-2.jpg' },
-  'Six Years of BREAD': { label: 'Archive notes (pending direct URL)' },
+  'Six Years of BREAD': { label: 'Crew notes (link pending)' },
   'Long Bread Summer Stream': { label: 'Flyer image', href: '/bread-long-bread-summer-fundraiser-july-10.png' }
 };
 
 const documentedChronology = chronology.map((event) => ({
   ...event,
-  source: eventSourceDirectory[event.title] ?? { label: 'Archive notes (pending direct URL)' }
+  source: eventSourceDirectory[event.title] ?? { label: 'Crew notes (link pending)' }
 }));
 const hasMeaningfulStatus = (event: (typeof chronology)[number]) => event.status && event.status !== 'played';
 const activeYears = new Set(documentedChronology.map((event) => event.year)).size;
@@ -131,7 +131,7 @@ const directoryLinks = [
   { label: 'BREAD X / Twitter ↗', href: 'https://x.com/breadsf', external: true },
   { label: 'RA promoter page ↗', href: 'https://ra.co/promoters/51043', external: true },
   { label: 'Radio Valencia ↗', href: 'http://www.radiovalencia.fm/', external: true },
-  { label: 'Channel & profile directory →', href: '/archive/channel-profile-directory/', external: false },
+  { label: 'Channel & profile links →', href: '/archive/channel-profile-directory/', external: false },
   { label: 'Timeline & eras →', href: '/archive/timeline/', external: false },
   { label: 'Read the BREAD story →', href: '/blog/the-story-of-bread/', external: false },
   { label: 'Browse journal posts →', href: '/blog/', external: false }
@@ -294,12 +294,12 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
 ---
 
 <BaseLayout
-  title="BREAD // Archive"
-  description="BREAD archive timeline, people, and links."
+  title="BREAD // History"
+  description="BREAD timeline, people, and links."
   showSiteFrame={false}
   structuredData={homeStructuredData}
   ogImage="/og/home.svg"
-  ogImageAlt="BREAD archive home with timeline, people, and radio pathways"
+  ogImageAlt="BREAD home with timeline, people, and radio pathways"
 >
   <div class="bg-mark">BREAD</div>
   <div class="top-chrome">
@@ -310,7 +310,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
 
     <nav class="topline-nav" aria-label="Primary routes">
       <a href="/" aria-current="page">Home</a>
-      <a href="/archive/">Archive</a>
+      <a href="/archive/">History</a>
       <a href="/archive/timeline/">Timeline</a>
       <a href="/blog/the-story-of-bread/">Story</a>
       <a href="/blog/">Journal</a>
@@ -337,7 +337,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
       </section>
       <nav class="tabs rail-card" id="tabs">
         <p class="tabs-title">Browse sections</p>
-        <div class="tablist" role="tablist" aria-label="Archive sections">
+        <div class="tablist" role="tablist" aria-label="Site sections">
           <button class="tab active" role="tab" aria-selected="true" aria-controls="panel-ledger" id="tab-ledger" data-panel="panel-ledger">events</button>
           <button class="tab" role="tab" aria-selected="false" aria-controls="panel-people" id="tab-people" data-panel="panel-people">people</button>
           <button class="tab" role="tab" aria-selected="false" aria-controls="panel-audio" id="tab-audio" data-panel="panel-audio">audio</button>
@@ -535,8 +535,8 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
   </section>
 
   <footer class="home-footer" aria-label="Site footer">
-    <p>BREAD archive • long-lived publishing</p>
-    <p><a href="/archive/">Open full archive index →</a></p>
+    <p>BREAD history • San Francisco</p>
+    <p><a href="/archive/">Open the full history pages →</a></p>
   </footer>
 </BaseLayout>
 
@@ -1688,7 +1688,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
 
         const eventLinks = [
           { href: '/archive/timeline/', label: 'View full timeline →', external: false },
-          { href: '/archive/event-ledger/', label: 'Open event ledger →', external: false }
+          { href: '/archive/event-ledger/', label: 'Open all events →', external: false }
         ];
         if (event.source.href) {
           eventLinks.push({ href: event.source.href, label: `${event.source.label} ↗`, external: Boolean(event.source.external) });

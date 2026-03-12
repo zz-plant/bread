@@ -15,7 +15,7 @@ const latestArchiveUpdate = archivePages.reduce((latest, page) =>
 const archiveIndexStructuredData = createCollectionPageSchema({
   site: Astro.site,
   pathname: Astro.url.pathname,
-  name: 'BREAD Archive',
+  name: 'BREAD History',
   description: 'Overview page for BREAD archive sections including timeline, venues, and people.',
   isPartOf: 'BREAD'
 });
@@ -36,24 +36,24 @@ const breadcrumbStructuredData = createBreadcrumbListSchema({
 const structuredDataEntries = [archiveIndexStructuredData, breadcrumbStructuredData].filter((entry): entry is Record<string, unknown> => Boolean(entry));
 
 const overviewStats = [
-  { label: 'Archive sections', value: archivePages.length },
-  { label: 'Canonical route', value: 'Archive index' },
+  { label: 'Sections', value: archivePages.length },
+  { label: 'Start here', value: 'History pages' },
   { label: 'Last synced', value: formatDate(latestArchiveUpdate) }
 ];
 ---
 
 <BaseLayout
-  title="BREAD Archive"
-  description="An information architecture for a long-living BREAD archive: overview, timeline, people, and venue shifts."
+  title="BREAD History"
+  description="A simple home for BREAD history: timeline, people, venues, and key links."
   structuredData={structuredDataEntries}
   ogImage="/og/archive.svg"
-  ogImageAlt="BREAD Archive index covering eras, venues, people, and records"
+  ogImageAlt="BREAD history pages covering eras, venues, people, and records"
 >
   <header class="archive-header panel">
-    <p class="section-kicker">Archive overview</p>
-    <h1>BREAD Archive</h1>
-    <p class="intro">Archive is the canonical record: timeline, people, venues, and methods.</p>
-    <p class="context">For editorial context and narrative writing, use the <a href="/blog/">Journal</a> (start with <a href="/blog/the-story-of-bread/">the story</a>).</p>
+    <p class="section-kicker">Overview</p>
+    <h1>BREAD History</h1>
+    <p class="intro">This is the main place for timeline, people, venues, and source notes.</p>
+    <p class="context">For a more story-first read, visit the <a href="/blog/">Journal</a> (start with <a href="/blog/the-story-of-bread/">the story</a>).</p>
     <Breadcrumbs items={breadcrumbItems} />
   </header>
 
@@ -70,7 +70,7 @@ const overviewStats = [
     {
       archivePages.map((page) => (
         <li>
-          <p class="section-kicker">Archive section</p>
+          <p class="section-kicker">Section</p>
           <CardLink href={`/archive/${toContentSlug(page.id)}/`} label={`${page.data.title} →`} />
           <p>{page.data.description}</p>
         </li>

@@ -1,6 +1,6 @@
 ---
 title: People & Network
-description: Founders, residents, collaborators, and how BREAD functioned as a scene network.
+description: Founders, residents, and collaborators who helped shape BREAD.
 order: 4
 updated: 2026-02-14
 tags:
@@ -16,9 +16,9 @@ tags:
 
 Their initial intention, as reflected in archived notes, was to open room in San Francisco for less-safe, less-commercial club sounds.
 
-## Expanded resident ecosystem
+## Expanded resident circle
 
-Recurring names associated with BREAD history across archived notes and indexed platform traces include:
+Recurring names associated with BREAD history across archived notes and public platform mentions include:
 
 - Adam Kraft
 - Gewzer
@@ -27,21 +27,21 @@ Recurring names associated with BREAD history across archived notes and indexed 
 - Exteeng
 - Additional era-specific collaborators reflected in flyers, streams, and radio episodes
 
-## Handle and alias signals
+## Names and aliases
 
-This archive preserves cross-platform handle signals, including Instagram-bio and SoundCloud roster listings. These show a roster that evolved over time and sometimes differs by alias or profile style.
+This archive keeps track of names used across platforms, including Instagram-bio and SoundCloud roster listings. These show a roster that evolved over time and sometimes differs by alias or profile style.
 
-For canonical pointers and profile URLs, see [Channel & Profile Directory](/archive/channel-profile-directory/).
+For quick profile links, see [Channel & Profile Directory](/archive/channel-profile-directory/).
 
-## Network effects
+## Community impact
 
 BREAD operated as more than a party series:
 
-- A booking bridge between online music subcultures and local dance floors.
-- A local incubator linked to later projects by resident artists.
-- A radio/streaming node between in-person events and distributed communities.
+- A bridge between online music scenes and local dance floors.
+- A launchpad that fed into later projects by resident artists.
+- A radio and streaming thread connecting in-person nights and wider communities.
 
-## Notes on scope
+## Scope notes
 
 - Founding names and core resident structure reflect the current internal record and can be refined as more flyers and posts are added.
 - Later-career claims for individuals should stay limited to what this archive can currently support.

@@ -1,6 +1,6 @@
 ---
 title: Venues & Format Shifts
-description: A venue-centered view of BREAD's evolution from club residency to remote streams.
+description: How BREAD moved across venues and formats, from club nights to remote streams.
 order: 5
 updated: 2026-02-14
 tags:
@@ -17,13 +17,13 @@ F8 is documented as an early anchor point for pilot and residency activity, espe
 
 ### Underground SF period (later club cycle)
 
-Programming emphasis shifted to Underground SF as city conditions and scene dynamics changed.
+More events shifted to Underground SF as the city and scene changed.
 
 ## Additional venue references in research notes
 
 User-archive notes include references to additional touchpoints such as Public Works Loft, Mighty, Bruno's, Codeword, Club 6ix, and OMG.
 
-These should be represented as event-linked venue records rather than one-off mentions.
+Where possible, these should be tied to specific events instead of listed as one-off mentions.
 
 ## Format transitions
 
@@ -31,12 +31,12 @@ These should be represented as event-linked venue records rather than one-off me
 - **Radio format:** BREAD FM continuity between parties and later digital programming traces.
 - **Telethon format:** pandemic-era livestream fundraising.
 
-## Source status notes
+## Notes on what we can verify
 
-- Venue assertions currently mix indexed web snippets, screenshot-derived notes, and user-supplied archival claims.
-- Resident Advisor event confirmation is currently constrained by anti-bot blocking in this environment.
-- Facebook event URLs are preserved as discovery leads and require event-by-event review.
+- Venue notes currently mix web snippets, screenshot notes, and crew-provided archive claims.
+- Resident Advisor event confirmation is limited in this environment because of anti-bot blocking.
+- Facebook event URLs are kept as leads and still need event-by-event review.
 
-Verification caveats are documented inline in each archive section where relevant.
+Extra caveats are noted inline in each archive section where relevant.
 
 Related: [Timeline & Eras](/archive/timeline/) and [People & Network](/archive/people-network/).

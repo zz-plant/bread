@@ -1,6 +1,6 @@
 ---
 title: Channel & Profile Directory
-description: Canonical link directory for BREAD channels, member profiles, and discovered event URLs.
+description: Helpful links for BREAD channels, member profiles, and discovered event URLs.
 order: 7
 updated: 2026-02-18
 tags:
@@ -29,7 +29,7 @@ tags:
 - Parameter: <https://parameterpresents.com>
 - Nightsweats / Fake and Gay: <https://www.instagram.com/fakeandgayinc>
 
-## Resident directory (as preserved in research)
+## Resident links
 
 ### Prawns
 - SoundCloud: <https://soundcloud.com/prawns>
@@ -72,9 +72,9 @@ tags:
 ### Shl
 - Role note: Resident from 2021 onward.
 
-## Discovered Facebook event URLs (indexing pass)
+## Discovered Facebook event URLs
 
-These were discovered via public search indexing and should be treated as archival leads pending record-level review:
+These were found through public search and should be treated as leads until each event is reviewed:
 
 1. <https://www.facebook.com/events/588841281252200/>
 2. <https://www.facebook.com/events/1694286880828782/>
@@ -90,4 +90,4 @@ These were discovered via public search indexing and should be treated as archiv
 12. <https://www.facebook.com/events/d41d8cd9/bread-12-w-na-dubbel-dutch-tsvi/1793167794291121/>
 13. <https://www.facebook.com/events/public-works-sf/bread-9-w-dbm-deadboy-murlo-blackdown/813388422095198/>
 
-Related: [Event Ledger](/archive/event-ledger/) and [Timeline & Eras](/archive/timeline/).
+Related: [All Events](/archive/event-ledger/) and [Timeline & Eras](/archive/timeline/).

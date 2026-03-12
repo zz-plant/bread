@@ -16,22 +16,22 @@ const blogStructuredData = createCollectionPageSchema({
   site: Astro.site,
   pathname: Astro.url.pathname,
   name: 'BREAD Journal',
-  description: 'Editorial posts, retrospectives, and updates adjacent to the archive.',
+  description: 'Stories, reflections, and updates alongside the history pages.',
   isPartOf: 'BREAD'
 });
 ---
 
 <BaseLayout
   title="BREAD Journal"
-  description="Editorial posts, retrospectives, and updates adjacent to the BREAD archive."
+  description="Stories, reflections, and updates alongside BREAD history."
   structuredData={blogStructuredData}
   ogImage="/og/archive.svg"
   ogImageAlt="BREAD Journal entries"
 >
   <header class="journal-header panel">
-    <p class="section-kicker">Editorial</p>
+    <p class="section-kicker">Stories</p>
     <h1>BREAD Journal</h1>
-    <p class="intro">Journal is for editorial context and narrative updates. For canonical records, use the <a href="/archive/">Archive</a>.</p>
+    <p class="intro">The Journal is for stories and updates. For the full record, use the <a href="/archive/">history pages</a>.</p>
   </header>
 
   <ul class="journal-list">

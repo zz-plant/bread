@@ -5,7 +5,7 @@ export function GET() {
     createOgSvg({
       eyebrow: 'BREAD // SAN FRANCISCO',
       title: 'BREAD // Archive',
-      subtitle: 'Timeline, people, radio, and long-memory records from San Francisco.',
+      subtitle: 'Timeline, people, radio, and records from San Francisco.',
       variant: 'home'
     })
   );

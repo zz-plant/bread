@@ -62,12 +62,12 @@ const structuredDataEntries = [archivePageStructuredData, breadcrumbStructuredDa
 >
   <article class="archive-shell">
     <header class="archive-header">
-      <p class="section-kicker">Archive section</p>
+      <p class="section-kicker">Section</p>
       <h1>{page.data.title}</h1>
       <p>{page.data.description}</p>
       <p class="section-meta">Last updated {formatDate(page.data.updated)}</p>
       <Breadcrumbs items={breadcrumbItems} />
-      <nav class="section-pagination" aria-label="Archive section pagination">
+      <nav class="section-pagination" aria-label="Section pagination">
         {previousPage && <a href={`/archive/${toContentSlug(previousPage.id)}/`}>← {previousPage.data.title}</a>}
         {nextPage && <a href={`/archive/${toContentSlug(nextPage.id)}/`}>{nextPage.data.title} →</a>}
       </nav>

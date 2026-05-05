@@ -1,28 +1,24 @@
 # AGENTS.md
 
-Repository-wide guidance for agentic development in `bread`.
+Compact guidance for agentic development in `bread`.
 
-## Purpose
+## Commands
 
-This repository is intended for a static-site codebase with repeatable, automation-friendly workflows.
+- `npm run lint` — runs `astro check` (type/content validation, not traditional lint)
+- `npm run format` — Prettier check (not run in CI)
 
-## Standards
+CI order: `npm ci` → `npm run lint` → `npm run build`
 
-- Prefer small, reviewable commits.
-- Keep content and code changes separated when possible.
-- For content pages, preserve clean frontmatter and valid internal links.
-- Run lint/build checks before opening PRs once tooling is present.
+## Architecture
+
+**OG images**: generated via `.svg.ts` files in `src/pages/og/`
+
+**Key routes**: `/story/` is canonical (legacy `/blog/the-story-of-bread/` redirects)
 
 ## Skills
 
-- Repository skills live in `.agents/skills/`.
-- Prefer explicit skill invocation for deterministic workflows.
+Repository skills live in `.agents/skills/`. Prefer explicit skill invocation for deterministic workflows.
 
 ## Pull requests
 
-Include:
-
-1. what changed,
-2. why,
-3. validation commands run,
-4. follow-up tasks.
+Include: what changed, why, validation commands run, follow-up tasks.

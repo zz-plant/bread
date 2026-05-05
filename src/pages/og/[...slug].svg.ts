@@ -12,7 +12,7 @@ export async function getStaticPaths() {
 
   // Archive pages
   const archivePages = (await getCollection("archive")).filter((page) =>
-    includeInArchiveCatchall(page.slug),
+    includeInArchiveCatchall(page.id),
   );
   paths.push(
     ...archivePages.map((page) => ({

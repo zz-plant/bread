@@ -8,7 +8,7 @@ import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import { createBreadcrumbListSchema, createCollectionPageSchema } from '../../utils/structuredData';
 
 const archivePages = (await getCollection('archive'))
-  .filter((page) => includeInArchiveIndex(page.slug))
+  .filter((page) => includeInArchiveIndex(page.id))
   .sort((a, b) => a.data.order - b.data.order);
 const latestArchiveUpdate = archivePages.reduce((latest, page) =>
   page.data.updated > latest ? page.data.updated : latest,

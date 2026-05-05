@@ -7,7 +7,7 @@ import { includeInArchiveCatchall } from '../../utils/archive';
 import { createBreadcrumbListSchema, createCollectionPageSchema } from '../../utils/structuredData';
 
 export async function getStaticPaths() {
-  const pages = (await getCollection('archive')).filter((page) => includeInArchiveCatchall(page.slug));
+  const pages = (await getCollection('archive')).filter((page) => includeInArchiveCatchall(page.id));
 
   return pages.map((page) => ({
     params: { slug: toContentSlug(page.id) },
@@ -18,7 +18,7 @@ export async function getStaticPaths() {
 const { page } = Astro.props;
 const { Content } = await render(page);
 const archivePages = (await getCollection('archive'))
-  .filter((entry) => includeInArchiveCatchall(entry.slug))
+  .filter((entry) => includeInArchiveCatchall(entry.id))
   .sort((a, b) => a.data.order - b.data.order);
 const currentIndex = archivePages.findIndex((entry) => entry.id === page.id);
 const previousPage = currentIndex > 0 ? archivePages[currentIndex - 1] : undefined;

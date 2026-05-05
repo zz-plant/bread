@@ -24,33 +24,33 @@ interface Palette {
 }
 
 const palette: Record<OgVariant, Palette> = {
-  home: {
-    bg: "#f8fafc",
-    panel: "#ffffff",
-    stroke: "#e2e8f0",
-    title: "#0f172a",
-    body: "#334155",
-    muted: "#64748b",
-    accent: "#ff5a1f",
-  },
-  archive: {
-    bg: "#020617",
-    panel: "#0b1220",
-    stroke: "#1f2937",
-    title: "#f8fafc",
-    body: "#cbd5e1",
-    muted: "#94a3b8",
-    accent: "#fb923c",
-  },
-  story: {
-    bg: "#020617",
-    panel: "#0b1220",
-    stroke: "#1f2937",
-    title: "#f8fafc",
-    body: "#cbd5e1",
-    muted: "#94a3b8",
-    accent: "#fb923c",
-  },
+   home: {
+     bg: "#f8fafc",
+     panel: "#ffffff",
+     stroke: "#e2e8f0",
+     title: "#0f172a",
+     body: "#334155",
+     muted: "#64748b",
+     accent: "#ff5a1f",
+   },
+   archive: {
+     bg: "#020617",
+     panel: "#0b1220",
+     stroke: "#1f2937",
+     title: "#f8fafc",
+     body: "#cbd5e1",
+     muted: "#94a3b8",
+     accent: "#ea580c",
+   },
+   story: {
+     bg: "#020617",
+     panel: "#0b1220",
+     stroke: "#1f2937",
+     title: "#f8fafc",
+     body: "#cbd5e1",
+     muted: "#94a3b8",
+     accent: "#ea580c",
+   },
 };
 
 const routeContext: Record<OgVariant, string> = {

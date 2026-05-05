@@ -4,8 +4,11 @@ import { toContentSlug } from "../../utils/content";
 import { includeInArchiveCatchall } from "../../utils/archive";
 
 export async function getStaticPaths() {
-  // Home page
-  const paths = [{ params: {}, props: { type: "home" } }];
+  const paths = [];
+
+  // Add homepage path - for catch-all routes, we need to provide a slug param
+  // For homepage, we'll use an empty string or special indicator
+  paths.push({ params: { slug: "" }, props: { type: "home" } });
 
   // Archive pages
   const archivePages = (await getCollection("archive")).filter((page) =>
@@ -30,32 +33,28 @@ export async function getStaticPaths() {
   return paths;
 }
 
-export function GET({ params, props }: { params: { slug?: string }; props: { type: string; title?: string; description?: string } }) {
+export function GET({ props }: { props: { type: string; title?: string; description?: string } }) {
   // Determine variant and content based on route
   let variant: "home" | "archive" | "story" = "home";
   let title = "";
   let description = "";
   let eyebrow = "";
-  let routeContext = "";
 
   if (props.type === "home") {
     variant = "home";
     eyebrow = "BREAD // SAN FRANCISCO";
     title = "BREAD // Archive";
     description = "Timeline, people, radio, and flyers from San Francisco.";
-    routeContext = "Home overview";
   } else if (props.type === "archive") {
     variant = "archive";
     eyebrow = "BREAD ARCHIVE";
     title = props.title ?? "BREAD Archive";
     description = props.description ?? "Timeline, venues, people, and the events that shaped BREAD.";
-    routeContext = "Archive records";
   } else if (props.type === "blog") {
     variant = "story";
     eyebrow = "BREAD STORY";
     title = props.title ?? "";
     description = props.description ?? "";
-    routeContext = "Story history";
   }
 
   return svgResponse(

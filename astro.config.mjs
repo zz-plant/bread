@@ -6,4 +6,10 @@ export default defineConfig({
   site: "https://bread.fm",
   integrations: [sitemap(), cloudflare()],
   adapter: cloudflare(),
+  vite: {
+    ssr: {
+      noExternal: [],
+      external: ['fs', 'path', 'url']
+    }
+  }
 });

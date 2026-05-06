@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro check && astro build",
+    "prebuild": "node scripts/generate-data.mjs",
+    "build": "npm run prebuild && astro check && astro build",
     "preview": "astro preview",
     "lint": "astro check",
     "format": "prettier --check .",

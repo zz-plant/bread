@@ -266,15 +266,14 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
       <span>2015—2024</span>
     </header>
 
-    <nav class="topline-nav" aria-label="Primary routes">
-      <a href="/" aria-current="page">Home</a>
-      <a href="/archive/">Archive</a>
-      <a href="/archive/flyers/">Flyers</a>
-      <a href="/archive/radio-shows/">Radio shows</a>
-      <a href="/archive/timeline/">Timeline</a>
-      <a href="/story/">Story</a>
-      <a href="/blog/">Journal</a>
-    </nav>
+        <nav class="topline-nav" aria-label="Primary routes">
+          <a href="/" aria-current="page">Home</a>
+          <a href="/archive/">Archive</a>
+          <a href="/archive/flyers/">Flyers</a>
+          <a href="/archive/radio-shows/">Radio shows</a>
+          <a href="/archive/timeline/">Timeline</a>
+          <a href="/story/">Story</a>
+        </nav>
   </div>
 
   <a class="skip-link-home" href="#home-main">Skip to content</a>
@@ -303,7 +302,6 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
           <CardLink href="/archive/flyers/" label="Flyers →" />
           <CardLink href="/archive/radio-shows/" label="Radio shows →" />
           <CardLink href="/story/" label="Read the story →" />
-          <CardLink href="/blog/" label="Browse journal →" />
           <CardLink href="/archive/timeline/" label="Timeline →" />
           <CardLink href="/archive/event-ledger/" label="Event list →" />
           <CardLink href="/archive/people-network/" label="People →" />
@@ -560,7 +558,6 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
       <a href="/archive/radio-shows/">Radio shows</a>
       <a href="/archive/timeline/">Timeline</a>
       <a href="/story/">Story</a>
-      <a href="/blog/">Journal</a>
     </nav>
   </footer>
 </BaseLayout>
@@ -585,9 +582,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
 
   :global(body) {
     margin: 0;
-    background:
-      radial-gradient(circle at 12% -4%, rgb(255 90 31 / 9%), transparent 42%),
-      linear-gradient(140deg, var(--bg) 10%, #0a0a0a 64%, #080808 100%);
+    background: var(--bg);
     color: var(--text);
   }
 
@@ -615,23 +610,6 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     letter-spacing: -0.03em;
     pointer-events: none;
     user-select: none;
-  }
-
-  .skip-link-home {
-    position: absolute;
-    left: 0.75rem;
-    top: -3rem;
-    z-index: 50;
-    padding: 0.5rem 0.75rem;
-    border-radius: 0.4rem;
-    background: #111827;
-    color: #fff;
-    text-decoration: none;
-  }
-
-  .skip-link-home:focus {
-    top: 0.75rem;
-    z-index: 50;
   }
 
   .top-chrome {
@@ -675,8 +653,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
   }
 
   .topline-nav a {
-    border: 1px solid #343434;
-    border-radius: 999px;
+    border-bottom: 1px solid var(--line);
     padding: 0.42rem 0.72rem;
     color: #d4d4d4;
     font-size: 0.8rem;
@@ -701,19 +678,15 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
   }
 
   .home-footer {
-    position: relative;
-    z-index: 2;
     width: min(1440px, calc(100% - 1.2rem));
     margin: 0 auto 0.8rem;
-    border: 1px solid var(--line);
-    border-radius: 0.8rem;
-    background: linear-gradient(180deg, #111 0%, #0d0d0d 100%);
     padding: 0.8rem 0.9rem calc(0.9rem + env(safe-area-inset-bottom));
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 0.7rem;
     flex-wrap: wrap;
+    border-bottom: 1px solid var(--line);
   }
 
   .home-footer p {
@@ -793,24 +766,18 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     align-self: start;
     max-height: calc(100vh - 54px);
     overflow: auto;
-    background:
-      radial-gradient(circle at top left, rgb(255 90 31 / 10%), transparent 46%),
-      linear-gradient(180deg, #121212 0%, #0e0e0e 100%);
+    background: var(--bg-alt);
+    border-right: 1px solid var(--line);
   }
 
   .rail-head {
-    border: 1px solid #343434;
-    border-radius: 0.75rem;
     padding: 0.9rem;
-    background: linear-gradient(170deg, #1a1a1a 0%, #141414 100%);
+    border-bottom: 1px solid var(--line);
   }
 
   .rail-card {
-    border: 1px solid #313131;
-    border-radius: 0.75rem;
     padding: 0.8rem;
-    background: linear-gradient(180deg, #171717 0%, #121212 100%);
-    box-shadow: none;
+    border-bottom: 1px solid var(--line);
   }
 
   .rail-kicker {
@@ -849,6 +816,8 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: #d0d0d0;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 0.5rem;
   }
 
   .snapshot-list {
@@ -864,7 +833,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     justify-content: space-between;
     align-items: baseline;
     gap: 0.6rem;
-    border-top: 1px solid #252525;
+    border-top: 1px solid var(--line);
     padding-top: 0.45rem;
   }
 
@@ -929,15 +898,14 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
   .route-list :global(.card-link) {
     display: block;
     padding: 0.72rem 0.8rem;
-    border: 1px solid #383838;
-    border-radius: 0.65rem;
+    border-bottom: 1px solid var(--line);
     color: #e2e2e2;
     text-decoration: none;
     text-transform: uppercase;
     font-size: 0.78rem;
     letter-spacing: 0.03em;
-    background: #131313;
-    transition: border-color 180ms ease, color 180ms ease, background-color 160ms ease, transform 150ms ease;
+    background: var(--bg-alt);
+    transition: border-color 180ms ease, color 180ms ease;
   }
 
   .primary-routes :global(.card-link:hover),
@@ -945,10 +913,8 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
   .route-list :global(.card-link:hover),
   .route-list :global(.card-link:focus-visible) {
     border-color: var(--accent);
-    background: rgb(255 90 31 / 12%);
     color: #fff;
     outline: none;
-    transform: translateX(2px);
   }
 
   .tabs {
@@ -959,51 +925,6 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.35rem;
-  }
-
-  .tab {
-    background: #0d0d0d;
-    border: 1px solid #3a3a3a;
-    border-radius: 999px;
-    color: #acacac;
-    padding: 0.45rem 0.75rem;
-    font-family: 'JetBrains Mono', monospace;
-    font-weight: 500;
-    font-size: 0.76rem;
-    letter-spacing: 0.07em;
-    cursor: pointer;
-    text-align: center;
-    line-height: 1.1;
-    text-transform: uppercase;
-    transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease, transform 160ms ease;
-    min-height: 44px;
-    touch-action: manipulation;
-  }
-
-  .tab.active {
-    color: #fff;
-    border-color: var(--accent);
-    background: rgb(255 90 31 / 10%);
-  }
-
-  .tab:focus-visible {
-    outline: none;
-    box-shadow: 0 0 0 2px #121212, 0 0 0 4px var(--accent);
-  }
-
-  .tab {
-    transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease, transform 160ms ease;
-  }
-
-  .tab:hover {
-    color: var(--accent);
-    border-color: var(--accent-soft);
-    background: rgb(255 90 31 / 6%);
-  }
-
-  .tab.active {
-    background: rgb(255 90 31 / 10%);
-    border-bottom-width: 2px;
   }
 
   .policy {
@@ -1033,24 +954,27 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
   }
 
   .chip {
-    border: 1px solid #4a4a4a;
-    border-radius: 999px;
-    background: #0d0d0d;
-    color: #ddd;
+    border: 1px solid var(--line);
     padding: 0.5rem 0.75rem;
     min-height: 44px;
     font-size: 0.74rem;
     font-family: 'JetBrains Mono', monospace;
     cursor: pointer;
     touch-action: manipulation;
-    transition: border-color 180ms ease, color 180ms ease, background-color 180ms ease, transform 120ms ease;
+    transition: border-color 180ms ease, color 180ms ease;
+    background: var(--bg);
+    color: #ddd;
   }
 
   .chip.active,
   .chip:hover,
   .chip:focus-visible {
     border-color: var(--accent);
-    background: rgb(255 90 31 / 12%);
+    color: #fff;
+  }
+
+  .chip.active {
+    border-color: var(--accent);
     color: #fff;
   }
 
@@ -1085,8 +1009,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     align-items: center;
     gap: 0.25rem;
     padding: 0.25rem 0.5rem;
-    border: 1px solid #3a3a3a;
-    border-radius: 999px;
+    border-bottom: 1px solid var(--line);
     color: #c4c4c4;
     text-decoration: none;
     font-size: 0.72rem;
@@ -1108,6 +1031,8 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
   .deck {
     padding: 1rem;
     overflow: auto;
+    border: 1px solid var(--line);
+    background: var(--bg-alt);
   }
 
   .panel {
@@ -1177,9 +1102,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
 
   .featured-visuals {
     margin: 1rem 0 1.1rem;
-    border: 1px solid #383838;
-    border-radius: var(--radius-card);
-    background: linear-gradient(180deg, #141414 0%, #101010 100%);
+    border-bottom: 1px solid var(--line);
     padding: 0.8rem;
     display: grid;
     gap: 0.75rem;
@@ -1205,9 +1128,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     gap: 0.6rem;
     margin-bottom: 1rem;
     padding: 0.75rem;
-    border: 1px solid #383838;
-    border-radius: var(--radius-card);
-    background: linear-gradient(180deg, #141414 0%, #101010 100%);
+    border-bottom: 1px solid var(--line);
   }
 
   .search-wrapper {
@@ -1227,14 +1148,13 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
 
   .search-wrapper input {
     width: 100%;
-    background: #0d0d0d;
-    border: 1px solid #3a3a3a;
-    border-radius: 0.5rem;
+    background: var(--bg);
+    border: 1px solid var(--line);
     color: #ededed;
     padding: 0.55rem 0.75rem 0.55rem 2.2rem;
     font-size: 0.88rem;
     outline: none;
-    transition: border-color 180ms ease, box-shadow 180ms ease;
+    transition: border-color 180ms ease;
   }
 
   .search-wrapper input:focus {
@@ -1353,13 +1273,14 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
 
   .load-more-container .chip {
     min-width: 200px;
+    border-color: var(--accent);
   }
 
   .audio-actions a {
     color: var(--muted);
     text-decoration: none;
     font-size: 0.9rem;
-    border-bottom: 1px solid var(--line-strong);
+    border-bottom: 1px solid var(--line);
   }
 
   .audio-actions a:hover {
@@ -1376,19 +1297,14 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
   }
 
   .audio-card {
-    border: 1px solid var(--line);
-    border-radius: var(--radius-card);
-    background: linear-gradient(180deg, #1a1a1a 0%, #141414 100%);
+    border-bottom: 1px solid var(--line);
     padding: 0.9rem;
     display: grid;
     gap: 0.7rem;
-    transition: border-color 160ms ease, box-shadow 160ms ease, transform 150ms ease;
   }
 
   .audio-card:hover {
-    border-color: var(--accent);
-    box-shadow: 0 4px 16px rgb(0 0 0 / 26%), 0 0 0 1px rgb(255 90 31 / 0.3);
-    transform: translateY(-1px);
+    background: var(--panel);
   }
 
   .audio-card h3 {
@@ -1417,11 +1333,6 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     font-size: 0.95rem;
     text-decoration: none;
     border-bottom: 1px solid var(--line-strong);
-  }
-
-  .audio-card a:hover {
-    color: var(--accent);
-    border-bottom-color: var(--accent);
   }
 
 
@@ -1456,19 +1367,14 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
   }
 
   .resident-audio-grid li {
-    border: 1px solid var(--line);
-    border-radius: var(--radius-card);
-    background: linear-gradient(180deg, #1a1a1a 0%, #141414 100%);
+    border-bottom: 1px solid var(--line);
     padding: 0.8rem;
     display: grid;
     gap: 0.55rem;
-    transition: border-color 160ms ease, box-shadow 160ms ease, transform 150ms ease;
   }
 
   .resident-audio-grid li:hover {
-    border-color: var(--accent);
-    box-shadow: 0 4px 16px rgb(0 0 0 / 26%), 0 0 0 1px rgb(255 90 31 / 0.3);
-    transform: translateY(-1px);
+    background: var(--panel);
   }
 
   .resident-audio-grid p {
@@ -1493,24 +1399,24 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
 
   .resident-audio-grid a:hover {
     color: var(--accent);
-    border-bottom-color: var(--accent);
+  }
+
+  .audio-card a:hover,
+  .audio-card a:focus-visible {
+    color: var(--accent);
   }
 
   .card {
-    border: 1px solid #373737;
-    border-radius: var(--radius-card);
-    background: linear-gradient(165deg, #161616 0%, #111111 100%);
+    border-bottom: 1px solid var(--line);
     padding: 0.9rem;
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
-    transition: border-color 160ms ease, box-shadow 160ms ease, transform 150ms ease;
+    background: var(--bg-alt);
   }
 
   .card:hover {
-    border-color: var(--accent);
-    box-shadow: 0 4px 16px rgb(0 0 0 / 26%), 0 0 0 1px rgb(255 90 31 / 0.3);
-    transform: translateY(-1px);
+    background: var(--panel);
   }
 
   .card-header {
@@ -1524,12 +1430,10 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
   .status-badge {
     font-size: 0.66rem;
     padding: 0.22rem 0.48rem;
-    border-radius: 999px;
     text-transform: uppercase;
     letter-spacing: 0.04em;
     white-space: nowrap;
     font-weight: 500;
-    transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
   }
 
   .status-badge:hover {
@@ -1541,19 +1445,16 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
   .status-played {
     background: rgb(34 197 94 / 20%);
     color: #4ade80;
-    border: 1px solid rgb(34 197 94 / 30%);
   }
 
   .status-cancelled {
     background: rgb(239 68 68 / 20%);
     color: #f87171;
-    border: 1px solid rgb(239 68 68 / 30%);
   }
 
   .status-postponed {
     background: rgb(234 179 8 / 20%);
     color: #facc15;
-    border: 1px solid rgb(234 179 8 / 30%);
   }
 
   .card-footer {
@@ -1570,25 +1471,17 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
   }
 
   .share-btn {
-    background: #1a1a1a;
-    border: 1px solid #3a3a3a;
-    border-radius: 0.4rem;
-    color: #d4d4d4;
+    background: var(--bg);
+    border: 1px solid var(--line);
     padding: 0.3rem 0.5rem;
     cursor: pointer;
     font-size: 0.8rem;
     min-height: 32px;
     touch-action: manipulation;
-    transition: border-color 180ms ease, color 180ms ease, transform 100ms ease;
   }
 
   .share-btn:hover {
     border-color: var(--accent, #ff5a1f);
-    background: rgb(255 90 31 / 10%);
-  }
-
-  .share-btn:active {
-    transform: scale(0.97);
   }
 
   .pick-btn {
@@ -1699,9 +1592,29 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     display: none;
   }
 
+  .deck h3 {
+    margin: 0;
+    font-weight: 200;
+    font-size: 2rem;
+    line-height: 0.88;
+    text-transform: lowercase;
+    letter-spacing: -0.03em;
+  }
+
+  .deck p {
+    margin: 0;
+    color: #c4c4c4;
+    line-height: 1.45;
+  }
+
   .deck-links a {
     color: #dedede;
     text-decoration: none;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .deck-links a:hover {
+    color: var(--accent);
   }
 
   .deck-links a:hover,
@@ -1760,9 +1673,10 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
 
     .nav-rail,
     .content,
-    .deck {
-      border-radius: 0.7rem;
-    }
+  .deck {
+    border: 1px solid var(--line);
+    background: var(--bg-alt);
+  }
 
     .rail-head,
     .rail-card {
@@ -1861,10 +1775,36 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
       padding: 0.8rem;
     }
 
-    .tab {
-      font-size: 0.74rem;
-      padding-inline: 0.5rem;
-    }
+  .tab {
+    background: var(--bg-alt);
+    border: 1px solid var(--line);
+    padding: 0.45rem 0.75rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 500;
+    font-size: 0.76rem;
+    letter-spacing: 0.07em;
+    cursor: pointer;
+    text-align: center;
+    line-height: 1.1;
+    text-transform: uppercase;
+    min-height: 44px;
+    touch-action: manipulation;
+    color: var(--muted);
+  }
+
+  .tab.active {
+    color: var(--text);
+    border-color: var(--accent);
+  }
+
+  .tab:hover {
+    color: var(--text);
+    border-color: var(--line-strong);
+  }
+
+  .tab.active {
+    border-bottom: 2px solid var(--accent);
+  }
 
     .card {
       padding: 0.75rem;

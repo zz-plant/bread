@@ -1,0 +1,111 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { getCollection, render } from 'astro:content';
+import { formatDate, toContentSlug } from '../utils/content';
+import { createArticleSchema, createBreadcrumbListSchema } from '../utils/structuredData';
+
+const posts = await getCollection('blog');
+const storyPost = posts.find((post) => toContentSlug(post.id) === 'the-story-of-bread');
+
+if (!storyPost) {
+  return Astro.redirect('/404', 302);
+}
+
+const { Content } = await render(storyPost);
+const postStructuredData = createArticleSchema({
+  site: Astro.site,
+  pathname: Astro.url.pathname,
+  headline: storyPost.data.title,
+  description: storyPost.data.description,
+  datePublished: storyPost.data.date,
+  dateModified: storyPost.data.date,
+  section: 'Story',
+  siteName: 'BREAD'
+});
+
+const breadcrumbItems = [
+  { label: 'Home', href: '/' },
+  { label: storyPost.data.title }
+];
+
+const breadcrumbStructuredData = createBreadcrumbListSchema({
+  site: Astro.site,
+  items: [
+    { name: 'Home', pathname: '/' },
+    { name: storyPost.data.title, pathname: '/story/' }
+  ]
+});
+
+const structuredDataEntries = [postStructuredData, breadcrumbStructuredData].filter((entry): entry is Record<string, unknown> => Boolean(entry));
+---
+<BaseLayout
+  title={storyPost.data.title}
+  description={storyPost.data.description}
+  structuredData={structuredDataEntries}
+  ogImage="/og/story.svg"
+  ogImageAlt={storyPost.data.title}
+>
+  <article class="story-shell">
+    <header class="story-header">
+      <p class="section-kicker">Story</p>
+      <h1>{storyPost.data.title}</h1>
+      <p>{storyPost.data.description}</p>
+      <p class="section-meta">Published {formatDate(storyPost.data.date)}</p>
+      <Breadcrumbs items={breadcrumbItems} />
+      <nav class="section-links" aria-label="Story links">
+        <a href="/archive/">Archive</a>
+        <a href="/blog/">Journal</a>
+      </nav>
+    </header>
+    <hr />
+    <Content />
+  </article>
+</BaseLayout>
+
+<style>
+  .story-shell {
+    padding: 1rem;
+  }
+
+  .story-header {
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .section-kicker {
+    margin: 0;
+    color: #94a3b8;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .section-meta {
+    margin: 0.35rem 0 0;
+    color: #cbd5e1;
+    font-size: 0.82rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+
+  .section-links {
+    margin-top: 0.85rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .section-links a {
+    border-bottom: 1px solid var(--surface-dark-muted);
+    padding: 0.45rem 0.8rem;
+    color: var(--accent-link-dark);
+    text-decoration: none;
+    font-size: 0.84rem;
+  }
+
+  .section-links a:hover,
+  .section-links a:focus-visible {
+    color: #fff;
+  }
+</style>

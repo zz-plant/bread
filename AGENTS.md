@@ -11,14 +11,15 @@ Compact guidance for agentic development in `bread`.
 Read these first, in order:
 
 - `src/pages/index.astro` — homepage and primary layout
-- `src/content.config.ts` — content collections schema (blog, archive)
+- `src/content.config.ts` — content collections schema (archive, events, roster)
 - `astro.config.mjs` — Astro configuration and integrations
 - `package.json` — dependencies and scripts
 
 Read these next when the task needs them:
 
-- `src/content/blog/` — blog posts (MDX with frontmatter)
 - `src/content/archive/` — archive pages (ordered content)
+- `src/content/events/` — event data (JSON with title, date, venue, lineup, confidence)
+- `src/content/roster/` — roster data (JSON with name, role, links)
 - `src/pages/og/[...slug].svg.ts` — OG image generation
 - `src/layouts/` — page layouts
 - `src/components/` — reusable components
@@ -42,16 +43,16 @@ CI order: `npm ci` → `npm run lint` → `npm run build`
 **Framework**: Astro 6.x with Cloudflare adapter for static site generation.
 
 **Content Collections**:
-- `blog` — MDX posts with frontmatter (title, description, date, draft, tags)
 - `archive` — ordered content pages (title, description, order, updated, tags)
+- `events` — event data (title, date, year, venue, lineup, confidence, status)
+- `roster` — roster members (name, role, notes, links, order)
 
-**OG Images**: generated via `.svg.ts` files in `src/pages/og/`. The `[...slug].svg.ts` file handles dynamic OG image generation.
+**OG Images**: generated via `.svg.ts` files in `src/pages/og/`. The `[...slug].svg.ts` file handles dynamic OG image generation for homepage and archive pages.
 
 **Key Routes**:
 - `/` — homepage (`src/pages/index.astro`)
-- `/story/` — canonical story page (legacy `/blog/the-story-of-bread/` redirects)
-- `/blog/` — blog post listings and individual posts
-- `/archive/` — archive pages
+- `/story/` — canonical story page
+- `/archive/` — archive pages (flyers, radio shows, timeline, event ledger, people, venues)
 - `/og/*.svg` — OG image endpoints
 
 **Deployment**: Cloudflare Pages via `@astrojs/cloudflare` adapter.
@@ -74,10 +75,9 @@ Repository skills live in `.agents/skills/`. Prefer explicit skill invocation fo
 
 ## Content Standards
 
-- Blog post titles should be clear and descriptive.
-- Include `description` in frontmatter for SEO and OG images.
-- Use `tags` array for categorization (defaults to empty array).
 - Archive items require `order` number for sorting (non-negative integer).
+- Events use `confidence` field ("strong", "user-archive") to indicate verification level.
+- Events with `confidence: "unverified"` are filtered from homepage chronology.
 - Internal links should use Astro's `<a href="">` or framework-specific routing.
 
 ## Anti-Patterns
@@ -107,3 +107,14 @@ When completing a substantive task, leave behind:
 ## Pull Requests
 
 Include: what changed, why, validation commands run, follow-up tasks.
+
+## Work Custody
+For non-trivial delegated work, use `.work-custody/`.
+Rules:
+1. Read `.work-custody/WORK_ORDER.md` before acting.
+2. Do not edit outside the authorized scope.
+3. Put adjacent findings in `.work-custody/PARKING_LOT.md`.
+4. Preserve unresolved uncertainty in `.work-custody/UNKNOWNS.md`.
+5. Record command-level evidence in `.work-custody/VERIFICATION.md`.
+6. Before stopping, update `.work-custody/HANDOFF.md`.
+7. Do not mark work ready unless `.work-custody/READINESS.md` is complete.

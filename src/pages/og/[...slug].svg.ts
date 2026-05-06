@@ -21,15 +21,6 @@ export async function getStaticPaths() {
     }))
   );
 
-  // Blog posts
-  const blogPosts = await getCollection("blog", ({ data }) => !data.draft);
-  paths.push(
-    ...blogPosts.map((post) => ({
-      params: { slug: toContentSlug(post.id) },
-      props: { type: "blog", title: post.data.title, description: post.data.description },
-    }))
-  );
-
   return paths;
 }
 
@@ -50,11 +41,6 @@ export function GET({ props }: { props: { type: string; title?: string; descript
     eyebrow = "BREAD ARCHIVE";
     title = props.title ?? "BREAD Archive";
     description = props.description ?? "Timeline, venues, people, and the events that shaped BREAD.";
-  } else if (props.type === "blog") {
-    variant = "story";
-    eyebrow = "BREAD STORY";
-    title = props.title ?? "";
-    description = props.description ?? "";
   }
 
   return svgResponse(

@@ -1,29 +1,24 @@
 # Work Order
 ## Objective
-Resolve repo inconsistencies identified during work custody setup:
-1. Blog format mismatch (convert .md to .mdx, install MDX integration)
-2. Fix /story/ route (create missing page)
-3. Verify event data confidence values
-4. Confirm build process handles data generation (already done)
+Identify and implement visual refinements to improve the look and feel of bread.fm after SaaS de-glossing, focusing on typography, color, spacing, image treatment, and content hierarchy.
 
 ## Authorized Scope
 ### Allowed
-- `src/content/blog/` (rename .md to .mdx)
-- `astro.config.mjs` (add MDX integration)
-- `package.json` (add @astrojs/mdx dependency)
-- `src/pages/story.astro` (create missing story page)
-- `src/content/events/` (review confidence values)
+- `src/pages/index.astro` (styling tweaks)
+- `src/pages/story.astro` (content presentation)
+- `src/pages/index.astro` (structural/nav changes if needed)
+- Update CSS custom properties if beneficial
 
 ### Not Allowed
-- `src/content/archive/` (archive content is out of scope)
-- `wrangler.jsonc` (Cloudflare config)
-- Creating new blog content (thin blog content is a separate task)
+- Changing core layout structure (sidebar/main/panel)
+- Removing navigation or core sections
+- Altering content source (events, roster, archive)
+- Changing OG image generation
 
 ## Required Verification
-- Run `npm run lint` to validate all changes
-- Verify .mdx files are recognized (no "No entry type found" warnings)
-- Confirm /story/ route renders correctly
-- Check event confidence values
+- Run `npm run lint` to ensure no Astro/TypeScript errors
+- Visual inspection of key routes: home, story, archive, events
+- Confirm responsive behavior still works
 
 ## Status
 - [ ] Draft

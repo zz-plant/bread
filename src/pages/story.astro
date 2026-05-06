@@ -53,10 +53,9 @@ const structuredDataEntries = [postStructuredData, breadcrumbStructuredData].fil
       <p>{storyPost.data.description}</p>
       <p class="section-meta">Published {formatDate(storyPost.data.date)}</p>
       <Breadcrumbs items={breadcrumbItems} />
-      <nav class="section-links" aria-label="Story links">
-        <a href="/archive/">Archive</a>
-        <a href="/blog/">Journal</a>
-      </nav>
+    <nav class="section-links" aria-label="Story links">
+      <a href="/archive/">Archive</a>
+    </nav>
     </header>
     <hr />
     <Content />

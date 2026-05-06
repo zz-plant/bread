@@ -1,7 +1,9 @@
 import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
+import cloudflare from "@astrojs/cloudflare";
 
 export default defineConfig({
   site: "https://bread.fm",
-  integrations: [sitemap()],
+  integrations: [sitemap(), cloudflare()],
+  adapter: cloudflare(),
 });

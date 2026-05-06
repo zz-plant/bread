@@ -212,3 +212,20 @@ export function createBreadcrumbListSchema(params: {
     itemListElement,
   };
 }
+
+export function createPersonSchema(params: {
+  site?: URL;
+  name: string;
+  role?: string;
+  links?: Record<string, string>;
+}): JsonLdRecord | undefined {
+  const { site, name, role, links } = params;
+  
+  return {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name,
+    ...(role ? { jobTitle: role } : {}),
+    ...(links?.sc ? { sameAs: Object.values(links).filter(Boolean) } : {}),
+  };
+}

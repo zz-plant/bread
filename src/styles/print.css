@@ -1,0 +1,150 @@
+/* Print-optimized styles for BREAD archive */
+
+@media print {
+  /* Hide navigation and interactive elements */
+  .site-header,
+  .site-footer,
+  .nav-rail,
+  .deck,
+  .tabs,
+  .top-chrome,
+  .topline-nav,
+  .search-container,
+  .share-buttons,
+  .audio-actions,
+  button,
+  iframe,
+  script,
+  .skip-link,
+  .bg-mark {
+    display: none !important;
+  }
+
+  /* Reset background and colors */
+  body,
+  html {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  /* Show main content */
+  .site-shell,
+  .content-wrap,
+  main {
+    display: block !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Improve readability */
+  h1, h2, h3, h4, h5, h6 {
+    color: #000 !important;
+    page-break-after: avoid;
+  }
+
+  p, li {
+    color: #333 !important;
+    line-height: 1.5;
+  }
+
+  /* Show links with URLs */
+  a {
+    color: #000 !important;
+    text-decoration: none;
+  }
+
+  a[href^="http"]:after {
+    content: " (" attr(href) ")";
+    font-size: 0.9em;
+    color: #666;
+  }
+
+  a[href^="/"]:after {
+    content: " (https://bread.fm" attr(href) ")";
+    font-size: 0.9em;
+    color: #666;
+  }
+
+  /* Timeline page */
+  .timeline-container,
+  .timeline-track {
+    overflow: visible !important;
+    height: auto !important;
+    border: none !important;
+  }
+
+  .timeline-event {
+    position: relative !important;
+    left: auto !important;
+    display: block !important;
+    margin-bottom: 1rem;
+    page-break-inside: avoid;
+  }
+
+  .event-card {
+    border: 1px solid #ccc !important;
+    background: #fff !important;
+  }
+
+  .event-title,
+  .event-year,
+  .event-venue {
+    color: #000 !important;
+  }
+
+  /* Cards */
+  .card {
+    border: 1px solid #ccc !important;
+    background: #fff !important;
+    page-break-inside: avoid;
+  }
+
+  .title,
+  .meta,
+  .lineup {
+    color: #000 !important;
+  }
+
+  /* Images */
+  img {
+    max-width: 100% !important;
+    page-break-inside: avoid;
+  }
+
+  /* Add page breaks */
+  .panel,
+  section,
+  article {
+    page-break-before: auto;
+  }
+
+  /* Chronology specific */
+  .cards {
+    display: block;
+  }
+
+  .cards .card {
+    margin-bottom: 1rem;
+  }
+
+  /* Resident profiles */
+  .resident-profile {
+    max-width: 100% !important;
+  }
+
+  .link-list a:after {
+    content: " (" attr(href) ")";
+    font-size: 0.9em;
+    color: #666;
+  }
+
+  /* Show event details */
+  .event-details,
+  #eventDetails {
+    position: static !important;
+    border: 1px solid #ccc !important;
+    box-shadow: none !important;
+    margin-top: 2rem;
+  }
+}

@@ -7,124 +7,39 @@ import {
   createItemListSchema,
   createWebsiteSchema
 } from '../utils/structuredData';
+import { getCollection } from 'astro:content';
 
-const chronology = [
-  { year: '2015', date: 'Feb 13', title: 'Pilot: Grime City vs BREAD', venue: 'F8', lineup: 'Nevermind, Helix', confidence: 'strong', status: 'played' },
-  { year: '2015', date: 'May 29', title: 'BREAD #1', venue: 'San Francisco', lineup: 'Rushmore, Kid Antoine, residents', confidence: 'user-archive', status: 'played' },
-  { year: '2015', date: 'Jul 24', title: 'BREAD #2', venue: 'F8 (noted)', lineup: 'Rabit, Korma, Sheen, Victoria Kim', confidence: 'user-archive', status: 'played' },
-  { year: '2015', date: 'Nov 06', title: 'BREAD #3', venue: 'F8', lineup: 'Doctor Jeep, Patrick Brian, Ballast, Javascript, Sha Sha Kimbo', confidence: 'strong', status: 'played' },
-  { year: '2015', date: 'Nov 13', title: 'Addison Groove special', venue: 'SF (noted)', lineup: 'Addison Groove', confidence: 'user-archive', status: 'played' },
-  { year: '2016', date: 'Mar 25', title: 'BREAD #5', venue: 'F8', lineup: 'Jlin, Iyer, Botaz, Prawns, Cage A', confidence: 'strong', status: 'played' },
-  { year: '2016', date: 'May 20', title: 'BREAD #7', venue: 'San Francisco', lineup: 'Distal, Celestial Trax, Endgame', confidence: 'strong', status: 'played' },
-  { year: '2016', date: 'Jun 16', title: 'BREAD #8', venue: 'Mighty (noted)', lineup: 'Neana, Bleaker', confidence: 'strong', status: 'played' },
-  { year: '2016', date: 'Jun 29', title: 'Toasted Trax #1', venue: 'Codeword', lineup: 'Abyss X, DHRA, DJ Spider, Gabes, Gewzer b2b Cage A', confidence: 'strong', status: 'played' },
-  { year: '2016', date: 'Jul 22', title: 'BREAD #9', venue: 'Public Works Loft (noted)', lineup: 'DBM (Deadboy + Murlo), Blackdown', confidence: 'strong', status: 'played' },
-  { year: '2016', date: 'Aug 19', title: 'BREAD #10 / Parameter x BREAD', venue: 'F8', lineup: 'Pinch, Rabit, Mumdance, Logos, Caski, Ganesa', confidence: 'strong', status: 'played' },
-  { year: '2016', date: 'Sep 04', title: 'BREAD weekend special', venue: '2389 Mission St', lineup: 'Dehousy, Nargiz, The Dance Pit', confidence: 'strong', status: 'played' },
-  { year: '2016', date: 'Oct 21', title: 'Toasted Trax #2', venue: 'SF (venue pending)', lineup: 'Lineup extraction pending', confidence: 'strong', status: 'played' },
-  { year: '2016', date: 'Nov 19', title: 'Sure Thing x BREAD showcase', venue: '60 6th St', lineup: 'Lobster Theremin showcase billing', confidence: 'strong', status: 'played' },
-  { year: '2016', date: 'Dec 09', title: 'BREAD #12', venue: 'Club 6ix (noted)', lineup: 'NA, TSVI, Dubbel Dutch', confidence: 'strong', status: 'played' },
-  { year: '2017', date: 'Mar 24', title: 'BREAD SF: DJ J Heat', venue: 'SF (noted)', lineup: 'DJ J Heat, Kieran Loftus', confidence: 'strong', status: 'played' },
-  { year: '2017', date: 'May 26', title: 'UGSF period event', venue: 'Underground SF', lineup: 'Mr. Mitch, Kozee, Prawns', confidence: 'strong', status: 'played' },
-  { year: '2017', date: 'Jul 28', title: 'Roska night', venue: 'SF (noted)', lineup: 'Roska, misoh, tf1000', confidence: 'strong', status: 'played' },
-  { year: '2017', date: 'Sep 22', title: 'Late UGSF period event', venue: 'Underground SF', lineup: 'Kelman Duran, Suda, BREAD DJs', confidence: 'strong', status: 'played' },
-  { year: '2018', date: 'May 12', title: 'Final club-night era event', venue: 'OMG (noted)', lineup: 'Gila, Neana', confidence: 'user-archive', status: 'played' },
-  { year: '2021', date: 'Jan 02', title: 'BREAD New Year "YXEXAXR"', venue: 'Twitch', lineup: 'Color Plus, Gila, Zaida, Wonja + residents', confidence: 'strong', status: 'played' },
-  { year: '2021', date: 'Mar 13', title: 'Six Years of BREAD', venue: 'Twitch', lineup: 'Resident-led anniversary lineup', confidence: 'strong', status: 'played' },
-  { year: '2021', date: 'Jul 10', title: 'Long Bread Summer Stream', venue: 'Twitch', lineup: 'Anónima, Bahar Khadem, Exteeng, residents', confidence: 'strong', status: 'played' },
-  { year: '2022', date: 'Jul 27', title: 'BREAD FM monthly launch announcement', venue: 'Internet Public Radio', lineup: 'Monthly show launch announcement', confidence: 'strong', status: 'played' },
-  { year: '2023', date: 'Mar 29', title: 'IPR monthly series episode', venue: 'Internet Public Radio', lineup: 'Guest mix from Bastiengoat', confidence: 'strong', status: 'played' },
-  { year: '2023', date: 'Jun 15', title: 'HKCR residency announcement', venue: 'HKCR', lineup: 'Residency announcement post', confidence: 'strong', status: 'played' },
-  { year: '2023', date: 'Sep 28', title: 'HKCR episode', venue: 'HKCR / hkcr.live', lineup: 'Guest Nate (goondere)', confidence: 'strong', status: 'played' },
-  { year: '2024', date: 'Mar 21', title: 'SF event announcement (secret SOMA location)', venue: 'SOMA area, SF', lineup: 'Nhac Gay, Ngo Linh, Mess Vndtown, Exteeng, Weeaboo Diaspora', confidence: 'strong', status: 'played' }
-];
+const events = (await getCollection('events'))
+  .sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
 
-const roster = [
-  { name: 'Cage A (Kanav)', role: 'Founder', links: { sc: 'https://soundcloud.com/cage_a' } },
-  { name: 'Prawns', role: 'Founder', links: { sc: 'https://soundcloud.com/prawns', ig: 'https://instagram.com/_prawns' } },
-  {
-    name: 'Judy (dhra)',
-    role: 'Co-founder',
-    notes: 'Co-founding member; later artistic direction shifted away from the lane that originally brought the crew together.',
-    links: {}
-  },
-  { name: 'Botaz', role: 'Resident', links: { sc: 'https://soundcloud.com/botaz', ig: 'https://instagram.com/brian_aviles' } },
-  { name: 'Misoh', role: 'Resident (through ~2018)', notes: 'Part of the resident era through the 2018 transition.', links: {} },
-  { name: 'TF1000 / Tranespotting', role: 'Resident', links: { sc: 'https://soundcloud.com/tranespotting', ig: 'https://instagram.com/tf1000_' } },
-  { name: 'Adam Kraft', role: 'Resident', links: { sc: 'https://soundcloud.com/adamkraftneindanke', ig: 'https://instagram.com/adamkraft_', ra: 'https://ra.co/dj/adamkraft' } },
-  { name: 'Gewzer', role: 'Resident', links: { sc: 'https://soundcloud.com/gewzer', ig: 'https://instagram.com/gewzer', bc: 'https://cyberspa.bandcamp.com/album/g-love-s' } },
-  { name: 'Exteeng', role: 'Resident (from 2018)', links: { sc: 'https://soundcloud.com/exteeng', ig: 'https://instagram.com/exteeng', ra: 'https://ra.co/dj/exteeng' } },
-  { name: 'Shl', role: 'Resident (from 2021)', links: {} }
-];
-
-const eventSourceDirectory: Record<
-  string,
-  {
-    label: string;
-    href?: string;
-    external?: boolean;
-  }
-> = {
-  'Pilot: Grime City vs BREAD': { label: 'Facebook event', href: 'https://www.facebook.com/events/588841281252200/', external: true },
-  'BREAD #1': { label: 'Archive notes (link coming soon)' },
-  'BREAD #2': { label: 'Archive notes (link coming soon)' },
-  'BREAD #3': {
-    label: 'Facebook event',
-    href: 'https://www.facebook.com/events/d41d8cd9/bread-3-wdoctor-jeep-patrick-brian-ballast-javascript-sha-sha-kimbo/1013123788738124/',
-    external: true
-  },
-  'Addison Groove special': { label: 'Archive notes (link coming soon)' },
-  'BREAD #5': { label: 'Flyer image', href: '/bread-jlin-planet-mu-iyer-2016-03-25-flyer.jpg' },
-  'BREAD #7': { label: 'Flyer image', href: '/bread-number-seven-celestial-trax-may-21.jpg' },
-  'BREAD #8': { label: 'Facebook event', href: 'https://www.facebook.com/events/1755008908099419/', external: true },
-  'Toasted Trax #1': { label: 'Flyer image', href: '/toasted-trax-number-one-june-29.jpg' },
-  'BREAD #9': {
-    label: 'Facebook event',
-    href: 'https://www.facebook.com/events/public-works-sf/bread-9-w-dbm-deadboy-murlo-blackdown/813388422095198/',
-    external: true
-  },
-  'BREAD #10 / Parameter x BREAD': { label: 'Flyer image', href: '/bread-number-ten-pinch-rabit-mumdance-logos-caski-ganesa-aug-19.png' },
-  'BREAD weekend special': { label: 'Flyer image', href: '/bread-long-weekend-special-september-4.jpg' },
-  'Toasted Trax #2': {
-    label: 'Facebook event',
-    href: 'https://www.facebook.com/events/d41d8cd9/bread-sf-presents-toasted-trax-2/1792378097640992/',
-    external: true
-  },
-  'Sure Thing x BREAD showcase': {
-    label: 'Facebook event',
-    href: 'https://www.facebook.com/events/60-6th-st-san-francisco-ca-94103-1609-united-states/sure-thing-bread-sf-lobster-theremin-showcase/1062894940491694/',
-    external: true
-  },
-  'BREAD #12': {
-    label: 'Facebook event',
-    href: 'https://www.facebook.com/events/d41d8cd9/bread-12-w-na-dubbel-dutch-tsvi/1793167794291121/',
-    external: true
-  },
-  'BREAD SF: DJ J Heat': {
-    label: 'Facebook event',
-    href: 'https://www.facebook.com/events/d41d8cd9/bread-sf-dj-j-heat-night-slugs-kieran-loftus/1603512559678229/',
-    external: true
-  },
-  'UGSF period event': { label: 'Facebook event', href: 'https://www.facebook.com/events/d41d8cd9/bread-sf-mr-mitch-planet-mu-kozee-prawns/277151372731142/', external: true },
-  'Roska night': { label: 'Facebook event', href: 'https://www.facebook.com/events/1422866204488341/', external: true },
-  'Late UGSF period event': { label: 'Flyer image', href: '/bread-suda-kelman-duran-bread-djs-sept-22.jpg' },
-  'Final club-night era event': { label: 'Archive notes (link coming soon)' },
-  'BREAD New Year "YXEXAXR"': { label: 'Instagram post', href: 'https://www.instagram.com/p/CJed4dGFKbz/', external: true },
-  'Six Years of BREAD': { label: 'Instagram post', href: 'https://www.instagram.com/p/CL44SfGli4d/', external: true },
-  'Long Bread Summer Stream': { label: 'Flyer image', href: '/bread-long-bread-summer-fundraiser-july-10.png' },
-  'BREAD FM monthly launch announcement': { label: 'Instagram post', href: 'https://www.instagram.com/p/Cgfdlh4Pdtx/', external: true },
-  'IPR monthly series episode': { label: 'Instagram post', href: 'https://www.instagram.com/p/CqYuOcTyg7v/', external: true },
-  'HKCR residency announcement': { label: 'Instagram post', href: 'https://www.instagram.com/p/CthThTOpds1/', external: true },
-  'HKCR episode': { label: 'Instagram post', href: 'https://www.instagram.com/p/CxvngwCxnU2/', external: true },
-  'SF event announcement (secret SOMA location)': { label: 'Instagram post', href: 'https://www.instagram.com/p/C4ygjDoynTY/', external: true }
-};
-
-const documentedChronology = chronology
-  .filter((event) => event.confidence !== 'unverified')
-  .map((event) => ({
-    ...event,
-    source: eventSourceDirectory[event.title] ?? { label: 'Archive notes (link coming soon)' }
+const roster = (await getCollection('roster'))
+  .sort((a, b) => a.data.order - b.data.order)
+  .map((person) => ({
+    name: person.data.name,
+    role: person.data.role,
+    notes: person.data.notes,
+    links: person.data.links
   }));
+
+const documentedChronology = events
+  .filter((event) => event.data.confidence !== 'unverified')
+  .map((event) => ({
+    id: event.id,
+    title: event.data.title,
+    year: event.data.year,
+    date: new Date(event.data.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+    venue: event.data.venue,
+    lineup: event.data.lineup,
+    confidence: event.data.confidence,
+    status: event.data.status,
+    source: event.data.sourceHref
+      ? { label: event.data.sourceLabel || 'Source', href: event.data.sourceHref, external: event.data.sourceExternal }
+      : { label: event.data.sourceLabel || 'Archive notes (link coming soon)' }
+  }));
+
+// Event source directory removed - now using content collections
+
+// documentedChronology now built from content collections above
 const hasMeaningfulStatus = (event: (typeof chronology)[number]) => event.status && event.status !== 'played';
 const activeYears = new Set(documentedChronology.map((event) => event.year)).size;
 const sourceLinkedEvents = documentedChronology.filter((event) => Boolean(event.source.href)).length;
@@ -411,6 +326,18 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
         <h2>Events</h2>
         <p class="result-count" id="eventsResultCount">{documentedChronology.length} events shown</p>
         <p class="events-intro">Each card shows date, series, venue, lineup, and where the info came from.</p>
+        <p class="click-hint">💡 Click any event or person card to see details in the side panel.</p>
+        <div class="events-toolbar" aria-label="Filter and search events">
+          <div class="search-wrapper">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="m21 21-4.35-4.35"></path>
+            </svg>
+            <input type="search" id="eventSearch" placeholder="Filter events..." aria-label="Filter events by title, venue, or lineup" />
+          </div>
+          <div class="filter-chips" id="yearFilters"></div>
+          <div class="filter-chips" id="venueFilters"></div>
+        </div>
         <section class="featured-visuals" aria-label="Featured visuals">
           <div class="featured-visuals-head">
             <h3>Flyers + photos</h3>
@@ -432,28 +359,40 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
           </ul>
         </section>
         <ul class="cards">
-          {documentedChronology.map((event, index) => (
-            <li class="card" id={`event-${index + 1}`} data-kind="event" data-index={index}>
-              <button class="pick-btn" data-kind="event" data-index={index} aria-label={`Open info for ${event.title}`}>
-                <div>
-                  <p class="title">{event.title}</p>
-                  <p class="meta">{event.year} · {event.date} · {event.venue}</p>
-                  <p class="lineup">{event.lineup}</p>
-                  {hasMeaningfulStatus(event) && <p class="status">status: {event.status}</p>}
-                </div>
-              </button>
-              {event.source.href ? (
-                <p class="status source-row">source: <a href={event.source.href} target={event.source.external ? '_blank' : undefined} rel={event.source.external ? 'noreferrer noopener' : undefined}>{event.source.label}</a></p>
-              ) : (
-                <p class="status source-row">source: {event.source.label}</p>
-              )}
-            </li>
-          ))}
+           {documentedChronology.map((event, index) => (
+             <li class="card" id={`event-${index + 1}`} data-kind="event" data-index={index} data-year={event.year} data-venue={event.venue} data-lineup={event.lineup}>
+               <button class="pick-btn" data-kind="event" data-index={index} aria-label={`Open info for ${event.title}`}>
+                 <div>
+                   <div class="card-header">
+                     <p class="title">{event.title}</p>
+                     <span class={`status-badge status-${event.status}`}>{event.status}</span>
+                   </div>
+                   <p class="meta">{event.year} · {event.date} · {event.venue}</p>
+                   <p class="lineup">{event.lineup}</p>
+                 </div>
+               </button>
+               <div class="card-footer">
+                 {event.source.href ? (
+                   <p class="status source-row">source: <a href={event.source.href} target={event.source.external ? '_blank' : undefined} rel={event.source.external ? 'noreferrer noopener' : undefined}>{event.source.label}</a></p>
+                 ) : (
+                   <p class="status source-row">source: {event.source.label}</p>
+                 )}
+                 <div class="share-buttons" data-url={`/events/${event.id}`} data-title={event.title}>
+                   <button class="share-btn" data-platform="copy" aria-label="Copy link">🔗</button>
+                   <button class="share-btn" data-platform="twitter" aria-label="Share on Twitter">𝕏</button>
+                 </div>
+               </div>
+             </li>
+            ))}
         </ul>
+        <div class="load-more-container">
+          <button class="chip" type="button" id="loadMoreEvents">Load more events</button>
+        </div>
       </article>
 
       <article class="panel" id="panel-people" role="tabpanel" aria-labelledby="tab-people" hidden>
         <h2>People</h2>
+        <p class="click-hint">💡 Click any person card to see details in the side panel.</p>
         <ul class="cards people">
           {roster.map((person, index) => (
             <li class="card" data-kind="person" data-index={index}>
@@ -464,6 +403,17 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
                   {person.notes && <p class="lineup">{person.notes}</p>}
                 </div>
               </button>
+              <div class="person-links">
+                {person.links.sc && (
+                  <a href={person.links.sc} class="person-link" target="_blank" rel="noreferrer noopener" aria-label={`${person.name} SoundCloud`}>SC ↗</a>
+                )}
+                {person.links.ig && (
+                  <a href={person.links.ig} class="person-link" target="_blank" rel="noreferrer noopener" aria-label={`${person.name} Instagram`}>IG ↗</a>
+                )}
+                {person.links.ra && (
+                  <a href={person.links.ra} class="person-link" target="_blank" rel="noreferrer noopener" aria-label={`${person.name} Resident Advisor`}>RA ↗</a>
+                )}
+              </div>
             </li>
           ))}
         </ul>
@@ -482,9 +432,9 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
 
       <article class="panel" id="panel-audio" role="tabpanel" aria-labelledby="tab-audio" hidden>
         <h2>Listen</h2>
-        <p class="audio-intro">Listen to BREAD uploads, playlists, and resident pages.</p>
+        <p class="audio-intro">Listen to BREAD uploads, playlists, and resident pages. Players load automatically when you open this tab.</p>
         <div class="audio-actions">
-          <button class="chip" type="button" id="loadAudioEmbeds">Load players</button>
+          <span class="chip" style="opacity:0.6; cursor:default;">Players auto-load</span>
           <a href="https://soundcloud.com/breadfm" target="_blank" rel="noreferrer noopener">Open BREAD profile ↗</a>
         </div>
         <ul class="audio-grid">
@@ -987,8 +937,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     font-size: 0.78rem;
     letter-spacing: 0.03em;
     background: #131313;
-    transition: border-color 180ms ease, color 180ms ease,
-      box-shadow 180ms ease;
+    transition: border-color 180ms ease, color 180ms ease, background-color 160ms ease, transform 150ms ease;
   }
 
   .primary-routes :global(.card-link:hover),
@@ -996,9 +945,10 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
   .route-list :global(.card-link:hover),
   .route-list :global(.card-link:focus-visible) {
     border-color: var(--accent);
+    background: rgb(255 90 31 / 12%);
     color: #fff;
     outline: none;
-    box-shadow: 0 0 0 1px var(--accent-soft);
+    transform: translateX(2px);
   }
 
   .tabs {
@@ -1025,8 +975,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     text-align: center;
     line-height: 1.1;
     text-transform: uppercase;
-    transition: color 160ms ease, border-color 160ms ease,
-      background-color 160ms ease;
+    transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease, transform 160ms ease;
     min-height: 44px;
     touch-action: manipulation;
   }
@@ -1037,10 +986,24 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     background: rgb(255 90 31 / 10%);
   }
 
+  .tab:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px #121212, 0 0 0 4px var(--accent);
+  }
+
+  .tab {
+    transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease, transform 160ms ease;
+  }
+
   .tab:hover {
     color: var(--accent);
     border-color: var(--accent-soft);
-    transform: none;
+    background: rgb(255 90 31 / 6%);
+  }
+
+  .tab.active {
+    background: rgb(255 90 31 / 10%);
+    border-bottom-width: 2px;
   }
 
   .policy {
@@ -1080,6 +1043,19 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     font-family: 'JetBrains Mono', monospace;
     cursor: pointer;
     touch-action: manipulation;
+    transition: border-color 180ms ease, color 180ms ease, background-color 180ms ease, transform 120ms ease;
+  }
+
+  .chip.active,
+  .chip:hover,
+  .chip:focus-visible {
+    border-color: var(--accent);
+    background: rgb(255 90 31 / 12%);
+    color: #fff;
+  }
+
+  .chip.active {
+    transform: scale(1.02);
   }
 
   .chip.active,
@@ -1088,6 +1064,38 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     border-color: var(--accent);
     color: #fff;
     outline: none;
+  }
+
+  .click-hint {
+    margin: 0 0 0.5rem;
+    color: #888;
+    font-size: 0.78rem;
+    font-style: italic;
+  }
+
+  .person-links {
+    margin-top: 0.4rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+  }
+
+  .person-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.25rem 0.5rem;
+    border: 1px solid #3a3a3a;
+    border-radius: 999px;
+    color: #c4c4c4;
+    text-decoration: none;
+    font-size: 0.72rem;
+    transition: border-color 160ms ease, color 160ms ease;
+  }
+
+  .person-link:hover {
+    border-color: var(--accent);
+    color: #fff;
   }
 
   .pick-btn.is-selected {
@@ -1132,6 +1140,35 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     gap: 0.5rem;
   }
 
+  .featured-visual-grid img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    height: auto;
+    display: block;
+    border-bottom: 1px solid #2e2e2e;
+    background: #0a0a0a;
+    object-fit: cover;
+    transition: transform 425ms ease, opacity 180ms ease;
+    opacity: min(calc((1 - var(--image-loaded, 0)) * 0.3), 0.3);
+  }
+
+  .featured-visual-grid img.loaded {
+    opacity: 1;
+    transform: scale(1.012);
+  }
+
+  .featured-visual-grid figure {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .featured-visual-grid figcaption {
+    padding: 0.6rem 0.65rem 0.7rem;
+    display: grid;
+    gap: 0.3rem;
+    background: linear-gradient(180deg, rgba(0 0 0 / 0.4) 0%, rgba(0 0 0 / 0.8) 100%);
+  }
+
   .audio-intro {
     margin: 0;
     color: var(--muted);
@@ -1162,6 +1199,56 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     color: #d5d5d5;
   }
 
+  .events-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+    padding: 0.75rem;
+    border: 1px solid #383838;
+    border-radius: var(--radius-card);
+    background: linear-gradient(180deg, #141414 0%, #101010 100%);
+  }
+
+  .search-wrapper {
+    flex: 1;
+    min-width: 200px;
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .search-wrapper svg {
+    position: absolute;
+    left: 0.65rem;
+    color: #6b6b6b;
+    pointer-events: none;
+  }
+
+  .search-wrapper input {
+    width: 100%;
+    background: #0d0d0d;
+    border: 1px solid #3a3a3a;
+    border-radius: 0.5rem;
+    color: #ededed;
+    padding: 0.55rem 0.75rem 0.55rem 2.2rem;
+    font-size: 0.88rem;
+    outline: none;
+    transition: border-color 180ms ease, box-shadow 180ms ease;
+  }
+
+  .search-wrapper input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(255, 90, 31, 0.15);
+  }
+
+  .filter-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    align-items: center;
+  }
+
   .featured-visuals-head p {
     margin: 0;
     color: #bdbdbd;
@@ -1189,14 +1276,33 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     margin: 0;
     display: grid;
     gap: 0;
+    position: relative;
+  }
+
+  img.is-loading {
+    animation: skeleton-loading 1.5s ease-in-out infinite;
+  }
+
+  @keyframes skeleton-loading {
+    0%, 100% {
+      opacity: 0.2;
+      background: linear-gradient(90deg, #1a1a1a 0%, #2a2a2a 25%, #1a1a1a 50%, #2a2a2a 75%, #1a1a1a 100%);
+      background-size: 200% 100%;
+    }
+    50% {
+      background-position: 200% 0;
+    }
   }
 
   .featured-visual-grid img {
     width: 100%;
+    aspect-ratio: 4/3;
     height: auto;
     display: block;
     border-bottom: 1px solid #2e2e2e;
     background: #0a0a0a;
+    object-fit: cover;
+    opacity: min(calc((1 - var(--image-loaded, 0)) * 0.3), 0.3);
   }
 
   .featured-visual-grid figcaption {
@@ -1240,6 +1346,15 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     gap: 0.7rem;
   }
 
+  .load-more-container {
+    margin-top: 1rem;
+    text-align: center;
+  }
+
+  .load-more-container .chip {
+    min-width: 200px;
+  }
+
   .audio-actions a {
     color: var(--muted);
     text-decoration: none;
@@ -1267,6 +1382,13 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     padding: 0.9rem;
     display: grid;
     gap: 0.7rem;
+    transition: border-color 160ms ease, box-shadow 160ms ease, transform 150ms ease;
+  }
+
+  .audio-card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 4px 16px rgb(0 0 0 / 26%), 0 0 0 1px rgb(255 90 31 / 0.3);
+    transform: translateY(-1px);
   }
 
   .audio-card h3 {
@@ -1340,6 +1462,13 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     padding: 0.8rem;
     display: grid;
     gap: 0.55rem;
+    transition: border-color 160ms ease, box-shadow 160ms ease, transform 150ms ease;
+  }
+
+  .resident-audio-grid li:hover {
+    border-color: var(--accent);
+    box-shadow: 0 4px 16px rgb(0 0 0 / 26%), 0 0 0 1px rgb(255 90 31 / 0.3);
+    transform: translateY(-1px);
   }
 
   .resident-audio-grid p {
@@ -1375,7 +1504,91 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
-    transition: border-color 180ms ease, box-shadow 180ms ease;
+    transition: border-color 160ms ease, box-shadow 160ms ease, transform 150ms ease;
+  }
+
+  .card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 4px 16px rgb(0 0 0 / 26%), 0 0 0 1px rgb(255 90 31 / 0.3);
+    transform: translateY(-1px);
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .status-badge {
+    font-size: 0.66rem;
+    padding: 0.22rem 0.48rem;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    font-weight: 500;
+    transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+  }
+
+  .status-badge:hover {
+    background-color: rgb(255 90 31 / 15%);
+    border-color: var(--accent);
+    color: #fff;
+  }
+
+  .status-played {
+    background: rgb(34 197 94 / 20%);
+    color: #4ade80;
+    border: 1px solid rgb(34 197 94 / 30%);
+  }
+
+  .status-cancelled {
+    background: rgb(239 68 68 / 20%);
+    color: #f87171;
+    border: 1px solid rgb(239 68 68 / 30%);
+  }
+
+  .status-postponed {
+    background: rgb(234 179 8 / 20%);
+    color: #facc15;
+    border: 1px solid rgb(234 179 8 / 30%);
+  }
+
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .share-buttons {
+    display: flex;
+    gap: 0.3rem;
+  }
+
+  .share-btn {
+    background: #1a1a1a;
+    border: 1px solid #3a3a3a;
+    border-radius: 0.4rem;
+    color: #d4d4d4;
+    padding: 0.3rem 0.5rem;
+    cursor: pointer;
+    font-size: 0.8rem;
+    min-height: 32px;
+    touch-action: manipulation;
+    transition: border-color 180ms ease, color 180ms ease, transform 100ms ease;
+  }
+
+  .share-btn:hover {
+    border-color: var(--accent, #ff5a1f);
+    background: rgb(255 90 31 / 10%);
+  }
+
+  .share-btn:active {
+    transform: scale(0.97);
   }
 
   .pick-btn {
@@ -1728,7 +1941,6 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
 <script is:inline define:vars={{ documentedChronology, roster }}>
   const tabs = Array.from(document.querySelectorAll('.tab'));
   const panels = document.querySelectorAll('.panel');
-  const loadAudioEmbeds = document.getElementById('loadAudioEmbeds');
 
   const deckTag = document.getElementById('deckTag');
   const deckTitle = document.getElementById('deckTitle');
@@ -1738,6 +1950,152 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
   const detailDeck = document.getElementById('detailDeck');
   const deckToggle = document.getElementById('deckToggle');
   const deckStateStorageKey = 'bread:detailDeckOpen';
+
+  // Event filtering
+  const eventSearch = document.getElementById('eventSearch');
+  const yearFilters = document.getElementById('yearFilters');
+  const venueFilters = document.getElementById('venueFilters');
+  const eventCards = Array.from(document.querySelectorAll('.cards .card[data-kind="event"]'));
+  const resultCount = document.getElementById('eventsResultCount');
+
+  // Extract unique years and venues
+  const years = [...new Set(documentedChronology.map(e => e.year))].sort();
+  const venues = [...new Set(documentedChronology.map(e => e.venue))].sort();
+
+  // Create filter chips
+  function createChips(container, items, filterType) {
+    if (!container) return;
+    const allChip = document.createElement('button');
+    allChip.className = 'chip active';
+    allChip.textContent = 'All';
+    allChip.setAttribute('data-filter', 'all');
+    allChip.setAttribute('data-type', filterType);
+    container.appendChild(allChip);
+
+    items.forEach(item => {
+      const chip = document.createElement('button');
+      chip.className = 'chip';
+      chip.textContent = item;
+      chip.setAttribute('data-filter', item);
+      chip.setAttribute('data-type', filterType);
+      container.appendChild(chip);
+    });
+  }
+
+  function initImageLoading() {
+    const images = Array.from(document.querySelectorAll('.featured-visual-grid img'));
+    
+    images.forEach(img => {
+      img.classList.add('is-loading');
+      
+      const loadHandler = () => {
+        img.classList.add('loaded');
+        img.classList.remove('is-loading');
+      };
+      
+      img.addEventListener('load', loadHandler);
+      img.addEventListener('error', () => {
+        img.classList.remove('is-loading');
+        img.style.display = 'none';
+      });
+      
+      if (img.complete) {
+        loadHandler();
+      }
+    });
+  }
+
+  createChips(yearFilters, years, 'year');
+  createChips(venueFilters, venues, 'venue');
+  initImageLoading();
+
+  let activeFilters = { year: 'all', venue: 'all', search: '' };
+  const EVENTS_PER_PAGE = 20;
+  let visibleEvents = [];
+
+  function filterEvents() {
+    const searchTerm = activeFilters.search.toLowerCase();
+    visibleEvents = [];
+
+    eventCards.forEach(card => {
+      const year = card.getAttribute('data-year');
+      const venue = card.getAttribute('data-venue');
+      const lineup = card.getAttribute('data-lineup').toLowerCase();
+      const title = card.querySelector('.title')?.textContent.toLowerCase() || '';
+
+      const matchesSearch = !searchTerm ||
+        title.includes(searchTerm) ||
+        venue.toLowerCase().includes(searchTerm) ||
+        lineup.includes(searchTerm);
+
+      const matchesYear = activeFilters.year === 'all' || year === activeFilters.year;
+      const matchesVenue = activeFilters.venue === 'all' || venue === activeFilters.venue;
+
+      const isVisible = matchesSearch && matchesYear && matchesVenue;
+      card.style.display = 'none';
+      if (isVisible) visibleEvents.push(card);
+    });
+
+    showEventsPage(1);
+
+    const loadMoreBtn = document.getElementById('loadMoreEvents');
+    if (loadMoreBtn) {
+      loadMoreBtn.style.display = visibleEvents.length > EVENTS_PER_PAGE ? '' : 'none';
+    }
+  }
+
+  let currentPage = 1;
+
+  function showEventsPage(page) {
+    currentPage = page;
+    const start = 0;
+    const end = page * EVENTS_PER_PAGE;
+
+    visibleEvents.forEach((card, index) => {
+      card.style.display = index >= start && index < end ? '' : 'none';
+    });
+
+    if (resultCount) {
+      resultCount.textContent = `${visibleEvents.length} events shown (showing ${Math.min(end, visibleEvents.length)} of ${visibleEvents.length})`;
+    }
+
+    const loadMoreBtn = document.getElementById('loadMoreEvents');
+    if (loadMoreBtn) {
+      loadMoreBtn.style.display = end >= visibleEvents.length ? 'none' : '';
+      loadMoreBtn.textContent = `Load more (${visibleEvents.length - end} remaining)`;
+    }
+  }
+
+  const loadMoreBtn = document.getElementById('loadMoreEvents');
+  if (loadMoreBtn) {
+    loadMoreBtn.addEventListener('click', () => {
+      showEventsPage(currentPage + 1);
+    });
+  }
+
+  if (eventSearch) {
+    eventSearch.addEventListener('input', (e) => {
+      activeFilters.search = e.target.value;
+      filterEvents();
+    });
+  }
+
+  [yearFilters, venueFilters].forEach(container => {
+    if (!container) return;
+    container.addEventListener('click', (e) => {
+      const chip = e.target.closest('.chip');
+      if (!chip) return;
+
+      const type = chip.getAttribute('data-type');
+      const filter = chip.getAttribute('data-filter');
+
+      container.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+
+      activeFilters[type] = filter;
+      filterEvents();
+    });
+  });
 
   function triggerHaptic(pattern = 10) {
     if (!('vibrate' in navigator)) return;
@@ -1781,10 +2139,6 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
       if (!safeSrc || frame.getAttribute('src') === safeSrc) return;
       frame.setAttribute('src', safeSrc);
     });
-    if (loadAudioEmbeds) {
-      loadAudioEmbeds.setAttribute('disabled', 'true');
-      loadAudioEmbeds.textContent = 'Players loaded';
-    }
   }
 
   function activateTab(tab, { focus = false } = {}) {
@@ -1927,9 +2281,33 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
           data: person.role,
           desc: "Quick links to each resident's pages.",
           links
-        });
+});
+
+  });
+
+  function initImageLoading() {
+    const images = Array.from(document.querySelectorAll('.featured-visual-grid img'));
+    
+    images.forEach(img => {
+      img.classList.add('is-loading');
+      
+      const loadHandler = () => {
+        img.classList.add('loaded');
+        img.classList.remove('is-loading');
+      };
+      
+      img.addEventListener('load', loadHandler);
+      img.addEventListener('error', () => {
+        img.classList.remove('is-loading');
+        img.style.display = 'none';
+      });
+      
+      if (img.complete) {
+        loadHandler();
       }
     });
-  });
+  }
+
+  initImageLoading();
 
 </script>

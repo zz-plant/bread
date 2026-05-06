@@ -61,6 +61,7 @@ const resolvedOgImageAlt = ogImageAlt ?? `${title} — ${description}`;
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="stylesheet" href="/src/styles/print.css" media="print" />
     <title>{title}</title>
 
     {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
@@ -130,6 +131,27 @@ const resolvedOgImageAlt = ogImageAlt ?? `${title} — ${description}`;
       import { enableHapticNavigation } from '../utils/haptics';
 
       enableHapticNavigation();
+
+      // Share buttons
+      document.querySelectorAll('.share-btn').forEach(btn => {
+        btn.addEventListener('click', async (e) => {
+          const platform = e.currentTarget.dataset.platform;
+          const container = e.currentTarget.closest('.share-buttons');
+          if (!container) return;
+          
+          const url = new URL(container.dataset.url || window.location.pathname, window.location.origin).toString();
+          const title = container.dataset.title || document.title;
+
+          if (platform === 'copy') {
+            await navigator.clipboard.writeText(url);
+            const originalText = e.currentTarget.textContent;
+            e.currentTarget.textContent = '✓';
+            setTimeout(() => { e.currentTarget.textContent = originalText; }, 2000);
+          } else if (platform === 'twitter') {
+            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`, '_blank');
+          }
+        });
+      });
     </script>
   </body>
 </html>

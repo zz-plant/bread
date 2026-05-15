@@ -1,0 +1,297 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const timelinePage = (await getCollection('archive')).find((page) => page.slug === 'timeline');
+
+if (!timelinePage) {
+  throw new Error('Timeline archive entry is missing.');
+}
+
+const eras = [
+  {
+    range: '2014–2015',
+    title: 'Formation & Pilot',
+    summary: 'BREAD takes shape, then quickly becomes a recurring night in San Francisco.',
+    highlights: [
+      'Public profile language points to a 2014 start.',
+      'A pilot event appears on February 13, 2015 at F8 with Nevermind and Helix.',
+      'By May 2015, regular events are visible in San Francisco listings.'
+    ]
+  },
+  {
+    range: '2015–2016',
+    title: 'Booking Expansion',
+    summary: 'Resident structure and visuals sharpen as bookings widen across connected club scenes.',
+    highlights: [
+      'Flyers and listings show a stronger resident core during this stretch.',
+      'A May 29, 2015 listing confirms steady public programming by mid-2015.',
+      '2016 highlights include Jlin, Distal, Celestial Trax, Deadboy, Murlo, Rabit, Logos, Mumdance, and partner showcases (Parameter / Sure Thing / Toasted Trax).'
+    ]
+  },
+  {
+    range: '2017–2018',
+    title: 'UGSF / Bunker Shift',
+    summary: 'More events move toward Underground SF as the sound widens.',
+    highlights: [
+      '2017 events include DJ J Heat, Mr. Mitch + Kozee, Roska, and Kelman Duran period bookings.',
+      'Event records reflect broader venue shifts happening across the city.',
+      '2018 appears as the end of the original recurring club-night run.'
+    ]
+  },
+  {
+    range: '2020–2024',
+    title: 'Remote Mutual Aid + Radio Network',
+    summary: 'Activity shifts from in-person nights to fundraiser streams, then into radio chapters and later event announcements.',
+    highlights: [
+      '2020–2021 streams and telethons focus on mutual-aid fundraising.',
+      'Available notes point to roughly USD 12K raised across multiple streams.',
+      '2022 onward traces show BREAD FM activity through Internet Public Radio and HKCR.',
+      'Most recent public post in this pass is a March 21, 2024 SF event announcement.'
+    ]
+  }
+];
+
+const milestones = [
+  { date: '2015-02-13', venue: 'F8, SF', label: 'Pilot (Grime City vs BREAD)', sourceLabel: 'Facebook event', sourceHref: 'https://www.facebook.com/events/588841281252200/' },
+  { date: '2016-03-25', venue: 'F8, SF', label: 'BREAD #5 / Jlin window', sourceLabel: 'Flyer image', sourceHref: '/bread-jlin-planet-mu-iyer-2016-03-25-flyer.jpg' },
+  { date: '2016-06-29', venue: 'Codeword, SF', label: 'Toasted Trax #1', sourceLabel: 'Flyer image', sourceHref: '/toasted-trax-number-one-june-29.jpg' },
+  { date: '2016-08-19', venue: 'F8, SF', label: 'BREAD #10 / Parameter x BREAD', sourceLabel: 'Flyer image', sourceHref: '/bread-number-ten-pinch-rabit-mumdance-logos-caski-ganesa-aug-19.png' },
+  { date: '2016-11-19', venue: '60 6th St, SF', label: 'Sure Thing x BREAD showcase', sourceLabel: 'Facebook event', sourceHref: 'https://www.facebook.com/events/60-6th-st-san-francisco-ca-94103-1609-united-states/sure-thing-bread-sf-lobster-theremin-showcase/1062894940491694/' },
+  { date: '2017-05-26', venue: 'Underground SF', label: 'UGSF period event', sourceLabel: 'Facebook event', sourceHref: 'https://www.facebook.com/events/d41d8cd9/bread-sf-mr-mitch-planet-mu-kozee-prawns/277151372731142/' },
+  { date: '2017-09-22', venue: 'Underground SF', label: 'Late UGSF period event', sourceLabel: 'Flyer image', sourceHref: '/bread-suda-kelman-duran-bread-djs-sept-22.jpg' },
+  { date: '2021-01-02', venue: 'Twitch', label: 'New Year fundraiser', sourceLabel: 'Instagram post', sourceHref: 'https://www.instagram.com/p/CJed4dGFKbz/' },
+  { date: '2021-03-13', venue: 'Twitch', label: 'Six Years anniversary stream', sourceLabel: 'Instagram post', sourceHref: 'https://www.instagram.com/p/CL44SfGli4d/' },
+  { date: '2022-07-27', venue: 'Internet Public Radio', label: 'Monthly show launch announcement', sourceLabel: 'Instagram post', sourceHref: 'https://www.instagram.com/p/Cgfdlh4Pdtx/' },
+  { date: '2023-06-15', venue: 'HKCR', label: 'HKCR residency announcement', sourceLabel: 'Instagram post', sourceHref: 'https://www.instagram.com/p/CthThTOpds1/' },
+  { date: '2024-03-21', venue: 'SOMA area, SF', label: 'SF event announcement (secret location flow)', sourceLabel: 'Instagram post', sourceHref: 'https://www.instagram.com/p/C4ygjDoynTY/' }
+];
+---
+
+<BaseLayout
+  title={timelinePage.data.title}
+  description={timelinePage.data.description}
+  ogImage="/og/timeline.svg"
+  ogImageAlt="BREAD timeline from 2015 club events through 2024 radio and event announcements"
+>
+  <header class="timeline-hero">
+    <p class="eyebrow">Archive section</p>
+    <h1>{timelinePage.data.title}</h1>
+    <p>{timelinePage.data.description}</p>
+    <p class="route-note">Want the full event list? Open the <a href="/archive/event-ledger/">Event List</a>.</p>
+    <small>Last updated: {timelinePage.data.updated.toISOString().slice(0, 10)}</small>
+  </header>
+
+  <section aria-label="BREAD era timeline" class="timeline-grid">
+    {
+      eras.map((era) => (
+        <article class="era-card">
+          <p class="era-range">{era.range}</p>
+          <h2>{era.title}</h2>
+          <p>{era.summary}</p>
+          <ul>
+            {era.highlights.map((item) => <li>{item}</li>)}
+          </ul>
+        </article>
+      ))
+    }
+  </section>
+
+  <section class="milestones" aria-label="Key dated events">
+    <h2>Key dates</h2>
+    <ol>
+      {
+        milestones.map((milestone) => (
+          <li>
+            <p class="date">{milestone.date}</p>
+            <p class="label">{milestone.label}</p>
+            <p class="venue">{milestone.venue}</p>
+            {milestone.sourceHref && (
+              <p class="source">
+                source:{' '}
+                <a
+                  href={milestone.sourceHref}
+                  target={milestone.sourceHref.startsWith('http') ? '_blank' : undefined}
+                  rel={milestone.sourceHref.startsWith('http') ? 'noreferrer noopener' : undefined}
+                >
+                  {milestone.sourceLabel ?? 'link'}
+                </a>
+              </p>
+            )}
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section class="next-links" aria-label="Related archive material">
+    <h2>Keep exploring</h2>
+    <ul>
+      <li><a href="/archive/event-ledger/">Event List</a> for a full event-by-event timeline.</li>
+      <li><a href="/archive/venues-format-shifts/">Venues &amp; Format Shifts</a> for where things happened and how formats changed.</li>
+      <li><a href="/archive/people-network/">People &amp; Network</a> for recurring collaborators and lineups.</li>
+      <li><a href="/archive/overview/">Start Here</a> for a plain map of the archive.</li>
+    </ul>
+  </section>
+</BaseLayout>
+
+<style>
+  .timeline-hero p {
+    margin: 0.5rem 0;
+  }
+
+  .eyebrow {
+    margin: 0;
+    color: #94a3b8;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .route-note {
+    color: #cbd5e1;
+  }
+
+  .timeline-grid {
+    position: relative;
+    margin-top: 1.8rem;
+    display: grid;
+    gap: 1rem;
+  }
+
+  .timeline-grid::before {
+    content: '';
+    position: absolute;
+    left: 0.5rem;
+    top: 0.2rem;
+    bottom: 0.2rem;
+    width: 2px;
+    background: linear-gradient(180deg, rgb(249 115 22 / 35%), rgb(51 65 85));
+  }
+
+  .era-card {
+    position: relative;
+    margin-left: 1.5rem;
+    padding: 0.9rem 1rem;
+    border: 1px solid var(--surface-dark-muted);
+    background: linear-gradient(180deg, #111827, #0b1220);
+    border-radius: var(--radius-md);
+  }
+
+  .era-card::before {
+    content: '';
+    position: absolute;
+    left: -1.35rem;
+    top: 1.2rem;
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 50%;
+    border: 2px solid #f97316;
+    background: #020617;
+  }
+
+  .era-card h2 {
+    margin: 0.15rem 0 0.3rem;
+    font-size: 1.1rem;
+  }
+
+  .era-range {
+    margin: 0;
+    color: #fdba74;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+
+  .era-card ul {
+    margin: 0.55rem 0 0;
+    padding-left: 1.1rem;
+  }
+
+  .milestones,
+  .next-links {
+    margin-top: 2rem;
+  }
+
+  .milestones ol {
+    list-style: none;
+    padding: 0;
+    margin: 0.8rem 0 0;
+    display: grid;
+    gap: 0.65rem;
+  }
+
+  .milestones li {
+    border: 1px dashed #334155;
+    border-radius: var(--radius-md);
+    padding: 0.75rem 0.9rem;
+    background: rgb(15 23 42 / 55%);
+  }
+
+  .date,
+  .label,
+  .venue,
+  .source {
+    margin: 0;
+  }
+
+  .date {
+    color: #fdba74;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.9rem;
+  }
+
+  .label {
+    margin-top: 0.2rem;
+    font-weight: 600;
+  }
+
+  .venue {
+    color: #94a3b8;
+    margin-top: 0.1rem;
+    font-size: 0.92rem;
+  }
+
+  .source {
+    color: #cbd5e1;
+    margin-top: 0.2rem;
+    font-size: 0.88rem;
+  }
+
+  .next-links ul {
+    margin-top: 0.6rem;
+  }
+
+  @media (min-width: 48rem) {
+    .timeline-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .timeline-grid::before {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .era-card {
+      margin-left: 0;
+    }
+
+    .era-card:nth-child(odd) {
+      margin-right: 1.3rem;
+    }
+
+    .era-card:nth-child(even) {
+      margin-left: 1.3rem;
+    }
+
+    .era-card::before {
+      left: auto;
+      right: -1.72rem;
+    }
+
+    .era-card:nth-child(even)::before {
+      left: -1.72rem;
+      right: auto;
+    }
+  }
+</style>

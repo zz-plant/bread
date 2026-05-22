@@ -8,8 +8,8 @@
     "prebuild": "node scripts/generate-data.mjs",
     "build": "npm run prebuild && astro check && astro build",
     "preview": "astro preview",
-    "lint": "astro check",
-    "format": "prettier --check .",
+    "lint": "biome check .",
+    "format": "biome format --write .",
     "generate-types": "wrangler types"
   },
   "dependencies": {
@@ -28,6 +28,7 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.2",
     "@astrojs/cloudflare": "^13.3.1",
+    "@biomejs/biome": "^2.4.15",
     "prettier": "^3.6.2",
     "typescript": "^5.9.2",
     "wrangler": "^4.88.0"

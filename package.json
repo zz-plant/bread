@@ -12,7 +12,8 @@
     "format": "biome format --write .",
     "generate-types": "wrangler types",
     "prepare": "husky",
-    "test": "vitest run"
+    "test": "vitest run",
+    "check:production-edge": "bash scripts/check_production_edge.sh"
   },
   "dependencies": {
     "@astrojs/mdx": "^5.0.4",

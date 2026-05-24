@@ -1,8 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
+import { toContentSlug } from '../../utils/content';
 
-const timelinePage = (await getCollection('archive')).find((page) => page.slug === 'timeline');
+const timelinePage = (await getCollection('archive')).find((page) => toContentSlug(page.id) === 'timeline');
 
 if (!timelinePage) {
   throw new Error('Timeline archive entry is missing.');

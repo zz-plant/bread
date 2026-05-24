@@ -2161,13 +2161,6 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     }
   }
 
-  if (loadAudioEmbeds) {
-    loadAudioEmbeds.addEventListener('click', () => {
-      hydrateAudioEmbeds();
-      triggerHaptic(12);
-    });
-  }
-
   if (deckToggle && detailDeck) {
     deckToggle.addEventListener('click', () => {
       const isOpen = !detailDeck.classList.contains('is-open');

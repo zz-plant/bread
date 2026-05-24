@@ -1,5 +1,6 @@
 ---
 import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from '../utils/ogImage';
+import printStylesUrl from '../styles/print.css?url';
 
 interface Props {
   title: string;
@@ -61,7 +62,7 @@ const resolvedOgImageAlt = ogImageAlt ?? `${title} — ${description}`;
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="stylesheet" href="/src/styles/print.css" media="print" />
+    <link rel="stylesheet" href={printStylesUrl} media="print" />
     <title>{title}</title>
 
     {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}

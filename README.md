@@ -1,5 +1,9 @@
 # bread
 
+<p align="center">
+  <img src="docs/assets/bread-demo.gif" alt="bread demo animation" width="720">
+</p>
+
 A minimal static-site starter built with Astro, with repository conventions for agentic development.
 
 ## Getting started

@@ -345,7 +345,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
             {featuredVisuals.map((item) => (
               <li>
                 <figure>
-                  <img src={item.src} alt={item.alt} loading="lazy" decoding="async" />
+                  <img src={item.src} alt={item.alt} loading="eager" decoding="sync" />
                   <figcaption>
                     <p>{item.title}</p>
                     <small>{item.caption}</small>
@@ -732,11 +732,32 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     outline-offset: 2px;
   }
 
+  .skip-link-home {
+    position: fixed;
+    left: 0.9rem;
+    top: 0.9rem;
+    z-index: 100;
+    transform: translateY(calc(-100% - 1.4rem));
+    border: 1px solid var(--accent);
+    border-radius: 0.65rem;
+    background: #111;
+    color: #fff;
+    padding: 0.65rem 0.85rem;
+    text-decoration: none;
+    transition: transform 160ms ease;
+  }
+
+  .skip-link-home:focus-visible {
+    transform: translateY(0);
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
   .shell {
     position: relative;
     z-index: 2;
     display: grid;
-    grid-template-columns: minmax(240px, 280px) minmax(0, 1fr) minmax(280px, 340px);
+    grid-template-columns: minmax(220px, 270px) minmax(0, 1fr) minmax(240px, 300px);
     gap: 0.9rem;
     padding: 0.9rem;
     min-height: calc(100vh - 104px);
@@ -1077,12 +1098,10 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     border-bottom: 1px solid #2e2e2e;
     background: #0a0a0a;
     object-fit: cover;
-    transition: transform 425ms ease, opacity 180ms ease;
-    opacity: min(calc((1 - var(--image-loaded, 0)) * 0.3), 0.3);
+    transition: transform 425ms ease;
   }
 
   .featured-visual-grid img.loaded {
-    opacity: 1;
     transform: scale(1.012);
   }
 
@@ -1203,21 +1222,6 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     position: relative;
   }
 
-  img.is-loading {
-    animation: skeleton-loading 1.5s ease-in-out infinite;
-  }
-
-  @keyframes skeleton-loading {
-    0%, 100% {
-      opacity: 0.2;
-      background: linear-gradient(90deg, #1a1a1a 0%, #2a2a2a 25%, #1a1a1a 50%, #2a2a2a 75%, #1a1a1a 100%);
-      background-size: 200% 100%;
-    }
-    50% {
-      background-position: 200% 0;
-    }
-  }
-
   .featured-visual-grid img {
     width: 100%;
     aspect-ratio: 4/3;
@@ -1225,7 +1229,6 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     display: block;
     border: 1px solid var(--line);
     object-fit: cover;
-    transition: opacity 0.3s ease;
   }
 
   .featured-visual-grid figcaption {
@@ -2071,7 +2074,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
       storedPreference = null;
     }
 
-    const shouldOpenByDefault = storedPreference === null ? true : storedPreference === 'true';
+    const shouldOpenByDefault = storedPreference === 'true';
     setDeckOpenState(shouldOpenByDefault, { persist: false });
   }
 
@@ -2223,30 +2226,5 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
 
     });
   });
-
-  function initImageLoading() {
-    const images = Array.from(document.querySelectorAll('.featured-visual-grid img'));
-    
-    images.forEach(img => {
-      img.classList.add('is-loading');
-      
-      const loadHandler = () => {
-        img.classList.add('loaded');
-        img.classList.remove('is-loading');
-      };
-      
-      img.addEventListener('load', loadHandler);
-      img.addEventListener('error', () => {
-        img.classList.remove('is-loading');
-        img.style.display = 'none';
-      });
-      
-      if (img.complete) {
-        loadHandler();
-      }
-    });
-  }
-
-  initImageLoading();
 
 </script>

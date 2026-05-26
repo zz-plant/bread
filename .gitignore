@@ -6,3 +6,10 @@ dist/
 src/data/*.json
 .wrangler/
 opencode.json
+
+# Tooling
+.cmux/
+.opencode/
+.sisyphus/
+.codex/
+.agent/

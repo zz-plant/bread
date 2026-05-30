@@ -127,10 +127,10 @@ const storyGallery = [
 
 <style>
   .story-shell {
-    border: 1px solid var(--surface-dark-muted);
+    border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
-    background: rgb(15 23 42 / 55%);
-    padding: 1rem;
+    background: var(--color-surface);
+    padding: var(--space-md);
   }
 
   .story-header {
@@ -140,9 +140,9 @@ const storyGallery = [
 
   .story-gallery {
     margin: 1rem 0 1.2rem;
-    border: 1px solid var(--surface-dark-muted);
+    border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
-    background: rgb(2 6 23 / 45%);
+    background: var(--color-surface);
     padding: 0.85rem;
     display: grid;
     gap: 0.65rem;
@@ -155,7 +155,7 @@ const storyGallery = [
 
   .story-gallery-intro {
     margin: 0;
-    color: #cbd5e1;
+    color: var(--color-text-muted);
   }
 
   .story-gallery-grid {
@@ -168,9 +168,9 @@ const storyGallery = [
   }
 
   .story-gallery-grid li {
-    border: 1px solid #334155;
-    border-radius: 0.55rem;
-    background: rgb(15 23 42 / 52%);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+    background: var(--color-surface-raised);
     overflow: hidden;
   }
 
@@ -183,7 +183,7 @@ const storyGallery = [
     width: 100%;
     height: auto;
     display: block;
-    border-bottom: 1px solid #334155;
+    border-bottom: 1px solid var(--color-border);
   }
 
   .story-gallery-grid figcaption {
@@ -194,12 +194,12 @@ const storyGallery = [
 
   .story-gallery-grid figcaption p {
     margin: 0;
-    color: #f8fafc;
+    color: var(--color-text);
     font-weight: 600;
   }
 
   .story-gallery-grid figcaption small {
-    color: #cbd5e1;
+    color: var(--color-text-muted);
     font-size: 0.78rem;
   }
 
@@ -208,28 +208,28 @@ const storyGallery = [
   }
 
   .story-gallery-route a {
-    color: var(--accent-link-dark);
+    color: var(--color-accent);
     text-decoration: none;
-    border-bottom: 1px solid #334155;
+    border-bottom: 1px solid var(--color-border);
   }
 
   .story-gallery-route a:hover,
   .story-gallery-route a:focus-visible {
     text-decoration: underline;
-    border-bottom-color: #475569;
+    border-bottom-color: var(--color-border-strong);
   }
 
   .section-kicker {
     margin: 0;
-    color: #94a3b8;
+    color: var(--color-text-muted);
     font-size: 0.68rem;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.06em;
   }
 
   .section-meta {
     margin: 0.35rem 0 0;
-    color: #cbd5e1;
+    color: var(--color-text-muted);
     font-size: 0.82rem;
     letter-spacing: 0.03em;
     text-transform: uppercase;
@@ -243,18 +243,18 @@ const storyGallery = [
   }
 
   .section-links a {
-    border: 1px solid var(--surface-dark-muted);
-    border-radius: 999px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
     padding: 0.45rem 0.8rem;
-    color: var(--accent-link-dark);
+    color: var(--color-accent);
     text-decoration: none;
     font-size: 0.84rem;
-    background: rgb(2 6 23 / 45%);
+    background: var(--color-surface);
   }
 
   .section-links a:hover,
   .section-links a:focus-visible {
-    border-color: #475569;
+    border-color: var(--color-border-strong);
     text-decoration: underline;
   }
 

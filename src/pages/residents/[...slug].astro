@@ -90,7 +90,7 @@ const structuredData = createPersonSchema({
 
   .back-link {
     display: inline-block;
-    color: var(--accent-link-dark, #ea580c);
+    color: var(--color-accent);
     text-decoration: none;
     margin-bottom: 1.5rem;
     font-size: 0.9rem;
@@ -105,22 +105,22 @@ const structuredData = createPersonSchema({
   }
 
   .profile-header h1 {
-    font-family: 'Archivo Black', sans-serif;
+    font-family: 'Syne', sans-serif;
     font-size: 2.5rem;
     margin: 0 0 0.5rem;
     letter-spacing: -0.03em;
   }
 
   .role {
-    color: var(--accent-brand, #ff5a1f);
+    color: var(--color-accent);
     font-size: 1rem;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.05em;
     margin: 0;
   }
 
   .notes {
-    color: var(--text-dark-muted, #94a3b8);
+    color: var(--color-text-muted);
     margin: 1rem 0 0;
     line-height: 1.6;
   }
@@ -129,14 +129,14 @@ const structuredData = createPersonSchema({
   .soundcloud-section {
     margin-top: 2rem;
     padding-top: 2rem;
-    border-top: 1px solid var(--surface-dark-muted, #1f2937);
+    border-top: 1px solid var(--color-border);
   }
 
   .links-section h2,
   .soundcloud-section h2 {
     font-size: 1.2rem;
     margin: 0 0 1rem;
-    color: var(--text-dark-base, #e5e7eb);
+    color: var(--color-text);
   }
 
   .link-list {
@@ -150,16 +150,15 @@ const structuredData = createPersonSchema({
   .link-list a {
     display: inline-block;
     padding: 0.6rem 1rem;
-    background: var(--surface-dark-muted, #1f2937);
-    color: var(--text-dark-base, #e5e7eb);
+    background: var(--color-surface-raised);
+    color: var(--color-text);
     text-decoration: none;
-    border-radius: 0.5rem;
-    transition: background 160ms ease, color 160ms ease;
+    border-radius: var(--radius-sm);
   }
 
   .link-list a:hover {
-    background: var(--accent-brand, #ff5a1f);
-    color: #fff;
+    background: var(--color-accent);
+    color: var(--color-bg);
   }
 
   .sc-embed {
@@ -168,12 +167,12 @@ const structuredData = createPersonSchema({
 
   .sc-embed iframe {
     border: 0;
-    border-radius: 0.5rem;
+    border-radius: var(--radius-sm);
     background: #0a0a0a;
   }
 
   .no-sc {
-    color: var(--text-dark-muted, #94a3b8);
+    color: var(--color-text-muted);
     font-style: italic;
   }
 </style>

@@ -1,6 +1,7 @@
 ---
 import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from '../utils/ogImage';
 import printStylesUrl from '../styles/print.css?url';
+import globalStylesUrl from '../styles/global.css?url';
 
 interface Props {
   title: string;
@@ -36,10 +37,7 @@ const serializeJsonForScript = (value: Record<string, unknown>) =>
 const pathname = Astro.url.pathname;
 const isHome = pathname === '/';
 const isStory = pathname.startsWith('/story/');
-const isBlog = pathname.startsWith('/blog/');
-const isNarrative = isStory || isBlog;
-const isArchive = pathname.startsWith('/archive/') && !isNarrative;
-const isEditorial = isArchive || isNarrative;
+const isArchive = pathname.startsWith('/archive/');
 const toAbsoluteUrl = (value: string | undefined): string | undefined => {
   if (!value) return undefined;
 
@@ -51,7 +49,7 @@ const toAbsoluteUrl = (value: string | undefined): string | undefined => {
 
 const canonicalUrl = canonical ? toAbsoluteUrl(canonical) : toAbsoluteUrl(Astro.url.pathname);
 const ogImageUrl = toAbsoluteUrl(ogImage);
-const resolvedOgType = ogType ?? (isNarrative ? 'article' : 'website');
+const resolvedOgType = ogType ?? 'website';
 const resolvedOgImageAlt = ogImageAlt ?? `${title} — ${description}`;
 ---
 
@@ -61,7 +59,11 @@ const resolvedOgImageAlt = ogImageAlt ?? `${title} — ${description}`;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="description" content={description} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="stylesheet" href={globalStylesUrl} />
     <link rel="stylesheet" href={printStylesUrl} media="print" />
     <title>{title}</title>
 
@@ -87,7 +89,7 @@ const resolvedOgImageAlt = ogImageAlt ?? `${title} — ${description}`;
       ))
     }
   </head>
-  <body class={isEditorial ? 'editorial-theme' : undefined}>
+  <body>
     {
       showSiteFrame ? (
         <div class="site-shell">
@@ -158,39 +160,25 @@ const resolvedOgImageAlt = ogImageAlt ?? `${title} — ${description}`;
 </html>
 
 <style>
-   :root {
-     --surface-base: #f8fafc;
-     --surface-raised: #ffffff;
-     --surface-muted: #e2e8f0;
-     --surface-dark-base: #020617;
-     --surface-dark-raised: #0b1220;
-     --surface-dark-muted: #1f2937;
-     --text-base: #111827;
-     --text-muted: #475569;
-     --text-dark-base: #e5e7eb;
-     --text-dark-muted: #94a3b8;
-     --accent-link: #059669;
-     --accent-link-dark: #ea580c;
-     --accent-brand: #ff5a1f;
-     --radius-pill: 999px;
-     --radius-md: 0.5rem;
-     color-scheme: light;
-     font-family: Inter, system-ui, -apple-system, Segoe UI, sans-serif;
-     color: var(--text-base);
-     background: var(--surface-base);
-   }
-
-  body {
-    margin: 0;
-    background: linear-gradient(180deg, #fbfcfe 0%, #f8fafc 100%);
-    min-height: 100vh;
+  :global(h1, h2, h3) {
+    line-height: 1.2;
+    color: var(--color-text);
   }
 
-   body.editorial-theme {
-     color-scheme: dark;
-     color: var(--text-dark-base);
-     background: linear-gradient(180deg, #101725 0%, #03081b 100%);
-   }
+  :global(p),
+  :global(li) {
+    line-height: 1.7;
+  }
+
+  :global(a) {
+    color: var(--color-accent);
+  }
+
+  :global(hr) {
+    border: 0;
+    border-top: 1px solid var(--color-border);
+    margin: 1.5rem 0;
+  }
 
   .site-shell {
     min-height: 100vh;
@@ -202,10 +190,10 @@ const resolvedOgImageAlt = ogImageAlt ?? `${title} — ${description}`;
     position: absolute;
     left: 0.75rem;
     top: -3rem;
-    background: #0f172a;
-    color: #fff;
+    background: var(--color-surface-raised);
+    color: var(--color-text);
     padding: 0.5rem 0.75rem;
-    border-radius: 0.375rem;
+    border-radius: var(--radius-sm);
     z-index: 30;
   }
 
@@ -218,14 +206,8 @@ const resolvedOgImageAlt = ogImageAlt ?? `${title} — ${description}`;
     top: 0;
     z-index: 20;
     padding: 0.8rem max(1rem, env(safe-area-inset-right)) 0.8rem max(1rem, env(safe-area-inset-left));
-    border-bottom: 1px solid #dbe4f5;
-    background: rgb(255 255 255 / 94%);
-    backdrop-filter: blur(10px);
-  }
-
-  body.editorial-theme .site-header {
-    border-bottom-color: #1f2937;
-    background: rgb(2 6 23 / 92%);
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-bg);
   }
 
   .site-header-inner {
@@ -238,18 +220,17 @@ const resolvedOgImageAlt = ogImageAlt ?? `${title} — ${description}`;
   }
 
   .brand {
-    color: #0f172a;
+    color: var(--color-text);
     font-weight: 700;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.04em;
     text-decoration: none;
-    border-radius: 0.35rem;
     padding: 0.2rem 0.4rem;
     margin-left: -0.4rem;
-    transition: background-color 160ms ease, transform 160ms ease;
   }
 
-  body.editorial-theme .brand {
-    color: #f8fafc;
+  .brand:hover,
+  .brand:focus-visible {
+    background: var(--color-surface);
   }
 
   nav ul {
@@ -263,46 +244,20 @@ const resolvedOgImageAlt = ogImageAlt ?? `${title} — ${description}`;
   }
 
   nav a {
-    color: #1e293b;
+    color: var(--color-text);
     text-decoration: none;
-    border-radius: var(--radius-pill);
     padding: 0.55rem 0.85rem;
     min-height: 44px;
     display: inline-flex;
     align-items: center;
     touch-action: manipulation;
-    transition: background-color 160ms ease, color 160ms ease, transform 160ms ease;
-  }
-
-  .brand:hover,
-  .brand:focus-visible {
-    background: #e2e8f0;
-    transform: translateY(-1px);
-  }
-
-  body.editorial-theme .brand:hover,
-  body.editorial-theme .brand:focus-visible {
-    background: #1f2937;
-  }
-
-  body.editorial-theme nav a {
-    color: #cbd5e1;
   }
 
   nav a:hover,
   nav a:focus-visible,
   nav a.active {
-    background: #e2e8f0;
-    color: #0f172a;
-    font-weight: 600;
-    transform: translateY(-1px);
-  }
-
-  body.editorial-theme nav a:hover,
-  body.editorial-theme nav a:focus-visible,
-  body.editorial-theme nav a.active {
-    background: #1f2937;
-    color: #f8fafc;
+    background: var(--color-surface);
+    color: var(--color-accent);
   }
 
   .content-wrap {
@@ -312,8 +267,8 @@ const resolvedOgImageAlt = ogImageAlt ?? `${title} — ${description}`;
   }
 
   .site-footer {
-    border-top: 1px solid #dbe4f5;
-    color: #475569;
+    border-top: 1px solid var(--color-border);
+    color: var(--color-text-muted);
     font-size: 0.9rem;
     padding: 1.2rem max(1rem, env(safe-area-inset-right)) calc(1.6rem + env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));
   }
@@ -349,43 +304,7 @@ const resolvedOgImageAlt = ogImageAlt ?? `${title} — ${description}`;
   .site-footer a:hover,
   .site-footer a:focus-visible {
     text-decoration: underline;
-  }
-
-  body.editorial-theme .site-footer {
-    border-top-color: #1f2937;
-    color: #94a3b8;
-  }
-
-  :global(h1, h2, h3) {
-    line-height: 1.2;
-    color: #0f172a;
-  }
-
-  body.editorial-theme :global(h1, h2, h3) {
-    color: #f8fafc;
-  }
-
-  :global(p),
-  :global(li) {
-    line-height: 1.7;
-  }
-
-  :global(a) {
-    color: var(--accent-link);
-  }
-
-  body.editorial-theme :global(a) {
-    color: var(--accent-link-dark);
-  }
-
-  :global(hr) {
-    border: 0;
-    border-top: 1px solid #dbe4f5;
-    margin: 1.5rem 0;
-  }
-
-  body.editorial-theme :global(hr) {
-    border-top-color: #1f2937;
+    color: var(--color-text);
   }
 
   @media (max-width: 640px) {

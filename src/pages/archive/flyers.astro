@@ -82,14 +82,13 @@ const summaryStats = [
 
   <section class="flyer-grid" aria-label="Flyer image gallery">
     {flyerAssets.map((asset, index) => (
-      <article class="flyer-card panel" id={`flyer-${index + 1}`}>
+      <article class="flyer-card" id={`flyer-${index + 1}`}>
         <img src={asset.imagePath} alt={`${asset.title}${asset.dateLabel ? ` on ${asset.dateLabel}` : ''}`} loading="lazy" decoding="async" />
-        <div class="flyer-meta">
+        <div class="flyer-overlay">
           <p class="flyer-title">{asset.title}</p>
           <p class="flyer-subline">{asset.assetType}{asset.dateLabel ? ` · ${asset.dateLabel}` : ''}</p>
           <p class="flyer-source">{asset.source}</p>
-          <p class="flyer-file">file: <code>{asset.filename}</code></p>
-          <p class="flyer-action"><a href={asset.imagePath} target="_blank" rel="noreferrer noopener">Open full image ↗</a></p>
+          <a href={asset.imagePath} target="_blank" rel="noreferrer noopener" class="flyer-action">Open full image</a>
         </div>
       </article>
     ))}
@@ -97,135 +96,85 @@ const summaryStats = [
 </BaseLayout>
 
 <style>
-  .panel {
-    border: 1px solid var(--surface-dark-muted);
-    border-radius: var(--radius-md);
-    background: rgb(15 23 42 / 55%);
-    padding: 1rem;
-  }
-
   .page-header {
     display: grid;
     gap: 0.45rem;
   }
 
-  .section-kicker {
-    margin: 0;
-    color: #94a3b8;
-    font-size: 0.68rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-  }
-
-  .intro,
-  .context {
-    margin: 0;
-    color: #cbd5e1;
-  }
-
-  .overview-stats {
-    margin: 1rem 0 1.2rem;
-    display: grid;
-    gap: 0.7rem;
-    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-  }
-
-  .overview-stats p {
-    margin: 0;
-    border: 1px solid var(--surface-dark-muted);
-    border-radius: var(--radius-md);
-    background: rgb(2 6 23 / 45%);
-    padding: 0.75rem 0.85rem;
-    display: grid;
-    gap: 0.2rem;
-  }
-
-  .overview-stats span {
-    color: #f8fafc;
-    font-size: 1.1rem;
-    font-weight: 700;
-  }
-
-  .overview-stats small {
-    color: #94a3b8;
-    text-transform: uppercase;
-    letter-spacing: 0.07em;
-    font-size: 0.64rem;
-  }
-
   .flyer-grid {
     display: grid;
-    gap: 0.9rem;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 0.6rem;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   }
 
   .flyer-card {
-    padding: 0.8rem;
-    display: grid;
-    gap: 0.75rem;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    aspect-ratio: 4 / 3;
   }
 
   .flyer-card img {
     width: 100%;
-    height: auto;
-    border-radius: 0.45rem;
-    border: 1px solid #334155;
+    height: 100%;
     display: block;
     object-fit: cover;
+    filter: grayscale(0.4);
+    transition: filter 700ms ease, transform 600ms ease;
   }
 
-  .flyer-meta {
-    display: grid;
-    gap: 0.35rem;
+  .flyer-card:hover img,
+  .flyer-card:focus-within img {
+    filter: grayscale(0);
+    transform: scale(1.03);
+  }
+
+  .flyer-overlay {
+    position: absolute;
+    inset: auto 0 0 0;
+    padding: 1.5rem 0.9rem 0.8rem;
+    background: linear-gradient(0deg, rgb(0 0 0 / 92%) 30%, rgb(0 0 0 / 0) 100%);
+    transform: translateY(calc(100% - 2.8rem));
+    transition: transform 350ms ease;
+  }
+
+  .flyer-card:hover .flyer-overlay,
+  .flyer-card:focus-within .flyer-overlay {
+    transform: translateY(0);
   }
 
   .flyer-title {
     margin: 0;
-    color: #f8fafc;
-    font-size: 1rem;
-    font-weight: 650;
+    font: 600 1rem / 1.15 var(--font-display);
+    color: var(--color-text);
   }
 
   .flyer-subline {
-    margin: 0;
+    margin: 0.35rem 0 0;
+    font: var(--text-caption);
     color: #fdba74;
-    font-size: 0.92rem;
-  }
-
-  .flyer-file {
-    margin: 0;
-    color: #94a3b8;
-    font-size: 0.78rem;
-    overflow-wrap: anywhere;
   }
 
   .flyer-source {
-    margin: 0;
-    color: #93c5fd;
-    font-size: 0.74rem;
+    margin: 0.3rem 0 0;
+    font: var(--text-footnote);
     text-transform: uppercase;
-    letter-spacing: 0.06em;
-  }
-
-  .flyer-file code {
-    background: rgb(15 23 42 / 70%);
-    border: 1px solid #334155;
-    border-radius: 0.35rem;
-    padding: 0.08rem 0.28rem;
+    color: var(--color-text-muted);
   }
 
   .flyer-action {
-    margin: 0;
-    font-size: 0.86rem;
-  }
-
-  .flyer-action a {
-    color: var(--accent-link-dark);
+    display: inline-block;
+    margin-top: 0.5rem;
+    font: var(--text-overline);
+    text-transform: uppercase;
+    color: var(--color-accent);
     text-decoration: none;
   }
 
-  .flyer-action a:hover,
-  .flyer-action a:focus-visible {
+  .flyer-action:hover,
+  .flyer-action:focus-visible {
     text-decoration: underline;
   }
 </style>

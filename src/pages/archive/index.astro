@@ -15,6 +15,26 @@ const latestArchiveUpdate = archivePages.reduce((latest, page) =>
   archivePages[0]?.data.updated ?? new Date()
 );
 
+const primaryIds = new Set(['overview', 'timeline', 'people-network', 'venues-format-shifts']);
+const referenceIds = new Set(['event-ledger', 'channel-profile-directory']);
+const primaryPages = archivePages.filter(p => primaryIds.has(p.id));
+const referencePages = archivePages.filter(p => referenceIds.has(p.id));
+
+const visualSections = [
+  {
+    id: 'flyers',
+    title: 'Flyers',
+    description: 'BREAD and Toasted Trax flyers and posters from the main image folder and imported archive files.',
+    href: '/archive/flyers/'
+  },
+  {
+    id: 'radio-shows',
+    title: 'Radio Shows',
+    description: 'BREAD FM artwork cards with names and dates pulled from each image filename.',
+    href: '/archive/radio-shows/'
+  }
+];
+
 const archiveIndexStructuredData = createCollectionPageSchema({
   site: Astro.site,
   pathname: Astro.url.pathname,
@@ -61,36 +81,53 @@ const overviewStats = [
     <Breadcrumbs items={breadcrumbItems} />
   </header>
 
-  <section class="overview-stats" aria-label="Archive overview stats">
+  <section class="stats-strip" aria-label="Archive overview stats">
     {overviewStats.map((item) => (
       <p>
-        <span>{item.value}</span>
-        <small>{item.label}</small>
+        <span class="stat-value">{item.value}</span>
+        <span class="stat-label">{item.label}</span>
       </p>
     ))}
   </section>
 
-  <ul class="archive-map">
-    <li>
-      <p class="section-kicker">Archive section</p>
-      <CardLink href="/archive/flyers/" label="Flyers →" />
-      <p>Browse BREAD and Toasted Trax flyers and posters from the main image folder and imported archive files.</p>
-    </li>
-    <li>
-      <p class="section-kicker">Archive section</p>
-      <CardLink href="/archive/radio-shows/" label="Radio shows →" />
-      <p>Browse BREAD FM artwork cards with names and dates pulled from each image filename.</p>
-    </li>
-    {
-      archivePages.map((page) => (
+  <section class="archive-group" aria-labelledby="primary-heading">
+    <h2 id="primary-heading" class="group-heading">Primary</h2>
+    <ul class="archive-map">
+      {primaryPages.map((page) => (
         <li>
-          <p class="section-kicker">Archive section</p>
-          <CardLink href={`/archive/${toContentSlug(page.id)}/`} label={`${page.data.title} →`} />
+          <p class="section-kicker">{page.data.title}</p>
+          <CardLink href={`/archive/${toContentSlug(page.id)}/`} label={`${page.data.title}`} />
           <p>{page.data.description}</p>
         </li>
-      ))
-    }
-  </ul>
+      ))}
+    </ul>
+  </section>
+
+  <section class="archive-group" aria-labelledby="visual-heading">
+    <h2 id="visual-heading" class="group-heading">Visual Archives</h2>
+    <ul class="archive-map">
+      {visualSections.map((section) => (
+        <li>
+          <p class="section-kicker">{section.title}</p>
+          <CardLink href={section.href} label={section.title} />
+          <p>{section.description}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="archive-group" aria-labelledby="reference-heading">
+    <h2 id="reference-heading" class="group-heading">Reference</h2>
+    <ul class="archive-map">
+      {referencePages.map((page) => (
+        <li>
+          <p class="section-kicker">{page.data.title}</p>
+          <CardLink href={`/archive/${toContentSlug(page.id)}/`} label={`${page.data.title}`} />
+          <p>{page.data.description}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
 </BaseLayout>
 
 <style>
@@ -99,55 +136,46 @@ const overviewStats = [
     gap: 0.4rem;
   }
 
-  .panel {
-    border: 1px solid var(--surface-dark-muted);
-    border-radius: var(--radius-md);
-    background: rgb(15 23 42 / 55%);
-    padding: 1rem;
+  .stats-strip {
+    margin: var(--space-md) 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
   }
 
-  .section-kicker {
+  .stats-strip p {
     margin: 0;
-    color: #94a3b8;
-    font-size: 0.68rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+
+  .stats-strip .stat-value {
+    font: 700 1.1rem / 1 var(--font-display);
+    color: var(--color-text);
+  }
+
+  .stats-strip .stat-label {
+    font: var(--text-overline);
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    color: var(--color-text-muted);
   }
 
-  .intro,
-  .context {
-    margin: 0;
-    color: #cbd5e1;
+  .archive-group {
+    margin-top: var(--space-xl);
   }
 
-  .overview-stats {
-    margin: 1rem 0 1.1rem;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 0.7rem;
+  .archive-group:first-of-type {
+    margin-top: var(--space-lg);
   }
 
-  .overview-stats p {
-    margin: 0;
-    border: 1px solid var(--surface-dark-muted);
-    border-radius: var(--radius-md);
-    background: rgb(2 6 23 / 45%);
-    padding: 0.75rem 0.85rem;
-    display: grid;
-    gap: 0.2rem;
-  }
-
-  .overview-stats span {
-    color: #f8fafc;
-    font-size: 1.1rem;
-    font-weight: 700;
-  }
-
-  .overview-stats small {
-    color: #94a3b8;
+  .group-heading {
+    margin: 0 0 var(--space-sm);
+    font: var(--text-overline);
     text-transform: uppercase;
-    letter-spacing: 0.07em;
-    font-size: 0.64rem;
+    color: var(--color-text-muted);
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 0.45rem;
   }
 
   .archive-map {
@@ -155,25 +183,23 @@ const overviewStats = [
     padding: 0;
     margin: 0;
     display: grid;
-    gap: 0.85rem;
+    gap: 0.65rem;
   }
 
   .archive-map li {
-    border: 1px solid var(--surface-dark-muted);
-    background: rgb(15 23 42 / 55%);
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
     border-radius: var(--radius-md);
     padding: 0.9rem 1rem;
-    transition: border-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+    transition: border-color 160ms ease;
   }
 
   .archive-map li:hover {
-    border-color: #475569;
-    transform: translateY(-1px);
-    box-shadow: 0 10px 26px rgb(2 6 23 / 35%);
+    border-color: var(--color-border-strong);
   }
 
   .archive-map :global(.card-link) {
-    color: var(--accent-link-dark);
+    color: var(--color-accent);
     font-weight: 600;
     text-decoration: none;
   }
@@ -184,7 +210,15 @@ const overviewStats = [
   }
 
   .archive-map p {
-    margin: 0.45rem 0 0;
-    color: #cbd5e1;
+    margin: 0.35rem 0 0;
+    font: var(--text-caption);
+    color: var(--color-text-muted);
+  }
+
+  .archive-map .section-kicker {
+    margin: 0;
+    font: var(--text-footnote);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
   }
 </style>

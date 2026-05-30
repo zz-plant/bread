@@ -143,14 +143,14 @@ const milestones = [
 
   .eyebrow {
     margin: 0;
-    color: #94a3b8;
+    color: var(--color-text-muted);
     font-size: 0.68rem;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.05em;
   }
 
   .route-note {
-    color: #cbd5e1;
+    color: var(--color-text-muted);
   }
 
   .timeline-grid {
@@ -174,8 +174,8 @@ const milestones = [
     position: relative;
     margin-left: 1.5rem;
     padding: 0.9rem 1rem;
-    border: 1px solid var(--surface-dark-muted);
-    background: linear-gradient(180deg, #111827, #0b1220);
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
     border-radius: var(--radius-md);
   }
 
@@ -222,10 +222,10 @@ const milestones = [
   }
 
   .milestones li {
-    border: 1px dashed #334155;
+    border: 1px dashed var(--color-border-strong);
     border-radius: var(--radius-md);
     padding: 0.75rem 0.9rem;
-    background: rgb(15 23 42 / 55%);
+    background: var(--color-surface);
   }
 
   .date,
@@ -247,13 +247,13 @@ const milestones = [
   }
 
   .venue {
-    color: #94a3b8;
+    color: var(--color-text-muted);
     margin-top: 0.1rem;
     font-size: 0.92rem;
   }
 
   .source {
-    color: #cbd5e1;
+    color: var(--color-text-muted);
     margin-top: 0.2rem;
     font-size: 0.88rem;
   }

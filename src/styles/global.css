@@ -1,0 +1,120 @@
+:root {
+  /* Palette */
+  --color-bg:            #080808;
+  --color-surface:       #0d0d0d;
+  --color-surface-raised:#141414;
+  --color-border:        #262626;
+  --color-border-strong: #3a3a3a;
+  --color-text:          #ededed;
+  --color-text-muted:    #8a8a8a;
+  --color-accent:        #ff5a1f;
+  --color-accent-soft:   rgb(255 90 31 / 18%);
+
+  /* Radius */
+  --radius-none:  0;
+  --radius-sm:    0.25rem;
+  --radius-md:    0.5rem;
+
+  /* Spacing */
+  --space-xs:  0.35rem;
+  --space-sm:  0.65rem;
+  --space-md:  1rem;
+  --space-lg:  1.5rem;
+  --space-xl:  2.5rem;
+
+  /* Typographic scale */
+  --font-display:   'Syne', sans-serif;
+  --font-mono:      'JetBrains Mono', monospace;
+  --font-body:      system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+  --text-display:   700 clamp(2.6rem, 5vw, 4.2rem) / 0.92 var(--font-display);
+  --text-headline:  500 1.16rem / 1.05 var(--font-display);
+  --text-subhead:   600 0.95rem / 1.35 var(--font-body);
+  --text-body:      400 0.92rem / 1.6 var(--font-body);
+  --text-caption:   400 0.82rem / 1.5 var(--font-body);
+  --text-overline:  500 0.68rem / 1.3 var(--font-mono);
+  --text-footnote:  400 0.72rem / 1.4 var(--font-mono);
+
+  color-scheme: dark;
+  font: var(--text-body);
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+/* Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+/* Grain texture overlay */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  opacity: 0.028;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* Shared UI patterns */
+
+.panel {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-raised);
+  padding: var(--space-md);
+}
+
+.section-kicker {
+  margin: 0;
+  color: var(--color-text-muted);
+  font: var(--text-overline);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.overview-stats {
+  margin: var(--space-md) 0 calc(var(--space-md) + 0.1rem);
+  display: grid;
+  gap: 0.7rem;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+}
+
+.overview-stats > * {
+  margin: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  padding: 0.75rem 0.85rem;
+  display: grid;
+  gap: 0.2rem;
+}
+
+.overview-stats .stat-value {
+  color: var(--color-text);
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.overview-stats .stat-label {
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.64rem;
+}
+
+.intro,
+.context {
+  margin: 0;
+  color: var(--color-text-muted);
+}

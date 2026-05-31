@@ -1,0 +1,57 @@
+---
+import CardLink from './CardLink.astro';
+
+interface Stat {
+  label: string;
+  value: number;
+}
+
+interface Props {
+  stats: Stat[];
+}
+
+const { stats } = Astro.props;
+---
+
+<aside class="nav-rail">
+  <div class="rail-head">
+    <h1 class="wordmark">BREAD</h1>
+  </div>
+
+  <section class="snapshot rail-card" aria-label="At a glance">
+    <p class="snapshot-title">At a glance</p>
+    <ul class="snapshot-list">
+      {stats.map((item) => (
+        <li>
+          <span class="snapshot-value">{item.value}</span>
+          <span class="snapshot-label">{item.label}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="route-start rail-card" aria-label="Quick links">
+    <p class="route-start-title">Quick links</p>
+    <p class="route-start-copy">Jump into the archive or read the story.</p>
+    <nav class="primary-routes" aria-label="Quick links">
+      <CardLink href="/archive/" label="Explore archive →" variant="rail" />
+      <CardLink href="/archive/flyers/" label="Flyers →" variant="rail" />
+      <CardLink href="/archive/radio-shows/" label="Radio shows →" variant="rail" />
+      <CardLink href="/story/" label="Read the story →" variant="rail" />
+      <CardLink href="/archive/timeline/" label="Timeline →" variant="rail" />
+      <CardLink href="/archive/event-ledger/" label="Event list →" variant="rail" />
+      <CardLink href="/archive/people-network/" label="People →" variant="rail" />
+      <CardLink href="/archive/venues-format-shifts/" label="Venues →" variant="rail" />
+    </nav>
+  </section>
+
+  <nav class="tabs rail-card" id="tabs">
+    <p class="tabs-title">Pick a section</p>
+    <div class="tablist" role="tablist" aria-label="Sections">
+      <button class="tab active" role="tab" aria-selected="true" aria-controls="panel-events" id="tab-events" data-panel="panel-events">events</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="panel-people" id="tab-people" data-panel="panel-people">people</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="panel-audio" id="tab-audio" data-panel="panel-audio">audio</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="panel-links" id="tab-links" data-panel="panel-links">links</button>
+    </div>
+  </nav>
+</aside>

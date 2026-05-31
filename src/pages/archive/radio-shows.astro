@@ -1,9 +1,6 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ArchiveLayout from '../../layouts/ArchiveLayout.astro';
 import {
-  createBreadcrumbListSchema,
-  createCollectionPageSchema,
   createItemListSchema
 } from '../../utils/structuredData';
 import data from '../../data/radio-shows.json';
@@ -16,23 +13,6 @@ const breadcrumbItems = [
   { label: 'Radio shows' }
 ];
 
-const breadcrumbStructuredData = createBreadcrumbListSchema({
-  site: Astro.site,
-  items: [
-    { name: 'Home', pathname: '/' },
-    { name: 'Archive', pathname: '/archive/' },
-    { name: 'Radio shows', pathname: '/archive/radio-shows/' }
-  ]
-});
-
-const pageStructuredData = createCollectionPageSchema({
-  site: Astro.site,
-  pathname: Astro.url.pathname,
-  name: 'BREAD Radio Shows',
-  description: 'Gallery of BREAD FM show artwork with names and dates pulled from radio image file names.',
-  isPartOf: 'BREAD'
-});
-
 const imageListStructuredData = createItemListSchema({
   name: 'BREAD FM Radio Show Artwork',
   description: 'Radio show cards built from image file names in the public radio folder.',
@@ -44,10 +24,6 @@ const imageListStructuredData = createItemListSchema({
   }))
 });
 
-const structuredDataEntries = [pageStructuredData, breadcrumbStructuredData, imageListStructuredData].filter(
-  (entry): entry is Record<string, unknown> => Boolean(entry)
-);
-
 const summaryStats = [
   { label: 'Shows', value: radioShows.length },
   { label: 'Guest lineups', value: uniqueGuestCount },
@@ -55,29 +31,15 @@ const summaryStats = [
 ];
 ---
 
-<BaseLayout
+<ArchiveLayout
   title="BREAD Archive: Radio Shows"
   description="Browse BREAD FM radio show images with lineup names and dates pulled from file names."
-  structuredData={structuredDataEntries}
+  breadcrumbItems={breadcrumbItems}
+  stats={summaryStats}
+  intro="Radio show images turned into cards with guest names and dates."
+  context='Need all channel links? Open <a href="/archive/channel-profile-directory/">Links</a>. Looking for party visuals? Open <a href="/archive/flyers/">Flyers</a>.'
   ogImageAlt="BREAD FM radio show artwork gallery"
 >
-  <header class="page-header panel">
-    <p class="section-kicker">Archive section</p>
-    <h1>Radio Shows</h1>
-    <p class="intro">Radio show images turned into cards with guest names and dates.</p>
-    <p class="context">Need all channel links? Open <a href="/archive/channel-profile-directory/">Links</a>. Looking for party visuals? Open <a href="/archive/flyers/">Flyers</a>.</p>
-    <Breadcrumbs items={breadcrumbItems} />
-  </header>
-
-  <section class="overview-stats" aria-label="Radio show stats">
-    {summaryStats.map((item) => (
-      <p>
-        <span>{item.value}</span>
-        <small>{item.label}</small>
-      </p>
-    ))}
-  </section>
-
   <section class="show-grid" aria-label="Radio show artwork gallery">
     {radioShows.map((show, index) => (
       <article class="show-card" id={`show-${index + 1}`}>
@@ -90,7 +52,7 @@ const summaryStats = [
       </article>
     ))}
   </section>
-</BaseLayout>
+</ArchiveLayout>
 
 <style>
   .page-header {

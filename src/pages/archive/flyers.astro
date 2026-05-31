@@ -1,9 +1,6 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ArchiveLayout from '../../layouts/ArchiveLayout.astro';
 import {
-  createBreadcrumbListSchema,
-  createCollectionPageSchema,
   createItemListSchema
 } from '../../utils/structuredData';
 import data from '../../data/flyers.json';
@@ -16,23 +13,6 @@ const breadcrumbItems = [
   { label: 'Flyers' }
 ];
 
-const breadcrumbStructuredData = createBreadcrumbListSchema({
-  site: Astro.site,
-  items: [
-    { name: 'Home', pathname: '/' },
-    { name: 'Archive', pathname: '/archive/' },
-    { name: 'Flyers', pathname: '/archive/flyers/' }
-  ]
-});
-
-const pageStructuredData = createCollectionPageSchema({
-  site: Astro.site,
-  pathname: Astro.url.pathname,
-  name: 'BREAD Flyer Gallery',
-  description: 'Gallery of BREAD and Toasted Trax flyers and promo images from the main folder and imported archive files.',
-  isPartOf: 'BREAD'
-});
-
 const imageListStructuredData = createItemListSchema({
   name: 'BREAD Flyer Assets',
   description: 'Flyer cards built from the main image folder and imported archive files.',
@@ -44,10 +24,6 @@ const imageListStructuredData = createItemListSchema({
   }))
 });
 
-const structuredDataEntries = [pageStructuredData, breadcrumbStructuredData, imageListStructuredData].filter(
-  (entry): entry is Record<string, unknown> => Boolean(entry)
-);
-
 const summaryStats = [
   { label: 'Images', value: flyerAssets.length },
   { label: 'Images with dates', value: datedAssetCount },
@@ -57,29 +33,15 @@ const summaryStats = [
 ];
 ---
 
-<BaseLayout
+<ArchiveLayout
   title="BREAD Archive: Flyers"
   description="Browse BREAD and Toasted Trax flyers and promo images from the main image folder and imported archive files."
-  structuredData={structuredDataEntries}
+  breadcrumbItems={breadcrumbItems}
+  stats={summaryStats}
+  intro="Flyers, posters, and promo images from the main folder and imported archive files."
+  context='Looking for radio episode art? Open <a href="/archive/radio-shows/">Radio shows</a>.'
   ogImageAlt="BREAD flyer and poster image gallery"
 >
-  <header class="page-header panel">
-    <p class="section-kicker">Archive section</p>
-    <h1>Flyers</h1>
-    <p class="intro">Flyers, posters, and promo images from the main folder and imported archive files.</p>
-    <p class="context">Looking for radio episode art? Open <a href="/archive/radio-shows/">Radio shows</a>.</p>
-    <Breadcrumbs items={breadcrumbItems} />
-  </header>
-
-  <section class="overview-stats" aria-label="Flyer gallery stats">
-    {summaryStats.map((item) => (
-      <p>
-        <span>{item.value}</span>
-        <small>{item.label}</small>
-      </p>
-    ))}
-  </section>
-
   <section class="flyer-grid" aria-label="Flyer image gallery">
     {flyerAssets.map((asset, index) => (
       <article class="flyer-card" id={`flyer-${index + 1}`}>
@@ -93,7 +55,7 @@ const summaryStats = [
       </article>
     ))}
   </section>
-</BaseLayout>
+</ArchiveLayout>
 
 <style>
   .page-header {

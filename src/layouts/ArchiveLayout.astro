@@ -1,0 +1,122 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { createBreadcrumbListSchema, createCollectionPageSchema } from '../utils/structuredData';
+
+interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
+
+interface Stat {
+  label: string;
+  value: string | number;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  kicker?: string;
+  intro?: string;
+  context?: string;
+  breadcrumbItems: BreadcrumbItem[];
+  stats?: Stat[];
+  ogImage?: string;
+  ogImageAlt?: string;
+}
+
+const {
+  title,
+  description,
+  kicker = 'Archive section',
+  intro,
+  context,
+  breadcrumbItems,
+  stats = [],
+  ogImage,
+  ogImageAlt,
+} = Astro.props;
+
+const pageStructuredData = createCollectionPageSchema({
+  site: Astro.site,
+  pathname: Astro.url.pathname,
+  name: title,
+  description,
+  isPartOf: 'BREAD',
+});
+
+const breadcrumbStructuredData = createBreadcrumbListSchema({
+  site: Astro.site,
+  items: breadcrumbItems.map((item) => ({
+    name: item.label,
+    pathname: item.href || Astro.url.pathname,
+  })),
+});
+
+const structuredData = [pageStructuredData, breadcrumbStructuredData].filter(
+  (entry): entry is Record<string, unknown> => Boolean(entry),
+);
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  structuredData={structuredData}
+  ogImage={ogImage}
+  ogImageAlt={ogImageAlt}
+>
+  <header class="page-header panel">
+    <p class="section-kicker">{kicker}</p>
+    <h1>{title}</h1>
+    {intro && <p class="intro">{intro}</p>}
+    {context && <p class="context"><Fragment set:html={context} /></p>}
+    <Breadcrumbs items={breadcrumbItems} />
+  </header>
+
+  {
+    stats.length > 0 && (
+      <div class="stats-strip" aria-label="Overview stats">
+        {stats.map((stat) => (
+          <p>
+            <span class="stat-value">{stat.value}</span>
+            <span class="stat-label">{stat.label}</span>
+          </p>
+        ))}
+      </div>
+    )
+  }
+
+  <slot />
+</BaseLayout>
+
+<style>
+  .page-header {
+    display: grid;
+    gap: 0.4rem;
+  }
+
+  .stats-strip {
+    margin: var(--space-md) 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .stats-strip p {
+    margin: 0;
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+
+  .stats-strip .stat-value {
+    font: 700 1.1rem / 1 var(--font-display);
+    color: var(--color-text);
+  }
+
+  .stats-strip .stat-label {
+    font: var(--text-overline);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+</style>

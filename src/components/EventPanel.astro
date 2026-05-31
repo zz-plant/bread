@@ -1,0 +1,103 @@
+---
+interface Visual {
+  src: string;
+  alt: string;
+  title: string;
+  caption: string;
+  href: string;
+}
+
+interface Event {
+  id: string;
+  title: string;
+  year: string;
+  date: string;
+  venue: string;
+  lineup: string;
+  confidence: string;
+  status: string;
+  source: {
+    label: string;
+    href?: string;
+    external?: boolean;
+  };
+}
+
+interface Props {
+  visuals: Visual[];
+  events: Event[];
+}
+
+const { visuals, events } = Astro.props;
+---
+
+<article class="panel active" id="panel-events" role="tabpanel" aria-labelledby="tab-events">
+  <h2>Events</h2>
+  <p class="result-count" id="eventsResultCount">{events.length} events shown</p>
+  <p class="events-intro">Each card shows date, series, venue, lineup, and where the info came from.</p>
+  <p class="click-hint"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="vertical-align:-0.125em;margin-right:0.3em"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></svg> Click any event or person card to see details in the side panel.</p>
+
+  <div class="events-toolbar" aria-label="Filter and search events">
+    <div class="search-wrapper">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"></circle>
+        <path d="m21 21-4.35-4.35"></path>
+      </svg>
+      <input type="search" id="eventSearch" placeholder="Filter events..." aria-label="Filter events by title, venue, or lineup" />
+    </div>
+    <div class="filter-chips" id="yearFilters"></div>
+    <div class="filter-chips" id="venueFilters"></div>
+  </div>
+
+  <section class="featured-visuals" aria-label="Featured visuals">
+    <div class="featured-visuals-head">
+      <h3>Flyers + photos</h3>
+      <p>A few flyer and party photos from the archive.</p>
+    </div>
+    <ul class="featured-visual-grid">
+      {visuals.map((item) => (
+        <li>
+          <figure>
+            <img src={item.src} alt={item.alt} loading="eager" decoding="sync" />
+            <figcaption>
+              <p>{item.title}</p>
+              <small>{item.caption}</small>
+              <a href={item.href}>Open related archive →</a>
+            </figcaption>
+          </figure>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <ul class="cards">
+     {events.map((event, index) => (
+       <li class="card" id={`event-${index + 1}`} data-kind="event" data-index={index} data-year={event.year} data-venue={event.venue} data-lineup={event.lineup}>
+         <button class="pick-btn" data-kind="event" data-index={index} aria-label={`Open info for ${event.title}`}>
+           <div>
+             <div class="card-header">
+               <p class="title">{event.title}</p>
+               <span class={`status-badge status-${event.status}`}>{event.status}</span>
+             </div>
+             <p class="meta">{event.year} · {event.date} · {event.venue}</p>
+             <p class="lineup">{event.lineup}</p>
+           </div>
+         </button>
+         <div class="card-footer">
+           {event.source.href ? (
+             <p class="status source-row">source: <a href={event.source.href} target={event.source.external ? '_blank' : undefined} rel={event.source.external ? 'noreferrer noopener' : undefined}>{event.source.label}</a></p>
+           ) : (
+             <p class="status source-row">source: {event.source.label}</p>
+           )}
+           <div class="share-buttons" data-url={`/events/${event.id}`} data-title={event.title}>
+             <button class="share-btn" data-platform="copy" aria-label="Copy link">Copy</button>
+             <button class="share-btn" data-platform="twitter" aria-label="Share on Twitter">X</button>
+           </div>
+         </div>
+       </li>
+      ))}
+  </ul>
+  <div class="load-more-container">
+    <button class="chip" type="button" id="loadMoreEvents">Load more events</button>
+  </div>
+</article>

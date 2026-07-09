@@ -1,0 +1,223 @@
+---
+import { getCollection } from "astro:content";
+import ArchiveLayout from "../../layouts/ArchiveLayout.astro";
+
+const events = (await getCollection("events"))
+	.filter((event) => event.data.confidence !== "unverified")
+	.sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
+
+const venueCoordinates: Record<
+	string,
+	{ lat: number; lng: number; label: string }
+> = {
+	F8: { lat: 37.7756, lng: -122.4089, label: "F8 / 1192 Folsom area" },
+	"F8 (noted)": {
+		lat: 37.7756,
+		lng: -122.4089,
+		label: "F8 / 1192 Folsom area",
+	},
+	Codeword: { lat: 37.7786, lng: -122.3929, label: "Codeword / SoMa area" },
+	"Underground SF": {
+		lat: 37.7702,
+		lng: -122.445,
+		label: "Underground SF / Lower Haight area",
+	},
+	"60 6th St": { lat: 37.781, lng: -122.4088, label: "60 6th St" },
+	"2389 Mission St": { lat: 37.7593, lng: -122.4191, label: "2389 Mission St" },
+	"Public Works Loft (noted)": {
+		lat: 37.7689,
+		lng: -122.4193,
+		label: "Public Works area",
+	},
+	"Mighty (noted)": { lat: 37.7671, lng: -122.4064, label: "Mighty area" },
+	"Club 6ix (noted)": { lat: 37.7852, lng: -122.4089, label: "Club 6ix area" },
+	"OMG (noted)": { lat: 37.7813, lng: -122.4096, label: "OMG area" },
+	"SOMA area, SF": { lat: 37.7785, lng: -122.4056, label: "SOMA area" },
+	"SF (noted)": { lat: 37.7749, lng: -122.4194, label: "San Francisco" },
+	"SF (venue pending)": {
+		lat: 37.7749,
+		lng: -122.4194,
+		label: "San Francisco",
+	},
+	"San Francisco": { lat: 37.7749, lng: -122.4194, label: "San Francisco" },
+	Twitch: {
+		lat: 37.7749,
+		lng: -122.4194,
+		label: "Online stream / SF archive context",
+	},
+	"Internet Public Radio": {
+		lat: 40.7128,
+		lng: -74.006,
+		label: "Internet Public Radio",
+	},
+	HKCR: { lat: 22.3193, lng: 114.1694, label: "HKCR / Hong Kong" },
+	"HKCR / hkcr.live": {
+		lat: 22.3193,
+		lng: 114.1694,
+		label: "HKCR / Hong Kong",
+	},
+};
+
+const venueMap = new Map<
+	string,
+	{
+		venue: string;
+		label: string;
+		lat: number;
+		lng: number;
+		count: number;
+		years: Set<string>;
+		events: { title: string; date: string; id: string }[];
+	}
+>();
+
+for (const event of events) {
+	const coords =
+		venueCoordinates[event.data.venue] ?? venueCoordinates["San Francisco"];
+	const current = venueMap.get(event.data.venue) ?? {
+		venue: event.data.venue,
+		label: coords.label,
+		lat: coords.lat,
+		lng: coords.lng,
+		count: 0,
+		years: new Set<string>(),
+		events: [],
+	};
+	current.count += 1;
+	current.years.add(event.data.year);
+	current.events.push({
+		title: event.data.title,
+		date: event.data.date.toISOString().slice(0, 10),
+		id: event.id,
+	});
+	venueMap.set(event.data.venue, current);
+}
+
+const venues = Array.from(venueMap.values())
+	.map((venue) => ({ ...venue, years: Array.from(venue.years).sort() }))
+	.sort((a, b) => b.count - a.count || a.venue.localeCompare(b.venue));
+
+const breadcrumbItems = [
+	{ label: "Home", href: "/" },
+	{ label: "Archive", href: "/archive/" },
+	{ label: "Venue map" },
+];
+
+const stats = [
+	{ label: "Venues", value: venues.length },
+	{ label: "Events mapped", value: events.length },
+];
+---
+
+<ArchiveLayout
+  title="BREAD Archive: Venue Map"
+  description="A mobile-friendly venue map and list for documented BREAD events."
+  breadcrumbItems={breadcrumbItems}
+  stats={stats}
+  intro="Browse BREAD event history by place, with a lightweight map that loads only when requested."
+  context='Prefer text? Open the <a href="/archive/event-ledger/">Event list</a>.'
+>
+  <section class="map-panel" aria-label="Venue map">
+    <div id="venueMap" class="venue-map" data-venues={JSON.stringify(venues)}>
+      <p>Map is ready when you are.</p>
+      <button class="map-load" type="button">Open map</button>
+    </div>
+  </section>
+
+  <section class="venue-list" aria-label="Venue list">
+    {venues.map((venue) => (
+      <article class="venue-card">
+        <p class="section-kicker">{venue.label}</p>
+        <h2>{venue.venue}</h2>
+        <p>{venue.count} event{venue.count === 1 ? '' : 's'} · {venue.years.join(', ')}</p>
+        <ul>
+          {venue.events.slice(0, 4).map((event) => (
+            <li><a href={`/#event-${event.id}`}>{event.date} · {event.title}</a></li>
+          ))}
+        </ul>
+      </article>
+    ))}
+  </section>
+</ArchiveLayout>
+
+<script>
+  const mapRoot = document.getElementById('venueMap');
+  const loadButton = mapRoot?.querySelector('.map-load');
+
+  async function loadMap() {
+    if (!mapRoot || mapRoot.dataset.loaded === 'true') return;
+    mapRoot.dataset.loaded = 'true';
+    const venues = JSON.parse(mapRoot.dataset.venues || '[]');
+    const leaflet = await import('leaflet');
+    await import('leaflet/dist/leaflet.css');
+    mapRoot.replaceChildren();
+    const map = leaflet.map(mapRoot).setView([37.7749, -122.4194], 11);
+    leaflet.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors',
+    }).addTo(map);
+    const bounds = [];
+    venues.forEach((venue) => {
+      const marker = leaflet.marker([venue.lat, venue.lng]).addTo(map);
+      marker.bindPopup(`<strong>${venue.venue}</strong><br>${venue.count} events<br><a href=\"/#event-${venue.events[0]?.id}\">Open first event</a>`);
+      bounds.push([venue.lat, venue.lng]);
+    });
+    if (bounds.length) map.fitBounds(bounds, { padding: [24, 24] });
+  }
+
+  loadButton?.addEventListener('click', loadMap);
+</script>
+
+<style>
+  .map-panel {
+    margin: var(--space-md) 0;
+  }
+
+  .venue-map {
+    min-height: min(70vh, 34rem);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    display: grid;
+    place-items: center;
+    gap: 0.8rem;
+    padding: 1rem;
+    overflow: hidden;
+  }
+
+  .map-load {
+    min-height: 44px;
+    border: 1px solid var(--color-accent);
+    background: var(--color-bg);
+    color: var(--color-text);
+    padding: 0.7rem 1rem;
+  }
+
+  .venue-list {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .venue-card {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    padding: 1rem;
+  }
+
+  .venue-card h2,
+  .venue-card p {
+    margin: 0.2rem 0;
+  }
+
+  .venue-card ul {
+    margin: 0.7rem 0 0;
+    padding-left: 1.1rem;
+  }
+
+  @media (max-width: 780px) {
+    .venue-map {
+      min-height: 65vh;
+      border-radius: 1rem;
+    }
+  }
+</style>

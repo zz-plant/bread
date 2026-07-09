@@ -1,13 +1,13 @@
 ---
-import CardLink from './CardLink.astro';
+import CardLink from "./CardLink.astro";
 
 interface Stat {
-  label: string;
-  value: number;
+	label: string;
+	value: number;
 }
 
 interface Props {
-  stats: Stat[];
+	stats: Stat[];
 }
 
 const { stats } = Astro.props;
@@ -39,6 +39,7 @@ const { stats } = Astro.props;
       <CardLink href="/archive/radio-shows/" label="Radio shows →" variant="rail" />
       <CardLink href="/story/" label="Read the story →" variant="rail" />
       <CardLink href="/archive/timeline/" label="Timeline →" variant="rail" />
+      <CardLink href="/archive/map/" label="Venue map →" variant="rail" />
       <CardLink href="/archive/event-ledger/" label="Event list →" variant="rail" />
       <CardLink href="/archive/people-network/" label="People →" variant="rail" />
       <CardLink href="/archive/venues-format-shifts/" label="Venues →" variant="rail" />

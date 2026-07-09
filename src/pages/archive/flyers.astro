@@ -1,35 +1,42 @@
 ---
-import ArchiveLayout from '../../layouts/ArchiveLayout.astro';
-import {
-  createItemListSchema
-} from '../../utils/structuredData';
-import data from '../../data/flyers.json';
+import data from "../../data/flyers.json";
+import ArchiveLayout from "../../layouts/ArchiveLayout.astro";
+import { createItemListSchema } from "../../utils/structuredData";
 
-const { flyerAssets, datedAssetCount, seriesCount, importedAssetCount, topLevelAssetCount } = data;
+const {
+	flyerAssets,
+	datedAssetCount,
+	seriesCount,
+	importedAssetCount,
+	topLevelAssetCount,
+} = data;
 
 const breadcrumbItems = [
-  { label: 'Home', href: '/' },
-  { label: 'Archive', href: '/archive/' },
-  { label: 'Flyers' }
+	{ label: "Home", href: "/" },
+	{ label: "Archive", href: "/archive/" },
+	{ label: "Flyers" },
 ];
 
 const imageListStructuredData = createItemListSchema({
-  name: 'BREAD Flyer Assets',
-  description: 'Flyer cards built from the main image folder and imported archive files.',
-  itemListElement: flyerAssets.map((asset, index) => ({
-    '@type': 'ImageObject',
-    name: asset.dateLabel ? `${asset.title} — ${asset.dateLabel}` : asset.title,
-    position: index + 1,
-    contentUrl: Astro.site ? new URL(asset.imagePath, Astro.site).toString() : asset.imagePath
-  }))
+	name: "BREAD Flyer Assets",
+	description:
+		"Flyer cards built from the main image folder and imported archive files.",
+	itemListElement: flyerAssets.map((asset, index) => ({
+		"@type": "ImageObject",
+		name: asset.dateLabel ? `${asset.title} — ${asset.dateLabel}` : asset.title,
+		position: index + 1,
+		contentUrl: Astro.site
+			? new URL(asset.imagePath, Astro.site).toString()
+			: asset.imagePath,
+	})),
 });
 
 const summaryStats = [
-  { label: 'Images', value: flyerAssets.length },
-  { label: 'Images with dates', value: datedAssetCount },
-  { label: 'Main folder images', value: topLevelAssetCount },
-  { label: 'Imported images', value: importedAssetCount },
-  { label: 'Series', value: seriesCount }
+	{ label: "Images", value: flyerAssets.length },
+	{ label: "Images with dates", value: datedAssetCount },
+	{ label: "Main folder images", value: topLevelAssetCount },
+	{ label: "Imported images", value: importedAssetCount },
+	{ label: "Series", value: seriesCount },
 ];
 ---
 
@@ -138,5 +145,19 @@ const summaryStats = [
   .flyer-action:hover,
   .flyer-action:focus-visible {
     text-decoration: underline;
+  }
+</style>
+
+<style>
+  @media (hover: none), (max-width: 780px) {
+    .flyer-overlay {
+      transform: translateY(0);
+    }
+
+    .flyer-action {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+    }
   }
 </style>

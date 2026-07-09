@@ -1,33 +1,34 @@
 ---
-import ArchiveLayout from '../../layouts/ArchiveLayout.astro';
-import {
-  createItemListSchema
-} from '../../utils/structuredData';
-import data from '../../data/radio-shows.json';
+import data from "../../data/radio-shows.json";
+import ArchiveLayout from "../../layouts/ArchiveLayout.astro";
+import { createItemListSchema } from "../../utils/structuredData";
 
 const { radioShows, uniqueGuestCount, monthCount } = data;
 
 const breadcrumbItems = [
-  { label: 'Home', href: '/' },
-  { label: 'Archive', href: '/archive/' },
-  { label: 'Radio shows' }
+	{ label: "Home", href: "/" },
+	{ label: "Archive", href: "/archive/" },
+	{ label: "Radio shows" },
 ];
 
 const imageListStructuredData = createItemListSchema({
-  name: 'BREAD FM Radio Show Artwork',
-  description: 'Radio show cards built from image file names in the public radio folder.',
-  itemListElement: radioShows.map((show, index) => ({
-    '@type': 'ImageObject',
-    name: `${show.guests} — ${show.dateLabel}`,
-    position: index + 1,
-    contentUrl: Astro.site ? new URL(show.imagePath, Astro.site).toString() : show.imagePath
-  }))
+	name: "BREAD FM Radio Show Artwork",
+	description:
+		"Radio show cards built from image file names in the public radio folder.",
+	itemListElement: radioShows.map((show, index) => ({
+		"@type": "ImageObject",
+		name: `${show.guests} — ${show.dateLabel}`,
+		position: index + 1,
+		contentUrl: Astro.site
+			? new URL(show.imagePath, Astro.site).toString()
+			: show.imagePath,
+	})),
 });
 
 const summaryStats = [
-  { label: 'Shows', value: radioShows.length },
-  { label: 'Guest lineups', value: uniqueGuestCount },
-  { label: 'Months covered', value: monthCount }
+	{ label: "Shows", value: radioShows.length },
+	{ label: "Guest lineups", value: uniqueGuestCount },
+	{ label: "Months covered", value: monthCount },
 ];
 ---
 
@@ -127,5 +128,19 @@ const summaryStats = [
   .show-action:hover,
   .show-action:focus-visible {
     text-decoration: underline;
+  }
+</style>
+
+<style>
+  @media (hover: none), (max-width: 780px) {
+    .show-overlay {
+      transform: translateY(0);
+    }
+
+    .show-action {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+    }
   }
 </style>

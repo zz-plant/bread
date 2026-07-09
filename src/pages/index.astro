@@ -1,256 +1,306 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import CardLink from '../components/CardLink.astro';
-import SideRail from '../components/SideRail.astro';
-import EventPanel from '../components/EventPanel.astro';
+import { getCollection } from "astro:content";
+import CardLink from "../components/CardLink.astro";
+import EventPanel from "../components/EventPanel.astro";
+import SideRail from "../components/SideRail.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
 import {
-  createCollectionPageSchema,
-  createEventSchema,
-  createItemListSchema,
-  createWebsiteSchema
-} from '../utils/structuredData';
-import { getCollection } from 'astro:content';
+	createCollectionPageSchema,
+	createEventSchema,
+	createItemListSchema,
+	createWebsiteSchema,
+} from "../utils/structuredData";
 
-const events = (await getCollection('events'))
-  .sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
+const events = (await getCollection("events")).sort(
+	(a, b) => a.data.date.valueOf() - b.data.date.valueOf(),
+);
 
-const roster = (await getCollection('roster'))
-  .sort((a, b) => a.data.order - b.data.order)
-  .map((person) => ({
-    name: person.data.name,
-    role: person.data.role,
-    notes: person.data.notes,
-    links: person.data.links
-  }));
+const roster = (await getCollection("roster"))
+	.sort((a, b) => a.data.order - b.data.order)
+	.map((person) => ({
+		name: person.data.name,
+		role: person.data.role,
+		notes: person.data.notes,
+		links: person.data.links,
+	}));
 
 const documentedChronology = events
-  .filter((event) => event.data.confidence !== 'unverified')
-  .map((event) => ({
-    id: event.id,
-    title: event.data.title,
-    year: event.data.year,
-    date: new Date(event.data.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
-    venue: event.data.venue,
-    lineup: event.data.lineup,
-    confidence: event.data.confidence,
-    status: event.data.status,
-    source: event.data.sourceHref
-      ? { label: event.data.sourceLabel || 'Source', href: event.data.sourceHref, external: event.data.sourceExternal }
-      : { label: event.data.sourceLabel || 'Archive notes (link coming soon)' }
-  }));
+	.filter((event) => event.data.confidence !== "unverified")
+	.map((event) => ({
+		id: event.id,
+		title: event.data.title,
+		year: event.data.year,
+		date: new Date(event.data.date).toLocaleDateString("en-US", {
+			month: "short",
+			day: "numeric",
+		}),
+		venue: event.data.venue,
+		lineup: event.data.lineup,
+		confidence: event.data.confidence,
+		status: event.data.status,
+		source: event.data.sourceHref
+			? {
+					label: event.data.sourceLabel || "Source",
+					href: event.data.sourceHref,
+					external: event.data.sourceExternal,
+				}
+			: { label: event.data.sourceLabel || "Archive notes (link coming soon)" },
+	}));
 
 // Event source directory removed - now using content collections
 
 // documentedChronology now built from content collections above
-const hasMeaningfulStatus = (event: (typeof chronology)[number]) => event.status && event.status !== 'played';
-const activeYears = new Set(documentedChronology.map((event) => event.year)).size;
-const sourceLinkedEvents = documentedChronology.filter((event) => Boolean(event.source.href)).length;
+const hasMeaningfulStatus = (event: (typeof chronology)[number]) =>
+	event.status && event.status !== "played";
+const activeYears = new Set(documentedChronology.map((event) => event.year))
+	.size;
+const sourceLinkedEvents = documentedChronology.filter((event) =>
+	Boolean(event.source.href),
+).length;
 const summaryStats = [
-  { label: 'Events listed', value: documentedChronology.length },
-  { label: 'Years active', value: activeYears },
-  { label: 'Events with links', value: sourceLinkedEvents },
-  { label: 'Residents', value: roster.length }
+	{ label: "Events listed", value: documentedChronology.length },
+	{ label: "Years active", value: activeYears },
+	{ label: "Events with links", value: sourceLinkedEvents },
+	{ label: "Residents", value: roster.length },
 ];
 
 const featuredVisuals = [
-  {
-    src: '/drive/bread-x-grime-city_150213-show.png',
-    alt: 'BREAD x Grime City flyer featuring Nevermind and Helix',
-    title: 'Pilot flyer · February 2015',
-    caption: 'BREAD x Grime City at F8',
-    href: '/archive/flyers/'
-  },
-  {
-    src: '/drive/bread2-smaller.jpg',
-    alt: 'BREAD #2 flyer with chain and blue artwork treatment',
-    title: 'BREAD #2 flyer',
-    caption: 'Rabit, Sheen, Korma, Lyeform',
-    href: '/archive/flyers/'
-  },
-  {
-    src: '/drive/2015-07-19-08.54.27.jpg',
-    alt: 'Street photo of a BREAD #2 poster on a San Francisco utility pole',
-    title: 'Street placement',
-    caption: 'Poster in the wild, San Francisco',
-    href: '/story/'
-  },
-  {
-    src: '/drive/img_0530.jpg',
-    alt: 'Party photo showing three attendees at a BREAD event',
-    title: 'Party photo',
-    caption: 'From the venue photo archive',
-    href: '/story/'
-  }
+	{
+		src: "/drive/bread-x-grime-city_150213-show.png",
+		alt: "BREAD x Grime City flyer featuring Nevermind and Helix",
+		title: "Pilot flyer · February 2015",
+		caption: "BREAD x Grime City at F8",
+		href: "/archive/flyers/",
+	},
+	{
+		src: "/drive/bread2-smaller.jpg",
+		alt: "BREAD #2 flyer with chain and blue artwork treatment",
+		title: "BREAD #2 flyer",
+		caption: "Rabit, Sheen, Korma, Lyeform",
+		href: "/archive/flyers/",
+	},
+	{
+		src: "/drive/2015-07-19-08.54.27.jpg",
+		alt: "Street photo of a BREAD #2 poster on a San Francisco utility pole",
+		title: "Street placement",
+		caption: "Poster in the wild, San Francisco",
+		href: "/story/",
+	},
+	{
+		src: "/drive/img_0530.jpg",
+		alt: "Party photo showing three attendees at a BREAD event",
+		title: "Party photo",
+		caption: "From the venue photo archive",
+		href: "/story/",
+	},
 ];
 
 const directoryLinks = [
-  { label: 'BREAD SoundCloud ↗', href: 'https://soundcloud.com/breadfm', external: true },
-  { label: 'IPR show page ↗', href: 'https://www.internetpublicradio.live/shows/bread-fm', external: true },
-  { label: 'Flyer gallery →', href: '/archive/flyers/', external: false },
-  { label: 'Radio shows gallery →', href: '/archive/radio-shows/', external: false },
-  { label: 'Featured mix (Prawns + Botaz, 2023-04-26) ↗', href: 'https://soundcloud.com/breadfm/bread-fm-on-internet-public-radio-prawns-botaz-04262023', external: true },
-  { label: 'BREAD Instagram ↗', href: 'https://instagram.com/bread_sf', external: true },
-  { label: 'BREAD X / Twitter ↗', href: 'https://x.com/breadsf', external: true },
-  { label: 'RA promoter page ↗', href: 'https://ra.co/promoters/51043', external: true },
-  { label: 'Radio Valencia ↗', href: 'http://www.radiovalencia.fm/', external: true },
-  { label: 'Links →', href: '/archive/channel-profile-directory/', external: false },
-  { label: 'Timeline →', href: '/archive/timeline/', external: false },
-  { label: 'Read the story →', href: '/story/', external: false },
-  { label: 'Journal posts →', href: '/blog/', external: false }
+	{
+		label: "BREAD SoundCloud ↗",
+		href: "https://soundcloud.com/breadfm",
+		external: true,
+	},
+	{
+		label: "IPR show page ↗",
+		href: "https://www.internetpublicradio.live/shows/bread-fm",
+		external: true,
+	},
+	{ label: "Flyer gallery →", href: "/archive/flyers/", external: false },
+	{
+		label: "Radio shows gallery →",
+		href: "/archive/radio-shows/",
+		external: false,
+	},
+	{
+		label: "Featured mix (Prawns + Botaz, 2023-04-26) ↗",
+		href: "https://soundcloud.com/breadfm/bread-fm-on-internet-public-radio-prawns-botaz-04262023",
+		external: true,
+	},
+	{
+		label: "BREAD Instagram ↗",
+		href: "https://instagram.com/bread_sf",
+		external: true,
+	},
+	{
+		label: "BREAD X / Twitter ↗",
+		href: "https://x.com/breadsf",
+		external: true,
+	},
+	{
+		label: "RA promoter page ↗",
+		href: "https://ra.co/promoters/51043",
+		external: true,
+	},
+	{
+		label: "Radio Valencia ↗",
+		href: "http://www.radiovalencia.fm/",
+		external: true,
+	},
+	{
+		label: "Links →",
+		href: "/archive/channel-profile-directory/",
+		external: false,
+	},
+	{ label: "Timeline →", href: "/archive/timeline/", external: false },
+	{ label: "Venue map →", href: "/archive/map/", external: false },
+	{ label: "Read the story →", href: "/story/", external: false },
+	{ label: "Journal posts →", href: "/blog/", external: false },
 ];
 
 const soundcloudEmbedCollections = [
-  {
-    title: 'BREAD profile stream',
-    description: 'Main feed with uploads and mixes.',
-    href: 'https://soundcloud.com/breadfm',
-    height: 420,
-    visual: true
-  },
-  {
-    title: 'BREAD playlists',
-    description: 'Curated playlists and series.',
-    href: 'https://soundcloud.com/breadfm/sets',
-    height: 300,
-    visual: false
-  },
-  {
-    title: 'BREAD likes',
-    description: 'Tracks the crew has been into.',
-    href: 'https://soundcloud.com/breadfm/likes',
-    height: 300,
-    visual: false
-  },
-  {
-    title: 'BREAD reposts',
-    description: 'Reposts from friends and collaborators.',
-    href: 'https://soundcloud.com/breadfm/reposts',
-    height: 300,
-    visual: false
-  }
+	{
+		title: "BREAD profile stream",
+		description: "Main feed with uploads and mixes.",
+		href: "https://soundcloud.com/breadfm",
+		height: 420,
+		visual: true,
+	},
+	{
+		title: "BREAD playlists",
+		description: "Curated playlists and series.",
+		href: "https://soundcloud.com/breadfm/sets",
+		height: 300,
+		visual: false,
+	},
+	{
+		title: "BREAD likes",
+		description: "Tracks the crew has been into.",
+		href: "https://soundcloud.com/breadfm/likes",
+		height: 300,
+		visual: false,
+	},
+	{
+		title: "BREAD reposts",
+		description: "Reposts from friends and collaborators.",
+		href: "https://soundcloud.com/breadfm/reposts",
+		height: 300,
+		visual: false,
+	},
 ];
 
 const platformEmbeds = {
-  ipr: {
-    title: 'Internet Public Radio episode',
-    href: 'https://www.internetpublicradio.live/episodes/bread-fm-w-botaz-shl-28th-september-2022',
-    src: 'https://player-widget.mixcloud.com/widget/iframe/?hide_cover=0&mini=0&light=1&feed=%2Finternetpublicradio%2Fbread-fm-w-botaz-shl-28th-september-2022%2F',
-    height: 120
-  },
-  appleShow: {
-    title: 'Apple Podcasts show',
-    href: 'https://podcasts.apple.com/us/podcast/bread-fm/id1227134378',
-    src: 'https://embed.podcasts.apple.com/us/podcast/bread-fm/id1227134378',
-    height: 450
-  },
-  appleEpisode: {
-    title: 'Apple Podcasts episode (Prawns + Botaz live)',
-    href: 'https://podcasts.apple.com/us/podcast/bread-fm-on-internet-public-radio-prawns-botaz-live/id1227134378?i=1000610844660',
-    src: 'https://embed.podcasts.apple.com/us/podcast/bread-fm-on-internet-public-radio-prawns-botaz-live/id1227134378?i=1000610844660',
-    height: 450
-  },
-  facebook: {
-    title: 'Facebook page',
-    href: 'https://www.facebook.com/breadfm/',
-    src: 'https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fbreadfm%2F&tabs=timeline&width=500&height=540&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId',
-    height: 540
-  }
+	ipr: {
+		title: "Internet Public Radio episode",
+		href: "https://www.internetpublicradio.live/episodes/bread-fm-w-botaz-shl-28th-september-2022",
+		src: "https://player-widget.mixcloud.com/widget/iframe/?hide_cover=0&mini=0&light=1&feed=%2Finternetpublicradio%2Fbread-fm-w-botaz-shl-28th-september-2022%2F",
+		height: 120,
+	},
+	appleShow: {
+		title: "Apple Podcasts show",
+		href: "https://podcasts.apple.com/us/podcast/bread-fm/id1227134378",
+		src: "https://embed.podcasts.apple.com/us/podcast/bread-fm/id1227134378",
+		height: 450,
+	},
+	appleEpisode: {
+		title: "Apple Podcasts episode (Prawns + Botaz live)",
+		href: "https://podcasts.apple.com/us/podcast/bread-fm-on-internet-public-radio-prawns-botaz-live/id1227134378?i=1000610844660",
+		src: "https://embed.podcasts.apple.com/us/podcast/bread-fm-on-internet-public-radio-prawns-botaz-live/id1227134378?i=1000610844660",
+		height: 450,
+	},
+	facebook: {
+		title: "Facebook page",
+		href: "https://www.facebook.com/breadfm/",
+		src: "https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fbreadfm%2F&tabs=timeline&width=500&height=540&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId",
+		height: 540,
+	},
 };
 
 const residentSoundcloudProfiles = roster
-  .filter((person): person is (typeof roster)[number] & { links: { sc: string } } => Boolean(person.links.sc))
-  .map((person) => ({
-    name: person.name,
-    role: person.role,
-    href: person.links.sc
-  }));
-
-
+	.filter(
+		(person): person is (typeof roster)[number] & { links: { sc: string } } =>
+			Boolean(person.links.sc),
+	)
+	.map((person) => ({
+		name: person.name,
+		role: person.role,
+		href: person.links.sc,
+	}));
 
 const monthMap: Record<string, number> = {
-  Jan: 1,
-  Feb: 2,
-  Mar: 3,
-  Apr: 4,
-  May: 5,
-  Jun: 6,
-  Jul: 7,
-  Aug: 8,
-  Sep: 9,
-  Oct: 10,
-  Nov: 11,
-  Dec: 12
+	Jan: 1,
+	Feb: 2,
+	Mar: 3,
+	Apr: 4,
+	May: 5,
+	Jun: 6,
+	Jul: 7,
+	Aug: 8,
+	Sep: 9,
+	Oct: 10,
+	Nov: 11,
+	Dec: 12,
 };
 
 const toIsoDate = (year: string, shortDate: string): string | undefined => {
-  const [monthLabel, dayRaw] = shortDate.split(' ');
-  const month = monthMap[monthLabel];
-  const day = Number(dayRaw);
-  if (!month || Number.isNaN(day)) return undefined;
+	const [monthLabel, dayRaw] = shortDate.split(" ");
+	const month = monthMap[monthLabel];
+	const day = Number(dayRaw);
+	if (!month || Number.isNaN(day)) return undefined;
 
-  return `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+	return `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
 };
 
 const mapEventStatus = (status: string): string | undefined => {
-  if (status.includes('canceled')) return 'https://schema.org/EventCancelled';
-  if (status === 'played') return 'https://schema.org/EventCompleted';
-  return undefined;
+	if (status.includes("canceled")) return "https://schema.org/EventCancelled";
+	if (status === "played") return "https://schema.org/EventCompleted";
+	return undefined;
 };
 
 const eventSchemas = documentedChronology
-  .map((event, index) => {
-    const startDate = toIsoDate(event.year, event.date);
-    if (!startDate) return undefined;
+	.map((event, index) => {
+		const startDate = toIsoDate(event.year, event.date);
+		if (!startDate) return undefined;
 
-    return createEventSchema({
-      site: Astro.site,
-      pagePathname: Astro.url.pathname,
-      position: index + 1,
-      name: event.title,
-      startDate,
-      venueName: event.venue,
-      description: event.lineup,
-      status: mapEventStatus(event.status)
-    });
-  })
-  .filter((entry): entry is Record<string, unknown> => Boolean(entry));
+		return createEventSchema({
+			site: Astro.site,
+			pagePathname: Astro.url.pathname,
+			position: index + 1,
+			name: event.title,
+			startDate,
+			venueName: event.venue,
+			description: event.lineup,
+			status: mapEventStatus(event.status),
+		});
+	})
+	.filter((entry): entry is Record<string, unknown> => Boolean(entry));
 
 const homeStructuredData = [
-  createWebsiteSchema({
-    site: Astro.site,
-    name: 'BREAD',
-    description: 'BREAD history, flyers, and listening links.'
-  }),
-  createCollectionPageSchema({
-    site: Astro.site,
-    pathname: Astro.url.pathname,
-    name: 'BREAD Home',
-    description: 'Main page for the timeline, residents, visuals, and listening links.',
-    isPartOf: 'BREAD'
-  }),
-  createItemListSchema({
-    name: 'BREAD Events',
-    description: 'Event timeline shown on the BREAD homepage.',
-    itemListElement: eventSchemas
-  })
+	createWebsiteSchema({
+		site: Astro.site,
+		name: "BREAD",
+		description: "BREAD history, flyers, and listening links.",
+	}),
+	createCollectionPageSchema({
+		site: Astro.site,
+		pathname: Astro.url.pathname,
+		name: "BREAD Home",
+		description:
+			"Main page for the timeline, residents, visuals, and listening links.",
+		isPartOf: "BREAD",
+	}),
+	createItemListSchema({
+		name: "BREAD Events",
+		description: "Event timeline shown on the BREAD homepage.",
+		itemListElement: eventSchemas,
+	}),
 ].filter((entry): entry is Record<string, unknown> => Boolean(entry));
 
 const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
-  const params = new URLSearchParams({
-    url: href,
-    color: '#ff5a1f',
-    auto_play: 'false',
-    hide_related: 'false',
-    show_comments: 'true',
-    show_user: 'true',
-    show_reposts: 'true',
-    show_teaser: 'true',
-    visual: visual ? 'true' : 'false'
-  });
+	const params = new URLSearchParams({
+		url: href,
+		color: "#ff5a1f",
+		auto_play: "false",
+		hide_related: "false",
+		show_comments: "true",
+		show_user: "true",
+		show_reposts: "true",
+		show_teaser: "true",
+		visual: visual ? "true" : "false",
+	});
 
-  return `https://w.soundcloud.com/player/?${params.toString()}`;
+	return `https://w.soundcloud.com/player/?${params.toString()}`;
 };
-
 ---
 
 <BaseLayout
@@ -282,6 +332,13 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
 
   <section class="shell">
     <SideRail stats={summaryStats} />
+
+    <nav class="mobile-tabbar" aria-label="Mobile sections">
+      <button class="tab mobile-tab active" role="tab" aria-selected="true" aria-controls="panel-events" data-panel="panel-events">events</button>
+      <button class="tab mobile-tab" role="tab" aria-selected="false" aria-controls="panel-people" data-panel="panel-people">people</button>
+      <button class="tab mobile-tab" role="tab" aria-selected="false" aria-controls="panel-audio" data-panel="panel-audio">audio</button>
+      <button class="tab mobile-tab" role="tab" aria-selected="false" aria-controls="panel-links" data-panel="panel-links">links</button>
+    </nav>
 
     <main id="home-main" class="content">
       <EventPanel visuals={featuredVisuals} events={documentedChronology} />
@@ -338,15 +395,10 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
             <li class="audio-card">
               <h3>{item.title}</h3>
               <p>{item.description}</p>
-              <iframe
-                title={item.title}
-                width="100%"
-                height={item.height}
-                allow="autoplay"
-                loading="lazy"
-                src="about:blank"
-                data-embed-src={buildSoundCloudEmbedSrc(item.href, item.visual)}
-              ></iframe>
+              <div class="embed-preview" data-title={item.title} data-height={item.height} data-allow="autoplay" data-embed-src={buildSoundCloudEmbedSrc(item.href, item.visual)}>
+                <p>Player is paused until you load it.</p>
+                <button class="chip load-player" type="button">Load player</button>
+              </div>
               <a href={item.href} target="_blank" rel="noreferrer noopener">Open on SoundCloud ↗</a>
             </li>
           ))}
@@ -359,15 +411,10 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
               <li>
                 <h4>{profile.name}</h4>
                 <p>{profile.role}</p>
-                <iframe
-                  title={`${profile.name} SoundCloud profile`}
-                  width="100%"
-                  height="166"
-                  allow="autoplay"
-                  loading="lazy"
-                  src="about:blank"
-                  data-embed-src={buildSoundCloudEmbedSrc(profile.href, false)}
-                ></iframe>
+                <div class="embed-preview" data-title={`${profile.name} SoundCloud profile`} data-height="166" data-allow="autoplay" data-embed-src={buildSoundCloudEmbedSrc(profile.href, false)}>
+                  <p>Load this resident player when needed.</p>
+                  <button class="chip load-player" type="button">Load player</button>
+                </div>
                 <a href={profile.href} target="_blank" rel="noreferrer noopener">Visit profile ↗</a>
               </li>
             ))}
@@ -379,55 +426,34 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
           <ul class="audio-grid">
             <li class="audio-card">
               <h4>{platformEmbeds.ipr.title}</h4>
-              <iframe
-                title={platformEmbeds.ipr.title}
-                width="100%"
-                height={platformEmbeds.ipr.height}
-                loading="lazy"
-                src="about:blank"
-                data-embed-src={platformEmbeds.ipr.src}
-              ></iframe>
+              <div class="embed-preview featured-player" data-title={platformEmbeds.ipr.title} data-height={platformEmbeds.ipr.height} data-embed-src={platformEmbeds.ipr.src}>
+                <p>Load the IPR player when needed.</p>
+                <button class="chip load-player" type="button">Load player</button>
+              </div>
               <a href={platformEmbeds.ipr.href} target="_blank" rel="noreferrer noopener">Open IPR episode ↗</a>
             </li>
             <li class="audio-card">
               <h4>{platformEmbeds.appleShow.title}</h4>
-              <iframe
-                title={platformEmbeds.appleShow.title}
-                width="100%"
-                height={platformEmbeds.appleShow.height}
-                loading="lazy"
-                allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
-                sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation"
-                src="about:blank"
-                data-embed-src={platformEmbeds.appleShow.src}
-              ></iframe>
+              <div class="embed-preview" data-title={platformEmbeds.appleShow.title} data-height={platformEmbeds.appleShow.height} data-allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write" data-sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation" data-embed-src={platformEmbeds.appleShow.src}>
+                <p>Load the Apple Podcasts show embed when needed.</p>
+                <button class="chip load-player" type="button">Load player</button>
+              </div>
               <a href={platformEmbeds.appleShow.href} target="_blank" rel="noreferrer noopener">Open Apple show ↗</a>
             </li>
             <li class="audio-card">
               <h4>{platformEmbeds.appleEpisode.title}</h4>
-              <iframe
-                title={platformEmbeds.appleEpisode.title}
-                width="100%"
-                height={platformEmbeds.appleEpisode.height}
-                loading="lazy"
-                allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
-                sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation"
-                src="about:blank"
-                data-embed-src={platformEmbeds.appleEpisode.src}
-              ></iframe>
+              <div class="embed-preview" data-title={platformEmbeds.appleEpisode.title} data-height={platformEmbeds.appleEpisode.height} data-allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write" data-sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation" data-embed-src={platformEmbeds.appleEpisode.src}>
+                <p>Load the Apple Podcasts episode embed when needed.</p>
+                <button class="chip load-player" type="button">Load player</button>
+              </div>
               <a href={platformEmbeds.appleEpisode.href} target="_blank" rel="noreferrer noopener">Open Apple episode ↗</a>
             </li>
             <li class="audio-card">
               <h4>{platformEmbeds.facebook.title}</h4>
-              <iframe
-                title={platformEmbeds.facebook.title}
-                width="100%"
-                height={platformEmbeds.facebook.height}
-                loading="lazy"
-                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                src="about:blank"
-                data-embed-src={platformEmbeds.facebook.src}
-              ></iframe>
+              <div class="embed-preview" data-title={platformEmbeds.facebook.title} data-height={platformEmbeds.facebook.height} data-allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" data-embed-src={platformEmbeds.facebook.src}>
+                <p>Load the Facebook page embed only if you need it.</p>
+                <button class="chip load-player" type="button">Load player</button>
+              </div>
               <a href={platformEmbeds.facebook.href} target="_blank" rel="noreferrer noopener">Open Facebook page ↗</a>
             </li>
           </ul>
@@ -436,7 +462,9 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     </main>
 
     <aside class="deck" id="detailDeck" aria-live="polite">
+      <button class="deck-handle" type="button" id="deckHandle" aria-label="Cycle info sheet size"><span></span></button>
       <button class="deck-toggle" type="button" id="deckToggle" aria-expanded="false" aria-controls="deckContent">Show info</button>
+      <div class="deck-summary" id="deckSummary">Pick a card for details.</div>
       <div id="deckContent" class="deck-content">
       <p class="deck-tag" id="deckTag">Info</p>
       <h3 id="deckTitle">Pick a card</h3>
@@ -474,7 +502,9 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
   const deckLinks = document.getElementById('deckLinks');
   const detailDeck = document.getElementById('detailDeck');
   const deckToggle = document.getElementById('deckToggle');
-  const deckStateStorageKey = 'bread:detailDeckOpen';
+  const deckHandle = document.getElementById('deckHandle');
+  const deckSummary = document.getElementById('deckSummary');
+  const deckStateStorageKey = 'bread:detailDeckState';
 
   // Event filtering
   const eventSearch = document.getElementById('eventSearch');
@@ -482,6 +512,8 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
   const venueFilters = document.getElementById('venueFilters');
   const eventCards = Array.from(document.querySelectorAll('.cards .card[data-kind="event"]'));
   const resultCount = document.getElementById('eventsResultCount');
+  const eventSort = document.getElementById('eventSort');
+  const quickFilters = document.getElementById('quickFilters');
 
   // Extract unique years and venues
   const years = [...new Set(documentedChronology.map(e => e.year))].sort();
@@ -534,7 +566,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
   createChips(venueFilters, venues, 'venue');
   initImageLoading();
 
-  let activeFilters = { year: 'all', venue: 'all', search: '' };
+  let activeFilters = { year: 'all', venue: 'all', search: '', quick: 'all', sort: 'oldest' };
   const EVENTS_PER_PAGE = 20;
   let visibleEvents = [];
 
@@ -555,12 +587,16 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
 
       const matchesYear = activeFilters.year === 'all' || year === activeFilters.year;
       const matchesVenue = activeFilters.venue === 'all' || venue === activeFilters.venue;
+      const matchesQuick = activeFilters.quick === 'all' ||
+        (activeFilters.quick === 'linked' && card.getAttribute('data-has-source') === 'true') ||
+        (activeFilters.quick === 'changed' && card.getAttribute('data-status') !== 'played');
 
-      const isVisible = matchesSearch && matchesYear && matchesVenue;
+      const isVisible = matchesSearch && matchesYear && matchesVenue && matchesQuick;
       card.style.display = 'none';
       if (isVisible) visibleEvents.push(card);
     });
 
+    sortVisibleEvents();
     showEventsPage(1);
 
     const loadMoreBtn = document.getElementById('loadMoreEvents');
@@ -570,6 +606,18 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
   }
 
   let currentPage = 1;
+
+  function sortVisibleEvents() {
+    visibleEvents.sort((a, b) => {
+      const ai = Number(a.getAttribute('data-index') || 0);
+      const bi = Number(b.getAttribute('data-index') || 0);
+      const ay = a.getAttribute('data-year') || '';
+      const by = b.getAttribute('data-year') || '';
+      if (activeFilters.sort === 'newest') return bi - ai;
+      if (activeFilters.sort === 'year') return ay.localeCompare(by) || ai - bi;
+      return ai - bi;
+    });
+  }
 
   function showEventsPage(page) {
     currentPage = page;
@@ -605,6 +653,24 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     });
   }
 
+  if (eventSort) {
+    eventSort.addEventListener('change', (e) => {
+      activeFilters.sort = e.target.value;
+      filterEvents();
+    });
+  }
+
+  if (quickFilters) {
+    quickFilters.addEventListener('click', (e) => {
+      const chip = e.target.closest('.chip');
+      if (!chip) return;
+      quickFilters.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      activeFilters.quick = chip.getAttribute('data-quick') || 'all';
+      filterEvents();
+    });
+  }
+
   [yearFilters, venueFilters].forEach(container => {
     if (!container) return;
     container.addEventListener('click', (e) => {
@@ -627,19 +693,29 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
     navigator.vibrate(pattern);
   }
 
-  function setDeckOpenState(isOpen, { persist = true } = {}) {
+  function setDeckState(state = 'collapsed', { persist = true } = {}) {
     if (!detailDeck || !deckToggle) return;
+    const normalized = ['collapsed', 'peek', 'expanded'].includes(state) ? state : 'collapsed';
 
-    detailDeck.classList.toggle('is-open', isOpen);
-    deckToggle.setAttribute('aria-expanded', String(isOpen));
-    deckToggle.textContent = isOpen ? 'Hide info' : 'Show info';
+    detailDeck.classList.toggle('is-collapsed', normalized === 'collapsed');
+    detailDeck.classList.toggle('is-peek', normalized === 'peek');
+    detailDeck.classList.toggle('is-expanded', normalized === 'expanded');
+    detailDeck.classList.toggle('is-open', normalized !== 'collapsed');
+    deckToggle.setAttribute('aria-expanded', String(normalized !== 'collapsed'));
+    deckToggle.textContent = normalized === 'expanded' ? 'Collapse info' : normalized === 'peek' ? 'Expand info' : 'Show info';
 
     if (!persist) return;
     try {
-      window.localStorage.setItem(deckStateStorageKey, String(isOpen));
+      window.localStorage.setItem(deckStateStorageKey, normalized);
     } catch {
       // Ignore storage access restrictions.
     }
+  }
+
+  function nextDeckState() {
+    if (!detailDeck || detailDeck.classList.contains('is-collapsed')) return 'peek';
+    if (detailDeck.classList.contains('is-peek')) return 'expanded';
+    return 'collapsed';
   }
 
   function hydrateDeckState() {
@@ -652,24 +728,49 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
       storedPreference = null;
     }
 
-    const shouldOpenByDefault = storedPreference === 'true';
-    setDeckOpenState(shouldOpenByDefault, { persist: false });
+    setDeckState(storedPreference || 'collapsed', { persist: false });
   }
 
   function hydrateAudioEmbeds() {
-    const targets = document.querySelectorAll('iframe[data-embed-src]');
-    targets.forEach((frame) => {
-      const src = frame.getAttribute('data-embed-src');
-      const safeSrc = sanitizeClientHref(src);
-      if (!safeSrc || frame.getAttribute('src') === safeSrc) return;
-      frame.setAttribute('src', safeSrc);
+    const isMobile = window.matchMedia('(max-width: 780px)').matches;
+    const targets = document.querySelectorAll('.embed-preview[data-embed-src]');
+    targets.forEach((preview, index) => {
+      if (isMobile && index > 0) return;
+      loadEmbedPreview(preview);
     });
   }
+
+
+  function loadEmbedPreview(preview) {
+    const src = preview.getAttribute('data-embed-src');
+    const safeSrc = sanitizeClientHref(src);
+    if (!safeSrc || preview.dataset.loaded === 'true') return;
+    const iframe = document.createElement('iframe');
+    iframe.title = preview.getAttribute('data-title') || 'Embedded player';
+    iframe.width = '100%';
+    iframe.height = preview.getAttribute('data-height') || '166';
+    iframe.loading = 'lazy';
+    iframe.src = safeSrc;
+    const allow = preview.getAttribute('data-allow');
+    const sandbox = preview.getAttribute('data-sandbox');
+    if (allow) iframe.setAttribute('allow', allow);
+    if (sandbox) iframe.setAttribute('sandbox', sandbox);
+    preview.replaceChildren(iframe);
+    preview.dataset.loaded = 'true';
+  }
+
+  document.querySelectorAll('.load-player').forEach((button) => {
+    button.addEventListener('click', () => {
+      const preview = button.closest('.embed-preview');
+      if (preview) loadEmbedPreview(preview);
+      triggerHaptic(8);
+    });
+  });
 
   function activateTab(tab, { focus = false } = {}) {
     const panelId = tab.getAttribute('data-panel');
     tabs.forEach((item) => {
-      const isActive = item === tab;
+      const isActive = item.getAttribute('data-panel') === panelId;
       item.classList.toggle('active', isActive);
       item.setAttribute('aria-selected', String(isActive));
       item.tabIndex = isActive ? 0 : -1;
@@ -727,7 +828,8 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
       deckLinks.append(a);
     });
 
-    setDeckOpenState(true);
+    if (deckSummary) deckSummary.textContent = `${payload.tag}: ${payload.title}`;
+    setDeckState('peek');
   }
 
   function sanitizeClientHref(value) {
@@ -744,10 +846,15 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
 
   if (deckToggle && detailDeck) {
     deckToggle.addEventListener('click', () => {
-      const isOpen = !detailDeck.classList.contains('is-open');
-      setDeckOpenState(isOpen);
+      setDeckState(nextDeckState());
       triggerHaptic(14);
     });
+    if (deckHandle) {
+      deckHandle.addEventListener('click', () => {
+        setDeckState(nextDeckState());
+        triggerHaptic(14);
+      });
+    }
   }
 
   hydrateDeckState();
@@ -804,5 +911,25 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
 
     });
   });
+
+
+  function revealEventFromHash() {
+    if (!window.location.hash.startsWith('#event-')) return;
+    const card = document.querySelector(window.location.hash);
+    if (!card) return;
+    const eventsTab = tabs.find(tab => tab.getAttribute('data-panel') === 'panel-events');
+    if (eventsTab) activateTab(eventsTab);
+    if (!visibleEvents.includes(card)) visibleEvents.unshift(card);
+    const indexInVisible = visibleEvents.indexOf(card);
+    if (indexInVisible >= EVENTS_PER_PAGE * currentPage) showEventsPage(Math.ceil((indexInVisible + 1) / EVENTS_PER_PAGE));
+    card.style.display = '';
+    card.scrollIntoView({ block: 'center' });
+    const button = card.querySelector('.pick-btn');
+    if (button) button.click();
+  }
+
+  window.addEventListener('hashchange', revealEventFromHash);
+  filterEvents();
+  revealEventFromHash();
 
 </script>

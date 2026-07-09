@@ -1,55 +1,60 @@
 ---
-import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from '../utils/ogImage';
-import printStylesUrl from '../styles/print.css?url';
-import globalStylesUrl from '../styles/global.css?url';
+import globalStylesUrl from "../styles/global.css?url";
+import printStylesUrl from "../styles/print.css?url";
+import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from "../utils/ogImage";
 
 interface Props {
-  title: string;
-  description?: string;
-  showSiteFrame?: boolean;
-  structuredData?: Record<string, unknown> | Record<string, unknown>[];
-  canonical?: string;
-  ogImage?: string;
-  ogImageAlt?: string;
-  noindex?: boolean;
-  ogType?: 'website' | 'article';
+	title: string;
+	description?: string;
+	showSiteFrame?: boolean;
+	structuredData?: Record<string, unknown> | Record<string, unknown>[];
+	canonical?: string;
+	ogImage?: string;
+	ogImageAlt?: string;
+	noindex?: boolean;
+	ogType?: "website" | "article";
 }
 
 const {
-  title,
-  description = 'History, flyers, and radio from BREAD in San Francisco.',
-  showSiteFrame = true,
-  structuredData,
-  canonical,
-  ogImage = '/og-default.svg',
-  ogImageAlt,
-  noindex = false,
-  ogType
+	title,
+	description = "History, flyers, and radio from BREAD in San Francisco.",
+	showSiteFrame = true,
+	structuredData,
+	canonical,
+	ogImage = "/og-default.svg",
+	ogImageAlt,
+	noindex = false,
+	ogType,
 } = Astro.props;
 
-const structuredDataEntries = (Array.isArray(structuredData) ? structuredData : [structuredData]).filter(
-  (entry): entry is Record<string, unknown> => Boolean(entry)
-);
+const structuredDataEntries = (
+	Array.isArray(structuredData) ? structuredData : [structuredData]
+).filter((entry): entry is Record<string, unknown> => Boolean(entry));
 
 const serializeJsonForScript = (value: Record<string, unknown>) =>
-  JSON.stringify(value).replace(/</g, '\\u003c');
+	JSON.stringify(value).replace(/</g, "\\u003c");
 
 const pathname = Astro.url.pathname;
-const isHome = pathname === '/';
-const isStory = pathname.startsWith('/story/');
-const isArchive = pathname.startsWith('/archive/');
+const isHome = pathname === "/";
+const isStory = pathname.startsWith("/story/");
+const isArchive = pathname.startsWith("/archive/");
 const toAbsoluteUrl = (value: string | undefined): string | undefined => {
-  if (!value) return undefined;
+	if (!value) return undefined;
 
-  if (value.startsWith('http://') || value.startsWith('https://')) return value;
-  if (!Astro.site) return undefined;
+	if (value.startsWith("http://") || value.startsWith("https://")) return value;
+	if (!Astro.site) return undefined;
 
-  return new URL(value.startsWith('/') ? value : `/${value}`, Astro.site).toString();
+	return new URL(
+		value.startsWith("/") ? value : `/${value}`,
+		Astro.site,
+	).toString();
 };
 
-const canonicalUrl = canonical ? toAbsoluteUrl(canonical) : toAbsoluteUrl(Astro.url.pathname);
+const canonicalUrl = canonical
+	? toAbsoluteUrl(canonical)
+	: toAbsoluteUrl(Astro.url.pathname);
 const ogImageUrl = toAbsoluteUrl(ogImage);
-const resolvedOgType = ogType ?? 'website';
+const resolvedOgType = ogType ?? "website";
 const resolvedOgImageAlt = ogImageAlt ?? `${title} — ${description}`;
 ---
 
@@ -145,7 +150,20 @@ const resolvedOgImageAlt = ogImageAlt ?? `${title} — ${description}`;
           const url = new URL(container.dataset.url || window.location.pathname, window.location.origin).toString();
           const title = container.dataset.title || document.title;
 
-          if (platform === 'copy') {
+          if (platform === 'native') {
+            if (navigator.share) {
+              try {
+                await navigator.share({ title, url });
+                return;
+              } catch (error) {
+                if (error?.name === 'AbortError') return;
+              }
+            }
+            await navigator.clipboard.writeText(url);
+            const originalText = e.currentTarget.textContent;
+            e.currentTarget.textContent = '✓';
+            setTimeout(() => { e.currentTarget.textContent = originalText; }, 2000);
+          } else if (platform === 'copy') {
             await navigator.clipboard.writeText(url);
             const originalText = e.currentTarget.textContent;
             e.currentTarget.textContent = '✓';

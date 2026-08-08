@@ -7,11 +7,9 @@
   .nav-rail,
   .deck,
   .tabs,
-  .top-chrome,
-  .topline-nav,
-  .search-container,
   .share-buttons,
   .audio-actions,
+  .mobile-tabbar,
   button,
   iframe,
   script,
@@ -66,33 +64,6 @@
     color: #666;
   }
 
-  /* Timeline page */
-  .timeline-container,
-  .timeline-track {
-    overflow: visible !important;
-    height: auto !important;
-    border: none !important;
-  }
-
-  .timeline-event {
-    position: relative !important;
-    left: auto !important;
-    display: block !important;
-    margin-bottom: 1rem;
-    page-break-inside: avoid;
-  }
-
-  .event-card {
-    border: 1px solid #ccc !important;
-    background: #fff !important;
-  }
-
-  .event-title,
-  .event-year,
-  .event-venue {
-    color: #000 !important;
-  }
-
   /* Cards */
   .card {
     border: 1px solid #ccc !important;
@@ -137,14 +108,5 @@
     content: " (" attr(href) ")";
     font-size: 0.9em;
     color: #666;
-  }
-
-  /* Show event details */
-  .event-details,
-  #eventDetails {
-    position: static !important;
-    border: 1px solid #ccc !important;
-    box-shadow: none !important;
-    margin-top: 2rem;
   }
 }

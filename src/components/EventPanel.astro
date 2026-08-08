@@ -1,4 +1,6 @@
 ---
+import ClickHint from "./ClickHint.astro";
+
 interface Visual {
 	src: string;
 	alt: string;
@@ -35,7 +37,7 @@ const { visuals, events } = Astro.props;
   <h2>Events</h2>
   <p class="result-count" id="eventsResultCount">{events.length} events shown</p>
   <p class="events-intro">Each card shows date, series, venue, lineup, and where the info came from.</p>
-  <p class="click-hint"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="vertical-align:-0.125em;margin-right:0.3em"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></svg> Click any event or person card to see details in the side panel.</p>
+  <ClickHint>Click any event or person card to see details in the side panel.</ClickHint>
 
   <div class="events-toolbar" aria-label="Filter and search events">
     <div class="search-wrapper">

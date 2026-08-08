@@ -3,6 +3,11 @@ import globalStylesUrl from "../styles/global.css?url";
 import printStylesUrl from "../styles/print.css?url";
 import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from "../utils/ogImage";
 
+interface NavLink {
+	label: string;
+	href: string;
+}
+
 interface Props {
 	title: string;
 	description?: string;
@@ -13,7 +18,17 @@ interface Props {
 	ogImageAlt?: string;
 	noindex?: boolean;
 	ogType?: "website" | "article";
+	navLinks?: NavLink[];
+	topStrip?: { left: string; right: string };
+	footerNote?: string;
+	wide?: boolean;
 }
+
+const DEFAULT_NAV_LINKS: NavLink[] = [
+	{ label: "Home", href: "/" },
+	{ label: "Archive", href: "/archive/" },
+	{ label: "Story", href: "/story/" },
+];
 
 const {
 	title,
@@ -25,6 +40,10 @@ const {
 	ogImageAlt,
 	noindex = false,
 	ogType,
+	navLinks = DEFAULT_NAV_LINKS,
+	topStrip,
+	footerNote = "BREAD archive and story.",
+	wide = false,
 } = Astro.props;
 
 const structuredDataEntries = (
@@ -35,9 +54,6 @@ const serializeJsonForScript = (value: Record<string, unknown>) =>
 	JSON.stringify(value).replace(/</g, "\\u003c");
 
 const pathname = Astro.url.pathname;
-const isHome = pathname === "/";
-const isStory = pathname.startsWith("/story/");
-const isArchive = pathname.startsWith("/archive/");
 const toAbsoluteUrl = (value: string | undefined): string | undefined => {
 	if (!value) return undefined;
 
@@ -56,6 +72,18 @@ const canonicalUrl = canonical
 const ogImageUrl = toAbsoluteUrl(ogImage);
 const resolvedOgType = ogType ?? "website";
 const resolvedOgImageAlt = ogImageAlt ?? `${title} — ${description}`;
+
+const isActiveLink = (href: string): boolean => {
+	const path = pathname.replace(/\/+$/, "") || "/";
+	const target = href.replace(/\/+$/, "") || "/";
+	if (target === "/") return path === "/";
+	if (path === target) return true;
+	return path.startsWith(`${target}/`);
+};
+
+const activeLinkHref = navLinks
+	.filter((link) => isActiveLink(link.href))
+	.sort((a, b) => b.href.length - a.href.length)[0]?.href;
 ---
 
 <!doctype html>
@@ -97,16 +125,32 @@ const resolvedOgImageAlt = ogImageAlt ?? `${title} — ${description}`;
   <body>
     {
       showSiteFrame ? (
-        <div class="site-shell">
+        <div class:list={['site-shell', wide && 'site-shell--wide']}>
           <a class="skip-link" href="#main-content">Skip to content</a>
           <header class="site-header">
+            {
+              topStrip && (
+                <div class="site-topstrip" aria-hidden="true">
+                  <span>{topStrip.left}</span>
+                  <span>{topStrip.right}</span>
+                </div>
+              )
+            }
             <div class="site-header-inner">
               <a class="brand" href="/">BREAD</a>
               <nav aria-label="Primary">
                 <ul>
-                  <li><a href="/" aria-current={isHome ? 'page' : undefined} class={isHome ? 'active' : undefined}>Home</a></li>
-                  <li><a href="/archive/" aria-current={isArchive ? 'page' : undefined} class={isArchive ? 'active' : undefined}>Archive</a></li>
-                  <li><a href="/story/" aria-current={isStory ? 'page' : undefined} class={isStory ? 'active' : undefined}>Story</a></li>
+                  {navLinks.map((link) => (
+                    <li>
+                      <a
+                        href={link.href}
+                        aria-current={activeLinkHref === link.href ? 'page' : undefined}
+                        class={activeLinkHref === link.href ? 'active' : undefined}
+                      >
+                        {link.label}
+                      </a>
+                    </li>
+                  ))}
                 </ul>
               </nav>
             </div>
@@ -118,12 +162,12 @@ const resolvedOgImageAlt = ogImageAlt ?? `${title} — ${description}`;
 
           <footer class="site-footer">
             <div class="site-footer-inner">
-              <p>BREAD archive and story.</p>
+              <p>{footerNote}</p>
               <nav aria-label="Footer">
                 <ul>
-                  <li><a href="/">Home</a></li>
-                  <li><a href="/archive/">Archive</a></li>
-                  <li><a href="/story/">Story</a></li>
+                  {navLinks.map((link) => (
+                    <li><a href={link.href}>{link.label}</a></li>
+                  ))}
                 </ul>
               </nav>
             </div>
@@ -223,7 +267,6 @@ const resolvedOgImageAlt = ogImageAlt ?? `${title} — ${description}`;
     position: sticky;
     top: 0;
     z-index: 20;
-    padding: 0.8rem max(1rem, env(safe-area-inset-right)) 0.8rem max(1rem, env(safe-area-inset-left));
     border-bottom: 1px solid var(--color-border);
     background: var(--color-bg);
   }
@@ -235,6 +278,27 @@ const resolvedOgImageAlt = ogImageAlt ?? `${title} — ${description}`;
     justify-content: space-between;
     align-items: center;
     gap: 1rem;
+    padding: 0.8rem max(1rem, env(safe-area-inset-right)) 0.8rem max(1rem, env(safe-area-inset-left));
+  }
+
+  .site-shell--wide .site-header-inner,
+  .site-shell--wide .site-footer-inner {
+    width: min(90rem, 100%);
+  }
+
+  .site-topstrip {
+    width: min(90rem, 100%);
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.55rem max(1rem, env(safe-area-inset-right)) 0.4rem max(1rem, env(safe-area-inset-left));
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    border-bottom: 1px solid var(--color-border);
   }
 
   .brand {

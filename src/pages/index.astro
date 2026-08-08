@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import CardLink from "../components/CardLink.astro";
+import ClickHint from "../components/ClickHint.astro";
 import EventPanel from "../components/EventPanel.astro";
 import SideRail from "../components/SideRail.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
@@ -10,6 +11,7 @@ import {
 	createItemListSchema,
 	createWebsiteSchema,
 } from "../utils/structuredData";
+import { ACCENT_COLOR } from "../utils/theme";
 
 const events = (await getCollection("events")).sort(
 	(a, b) => a.data.date.valueOf() - b.data.date.valueOf(),
@@ -286,10 +288,19 @@ const homeStructuredData = [
 	}),
 ].filter((entry): entry is Record<string, unknown> => Boolean(entry));
 
+const homeNavLinks = [
+	{ label: "Home", href: "/" },
+	{ label: "Archive", href: "/archive/" },
+	{ label: "Flyers", href: "/archive/flyers/" },
+	{ label: "Radio shows", href: "/archive/radio-shows/" },
+	{ label: "Timeline", href: "/archive/timeline/" },
+	{ label: "Story", href: "/story/" },
+];
+
 const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
 	const params = new URLSearchParams({
 		url: href,
-		color: "#ff5a1f",
+		color: ACCENT_COLOR,
 		auto_play: "false",
 		hide_related: "false",
 		show_comments: "true",
@@ -306,29 +317,15 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
 <BaseLayout
   title="BREAD"
   description="Timeline, people, visuals, and listening links from BREAD."
-  showSiteFrame={false}
   structuredData={homeStructuredData}
   ogImage="/og/home.svg"
   ogImageAlt="BREAD home page with timeline, people, and listening links"
+  navLinks={homeNavLinks}
+  topStrip={{ left: "BREAD // SAN FRANCISCO", right: "2015—2024" }}
+  footerNote="BREAD archive • San Francisco and beyond"
+  wide
 >
   <div class="bg-mark">BREAD</div>
-  <div class="top-chrome">
-    <header class="topline">
-      <span>BREAD // SAN FRANCISCO</span>
-      <span>2015—2024</span>
-    </header>
-
-        <nav class="topline-nav" aria-label="Primary routes">
-          <a href="/" aria-current="page">Home</a>
-          <a href="/archive/">Archive</a>
-          <a href="/archive/flyers/">Flyers</a>
-          <a href="/archive/radio-shows/">Radio shows</a>
-          <a href="/archive/timeline/">Timeline</a>
-          <a href="/story/">Story</a>
-        </nav>
-  </div>
-
-  <a class="skip-link-home" href="#home-main">Skip to content</a>
 
   <section class="shell">
     <SideRail stats={summaryStats} />
@@ -340,12 +337,12 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
       <button class="tab mobile-tab" role="tab" aria-selected="false" aria-controls="panel-links" data-panel="panel-links">links</button>
     </nav>
 
-    <main id="home-main" class="content">
+    <main id="main-content" class="content">
       <EventPanel visuals={featuredVisuals} events={documentedChronology} />
 
       <article class="panel" id="panel-people" role="tabpanel" aria-labelledby="tab-people" hidden>
         <h2>People</h2>
-        <p class="click-hint"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="vertical-align:-0.125em;margin-right:0.3em"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></svg> Click any person card to see details in the side panel.</p>
+        <ClickHint>Click any person card to see details in the side panel.</ClickHint>
         <ul class="cards people">
           {roster.map((person, index) => (
             <li class="card" data-kind="person" data-index={index}>
@@ -387,7 +384,7 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
         <h2>Listen</h2>
         <p class="audio-intro">Listen to BREAD uploads, playlists, and resident pages. Players load automatically when you open this tab.</p>
         <div class="audio-actions">
-          <span class="chip" style="opacity:0.6; cursor:default;">Players auto-load</span>
+          <span class="chip chip--static">Players auto-load</span>
           <a href="https://soundcloud.com/breadfm" target="_blank" rel="noreferrer noopener">Open BREAD profile ↗</a>
         </div>
         <ul class="audio-grid">
@@ -474,18 +471,6 @@ const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
       </div>
     </aside>
   </section>
-
-  <footer class="home-footer" aria-label="Site footer">
-    <p>BREAD archive • San Francisco and beyond</p>
-    <nav aria-label="Footer routes">
-      <a href="/">Home</a>
-      <a href="/archive/">Archive</a>
-      <a href="/archive/flyers/">Flyers</a>
-      <a href="/archive/radio-shows/">Radio shows</a>
-      <a href="/archive/timeline/">Timeline</a>
-      <a href="/story/">Story</a>
-    </nav>
-  </footer>
 </BaseLayout>
 
 <style>

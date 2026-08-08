@@ -88,35 +88,3 @@ const structuredData = [pageStructuredData, breadcrumbStructuredData].filter(
 
   <slot />
 </BaseLayout>
-
-<style>
-  .page-header {
-    display: grid;
-    gap: 0.4rem;
-  }
-
-  .stats-strip {
-    margin: var(--space-md) 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-  }
-
-  .stats-strip p {
-    margin: 0;
-    display: flex;
-    align-items: baseline;
-    gap: 0.5rem;
-  }
-
-  .stats-strip .stat-value {
-    font: 700 1.1rem / 1 var(--font-display);
-    color: var(--color-text);
-  }
-
-  .stats-strip .stat-label {
-    font: var(--text-overline);
-    text-transform: uppercase;
-    color: var(--color-text-muted);
-  }
-</style>

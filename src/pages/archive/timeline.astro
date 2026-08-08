@@ -76,7 +76,7 @@ const milestones = [
   ogImageAlt="BREAD timeline from 2015 club events through 2024 radio and event announcements"
 >
   <header class="timeline-hero">
-    <p class="eyebrow">Archive section</p>
+    <p class="section-kicker">Archive section</p>
     <h1>{timelinePage.data.title}</h1>
     <p>{timelinePage.data.description}</p>
     <p class="route-note">Want the full event list? Open the <a href="/archive/event-ledger/">Event List</a>.</p>
@@ -137,16 +137,8 @@ const milestones = [
 </BaseLayout>
 
 <style>
-  .timeline-hero p {
+  .timeline-hero p:not(.section-kicker) {
     margin: 0.5rem 0;
-  }
-
-  .eyebrow {
-    margin: 0;
-    color: var(--color-text-muted);
-    font-size: 0.68rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
   }
 
   .route-note {
@@ -167,7 +159,11 @@ const milestones = [
     top: 0.2rem;
     bottom: 0.2rem;
     width: 2px;
-    background: linear-gradient(180deg, rgb(249 115 22 / 35%), rgb(51 65 85));
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--color-accent) 35%, transparent),
+      var(--color-border-strong)
+    );
   }
 
   .era-card {
@@ -187,8 +183,8 @@ const milestones = [
     width: 0.7rem;
     height: 0.7rem;
     border-radius: 50%;
-    border: 2px solid #f97316;
-    background: #020617;
+    border: 2px solid var(--color-accent);
+    background: var(--color-bg);
   }
 
   .era-card h2 {
@@ -198,7 +194,7 @@ const milestones = [
 
   .era-range {
     margin: 0;
-    color: #fdba74;
+    color: var(--color-accent-muted);
     font-weight: 700;
     letter-spacing: 0.02em;
   }
@@ -236,8 +232,8 @@ const milestones = [
   }
 
   .date {
-    color: #fdba74;
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    color: var(--color-accent-muted);
+    font-family: var(--font-mono);
     font-size: 0.9rem;
   }
 

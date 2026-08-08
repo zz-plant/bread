@@ -32,7 +32,7 @@ const blogStructuredData = createCollectionPageSchema({
   ogImage="/og/archive.svg"
   ogImageAlt="BREAD Journal and Story entries"
 >
-  <header class="journal-header panel">
+  <header class="page-header panel">
     <p class="section-kicker">Journal</p>
     <h1>BREAD Journal</h1>
     <p class="intro">Posts and updates. Use <a href="/archive/">Archive</a> for event records and <a href="/story/">Story</a> for the full background.</p>
@@ -40,7 +40,7 @@ const blogStructuredData = createCollectionPageSchema({
 
   <ul class="journal-list">
     {posts.map((post) => (
-      <li>
+      <li class="tile">
         <p class="section-kicker">{formatDate(post.data.date)}</p>
         <CardLink href={post.href} label={`${post.data.title} →`} />
         <p>{post.data.description}</p>
@@ -50,26 +50,12 @@ const blogStructuredData = createCollectionPageSchema({
 </BaseLayout>
 
 <style>
-  .panel {
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    background: var(--color-surface);
-    padding: var(--space-md);
-  }
-
   .journal-list {
     list-style: none;
     margin: 1rem 0 0;
     padding: 0;
     display: grid;
     gap: 0.85rem;
-  }
-
-  .journal-list li {
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    background: var(--color-surface);
-    padding: 0.9rem 1rem;
   }
 
   .journal-list p {

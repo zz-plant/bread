@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection, getEntry } from 'astro:content';
 import { createPersonSchema } from '../../utils/structuredData';
+import { ACCENT_COLOR } from '../../utils/theme';
 
 export async function getStaticPaths() {
   const residents = await getCollection('roster');
@@ -71,7 +72,7 @@ const structuredData = createPersonSchema({
             height="300"
             allow="autoplay"
             loading="lazy"
-            src={`https://w.soundcloud.com/player/?url=${encodeURIComponent(data.links.sc)}&color=%23ff5a1f&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=true&show_teaser=true&visual=false`}
+            src={`https://w.soundcloud.com/player/?url=${encodeURIComponent(data.links.sc)}&color=${encodeURIComponent(ACCENT_COLOR)}&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=true&show_teaser=true&visual=false`}
           ></iframe>
         </div>
       ) : (
@@ -105,7 +106,7 @@ const structuredData = createPersonSchema({
   }
 
   .profile-header h1 {
-    font-family: 'Syne', sans-serif;
+    font-family: var(--font-display);
     font-size: 2.5rem;
     margin: 0 0 0.5rem;
     letter-spacing: -0.03em;
@@ -168,7 +169,7 @@ const structuredData = createPersonSchema({
   .sc-embed iframe {
     border: 0;
     border-radius: var(--radius-sm);
-    background: #0a0a0a;
+    background: var(--color-bg);
   }
 
   .no-sc {

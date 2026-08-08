@@ -91,7 +91,7 @@ const overviewStats = [
   ogImage="/og/archive.svg"
   ogImageAlt="BREAD archive home covering eras, venues, people, and events"
 >
-  <header class="archive-header panel">
+  <header class="page-header panel">
     <p class="section-kicker">Archive</p>
     <h1>BREAD Archive</h1>
     <p class="intro">Start with timeline, people, venues, and event notes.</p>
@@ -112,7 +112,7 @@ const overviewStats = [
     <h2 id="primary-heading" class="group-heading">Primary</h2>
     <ul class="archive-map">
       {primaryPages.map((page) => (
-        <li>
+        <li class="tile">
           <p class="section-kicker">{page.data.title}</p>
           <CardLink href={`/archive/${toContentSlug(page.id)}/`} label={`${page.data.title}`} />
           <p>{page.data.description}</p>
@@ -125,7 +125,7 @@ const overviewStats = [
     <h2 id="visual-heading" class="group-heading">Visual Archives</h2>
     <ul class="archive-map">
       {visualSections.map((section) => (
-        <li>
+        <li class="tile">
           <p class="section-kicker">{section.title}</p>
           <CardLink href={section.href} label={section.title} />
           <p>{section.description}</p>
@@ -138,7 +138,7 @@ const overviewStats = [
     <h2 id="reference-heading" class="group-heading">Reference</h2>
     <ul class="archive-map">
       {referencePages.map((page) => (
-        <li>
+        <li class="tile">
           <p class="section-kicker">{page.data.title}</p>
           <CardLink href={`/archive/${toContentSlug(page.id)}/`} label={`${page.data.title}`} />
           <p>{page.data.description}</p>
@@ -149,36 +149,6 @@ const overviewStats = [
 </BaseLayout>
 
 <style>
-  .archive-header {
-    display: grid;
-    gap: 0.4rem;
-  }
-
-  .stats-strip {
-    margin: var(--space-md) 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-  }
-
-  .stats-strip p {
-    margin: 0;
-    display: flex;
-    align-items: baseline;
-    gap: 0.5rem;
-  }
-
-  .stats-strip .stat-value {
-    font: 700 1.1rem / 1 var(--font-display);
-    color: var(--color-text);
-  }
-
-  .stats-strip .stat-label {
-    font: var(--text-overline);
-    text-transform: uppercase;
-    color: var(--color-text-muted);
-  }
-
   .archive-group {
     margin-top: var(--space-xl);
   }
@@ -202,18 +172,6 @@ const overviewStats = [
     margin: 0;
     display: grid;
     gap: 0.65rem;
-  }
-
-  .archive-map li {
-    border: 1px solid var(--color-border);
-    background: var(--color-surface);
-    border-radius: var(--radius-md);
-    padding: 0.9rem 1rem;
-    transition: border-color 160ms ease;
-  }
-
-  .archive-map li:hover {
-    border-color: var(--color-border-strong);
   }
 
   .archive-map p {

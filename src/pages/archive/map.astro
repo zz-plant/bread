@@ -126,7 +126,7 @@ const stats = [
 
   <section class="venue-list" aria-label="Venue list">
     {venues.map((venue) => (
-      <article class="venue-card">
+      <article class="tile venue-card">
         <p class="section-kicker">{venue.label}</p>
         <h2>{venue.venue}</h2>
         <p>{venue.count} event{venue.count === 1 ? '' : 's'} · {venue.years.join(', ')}</p>
@@ -197,16 +197,13 @@ const stats = [
     gap: 0.75rem;
   }
 
-  .venue-card {
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    background: var(--color-surface);
-    padding: 1rem;
-  }
-
-  .venue-card h2,
   .venue-card p {
     margin: 0.2rem 0;
+  }
+
+  .venue-card .section-kicker,
+  .venue-card h2 {
+    margin: 0;
   }
 
   .venue-card ul {

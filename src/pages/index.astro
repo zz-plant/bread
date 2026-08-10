@@ -38,7 +38,8 @@ const {
 
   <noscript>
     <style>
-      .panel { display: block !important; }
+      .panel { display: none !important; }
+      #panel-events { display: block !important; }
       .tab { display: none !important; }
     </style>
   </noscript>
@@ -79,6 +80,11 @@ const {
 
 <script is:inline define:vars={{ documentedChronology, roster }}>
   import { filterEvents, sortVisibleEvents, showEventsPage, createYearVenueChips, EVENTS_PER_PAGE } from '../utils/eventFilters';
+
+  function debounce(fn, ms = 150) {
+    let timer;
+    return (...args) => { clearTimeout(timer); timer = setTimeout(() => fn(...args), ms); };
+  }
 
   const tabs = Array.from(document.querySelectorAll('.tab'));
   const panels = document.querySelectorAll('.panel');

@@ -8,9 +8,9 @@ import {
 	createBreadcrumbListSchema,
 } from "../../utils/structuredData";
 
-const posts = await getCollection("blog", ({ data }) => !data.draft);
+const posts = await getCollection("blog", ({ data }: { data: { draft: boolean } }) => !data.draft);
 const storyPost = posts.find(
-	(post) => toContentSlug(post.id) === "the-story-of-bread",
+	(post: { id: string }) => toContentSlug(post.id) === "the-story-of-bread",
 );
 
 if (!storyPost) {
@@ -19,7 +19,17 @@ if (!storyPost) {
 	);
 }
 
-const { Content } = await render(storyPost);
+const { Content: StoryContent } = await render(storyPost);
+
+const whatBreadWasPost = posts.find(
+	(post: { id: string }) => toContentSlug(post.id) === "bread-san-francisco-dj-collective",
+);
+
+let WhatBreadWasContent: Awaited<ReturnType<typeof render>>["Content"] | null = null;
+if (whatBreadWasPost) {
+	const { Content } = await render(whatBreadWasPost);
+	WhatBreadWasContent = Content;
+}
 
 const postStructuredData = createArticleSchema({
 	site: Astro.site,
@@ -105,7 +115,6 @@ const storyGallery = [
       <nav class="link-row" aria-label="Story links">
         <a class="chip-link" href="/archive/">Archive</a>
         <a class="chip-link" href="/archive/timeline/">Timeline</a>
-        <a class="chip-link" href="/blog/">Journal</a>
       </nav>
     </header>
     <section class="story-gallery" aria-label="Story gallery">
@@ -128,7 +137,14 @@ const storyGallery = [
       <p class="story-gallery-route"><a href="/archive/flyers/">Open full flyer archive →</a></p>
     </section>
     <hr />
-    <Content />
+    <StoryContent />
+    {WhatBreadWasContent && (
+      <section class="what-bread-was" aria-labelledby="what-bread-was-heading">
+        <hr />
+        <h2 id="what-bread-was-heading">What BREAD Was</h2>
+        <WhatBreadWasContent />
+      </section>
+    )}
   </article>
 </BaseLayout>
 

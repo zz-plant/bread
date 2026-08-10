@@ -21,16 +21,6 @@ if (!storyPost) {
 
 const { Content: StoryContent } = await render(storyPost);
 
-const whatBreadWasPost = posts.find(
-	(post: { id: string }) => toContentSlug(post.id) === "bread-san-francisco-dj-collective",
-);
-
-let WhatBreadWasContent: Awaited<ReturnType<typeof render>>["Content"] | null = null;
-if (whatBreadWasPost) {
-	const { Content } = await render(whatBreadWasPost);
-	WhatBreadWasContent = Content;
-}
-
 const postStructuredData = createArticleSchema({
 	site: Astro.site,
 	pathname: Astro.url.pathname,
@@ -138,13 +128,15 @@ const storyGallery = [
     </section>
     <hr />
     <StoryContent />
-    {WhatBreadWasContent && (
-      <section class="what-bread-was" aria-labelledby="what-bread-was-heading">
-        <hr />
-        <h2 id="what-bread-was-heading">What BREAD Was</h2>
-        <WhatBreadWasContent />
-      </section>
-    )}
+    <section class="what-bread-was" aria-labelledby="what-bread-was-heading">
+      <hr />
+      <h2 id="what-bread-was-heading">What BREAD Was</h2>
+      <p>BREAD was a San Francisco-based DJ collective and recurring club night active from 2014 through the early 2020s. The project ran as both a party series and a radio/mix platform under the name Bread FM.</p>
+      <p>Founded in 2014, BREAD centered around a rotating core of resident DJs alongside touring and local guests. Nights leaned rhythm-forward and globally influenced, spanning bass-heavy club music and experimental dance styles. The collective became known for bringing emerging artists to Bay Area crowds and keeping lineups open-minded.</p>
+      <p>In 2017, the collective launched Bread FM, starting as a local radio broadcast before moving online and onto podcast platforms. The mix series captured resident and guest sets and extended the life of the club nights. From 2022 to 2023, public post history shows Bread FM episodes and announcements through Internet Public Radio and HKCR (for example: <a href="https://www.instagram.com/p/Cgfdlh4Pdtx/">IPR monthly launch marker, 2022-07-26</a>, <a href="https://www.instagram.com/p/CthThTOpds1/">HKCR residency announcement, 2023-06-15</a>).</p>
+      <p>BREAD's activities spanned a period of significant change in San Francisco nightlife, including venue turnover, rising operating costs, and pandemic-related disruptions. While not heavily covered in mainstream press, the collective maintained a consistent presence within the city's electronic music community and contributed to cross-regional exchanges with artists from Oakland, Los Angeles, and beyond.</p>
+      <p>The most recent public account marker in this pass is an SF event post from <a href="https://www.instagram.com/p/C4ygjDoynTY/">2024-03-21</a>.</p>
+    </section>
   </article>
 </BaseLayout>
 

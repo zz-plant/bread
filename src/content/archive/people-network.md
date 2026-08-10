@@ -31,7 +31,7 @@ Recurring names across archive notes and public traces include:
 
 Names vary by platform, including Instagram bios and SoundCloud profiles. Together they show a roster that changed over time.
 
-For profile links, see [Links](/archive/channel-profile-directory/).
+For profile links, see [Radio Shows](/archive/radio-shows/).
 
 ## Network effects
 
@@ -46,4 +46,4 @@ BREAD operated as more than a party series:
 - Founding names and the core resident structure are currently marked **strong/user-archive** until line-by-line sources are attached.
 - Later-career claims for individuals should stay **open** unless directly tied to reliable references in this repo.
 
-Related: [Timeline](/archive/timeline/) and [Venues](/archive/venues-format-shifts/).
+Related: [Timeline](/archive/timeline/) and [Venue Map](/archive/map/).

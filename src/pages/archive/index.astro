@@ -22,9 +22,8 @@ const primaryIds = new Set([
 	"overview",
 	"timeline",
 	"people-network",
-	"venues-format-shifts",
 ]);
-const referenceIds = new Set(["event-ledger", "channel-profile-directory"]);
+const referenceIds = new Set(["event-ledger"]);
 const primaryPages = archivePages.filter((p) => primaryIds.has(p.id));
 const referencePages = archivePages.filter((p) => referenceIds.has(p.id));
 

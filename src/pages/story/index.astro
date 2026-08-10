@@ -1,82 +1,89 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import { getCollection, render } from 'astro:content';
-import { formatDate, toContentSlug } from '../../utils/content';
-import { createArticleSchema, createBreadcrumbListSchema } from '../../utils/structuredData';
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import { getCollection, render } from "astro:content";
+import { formatDate, toContentSlug } from "../../utils/content";
+import {
+	createArticleSchema,
+	createBreadcrumbListSchema,
+} from "../../utils/structuredData";
 
-const posts = await getCollection('blog', ({ data }) => !data.draft);
-const storyPost = posts.find((post) => toContentSlug(post.id) === 'the-story-of-bread');
+const posts = await getCollection("blog", ({ data }) => !data.draft);
+const storyPost = posts.find(
+	(post) => toContentSlug(post.id) === "the-story-of-bread",
+);
 
 if (!storyPost) {
-  throw new Error('Required story entry "the-story-of-bread" was not found in blog collection.');
+	throw new Error(
+		'Required story entry "the-story-of-bread" was not found in blog collection.',
+	);
 }
 
 const { Content } = await render(storyPost);
 
 const postStructuredData = createArticleSchema({
-  site: Astro.site,
-  pathname: Astro.url.pathname,
-  headline: storyPost.data.title,
-  description: storyPost.data.description,
-  datePublished: storyPost.data.date,
-  dateModified: storyPost.data.date,
-  section: 'Story history',
-  siteName: 'BREAD'
+	site: Astro.site,
+	pathname: Astro.url.pathname,
+	headline: storyPost.data.title,
+	description: storyPost.data.description,
+	datePublished: storyPost.data.date,
+	dateModified: storyPost.data.date,
+	section: "Story history",
+	siteName: "BREAD",
 });
 
-const breadcrumbItems = [
-  { label: 'Home', href: '/' },
-  { label: 'Story' }
-];
+const breadcrumbItems = [{ label: "Home", href: "/" }, { label: "Story" }];
 
 const breadcrumbStructuredData = createBreadcrumbListSchema({
-  site: Astro.site,
-  items: [
-    { name: 'Home', pathname: '/' },
-    { name: 'Story', pathname: '/story/' }
-  ]
+	site: Astro.site,
+	items: [
+		{ name: "Home", pathname: "/" },
+		{ name: "Story", pathname: "/story/" },
+	],
 });
 
-const structuredDataEntries = [postStructuredData, breadcrumbStructuredData].filter((entry): entry is Record<string, unknown> => Boolean(entry));
+const structuredDataEntries = [
+	postStructuredData,
+	breadcrumbStructuredData,
+].filter((entry): entry is Record<string, unknown> => Boolean(entry));
 
 const storyGallery = [
-  {
-    src: '/drive/bread-x-grime-city_150213-show.png',
-    alt: 'BREAD x Grime City pilot flyer from February 2015',
-    title: 'Pilot flyer',
-    caption: 'BREAD x Grime City · February 2015'
-  },
-  {
-    src: '/drive/bread2-smaller.jpg',
-    alt: 'BREAD #2 flyer with chain visual treatment',
-    title: 'BREAD #2',
-    caption: 'Flyer artwork · July 2015'
-  },
-  {
-    src: '/drive/bread-3-flyer-final-letter.png',
-    alt: 'BREAD no.3 flyer featuring Doctor Jeep, Kieran Loftus, and others',
-    title: 'BREAD no.3',
-    caption: 'Flyer artwork · November 2015'
-  },
-  {
-    src: '/drive/bread7c-01.png',
-    alt: 'Bread Number Seven poster with bread slice and utility crew imagery',
-    title: 'BREAD Number Seven',
-    caption: 'Flyer artwork · May 2016'
-  },
-  {
-    src: '/drive/2015-07-19-08.54.27.jpg',
-    alt: 'Street photo of a BREAD #2 poster on a utility pole in San Francisco',
-    title: 'Street posting',
-    caption: 'Poster in the city'
-  },
-  {
-    src: '/drive/img_0530.jpg',
-    alt: 'Photo of attendees at a BREAD night',
-    title: 'Inside the venue',
-    caption: 'Party photo'
-  }
+	{
+		src: "/drive/bread-x-grime-city_150213-show.png",
+		alt: "BREAD x Grime City pilot flyer from February 2015",
+		title: "Pilot flyer",
+		caption: "BREAD x Grime City · February 2015",
+	},
+	{
+		src: "/drive/bread2-smaller.jpg",
+		alt: "BREAD #2 flyer with chain visual treatment",
+		title: "BREAD #2",
+		caption: "Flyer artwork · July 2015",
+	},
+	{
+		src: "/drive/bread-3-flyer-final-letter.png",
+		alt: "BREAD no.3 flyer featuring Doctor Jeep, Kieran Loftus, and others",
+		title: "BREAD no.3",
+		caption: "Flyer artwork · November 2015",
+	},
+	{
+		src: "/drive/bread7c-01.png",
+		alt: "Bread Number Seven poster with bread slice and utility crew imagery",
+		title: "BREAD Number Seven",
+		caption: "Flyer artwork · May 2016",
+	},
+	{
+		src: "/drive/2015-07-19-08.54.27.jpg",
+		alt: "Street photo of a BREAD #2 poster on a utility pole in San Francisco",
+		title: "Street posting",
+		caption: "Poster in the city",
+	},
+	{
+		src: "/drive/img_0530.jpg",
+		alt: "Photo of attendees at a BREAD night",
+		title: "Inside the venue",
+		caption: "Party photo",
+	},
 ];
 ---
 

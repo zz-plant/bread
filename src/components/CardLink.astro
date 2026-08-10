@@ -1,39 +1,41 @@
 ---
 interface Props {
-  href: string;
-  label: string;
-  external?: boolean;
-  variant?: 'list' | 'rail';
+	href: string;
+	label: string;
+	external?: boolean;
+	variant?: "list" | "rail";
 }
 
-const { href, label, external = false, variant = 'list' } = Astro.props;
+const { href, label, external = false, variant = "list" } = Astro.props;
 
-const FALLBACK_HREF = '#';
-const ALLOWED_PROTOCOLS = new Set(['http:', 'https:', 'mailto:', 'tel:']);
+const FALLBACK_HREF = "#";
+const ALLOWED_PROTOCOLS = new Set(["http:", "https:", "mailto:", "tel:"]);
 
 const sanitizeHref = (value: string): string => {
-  const normalizedValue = value.trim();
-  if (!normalizedValue) return FALLBACK_HREF;
+	const normalizedValue = value.trim();
+	if (!normalizedValue) return FALLBACK_HREF;
 
-  if (
-    normalizedValue.startsWith('/') ||
-    normalizedValue.startsWith('#') ||
-    normalizedValue.startsWith('?') ||
-    normalizedValue.startsWith('./') ||
-    normalizedValue.startsWith('../')
-  ) {
-    return normalizedValue;
-  }
+	if (
+		normalizedValue.startsWith("/") ||
+		normalizedValue.startsWith("#") ||
+		normalizedValue.startsWith("?") ||
+		normalizedValue.startsWith("./") ||
+		normalizedValue.startsWith("../")
+	) {
+		return normalizedValue;
+	}
 
-  const hasExplicitScheme = /^[a-zA-Z][a-zA-Z\d+.-]*:/.test(normalizedValue);
-  if (!hasExplicitScheme) return normalizedValue;
+	const hasExplicitScheme = /^[a-zA-Z][a-zA-Z\d+.-]*:/.test(normalizedValue);
+	if (!hasExplicitScheme) return normalizedValue;
 
-  try {
-    const parsed = new URL(normalizedValue, 'https://bread.invalid');
-    return ALLOWED_PROTOCOLS.has(parsed.protocol) ? normalizedValue : FALLBACK_HREF;
-  } catch {
-    return FALLBACK_HREF;
-  }
+	try {
+		const parsed = new URL(normalizedValue, "https://bread.invalid");
+		return ALLOWED_PROTOCOLS.has(parsed.protocol)
+			? normalizedValue
+			: FALLBACK_HREF;
+	} catch {
+		return FALLBACK_HREF;
+	}
 };
 
 const safeHref = sanitizeHref(href);

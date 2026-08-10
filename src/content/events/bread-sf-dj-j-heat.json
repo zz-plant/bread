@@ -1,12 +1,12 @@
 {
-  "title": "BREAD SF: DJ J Heat",
-  "date": "2017-03-24",
-  "year": "2017",
-  "venue": "SF (noted)",
-  "lineup": "DJ J Heat, Kieran Loftus",
-  "confidence": "strong",
-  "status": "played",
-  "sourceLabel": "Facebook event",
-  "sourceHref": "https://www.facebook.com/events/d41d8cd9/bread-sf-dj-j-heat-night-slugs-kieran-loftus/1603512559678229/",
-  "sourceExternal": true
+	"title": "BREAD SF: DJ J Heat",
+	"date": "2017-03-24",
+	"year": "2017",
+	"venue": "SF (noted)",
+	"lineup": "DJ J Heat, Kieran Loftus",
+	"confidence": "strong",
+	"status": "played",
+	"sourceLabel": "Facebook event",
+	"sourceHref": "https://www.facebook.com/events/d41d8cd9/bread-sf-dj-j-heat-night-slugs-kieran-loftus/1603512559678229/",
+	"sourceExternal": true
 }

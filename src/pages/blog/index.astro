@@ -1,27 +1,27 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import CardLink from '../../components/CardLink.astro';
-import { getCollection } from 'astro:content';
-import { formatDate, toContentSlug } from '../../utils/content';
-import { createCollectionPageSchema } from '../../utils/structuredData';
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CardLink from "../../components/CardLink.astro";
+import { getCollection } from "astro:content";
+import { formatDate, toContentSlug } from "../../utils/content";
+import { createCollectionPageSchema } from "../../utils/structuredData";
 
-const posts = (await getCollection('blog', ({ data }) => !data.draft))
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .map((post) => {
-    const slug = toContentSlug(post.id);
+const posts = (await getCollection("blog", ({ data }) => !data.draft))
+	.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+	.map((post) => {
+		const slug = toContentSlug(post.id);
 
-    return {
-      ...post,
-      href: slug === 'the-story-of-bread' ? '/story/' : `/blog/${slug}/`
-    };
-  });
+		return {
+			...post,
+			href: slug === "the-story-of-bread" ? "/story/" : `/blog/${slug}/`,
+		};
+	});
 
 const blogStructuredData = createCollectionPageSchema({
-  site: Astro.site,
-  pathname: Astro.url.pathname,
-  name: 'BREAD Journal',
-  description: 'Posts, reflections, and updates around the BREAD archive.',
-  isPartOf: 'BREAD'
+	site: Astro.site,
+	pathname: Astro.url.pathname,
+	name: "BREAD Journal",
+	description: "Posts, reflections, and updates around the BREAD archive.",
+	isPartOf: "BREAD",
 });
 ---
 

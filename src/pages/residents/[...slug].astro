@@ -1,28 +1,28 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getCollection, getEntry } from 'astro:content';
-import { createPersonSchema } from '../../utils/structuredData';
-import { ACCENT_COLOR } from '../../utils/theme';
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection, getEntry } from "astro:content";
+import { createPersonSchema } from "../../utils/structuredData";
+import { ACCENT_COLOR } from "../../utils/theme";
 
 export async function getStaticPaths() {
-  const residents = await getCollection('roster');
-  return residents.map((resident) => ({
-    params: { slug: resident.id.replace(/\.(json|md)$/, '') },
-    props: { resident },
-  }));
+	const residents = await getCollection("roster");
+	return residents.map((resident) => ({
+		params: { slug: resident.id.replace(/\.(json|md)$/, "") },
+		props: { resident },
+	}));
 }
 
 const { resident } = Astro.props;
 const data = resident.data;
 
 const pageTitle = `${data.name} - BREAD Resident`;
-const pageDescription = `${data.name} - ${data.role}${data.notes ? `. ${data.notes}` : ''}`;
+const pageDescription = `${data.name} - ${data.role}${data.notes ? `. ${data.notes}` : ""}`;
 
 const structuredData = createPersonSchema({
-  site: Astro.site,
-  name: data.name,
-  role: data.role,
-  links: data.links,
+	site: Astro.site,
+	name: data.name,
+	role: data.role,
+	links: data.links,
 });
 ---
 

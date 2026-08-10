@@ -1,60 +1,63 @@
 ---
-import BaseLayout from './BaseLayout.astro';
-import Breadcrumbs from '../components/Breadcrumbs.astro';
-import { createBreadcrumbListSchema, createCollectionPageSchema } from '../utils/structuredData';
+import BaseLayout from "./BaseLayout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import {
+	createBreadcrumbListSchema,
+	createCollectionPageSchema,
+} from "../utils/structuredData";
 
 interface BreadcrumbItem {
-  label: string;
-  href?: string;
+	label: string;
+	href?: string;
 }
 
 interface Stat {
-  label: string;
-  value: string | number;
+	label: string;
+	value: string | number;
 }
 
 interface Props {
-  title: string;
-  description: string;
-  kicker?: string;
-  intro?: string;
-  context?: string;
-  breadcrumbItems: BreadcrumbItem[];
-  stats?: Stat[];
-  ogImage?: string;
-  ogImageAlt?: string;
+	title: string;
+	description: string;
+	kicker?: string;
+	intro?: string;
+	context?: string;
+	breadcrumbItems: BreadcrumbItem[];
+	stats?: Stat[];
+	ogImage?: string;
+	ogImageAlt?: string;
 }
 
 const {
-  title,
-  description,
-  kicker = 'Archive section',
-  intro,
-  context,
-  breadcrumbItems,
-  stats = [],
-  ogImage,
-  ogImageAlt,
+	title,
+	description,
+	kicker = "Archive section",
+	intro,
+	context,
+	breadcrumbItems,
+	stats = [],
+	ogImage,
+	ogImageAlt,
 } = Astro.props;
 
 const pageStructuredData = createCollectionPageSchema({
-  site: Astro.site,
-  pathname: Astro.url.pathname,
-  name: title,
-  description,
-  isPartOf: 'BREAD',
+	site: Astro.site,
+	pathname: Astro.url.pathname,
+	name: title,
+	description,
+	isPartOf: "BREAD",
 });
 
 const breadcrumbStructuredData = createBreadcrumbListSchema({
-  site: Astro.site,
-  items: breadcrumbItems.map((item) => ({
-    name: item.label,
-    pathname: item.href || Astro.url.pathname,
-  })),
+	site: Astro.site,
+	items: breadcrumbItems.map((item) => ({
+		name: item.label,
+		pathname: item.href || Astro.url.pathname,
+	})),
 });
 
 const structuredData = [pageStructuredData, breadcrumbStructuredData].filter(
-  (entry): entry is Record<string, unknown> => Boolean(entry),
+	(entry): entry is Record<string, unknown> => Boolean(entry),
 );
 ---
 

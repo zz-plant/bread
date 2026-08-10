@@ -1,10 +1,10 @@
 {
-  "name": "Prawns (Pranav)",
-  "role": "Founder",
-  "order": 2,
-  "notes": "Releases music as 'prawns', active in the SF/Bay Area DJ scene.",
-  "links": {
-    "sc": "https://soundcloud.com/pkj",
-    "ig": "https://instagram.com/prawnpop"
-  }
+	"name": "Prawns (Pranav)",
+	"role": "Founder",
+	"order": 2,
+	"notes": "Releases music as 'prawns', active in the SF/Bay Area DJ scene.",
+	"links": {
+		"sc": "https://soundcloud.com/pkj",
+		"ig": "https://instagram.com/prawnpop"
+	}
 }

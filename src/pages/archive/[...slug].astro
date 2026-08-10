@@ -1,56 +1,66 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import { getCollection, render } from 'astro:content';
-import { formatDate, toContentSlug } from '../../utils/content';
-import { includeInArchiveCatchall } from '../../utils/archive';
-import { createBreadcrumbListSchema, createCollectionPageSchema } from '../../utils/structuredData';
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import { getCollection, render } from "astro:content";
+import { formatDate, toContentSlug } from "../../utils/content";
+import { includeInArchiveCatchall } from "../../utils/archive";
+import {
+	createBreadcrumbListSchema,
+	createCollectionPageSchema,
+} from "../../utils/structuredData";
 
 export async function getStaticPaths() {
-  const pages = (await getCollection('archive')).filter((page) => includeInArchiveCatchall(page.id));
+	const pages = (await getCollection("archive")).filter((page) =>
+		includeInArchiveCatchall(page.id),
+	);
 
-  return pages.map((page) => ({
-    params: { slug: toContentSlug(page.id) },
-    props: { page }
-  }));
+	return pages.map((page) => ({
+		params: { slug: toContentSlug(page.id) },
+		props: { page },
+	}));
 }
 
 const { page } = Astro.props;
 const { Content } = await render(page);
-const archivePages = (await getCollection('archive'))
-  .filter((entry) => includeInArchiveCatchall(entry.id))
-  .sort((a, b) => a.data.order - b.data.order);
+const archivePages = (await getCollection("archive"))
+	.filter((entry) => includeInArchiveCatchall(entry.id))
+	.sort((a, b) => a.data.order - b.data.order);
 const currentIndex = archivePages.findIndex((entry) => entry.id === page.id);
-const previousPage = currentIndex > 0 ? archivePages[currentIndex - 1] : undefined;
-const nextPage = currentIndex >= 0 && currentIndex < archivePages.length - 1
-  ? archivePages[currentIndex + 1]
-  : undefined;
+const previousPage =
+	currentIndex > 0 ? archivePages[currentIndex - 1] : undefined;
+const nextPage =
+	currentIndex >= 0 && currentIndex < archivePages.length - 1
+		? archivePages[currentIndex + 1]
+		: undefined;
 const currentSlug = toContentSlug(page.id);
 
 const archivePageStructuredData = createCollectionPageSchema({
-  site: Astro.site,
-  pathname: Astro.url.pathname,
-  name: page.data.title,
-  description: page.data.description,
-  isPartOf: 'BREAD Archive'
+	site: Astro.site,
+	pathname: Astro.url.pathname,
+	name: page.data.title,
+	description: page.data.description,
+	isPartOf: "BREAD Archive",
 });
 
 const breadcrumbItems = [
-  { label: 'Home', href: '/' },
-  { label: 'Archive', href: '/archive/' },
-  { label: page.data.title }
+	{ label: "Home", href: "/" },
+	{ label: "Archive", href: "/archive/" },
+	{ label: page.data.title },
 ];
 
 const breadcrumbStructuredData = createBreadcrumbListSchema({
-  site: Astro.site,
-  items: [
-    { name: 'Home', pathname: '/' },
-    { name: 'Archive', pathname: '/archive/' },
-    { name: page.data.title, pathname: `/archive/${currentSlug}/` }
-  ]
+	site: Astro.site,
+	items: [
+		{ name: "Home", pathname: "/" },
+		{ name: "Archive", pathname: "/archive/" },
+		{ name: page.data.title, pathname: `/archive/${currentSlug}/` },
+	],
 });
 
-const structuredDataEntries = [archivePageStructuredData, breadcrumbStructuredData].filter((entry): entry is Record<string, unknown> => Boolean(entry));
+const structuredDataEntries = [
+	archivePageStructuredData,
+	breadcrumbStructuredData,
+].filter((entry): entry is Record<string, unknown> => Boolean(entry));
 ---
 
 <BaseLayout

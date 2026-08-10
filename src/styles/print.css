@@ -1,112 +1,118 @@
 /* Print-optimized styles for BREAD archive */
 
 @media print {
-  /* Hide navigation and interactive elements */
-  .site-header,
-  .site-footer,
-  .nav-rail,
-  .deck,
-  .tabs,
-  .share-buttons,
-  .audio-actions,
-  .mobile-tabbar,
-  button,
-  iframe,
-  script,
-  .skip-link,
-  .bg-mark {
-    display: none !important;
-  }
+	/* Hide navigation and interactive elements */
+	.site-header,
+	.site-footer,
+	.nav-rail,
+	.deck,
+	.tabs,
+	.share-buttons,
+	.audio-actions,
+	.mobile-tabbar,
+	button,
+	iframe,
+	script,
+	.skip-link,
+	.bg-mark {
+		display: none !important;
+	}
 
-  /* Reset background and colors */
-  body,
-  html {
-    background: #fff !important;
-    color: #000 !important;
-  }
+	/* Reset background and colors */
+	body,
+	html {
+		background: #fff !important;
+		color: #000 !important;
+	}
 
-  /* Show main content */
-  .site-shell,
-  .content-wrap,
-  main {
-    display: block !important;
-    max-width: 100% !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
+	/* Show main content */
+	.site-shell,
+	.content-wrap,
+	main {
+		display: block !important;
+		max-width: 100% !important;
+		margin: 0 !important;
+		padding: 0 !important;
+	}
 
-  /* Improve readability */
-  h1, h2, h3, h4, h5, h6 {
-    color: #000 !important;
-    page-break-after: avoid;
-  }
+	/* Improve readability */
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		color: #000 !important;
+		page-break-after: avoid;
+	}
 
-  p, li {
-    color: #333 !important;
-    line-height: 1.5;
-  }
+	p,
+	li {
+		color: #333 !important;
+		line-height: 1.5;
+	}
 
-  /* Show links with URLs */
-  a {
-    color: #000 !important;
-    text-decoration: none;
-  }
+	/* Show links with URLs */
+	a {
+		color: #000 !important;
+		text-decoration: none;
+	}
 
-  a[href^="http"]:after {
-    content: " (" attr(href) ")";
-    font-size: 0.9em;
-    color: #666;
-  }
+	a[href^="http"]:after {
+		content: " (" attr(href) ")";
+		font-size: 0.9em;
+		color: #666;
+	}
 
-  a[href^="/"]:after {
-    content: " (https://bread.fm" attr(href) ")";
-    font-size: 0.9em;
-    color: #666;
-  }
+	a[href^="/"]:after {
+		content: " (https://bread.fm" attr(href) ")";
+		font-size: 0.9em;
+		color: #666;
+	}
 
-  /* Cards */
-  .card {
-    border: 1px solid #ccc !important;
-    background: #fff !important;
-    page-break-inside: avoid;
-  }
+	/* Cards */
+	.card {
+		border: 1px solid #ccc !important;
+		background: #fff !important;
+		page-break-inside: avoid;
+	}
 
-  .title,
-  .meta,
-  .lineup {
-    color: #000 !important;
-  }
+	.title,
+	.meta,
+	.lineup {
+		color: #000 !important;
+	}
 
-  /* Images */
-  img {
-    max-width: 100% !important;
-    page-break-inside: avoid;
-  }
+	/* Images */
+	img {
+		max-width: 100% !important;
+		page-break-inside: avoid;
+	}
 
-  /* Add page breaks */
-  .panel,
-  section,
-  article {
-    page-break-before: auto;
-  }
+	/* Add page breaks */
+	.panel,
+	section,
+	article {
+		page-break-before: auto;
+	}
 
-  /* Chronology specific */
-  .cards {
-    display: block;
-  }
+	/* Chronology specific */
+	.cards {
+		display: block;
+	}
 
-  .cards .card {
-    margin-bottom: 1rem;
-  }
+	.cards .card {
+		margin-bottom: 1rem;
+	}
 
-  /* Resident profiles */
-  .resident-profile {
-    max-width: 100% !important;
-  }
+	/* Resident profiles */
+	.resident-profile {
+		max-width: 100% !important;
+	}
 
-  .link-list a:after {
-    content: " (" attr(href) ")";
-    font-size: 0.9em;
-    color: #666;
-  }
+	.link-list a:after {
+		content: " (" attr(href) ")";
+		font-size: 0.9em;
+		color: #666;
+	}
 }

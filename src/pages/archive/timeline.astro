@@ -1,71 +1,151 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getCollection } from 'astro:content';
-import { toContentSlug } from '../../utils/content';
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import { toContentSlug } from "../../utils/content";
 
-const timelinePage = (await getCollection('archive')).find((page) => toContentSlug(page.id) === 'timeline');
+const timelinePage = (await getCollection("archive")).find(
+	(page) => toContentSlug(page.id) === "timeline",
+);
 
 if (!timelinePage) {
-  throw new Error('Timeline archive entry is missing.');
+	throw new Error("Timeline archive entry is missing.");
 }
 
 const eras = [
-  {
-    range: '2014–2015',
-    title: 'Formation & Pilot',
-    summary: 'BREAD takes shape, then quickly becomes a recurring night in San Francisco.',
-    highlights: [
-      'Public profile language points to a 2014 start.',
-      'A pilot event appears on February 13, 2015 at F8 with Nevermind and Helix.',
-      'By May 2015, regular events are visible in San Francisco listings.'
-    ]
-  },
-  {
-    range: '2015–2016',
-    title: 'Booking Expansion',
-    summary: 'Resident structure and visuals sharpen as bookings widen across connected club scenes.',
-    highlights: [
-      'Flyers and listings show a stronger resident core during this stretch.',
-      'A May 29, 2015 listing confirms steady public programming by mid-2015.',
-      '2016 highlights include Jlin, Distal, Celestial Trax, Deadboy, Murlo, Rabit, Logos, Mumdance, and partner showcases (Parameter / Sure Thing / Toasted Trax).'
-    ]
-  },
-  {
-    range: '2017–2018',
-    title: 'UGSF / Bunker Shift',
-    summary: 'More events move toward Underground SF as the sound widens.',
-    highlights: [
-      '2017 events include DJ J Heat, Mr. Mitch + Kozee, Roska, and Kelman Duran period bookings.',
-      'Event records reflect broader venue shifts happening across the city.',
-      '2018 appears as the end of the original recurring club-night run.'
-    ]
-  },
-  {
-    range: '2020–2024',
-    title: 'Remote Mutual Aid + Radio Network',
-    summary: 'Activity shifts from in-person nights to fundraiser streams, then into radio chapters and later event announcements.',
-    highlights: [
-      '2020–2021 streams and telethons focus on mutual-aid fundraising.',
-      'Available notes point to roughly USD 12K raised across multiple streams.',
-      '2022 onward traces show BREAD FM activity through Internet Public Radio and HKCR.',
-      'Most recent public post in this pass is a March 21, 2024 SF event announcement.'
-    ]
-  }
+	{
+		range: "2014–2015",
+		title: "Formation & Pilot",
+		summary:
+			"BREAD takes shape, then quickly becomes a recurring night in San Francisco.",
+		highlights: [
+			"Public profile language points to a 2014 start.",
+			"A pilot event appears on February 13, 2015 at F8 with Nevermind and Helix.",
+			"By May 2015, regular events are visible in San Francisco listings.",
+		],
+	},
+	{
+		range: "2015–2016",
+		title: "Booking Expansion",
+		summary:
+			"Resident structure and visuals sharpen as bookings widen across connected club scenes.",
+		highlights: [
+			"Flyers and listings show a stronger resident core during this stretch.",
+			"A May 29, 2015 listing confirms steady public programming by mid-2015.",
+			"2016 highlights include Jlin, Distal, Celestial Trax, Deadboy, Murlo, Rabit, Logos, Mumdance, and partner showcases (Parameter / Sure Thing / Toasted Trax).",
+		],
+	},
+	{
+		range: "2017–2018",
+		title: "UGSF / Bunker Shift",
+		summary: "More events move toward Underground SF as the sound widens.",
+		highlights: [
+			"2017 events include DJ J Heat, Mr. Mitch + Kozee, Roska, and Kelman Duran period bookings.",
+			"Event records reflect broader venue shifts happening across the city.",
+			"2018 appears as the end of the original recurring club-night run.",
+		],
+	},
+	{
+		range: "2020–2024",
+		title: "Remote Mutual Aid + Radio Network",
+		summary:
+			"Activity shifts from in-person nights to fundraiser streams, then into radio chapters and later event announcements.",
+		highlights: [
+			"2020–2021 streams and telethons focus on mutual-aid fundraising.",
+			"Available notes point to roughly USD 12K raised across multiple streams.",
+			"2022 onward traces show BREAD FM activity through Internet Public Radio and HKCR.",
+			"Most recent public post in this pass is a March 21, 2024 SF event announcement.",
+		],
+	},
 ];
 
 const milestones = [
-  { date: '2015-02-13', venue: 'F8, SF', label: 'Pilot (Grime City vs BREAD)', sourceLabel: 'Facebook event', sourceHref: 'https://www.facebook.com/events/588841281252200/' },
-  { date: '2016-03-25', venue: 'F8, SF', label: 'BREAD #5 / Jlin window', sourceLabel: 'Flyer image', sourceHref: '/bread-jlin-planet-mu-iyer-2016-03-25-flyer.jpg' },
-  { date: '2016-06-29', venue: 'Codeword, SF', label: 'Toasted Trax #1', sourceLabel: 'Flyer image', sourceHref: '/toasted-trax-number-one-june-29.jpg' },
-  { date: '2016-08-19', venue: 'F8, SF', label: 'BREAD #10 / Parameter x BREAD', sourceLabel: 'Flyer image', sourceHref: '/bread-number-ten-pinch-rabit-mumdance-logos-caski-ganesa-aug-19.png' },
-  { date: '2016-11-19', venue: '60 6th St, SF', label: 'Sure Thing x BREAD showcase', sourceLabel: 'Facebook event', sourceHref: 'https://www.facebook.com/events/60-6th-st-san-francisco-ca-94103-1609-united-states/sure-thing-bread-sf-lobster-theremin-showcase/1062894940491694/' },
-  { date: '2017-05-26', venue: 'Underground SF', label: 'UGSF period event', sourceLabel: 'Facebook event', sourceHref: 'https://www.facebook.com/events/d41d8cd9/bread-sf-mr-mitch-planet-mu-kozee-prawns/277151372731142/' },
-  { date: '2017-09-22', venue: 'Underground SF', label: 'Late UGSF period event', sourceLabel: 'Flyer image', sourceHref: '/bread-suda-kelman-duran-bread-djs-sept-22.jpg' },
-  { date: '2021-01-02', venue: 'Twitch', label: 'New Year fundraiser', sourceLabel: 'Instagram post', sourceHref: 'https://www.instagram.com/p/CJed4dGFKbz/' },
-  { date: '2021-03-13', venue: 'Twitch', label: 'Six Years anniversary stream', sourceLabel: 'Instagram post', sourceHref: 'https://www.instagram.com/p/CL44SfGli4d/' },
-  { date: '2022-07-27', venue: 'Internet Public Radio', label: 'Monthly show launch announcement', sourceLabel: 'Instagram post', sourceHref: 'https://www.instagram.com/p/Cgfdlh4Pdtx/' },
-  { date: '2023-06-15', venue: 'HKCR', label: 'HKCR residency announcement', sourceLabel: 'Instagram post', sourceHref: 'https://www.instagram.com/p/CthThTOpds1/' },
-  { date: '2024-03-21', venue: 'SOMA area, SF', label: 'SF event announcement (secret location flow)', sourceLabel: 'Instagram post', sourceHref: 'https://www.instagram.com/p/C4ygjDoynTY/' }
+	{
+		date: "2015-02-13",
+		venue: "F8, SF",
+		label: "Pilot (Grime City vs BREAD)",
+		sourceLabel: "Facebook event",
+		sourceHref: "https://www.facebook.com/events/588841281252200/",
+	},
+	{
+		date: "2016-03-25",
+		venue: "F8, SF",
+		label: "BREAD #5 / Jlin window",
+		sourceLabel: "Flyer image",
+		sourceHref: "/bread-jlin-planet-mu-iyer-2016-03-25-flyer.jpg",
+	},
+	{
+		date: "2016-06-29",
+		venue: "Codeword, SF",
+		label: "Toasted Trax #1",
+		sourceLabel: "Flyer image",
+		sourceHref: "/toasted-trax-number-one-june-29.jpg",
+	},
+	{
+		date: "2016-08-19",
+		venue: "F8, SF",
+		label: "BREAD #10 / Parameter x BREAD",
+		sourceLabel: "Flyer image",
+		sourceHref:
+			"/bread-number-ten-pinch-rabit-mumdance-logos-caski-ganesa-aug-19.png",
+	},
+	{
+		date: "2016-11-19",
+		venue: "60 6th St, SF",
+		label: "Sure Thing x BREAD showcase",
+		sourceLabel: "Facebook event",
+		sourceHref:
+			"https://www.facebook.com/events/60-6th-st-san-francisco-ca-94103-1609-united-states/sure-thing-bread-sf-lobster-theremin-showcase/1062894940491694/",
+	},
+	{
+		date: "2017-05-26",
+		venue: "Underground SF",
+		label: "UGSF period event",
+		sourceLabel: "Facebook event",
+		sourceHref:
+			"https://www.facebook.com/events/d41d8cd9/bread-sf-mr-mitch-planet-mu-kozee-prawns/277151372731142/",
+	},
+	{
+		date: "2017-09-22",
+		venue: "Underground SF",
+		label: "Late UGSF period event",
+		sourceLabel: "Flyer image",
+		sourceHref: "/bread-suda-kelman-duran-bread-djs-sept-22.jpg",
+	},
+	{
+		date: "2021-01-02",
+		venue: "Twitch",
+		label: "New Year fundraiser",
+		sourceLabel: "Instagram post",
+		sourceHref: "https://www.instagram.com/p/CJed4dGFKbz/",
+	},
+	{
+		date: "2021-03-13",
+		venue: "Twitch",
+		label: "Six Years anniversary stream",
+		sourceLabel: "Instagram post",
+		sourceHref: "https://www.instagram.com/p/CL44SfGli4d/",
+	},
+	{
+		date: "2022-07-27",
+		venue: "Internet Public Radio",
+		label: "Monthly show launch announcement",
+		sourceLabel: "Instagram post",
+		sourceHref: "https://www.instagram.com/p/Cgfdlh4Pdtx/",
+	},
+	{
+		date: "2023-06-15",
+		venue: "HKCR",
+		label: "HKCR residency announcement",
+		sourceLabel: "Instagram post",
+		sourceHref: "https://www.instagram.com/p/CthThTOpds1/",
+	},
+	{
+		date: "2024-03-21",
+		venue: "SOMA area, SF",
+		label: "SF event announcement (secret location flow)",
+		sourceLabel: "Instagram post",
+		sourceHref: "https://www.instagram.com/p/C4ygjDoynTY/",
+	},
 ];
 ---
 

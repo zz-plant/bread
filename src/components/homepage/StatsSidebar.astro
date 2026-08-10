@@ -1,0 +1,44 @@
+---
+interface Stat {
+	label: string;
+	value: number;
+}
+
+interface Props {
+	stats: Stat[];
+}
+
+const { stats } = Astro.props;
+---
+
+<aside class="snapshot rail-card" aria-label="At a glance">
+  <p class="snapshot-title">At a glance</p>
+  <ul class="snapshot-list">
+    {stats.map((item: Stat) => (
+      <li>
+        <span class="snapshot-value">{item.value}</span>
+        <span class="snapshot-label">{item.label}</span>
+      </li>
+    ))}
+  </ul>
+</aside>
+
+<style>
+  .snapshot-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem 1rem;
+  }
+  .snapshot-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    line-height: 1.2;
+  }
+  .snapshot-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted);
+  }
+</style>

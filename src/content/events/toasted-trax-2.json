@@ -1,12 +1,12 @@
 {
-  "title": "Toasted Trax #2",
-  "date": "2016-10-21",
-  "year": "2016",
-  "venue": "SF (venue pending)",
-  "lineup": "Lineup extraction pending",
-  "confidence": "strong",
-  "status": "played",
-  "sourceLabel": "Facebook event",
-  "sourceHref": "https://www.facebook.com/events/d41d8cd9/bread-sf-presents-toasted-trax-2/1792378097640992/",
-  "sourceExternal": true
+	"title": "Toasted Trax #2",
+	"date": "2016-10-21",
+	"year": "2016",
+	"venue": "SF (venue pending)",
+	"lineup": "Lineup extraction pending",
+	"confidence": "strong",
+	"status": "played",
+	"sourceLabel": "Facebook event",
+	"sourceHref": "https://www.facebook.com/events/d41d8cd9/bread-sf-presents-toasted-trax-2/1792378097640992/",
+	"sourceExternal": true
 }

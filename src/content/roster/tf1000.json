@@ -1,9 +1,9 @@
 {
-  "name": "TF1000 / Tranespotting",
-  "role": "Resident",
-  "order": 6,
-  "links": {
-    "sc": "https://soundcloud.com/tf1000",
-    "ig": "https://instagram.com/tranespotting"
-  }
+	"name": "TF1000 / Tranespotting",
+	"role": "Resident",
+	"order": 6,
+	"links": {
+		"sc": "https://soundcloud.com/tf1000",
+		"ig": "https://instagram.com/tranespotting"
+	}
 }

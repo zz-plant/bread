@@ -3,7 +3,6 @@ import { getHomepageData } from "../data/homepage";
 import EventPanel from "../components/EventPanel.astro";
 import SideRail from "../components/SideRail.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import StatsSidebar from "../components/homepage/StatsSidebar.astro";
 import PeopleTab from "../components/homepage/PeopleTab.astro";
 import AudioTabs from "../components/homepage/AudioTabs.astro";
 
@@ -37,15 +36,15 @@ const {
 >
   <div class="bg-mark">BREAD</div>
 
+  <noscript>
+    <style>
+      .panel { display: block !important; }
+      .tab { display: none !important; }
+    </style>
+  </noscript>
+
   <section class="shell">
     <SideRail stats={summaryStats} />
-
-    <nav class="mobile-tabbar" aria-label="Mobile sections">
-      <button class="tab mobile-tab active" role="tab" aria-selected="true" aria-controls="panel-events" data-panel="panel-events">events</button>
-      <button class="tab mobile-tab" role="tab" aria-selected="false" aria-controls="panel-people" data-panel="panel-people">people</button>
-      <button class="tab mobile-tab" role="tab" aria-selected="false" aria-controls="panel-audio" data-panel="panel-audio">audio</button>
-      <button class="tab mobile-tab" role="tab" aria-selected="false" aria-controls="panel-links" data-panel="panel-links">links</button>
-    </nav>
 
     <main id="main-content" class="content">
       <EventPanel visuals={featuredVisuals} events={documentedChronology} />
@@ -59,7 +58,7 @@ const {
       />
     </main>
 
-    <aside class="deck" id="detailDeck" aria-live="polite">
+    <aside class="deck" id="detailDeck">
       <button class="deck-handle" type="button" id="deckHandle" aria-label="Cycle info sheet size"><span></span></button>
       <button class="deck-toggle" type="button" id="deckToggle" aria-expanded="false" aria-controls="deckContent">Show info</button>
       <div class="deck-summary" id="deckSummary">Pick a card for details.</div>

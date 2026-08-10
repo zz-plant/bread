@@ -92,7 +92,12 @@ const { visuals, events } = Astro.props;
            <div>
              <div class="card-header">
                <p class="title">{event.title}</p>
-               <span class={`status-badge status-${event.status}`}>{event.status}</span>
+               <span class={`status-badge status-${event.status}`} aria-label={`Status: ${event.status}`}>
+                {event.status === 'played' && '✓ '}
+                {event.status === 'cancelled' && '✕ '}
+                {event.status === 'postponed' && '⏸ '}
+                {event.status}
+              </span>
              </div>
              <p class="meta">{event.year} · {event.date} · {event.venue}</p>
              <p class="lineup">{event.lineup}</p>

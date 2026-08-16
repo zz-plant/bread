@@ -214,6 +214,10 @@ export async function getHomepageData() {
 		return `https://w.soundcloud.com/player/?${params.toString()}`;
 	};
 
+	const platformEmbedsMap = Object.fromEntries(
+		platformEmbeds.map((item) => [item.key, item]),
+	) as Record<string, (typeof platformEmbeds)[number]>;
+
 	return {
 		documentedChronology,
 		roster,
@@ -221,7 +225,7 @@ export async function getHomepageData() {
 		featuredVisuals,
 		directoryLinks,
 		soundcloudEmbedCollections,
-		platformEmbeds,
+		platformEmbeds: platformEmbedsMap,
 		residentSoundcloudProfiles,
 		homeStructuredData,
 		homeNavLinks,

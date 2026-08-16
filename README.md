@@ -9,23 +9,23 @@ A minimal static-site starter built with Astro, with repository conventions for 
 ## Getting started
 
 ```bash
-npm install
-npm run dev -- --host 0.0.0.0 --port 4321
+bun install
+bun run dev -- --host 0.0.0.0 --port 4321
 ```
 
 Open <http://localhost:4321>.
 
 ## Commands
 
-- `npm run dev` — start local dev server
-- `npm run lint` — run Astro type/content checks
-- `npm run build` — run checks then build static output to `dist/`
-- `npm run preview` — preview built output
+- `bun run dev` — start local dev server
+- `bun run lint` — run Astro type/content checks
+- `bun run build` — run checks then build static output to `dist/`
+- `bun run preview` — preview built output
 
 ## Content workflow
 
 - Blog content lives in `src/content/blog/*.md`.
-- Collection schema is defined in `src/content/config.ts`.
+- Collection schema is defined in `src/content.config.ts` (Astro 7 Content Layer).
 - Canonical story route lives at `/story/` (legacy `/blog/the-story-of-bread/` redirects).
 - Journal index is available at `/blog/` and non-canonical editorial posts continue at `/blog/<slug>/`.
 

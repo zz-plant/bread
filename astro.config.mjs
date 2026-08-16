@@ -5,7 +5,7 @@ import { defineConfig } from "astro/config";
 
 export default defineConfig({
 	site: "https://bread.fm",
-	integrations: [sitemap(), cloudflare(), mdx()],
+	integrations: [sitemap(), mdx()],
 	adapter: cloudflare(),
 	vite: {
 		ssr: {

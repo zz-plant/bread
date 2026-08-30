@@ -1,6 +1,4 @@
 ---
-import ClickHint from "./ClickHint.astro";
-
 interface Visual {
 	src: string;
 	alt: string;
@@ -31,21 +29,33 @@ interface Props {
 }
 
 const { visuals, events } = Astro.props;
+const visualDestinations = Array.from(
+	new Map(
+		visuals.map((item) => [
+			item.href,
+			item.href === "/archive/flyers/" ? "Browse flyers →" : "Read the story →",
+		]),
+	).entries(),
+);
 ---
 
 <article class="panel active" id="panel-events" role="tabpanel" aria-labelledby="tab-events">
-  <h2>Events</h2>
-  <p class="result-count" id="eventsResultCount">{events.length} events shown</p>
-  <p class="events-intro">Each card shows date, series, venue, lineup, and where the info came from.</p>
-  <ClickHint>Click any event or person card to see details in the side panel.</ClickHint>
+  <div class="panel-heading">
+    <div>
+      <p class="section-kicker">Documented chronology</p>
+      <h2>Events</h2>
+    </div>
+    <p class="result-count" id="eventsResultCount">{events.length} events shown</p>
+  </div>
+  <p class="events-intro">Dates, venues, lineups, and sources from the documented archive.</p>
 
-  <div class="events-toolbar" aria-label="Filter and search events">
+  <div class="events-toolbar" aria-label="Search and sort events">
     <div class="search-wrapper">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
         <circle cx="11" cy="11" r="8"></circle>
         <path d="m21 21-4.35-4.35"></path>
       </svg>
-      <input type="search" id="eventSearch" placeholder="Filter events..." aria-label="Filter events by title, venue, or lineup" />
+      <input type="search" id="eventSearch" name="event-search" placeholder="Search title, venue, or lineup…" aria-label="Search events by title, venue, or lineup" autocomplete="off" />
     </div>
     <label class="event-control">
       <span>Sort</span>
@@ -55,13 +65,6 @@ const { visuals, events } = Astro.props;
         <option value="year">Group by year</option>
       </select>
     </label>
-    <div class="filter-chips compact" id="quickFilters" aria-label="Quick filters">
-      <button class="chip active" type="button" data-quick="all">All</button>
-      <button class="chip" type="button" data-quick="linked">With links</button>
-      <button class="chip" type="button" data-quick="changed">Changed status</button>
-    </div>
-    <div class="filter-chips" id="yearFilters" aria-label="Filter by year"></div>
-    <div class="filter-chips" id="venueFilters" aria-label="Filter by venue"></div>
   </div>
 
   <section class="featured-visuals" aria-label="Featured visuals">
@@ -73,48 +76,39 @@ const { visuals, events } = Astro.props;
       {visuals.map((item, visualIndex) => (
         <li>
           <figure>
-            <img src={item.src} alt={item.alt} loading={visualIndex === 0 ? 'eager' : 'lazy'} decoding={visualIndex === 0 ? 'sync' : 'async'} sizes="(max-width: 780px) 92vw, 32vw" />
+            <img src={item.src} alt={item.alt} width="960" height="720" loading={visualIndex === 0 ? 'eager' : 'lazy'} fetchpriority={visualIndex === 0 ? 'high' : undefined} decoding={visualIndex === 0 ? 'sync' : 'async'} sizes="(max-width: 780px) 92vw, 32vw" />
             <figcaption>
               <p>{item.title}</p>
               <small>{item.caption}</small>
-              <a href={item.href}>Open related archive →</a>
             </figcaption>
           </figure>
         </li>
       ))}
     </ul>
+    <nav class="featured-visual-links" aria-label="Visual archive links">
+      {visualDestinations.map(([href, label]) => <a href={href}>{label}</a>)}
+    </nav>
   </section>
 
   <ul class="cards">
      {events.map((event, index) => (
        <li class="card" id={`event-${event.id}`} data-kind="event" data-index={index} data-year={event.year} data-venue={event.venue} data-lineup={event.lineup} data-status={event.status} data-has-source={event.source.href ? 'true' : 'false'}>
-         <button class="pick-btn" data-kind="event" data-index={index} aria-label={`Open info for ${event.title}`}>
-           <div>
-             <div class="card-header">
-               <p class="title">{event.title}</p>
-               <span class={`status-badge status-${event.status}`} aria-label={`Status: ${event.status}`}>
-                {event.status === 'played' && '✓ '}
-                {event.status === 'cancelled' && '✕ '}
-                {event.status === 'postponed' && '⏸ '}
-                {event.status}
-              </span>
-             </div>
-             <p class="meta">{event.year} · {event.date} · {event.venue}</p>
-             <p class="lineup">{event.lineup}</p>
-           </div>
-         </button>
-         <div class="card-footer">
-           {event.source.href ? (
-             <p class="status source-row">source: <a href={event.source.href} target={event.source.external ? '_blank' : undefined} rel={event.source.external ? 'noreferrer noopener' : undefined}>{event.source.label}</a></p>
-           ) : (
-             <p class="status source-row">source: {event.source.label}</p>
-           )}
-           <div class="share-buttons" data-url={`/#event-${event.id}`} data-title={event.title}>
-             <button class="share-btn share-primary" data-platform="native" aria-label="Share event">Share</button>
-             <button class="share-btn" data-platform="copy" aria-label="Copy link">Copy</button>
-             <button class="share-btn" data-platform="twitter" aria-label="Share on Twitter">X</button>
-           </div>
+         <div class="card-header">
+           <h3 class="title">{event.title}</h3>
+           <span class={`status-badge status-${event.status}`} aria-label={`Status: ${event.status}`}>
+            {event.status === 'played' && '✓ '}
+            {event.status === 'cancelled' && '✕ '}
+            {event.status === 'postponed' && '⏸ '}
+            {event.status}
+          </span>
          </div>
+         <p class="meta">{event.year} · {event.date} · {event.venue}</p>
+         <p class="lineup">{event.lineup}</p>
+         {event.source.href ? (
+           <p class="status source-row">Source: <a href={event.source.href} target={event.source.external ? '_blank' : undefined} rel={event.source.external ? 'noreferrer noopener' : undefined}>{event.source.label}</a></p>
+         ) : (
+           <p class="status source-row">Source: {event.source.label}</p>
+         )}
        </li>
       ))}
   </ul>

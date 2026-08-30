@@ -1,17 +1,13 @@
 ---
-import { getHomepageData } from "../data/homepage";
 import EventPanel from "../components/EventPanel.astro";
-import SideRail from "../components/SideRail.astro";
-import BaseLayout from "../layouts/BaseLayout.astro";
-import PeopleTab from "../components/homepage/PeopleTab.astro";
 import AudioTabs from "../components/homepage/AudioTabs.astro";
-
-const data = await getHomepageData();
+import PeopleTab from "../components/homepage/PeopleTab.astro";
+import { getHomepageData } from "../data/homepage";
+import BaseLayout from "../layouts/BaseLayout.astro";
 
 const {
 	documentedChronology,
 	roster,
-	summaryStats,
 	featuredVisuals,
 	directoryLinks,
 	soundcloudEmbedCollections,
@@ -20,7 +16,7 @@ const {
 	homeStructuredData,
 	homeNavLinks,
 	buildSoundCloudEmbedSrc,
-} = data;
+} = await getHomepageData();
 ---
 
 <BaseLayout
@@ -30,24 +26,34 @@ const {
   ogImage="/og/home.png"
   ogImageAlt="BREAD home page with timeline, people, and listening links"
   navLinks={homeNavLinks}
+  footerNavLinks={[{ label: "Archive", href: "/archive/" }]}
   topStrip={{ left: "BREAD // SAN FRANCISCO", right: "2015—2024" }}
   footerNote="BREAD archive • San Francisco and beyond"
   wide
 >
-  <div class="bg-mark">BREAD</div>
+  <div class="bg-mark" aria-hidden="true">BREAD</div>
 
   <noscript>
     <style>
-      .panel { display: none !important; }
-      #panel-events { display: block !important; }
-      .tab { display: none !important; }
+      .section-tabs { display: none !important; }
+      .panel { display: block !important; }
     </style>
   </noscript>
 
-  <section class="shell">
-    <SideRail stats={summaryStats} />
+  <section class="shell" aria-labelledby="home-title">
+    <header class="home-intro">
+      <p class="eyebrow">San Francisco · 2015—2024</p>
+      <h1 id="home-title">BREAD</h1>
+      <p>Events, residents, flyers, and radio from the archive.</p>
+    </header>
 
-    <main id="main-content" class="content">
+    <nav class="section-tabs" aria-label="Browse BREAD" role="tablist">
+      <button class="tab active" type="button" role="tab" aria-selected="true" aria-controls="panel-events" id="tab-events" data-panel="panel-events">Events</button>
+      <button class="tab" type="button" role="tab" aria-selected="false" aria-controls="panel-people" id="tab-people" data-panel="panel-people">People</button>
+      <button class="tab" type="button" role="tab" aria-selected="false" aria-controls="panel-audio" id="tab-audio" data-panel="panel-audio">Listen</button>
+    </nav>
+
+    <div class="content">
       <EventPanel visuals={featuredVisuals} events={documentedChronology} />
       <PeopleTab roster={roster} />
       <AudioTabs
@@ -57,69 +63,32 @@ const {
         residentSoundcloudProfiles={residentSoundcloudProfiles}
         buildSoundCloudEmbedSrc={buildSoundCloudEmbedSrc}
       />
-    </main>
-
-    <aside class="deck" id="detailDeck">
-      <button class="deck-handle" type="button" id="deckHandle" aria-label="Cycle info sheet size"><span></span></button>
-      <button class="deck-toggle" type="button" id="deckToggle" aria-expanded="false" aria-controls="deckContent">Show info</button>
-      <div class="deck-summary" id="deckSummary">Pick a card for details.</div>
-      <div id="deckContent" class="deck-content">
-      <p class="deck-tag" id="deckTag">Info</p>
-      <h3 id="deckTitle">Pick a card</h3>
-      <p id="deckData">Choose an event or resident.</p>
-      <p id="deckDesc">Dates, venue, lineup, and links show here.</p>
-      <div id="deckLinks" class="deck-links"></div>
-      </div>
-    </aside>
+    </div>
   </section>
 </BaseLayout>
 
-<style>
+<style is:global>
   @import url('../styles/home.css');
 </style>
 
-<script is:inline define:vars={{ documentedChronology, roster }}>
-  import { filterEvents, sortVisibleEvents, showEventsPage, createYearVenueChips, EVENTS_PER_PAGE } from '../utils/eventFilters';
+<script>
+  import { filterEvents, sortVisibleEvents, showEventsPage, EVENTS_PER_PAGE } from '../utils/eventFilters';
 
-  function debounce(fn, ms = 150) {
-    let timer;
-    return (...args) => { clearTimeout(timer); timer = setTimeout(() => fn(...args), ms); };
-  }
-
-  const tabs = Array.from(document.querySelectorAll('.tab'));
-  const panels = document.querySelectorAll('.panel');
-
-  const deckTag = document.getElementById('deckTag');
-  const deckTitle = document.getElementById('deckTitle');
-  const deckData = document.getElementById('deckData');
-  const deckDesc = document.getElementById('deckDesc');
-  const deckLinks = document.getElementById('deckLinks');
-  const detailDeck = document.getElementById('detailDeck');
-  const deckToggle = document.getElementById('deckToggle');
-  const deckHandle = document.getElementById('deckHandle');
-  const deckSummary = document.getElementById('deckSummary');
-  const deckStateStorageKey = 'bread:detailDeckState';
-
-  // Event filtering
-  const eventSearch = document.getElementById('eventSearch');
-  const yearFilters = document.getElementById('yearFilters');
-  const venueFilters = document.getElementById('venueFilters');
-  const eventCards = Array.from(document.querySelectorAll('.cards .card[data-kind="event"]'));
+  const tabs = Array.from(document.querySelectorAll<HTMLElement>('.tab'));
+  const panels = Array.from(document.querySelectorAll<HTMLElement>('.panel'));
+  const eventSearch = document.getElementById('eventSearch') as HTMLInputElement | null;
+  const eventCards = Array.from(document.querySelectorAll<HTMLElement>('.cards .card[data-kind="event"]'));
   const resultCount = document.getElementById('eventsResultCount');
-  const eventSort = document.getElementById('eventSort');
-  const quickFilters = document.getElementById('quickFilters');
+  const eventSort = document.getElementById('eventSort') as HTMLSelectElement | null;
   const loadMoreBtn = document.getElementById('loadMoreEvents');
-
-  // Extract unique years and venues
-  const years = [...new Set(documentedChronology.map(e => e.year))].sort();
-  const venues = [...new Set(documentedChronology.map(e => e.venue))].sort();
-
-  createYearVenueChips(yearFilters, years, 'year');
-  createYearVenueChips(venueFilters, venues, 'venue');
 
   let activeFilters = { year: 'all', venue: 'all', search: '', quick: 'all', sort: 'oldest' };
   let visibleEvents: HTMLElement[] = [];
   let currentPage = 1;
+
+  function triggerHaptic(pattern = 8) {
+    if ('vibrate' in navigator) navigator.vibrate(pattern);
+  }
 
   function filterAndShowEvents() {
     visibleEvents = filterEvents(eventCards, activeFilters);
@@ -127,294 +96,107 @@ const {
     currentPage = showEventsPage(visibleEvents, 1, resultCount, loadMoreBtn);
   }
 
-  function triggerHaptic(pattern = 10) {
-    if (!('vibrate' in navigator)) return;
-    navigator.vibrate(pattern);
-  }
+  function activateTab(tab: HTMLElement, { focus = false, updateUrl = true } = {}) {
+    const panelId = tab.dataset.panel;
+    if (!panelId) return;
 
-  function setDeckState(state = 'collapsed', { persist = true } = {}) {
-    if (!detailDeck || !deckToggle) return;
-    const normalized = ['collapsed', 'peek', 'expanded'].includes(state) ? state : 'collapsed';
-
-    detailDeck.classList.toggle('is-collapsed', normalized === 'collapsed');
-    detailDeck.classList.toggle('is-peek', normalized === 'peek');
-    detailDeck.classList.toggle('is-expanded', normalized === 'expanded');
-    detailDeck.classList.toggle('is-open', normalized !== 'collapsed');
-    deckToggle.setAttribute('aria-expanded', String(normalized !== 'collapsed'));
-    deckToggle.textContent = normalized === 'expanded' ? 'Collapse info' : normalized === 'peek' ? 'Expand info' : 'Show info';
-
-    if (!persist) return;
-    try {
-      window.localStorage.setItem(deckStateStorageKey, normalized);
-    } catch {
-      // Ignore storage access restrictions.
-    }
-  }
-
-  function nextDeckState() {
-    if (!detailDeck || detailDeck.classList.contains('is-collapsed')) return 'peek';
-    if (detailDeck.classList.contains('is-peek')) return 'expanded';
-    return 'collapsed';
-  }
-
-  function hydrateDeckState() {
-    if (!detailDeck || !deckToggle) return;
-
-    let storedPreference = null;
-    try {
-      storedPreference = window.localStorage.getItem(deckStateStorageKey);
-    } catch {
-      storedPreference = null;
-    }
-
-    setDeckState(storedPreference || 'collapsed', { persist: false });
-  }
-
-  function hydrateAudioEmbeds() {
-    const isMobile = window.matchMedia('(max-width: 780px)').matches;
-    const targets = document.querySelectorAll('.embed-preview[data-embed-src]');
-    targets.forEach((preview, index) => {
-      if (isMobile && index > 0) return;
-      loadEmbedPreview(preview);
-    });
-  }
-
-  function loadEmbedPreview(preview: HTMLElement) {
-    const src = preview.getAttribute('data-embed-src');
-    const safeSrc = sanitizeClientHref(src);
-    if (!safeSrc || preview.dataset.loaded === 'true') return;
-    const iframe = document.createElement('iframe');
-    iframe.title = preview.getAttribute('data-title') || 'Embedded player';
-    iframe.width = '100%';
-    iframe.height = preview.getAttribute('data-height') || '166';
-    iframe.loading = 'lazy';
-    iframe.src = safeSrc;
-    const allow = preview.getAttribute('data-allow');
-    const sandbox = preview.getAttribute('data-sandbox');
-    if (allow) iframe.setAttribute('allow', allow);
-    if (sandbox) iframe.setAttribute('sandbox', sandbox);
-    preview.replaceChildren(iframe);
-    preview.dataset.loaded = 'true';
-  }
-
-  document.querySelectorAll('.load-player').forEach((button) => {
-    button.addEventListener('click', () => {
-      const preview = button.closest('.embed-preview');
-      if (preview) loadEmbedPreview(preview);
-      triggerHaptic(8);
-    });
-  });
-
-  function activateTab(tab: HTMLElement, { focus = false } = {}) {
-    const panelId = tab.getAttribute('data-panel');
     tabs.forEach((item) => {
-      const isActive = item.getAttribute('data-panel') === panelId;
-      item.classList.toggle('active', isActive);
-      item.setAttribute('aria-selected', String(isActive));
-      item.tabIndex = isActive ? 0 : -1;
+      const active = item.dataset.panel === panelId;
+      item.classList.toggle('active', active);
+      item.setAttribute('aria-selected', String(active));
+      item.tabIndex = active ? 0 : -1;
     });
 
     panels.forEach((panel) => {
-      const isActive = panel.id === panelId;
-      panel.classList.toggle('active', isActive);
-      panel.hidden = !isActive;
+      const active = panel.id === panelId;
+      panel.classList.toggle('active', active);
+      panel.hidden = !active;
     });
 
     if (panelId === 'panel-audio') hydrateAudioEmbeds();
     if (focus) tab.focus();
-    triggerHaptic(8);
+
+    if (updateUrl) {
+      const url = new URL(window.location.href);
+      const section = panelId.replace('panel-', '');
+      if (section === 'events') url.searchParams.delete('section');
+      else url.searchParams.set('section', section);
+      history.replaceState({}, '', url);
+    }
   }
 
   tabs.forEach((tab, index) => {
     tab.tabIndex = tab.classList.contains('active') ? 0 : -1;
-
-    tab.addEventListener('click', () => activateTab(tab));
-
+    tab.addEventListener('click', () => {
+      activateTab(tab);
+      triggerHaptic();
+    });
     tab.addEventListener('keydown', (event) => {
-      const key = event.key;
-      if (!['ArrowRight', 'ArrowLeft', 'Home', 'End'].includes(key)) return;
-
+      if (!['ArrowRight', 'ArrowLeft', 'Home', 'End'].includes(event.key)) return;
       event.preventDefault();
       let nextIndex = index;
-
-      if (key === 'ArrowRight') nextIndex = (index + 1) % tabs.length;
-      if (key === 'ArrowLeft') nextIndex = (index - 1 + tabs.length) % tabs.length;
-      if (key === 'Home') nextIndex = 0;
-      if (key === 'End') nextIndex = tabs.length - 1;
-
+      if (event.key === 'ArrowRight') nextIndex = (index + 1) % tabs.length;
+      if (event.key === 'ArrowLeft') nextIndex = (index - 1 + tabs.length) % tabs.length;
+      if (event.key === 'Home') nextIndex = 0;
+      if (event.key === 'End') nextIndex = tabs.length - 1;
       activateTab(tabs[nextIndex], { focus: true });
     });
   });
 
-  function updateDeck(payload: {
-    tag: string;
-    title: string;
-    data: string;
-    desc: string;
-    links: Array<{ href: string; label: string; external?: boolean }>;
-  }) {
-    if (!deckTag || !deckTitle || !deckData || !deckDesc || !deckLinks) return;
-    deckTag.textContent = payload.tag;
-    deckTitle.textContent = payload.title;
-    deckData.textContent = payload.data;
-    deckDesc.textContent = payload.desc;
-    deckLinks.innerHTML = '';
-    (payload.links || []).forEach((link) => {
-      const safeHref = sanitizeClientHref(link.href);
-      if (!safeHref) return;
-
-      const a = document.createElement('a');
-      a.href = safeHref;
-      a.textContent = link.label;
-      if (link.external) {
-        a.target = '_blank';
-        a.rel = 'noreferrer noopener';
-      }
-      deckLinks.append(a);
-    });
-
-    if (deckSummary) deckSummary.textContent = `${payload.tag}: ${payload.title}`;
-    setDeckState('peek');
-  }
-
-  function sanitizeClientHref(value: string | null | undefined): string | null {
+  function sanitizeClientHref(value: string | null): string | null {
     if (!value) return null;
-    if (value.startsWith('/') || value.startsWith('#') || value.startsWith('?')) return value;
-
     try {
       const parsed = new URL(value, window.location.origin);
-      return ['http:', 'https:', 'mailto:', 'tel:'].includes(parsed.protocol) ? value : null;
+      return ['http:', 'https:'].includes(parsed.protocol) ? value : null;
     } catch {
       return null;
     }
   }
 
-  if (deckToggle && detailDeck) {
-    deckToggle.addEventListener('click', () => {
-      setDeckState(nextDeckState());
-      triggerHaptic(14);
-    });
-    if (deckHandle) {
-      deckHandle.addEventListener('click', () => {
-        setDeckState(nextDeckState());
-        triggerHaptic(14);
-      });
-    }
+  function loadEmbedPreview(preview: HTMLElement) {
+    const src = sanitizeClientHref(preview.dataset.embedSrc ?? null);
+    if (!src || preview.dataset.loaded === 'true') return;
+    const iframe = document.createElement('iframe');
+    iframe.title = preview.dataset.title || 'Embedded player';
+    iframe.width = '100%';
+    iframe.height = preview.dataset.height || '166';
+    iframe.loading = 'lazy';
+    iframe.src = src;
+    if (preview.dataset.allow) iframe.setAttribute('allow', preview.dataset.allow);
+    if (preview.dataset.sandbox) iframe.setAttribute('sandbox', preview.dataset.sandbox);
+    preview.replaceChildren(iframe);
+    preview.dataset.loaded = 'true';
   }
 
-  hydrateDeckState();
+  function hydrateAudioEmbeds() {
+    const targets = document.querySelectorAll<HTMLElement>('.embed-preview[data-embed-src]');
+    targets.forEach((preview, index) => {
+      if (window.matchMedia('(max-width: 780px)').matches && index > 0) return;
+      loadEmbedPreview(preview);
+    });
+  }
 
-  document.querySelectorAll('.pick-btn').forEach((row) => {
-    row.addEventListener('click', () => {
-      document.querySelectorAll('.pick-btn').forEach((item) => item.classList.remove('is-selected'));
-      row.classList.add('is-selected');
-      triggerHaptic([10, 24, 10]);
-
-      const kind = row.getAttribute('data-kind');
-      const index = Number(row.getAttribute('data-index') || 0);
-
-      if (kind === 'event') {
-        const event = documentedChronology[index];
-        if (!event) return;
-        const statusDescription = event.status && event.status !== 'played' ? ` Status: ${event.status}.` : '';
-
-        const eventLinks = [
-          { href: '/archive/timeline/', label: 'Open timeline →', external: false },
-          { href: '/archive/event-ledger/', label: 'Open event list →', external: false }
-        ];
-        if (event.source.href) {
-          eventLinks.push({ href: event.source.href, label: `${event.source.label} ↗`, external: Boolean(event.source.external) });
-        }
-
-        updateDeck({
-          tag: 'Event',
-          title: event.title,
-          data: `${event.year} · ${event.date} · ${event.venue}`,
-          desc: `${event.lineup}. Link: ${event.source.label}.${statusDescription}`,
-          links: eventLinks
-        });
-        return;
-      }
-
-      if (kind === 'person') {
-        const person = roster[index];
-        if (!person) return;
-        const links = [];
-        if (person.links.sc) links.push({ href: person.links.sc, label: 'SoundCloud ↗', external: true });
-        if (person.links.ig) links.push({ href: person.links.ig, label: 'Instagram ↗', external: true });
-        if (person.links.ra) links.push({ href: person.links.ra, label: 'Resident Advisor ↗', external: true });
-        if (person.links.bc) links.push({ href: person.links.bc, label: 'Bandcamp reference ↗', external: true });
-
-        updateDeck({
-          tag: 'Person',
-          title: person.name,
-          data: person.role,
-          desc: "Quick links to each resident's pages.",
-          links
-        });
-      }
-
+  document.querySelectorAll<HTMLElement>('.load-player').forEach((button) => {
+    button.addEventListener('click', () => {
+      const preview = button.closest<HTMLElement>('.embed-preview');
+      if (preview) loadEmbedPreview(preview);
+      triggerHaptic();
     });
   });
 
-  function revealEventFromHash() {
-    if (!window.location.hash.startsWith('#event-')) return;
-    const card = document.querySelector(window.location.hash);
-    if (!card) return;
-    const eventsTab = tabs.find(tab => tab.getAttribute('data-panel') === 'panel-events');
-    if (eventsTab) activateTab(eventsTab);
-    if (!visibleEvents.includes(card)) visibleEvents.unshift(card);
-    const indexInVisible = visibleEvents.indexOf(card);
-    if (indexInVisible >= EVENTS_PER_PAGE * currentPage) showEventsPage(visibleEvents, Math.ceil((indexInVisible + 1) / EVENTS_PER_PAGE), resultCount, loadMoreBtn);
-    card.style.display = '';
-    card.scrollIntoView({ block: 'center' });
-    const button = card.querySelector('.pick-btn');
-    if (button) button.click();
-  }
-
-  window.addEventListener('hashchange', revealEventFromHash);
-
   if (eventSearch) {
-    eventSearch.addEventListener('input', (e) => {
-      activeFilters.search = e.target.value;
+    eventSearch.addEventListener('input', () => {
+      activeFilters.search = eventSearch.value;
       filterAndShowEvents();
     });
   }
 
   if (eventSort) {
-    eventSort.addEventListener('change', (e) => {
-      activeFilters.sort = e.target.value;
+    eventSort.addEventListener('change', () => {
+      activeFilters.sort = eventSort.value;
       filterAndShowEvents();
     });
   }
-
-  if (quickFilters) {
-    quickFilters.addEventListener('click', (e) => {
-      const chip = e.target.closest('.chip');
-      if (!chip) return;
-      quickFilters.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-      chip.classList.add('active');
-      activeFilters.quick = chip.getAttribute('data-quick') || 'all';
-      filterAndShowEvents();
-    });
-  }
-
-  [yearFilters, venueFilters].forEach(container => {
-    if (!container) return;
-    container.addEventListener('click', (e) => {
-      const chip = e.target.closest('.chip');
-      if (!chip) return;
-
-      const type = chip.getAttribute('data-type');
-      const filter = chip.getAttribute('data-filter');
-
-      container.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-      chip.classList.add('active');
-
-      activeFilters[type] = filter;
-      filterAndShowEvents();
-    });
-  });
 
   if (loadMoreBtn) {
     loadMoreBtn.addEventListener('click', () => {
@@ -422,6 +204,26 @@ const {
     });
   }
 
+  function revealEventFromHash() {
+    if (!window.location.hash.startsWith('#event-')) return;
+    const card = document.querySelector<HTMLElement>(window.location.hash);
+    if (!card) return;
+    const eventsTab = tabs.find((tab) => tab.dataset.panel === 'panel-events');
+    if (eventsTab) activateTab(eventsTab, { updateUrl: false });
+    if (!visibleEvents.includes(card)) visibleEvents.unshift(card);
+    const cardIndex = visibleEvents.indexOf(card);
+    if (cardIndex >= EVENTS_PER_PAGE * currentPage) {
+      currentPage = showEventsPage(visibleEvents, Math.ceil((cardIndex + 1) / EVENTS_PER_PAGE), resultCount, loadMoreBtn);
+    }
+    card.style.display = '';
+    card.scrollIntoView({ block: 'center' });
+  }
+
+  const requestedSection = new URL(window.location.href).searchParams.get('section');
+  const requestedTab = tabs.find((tab) => tab.dataset.panel === `panel-${requestedSection}`);
+  if (requestedTab) activateTab(requestedTab, { updateUrl: false });
+
   filterAndShowEvents();
   revealEventFromHash();
+  window.addEventListener('hashchange', revealEventFromHash);
 </script>

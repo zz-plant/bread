@@ -190,7 +190,6 @@ export async function getHomepageData() {
 	].filter((entry): entry is Record<string, unknown> => Boolean(entry));
 
 	const homeNavLinks = [
-		{ label: "Home", href: "/" },
 		{ label: "Archive", href: "/archive/" },
 		{ label: "Flyers", href: "/archive/flyers/" },
 		{ label: "Radio shows", href: "/archive/radio-shows/" },

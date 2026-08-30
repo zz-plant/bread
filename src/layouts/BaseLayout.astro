@@ -19,6 +19,7 @@ interface Props {
 	noindex?: boolean;
 	ogType?: "website" | "article";
 	navLinks?: NavLink[];
+	footerNavLinks?: NavLink[];
 	topStrip?: { left: string; right: string };
 	footerNote?: string;
 	wide?: boolean;
@@ -41,6 +42,7 @@ const {
 	noindex = false,
 	ogType,
 	navLinks = DEFAULT_NAV_LINKS,
+	footerNavLinks = navLinks,
 	topStrip,
 	footerNote = "BREAD archive and story.",
 	wide = false,
@@ -165,7 +167,7 @@ const activeLinkHref = navLinks
               <p>{footerNote}</p>
               <nav aria-label="Footer">
                 <ul>
-                  {navLinks.map((link) => (
+                  {footerNavLinks.map((link) => (
                     <li><a href={link.href}>{link.label}</a></li>
                   ))}
                 </ul>

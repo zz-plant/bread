@@ -27,22 +27,27 @@ const {
 	residentSoundcloudProfiles,
 	buildSoundCloudEmbedSrc,
 } = Astro.props;
+
+const listeningLinks = directoryLinks.filter(
+	(item) =>
+		![
+			"https://soundcloud.com/breadfm",
+			"/archive/flyers/",
+			"/archive/radio-shows/",
+			"/archive/timeline/",
+			"/story/",
+		].includes(item.href),
+);
 ---
 
-<article class="panel" id="panel-links" role="tabpanel" aria-labelledby="tab-links" hidden>
-  <h2>More links</h2>
-  <ul class="route-list">
-    {directoryLinks.map((item) => (
-      <li>
-        <CardLink href={item.href} label={item.label} external={item.external} />
-      </li>
-    ))}
-  </ul>
-</article>
-
 <article class="panel" id="panel-audio" role="tabpanel" aria-labelledby="tab-audio" hidden>
-  <h2>Listen</h2>
-  <p class="audio-intro">Listen to BREAD uploads, playlists, and resident pages. Each player below loads on demand when you click "Load player".</p>
+  <div class="panel-heading">
+    <div>
+      <p class="section-kicker">Radio + recordings</p>
+      <h2>Listen</h2>
+    </div>
+  </div>
+  <p class="audio-intro">BREAD uploads, playlists, and resident pages. Players load only when requested.</p>
   <div class="audio-actions">
     <a href="https://soundcloud.com/breadfm" target="_blank" rel="noreferrer noopener">Open BREAD profile ↗</a>
   </div>
@@ -78,7 +83,7 @@ const {
   </section>
   <section class="platform-embeds" aria-label="Other players">
     <h3>Other players</h3>
-    <p class="resident-audio-copy">More listening spots: Internet Public Radio, Apple Podcasts, and Facebook. Instagram and RA are linked in the links tab.</p>
+    <p class="resident-audio-copy">Internet Public Radio, Apple Podcasts, and Facebook.</p>
     <ul class="audio-grid">
       <li class="audio-card">
         <h4>{platformEmbeds.ipr.title}</h4>
@@ -112,6 +117,16 @@ const {
         </div>
         <a href={platformEmbeds.facebook.href} target="_blank" rel="noreferrer noopener">Open Facebook page ↗</a>
       </li>
+    </ul>
+  </section>
+  <section class="listening-links" aria-labelledby="listening-links-title">
+    <h3 id="listening-links-title">Elsewhere</h3>
+    <ul class="route-list">
+      {listeningLinks.map((item) => (
+        <li>
+          <CardLink href={item.href} label={item.label} external={item.external} />
+        </li>
+      ))}
     </ul>
   </section>
 </article>

@@ -14,18 +14,19 @@ const { roster } = Astro.props;
 ---
 
 <article class="panel" id="panel-people" role="tabpanel" aria-labelledby="tab-people" hidden>
-  <h2>People</h2>
-  <p class="click-hint"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></svg>Click any person card to see details in the side panel.</p>
+  <div class="panel-heading">
+    <div>
+      <p class="section-kicker">Residents + collaborators</p>
+      <h2>People</h2>
+    </div>
+  </div>
+  <p class="people-intro">The people represented in the BREAD archive, with direct links where available.</p>
   <ul class="cards people">
-    {roster.map((person: Person, index: number) => (
-      <li class="card" data-kind="person" data-index={index}>
-        <button class="pick-btn" data-kind="person" data-index={index} aria-label={`Open links for ${person.name}`}>
-          <div>
-            <p class="title">{person.name}</p>
-            <p class="meta">{person.role}</p>
-            {person.notes && <p class="lineup">{person.notes}</p>}
-          </div>
-        </button>
+    {roster.map((person: Person) => (
+      <li class="card" data-kind="person">
+        <h3 class="title">{person.name}</h3>
+        <p class="meta">{person.role}</p>
+        {person.notes && <p class="lineup">{person.notes}</p>}
         <div class="person-links">
           {person.links.sc && (
             <a href={person.links.sc} class="person-link" target="_blank" rel="noreferrer noopener" aria-label={`${person.name} SoundCloud`}>SC ↗</a>

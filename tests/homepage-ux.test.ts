@@ -77,4 +77,27 @@ describe("homepage UX", () => {
 	it("removes the unused legacy rail component", () => {
 		expect(() => read("src/components/SideRail.astro")).toThrow();
 	});
+
+	it("does not retain deleted rail or share affordances", () => {
+		const cardLink = read("src/components/CardLink.astro");
+		const baseLayout = read("src/layouts/BaseLayout.astro");
+		const printStyles = read("src/styles/print.css");
+
+		expect(cardLink).not.toContain("card-link--rail");
+		expect(cardLink).not.toContain("variant");
+		expect(baseLayout).not.toContain("share-btn");
+		expect(baseLayout).not.toContain("navigator.share");
+		expect(printStyles).not.toContain("share-buttons");
+	});
+
+	it("does not repeat archive tile titles as kicker and link", () => {
+		const archiveIndex = read("src/pages/archive/index.astro");
+
+		expect(archiveIndex).not.toContain(
+			'<p class="section-kicker">{page.data.title}</p>',
+		);
+		expect(archiveIndex).not.toContain(
+			'<p class="section-kicker">{section.title}</p>',
+		);
+	});
 });

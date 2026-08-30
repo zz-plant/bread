@@ -185,45 +185,6 @@ const activeLinkHref = navLinks
       import { enableHapticNavigation } from '../utils/haptics';
 
       enableHapticNavigation();
-
-      // Share buttons
-      document.querySelectorAll('.share-btn').forEach(btn => {
-        btn.addEventListener('click', async (e) => {
-          const platform = e.currentTarget.dataset.platform;
-          const container = e.currentTarget.closest('.share-buttons');
-          if (!container) return;
-          
-          const url = new URL(container.dataset.url || window.location.pathname, window.location.origin).toString();
-          const title = container.dataset.title || document.title;
-
-          async function copyToClipboard(text: string) {
-            try {
-              await navigator.clipboard.writeText(text);
-              const originalText = e.currentTarget.textContent;
-              e.currentTarget.textContent = '✓';
-              setTimeout(() => { e.currentTarget.textContent = originalText; }, 2000);
-            } catch {
-              // Clipboard API unavailable — silently fail
-            }
-          }
-
-          if (platform === 'native') {
-            if (navigator.share) {
-              try {
-                await navigator.share({ title, url });
-                return;
-              } catch (error) {
-                if (error?.name === 'AbortError') return;
-              }
-            }
-            await copyToClipboard(url);
-          } else if (platform === 'copy') {
-            await copyToClipboard(url);
-          } else if (platform === 'twitter') {
-            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`, '_blank');
-          }
-        });
-      });
     </script>
   </body>
 </html>

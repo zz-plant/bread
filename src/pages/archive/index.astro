@@ -112,7 +112,6 @@ const overviewStats = [
     <ul class="archive-map">
       {primaryPages.map((page) => (
         <li class="tile">
-          <p class="section-kicker">{page.data.title}</p>
           <CardLink href={`/archive/${toContentSlug(page.id)}/`} label={`${page.data.title}`} />
           <p>{page.data.description}</p>
         </li>
@@ -125,7 +124,6 @@ const overviewStats = [
     <ul class="archive-map">
       {visualSections.map((section) => (
         <li class="tile">
-          <p class="section-kicker">{section.title}</p>
           <CardLink href={section.href} label={section.title} />
           <p>{section.description}</p>
         </li>
@@ -138,7 +136,6 @@ const overviewStats = [
     <ul class="archive-map">
       {referencePages.map((page) => (
         <li class="tile">
-          <p class="section-kicker">{page.data.title}</p>
           <CardLink href={`/archive/${toContentSlug(page.id)}/`} label={`${page.data.title}`} />
           <p>{page.data.description}</p>
         </li>

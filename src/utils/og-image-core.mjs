@@ -1,31 +1,18 @@
 const WIDTH = 1200;
 const HEIGHT = 630;
 
-import { ACCENT_COLOR } from "./theme";
-
 export const OG_IMAGE_WIDTH = WIDTH;
 export const OG_IMAGE_HEIGHT = HEIGHT;
 
-type OgVariant = "home" | "archive" | "story";
+const ACCENT_COLOR = "#ff5a1f";
 
-interface OgImageConfig {
-	eyebrow: string;
-	title: string;
-	subtitle: string;
-	variant?: OgVariant;
-}
+const OgVariant = {
+	home: "home",
+	archive: "archive",
+	story: "story",
+};
 
-interface Palette {
-	bg: string;
-	panel: string;
-	stroke: string;
-	title: string;
-	body: string;
-	muted: string;
-	accent: string;
-}
-
-const palette: Record<OgVariant, Palette> = {
+const palette = {
 	home: {
 		bg: "#f8fafc",
 		panel: "#ffffff",
@@ -55,13 +42,13 @@ const palette: Record<OgVariant, Palette> = {
 	},
 };
 
-const routeContext: Record<OgVariant, string> = {
+const routeContext = {
 	home: "Home overview",
 	archive: "Archive records",
 	story: "Story history",
 };
 
-const escapeXml = (value: string): string =>
+const escapeXml = (value) =>
 	value
 		.replace(/&/g, "&amp;")
 		.replace(/</g, "&lt;")
@@ -69,18 +56,14 @@ const escapeXml = (value: string): string =>
 		.replace(/"/g, "&quot;")
 		.replace(/'/g, "&apos;");
 
-const normalize = (value: string): string => value.replace(/\s+/g, " ").trim();
+const normalize = (value) => value.replace(/\s+/g, " ").trim();
 
-const wrapLines = (
-	text: string,
-	maxLength: number,
-	maxLines: number,
-): string[] => {
+const wrapLines = (text, maxLength, maxLines) => {
 	const clean = normalize(text);
 	if (!clean) return [""];
 
 	const words = clean.split(" ");
-	const lines: string[] = [];
+	const lines = [];
 	let line = "";
 
 	for (const word of words) {
@@ -105,12 +88,7 @@ const wrapLines = (
 	return lines.slice(0, maxLines);
 };
 
-export const createOgSvg = ({
-	eyebrow,
-	title,
-	subtitle,
-	variant = "home",
-}: OgImageConfig): string => {
+export const createOgSvg = ({ eyebrow, title, subtitle, variant = "home" }) => {
 	const colors = palette[variant];
 	const safeEyebrow = escapeXml(normalize(eyebrow).toUpperCase());
 	const titleLines = wrapLines(title, 24, 3);
@@ -152,10 +130,12 @@ export const createOgSvg = ({
 </svg>`;
 };
 
-export const svgResponse = (svg: string): Response =>
+export const svgResponse = (svg) =>
 	new Response(svg, {
 		headers: {
 			"Content-Type": "image/svg+xml; charset=utf-8",
 			"Cache-Control": "public, max-age=86400, stale-while-revalidate=604800",
 		},
 	});
+
+export const OG_VARIANT = OgVariant;

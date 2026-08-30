@@ -1,7 +1,7 @@
 ---
 import globalStylesUrl from "../styles/global.css?url";
 import printStylesUrl from "../styles/print.css?url";
-import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from "../utils/ogImage";
+import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from "../utils/og-image-core.mjs";
 
 interface NavLink {
 	label: string;
@@ -36,7 +36,7 @@ const {
 	showSiteFrame = true,
 	structuredData,
 	canonical,
-	ogImage = "/og-default.svg",
+	ogImage = "/og-default.png",
 	ogImageAlt,
 	noindex = false,
 	ogType,

@@ -20,7 +20,8 @@ Read these next when the task needs them:
 - `src/content/archive/` — archive pages (ordered content)
 - `src/content/events/` — event data (JSON with title, date, venue, lineup, confidence)
 - `src/content/roster/` — roster data (JSON with name, role, links)
-- `src/pages/og/[...slug].svg.ts` — OG image generation
+- `scripts/generate-og-images.mjs` — build-time OG PNG generation
+- `src/utils/og-image-core.mjs` — canonical OG SVG builder (single source)
 - `src/layouts/` — page layouts
 - `src/components/` — reusable components
 - `scripts/generate-data.mjs` — preflight data generation
@@ -30,7 +31,7 @@ Read these next when the task needs them:
 ## Commands
 
 - `npm run dev` — start Astro dev server
-- `npm run build` — preflight data gen + astro check + astro build
+- `npm run build` — preflight data gen + OG images + astro check + astro build
 - `npm run lint` — runs `astro check` (type/content validation, not traditional lint)
 - `npm run format` — Prettier check (not run in CI)
 - `npm run preview` — preview production build locally
@@ -47,13 +48,13 @@ CI order: `npm ci` → `npm run lint` → `npm run build`
 - `events` — event data (title, date, year, venue, lineup, confidence, status)
 - `roster` — roster members (name, role, notes, links, order)
 
-**OG Images**: generated via `.svg.ts` files in `src/pages/og/`. The `[...slug].svg.ts` file handles dynamic OG image generation for homepage and archive pages.
+**OG Images**: built at build time from `src/utils/og-image-core.mjs` into PNGs in `public/og/` by `scripts/generate-og-images.mjs`. Social cards use PNG `og:image` (SVG is not rendered by major platforms).
 
 **Key Routes**:
 - `/` — homepage (`src/pages/index.astro`)
 - `/story/` — canonical story page
 - `/archive/` — archive pages (flyers, radio shows, timeline, event ledger, people, venues)
-- `/og/*.svg` — OG image endpoints
+- `/og/*.png` — OG image endpoints
 
 **Deployment**: Cloudflare Pages via `@astrojs/cloudflare` adapter.
 
@@ -69,7 +70,7 @@ Repository skills live in `.agents/skills/`. Prefer explicit skill invocation fo
 - All blog posts use MDX format with required frontmatter (title, description, date).
 - Draft posts have `draft: true` in frontmatter and should not appear in production builds.
 - OG images are generated programmatically — avoid manual image creation for social cards.
-- The build process runs `scripts/generate-data.mjs` before type checking and building.
+- The build process runs `scripts/generate-data.mjs` then `scripts/generate-og-images.mjs` before type checking and building.
 - Prefer updating existing components/layouts over creating new ones for small changes.
 - Use Cloudflare-specific features (R2, KV, etc.) only when documented in `wrangler.jsonc`.
 
@@ -93,7 +94,7 @@ Repository skills live in `.agents/skills/`. Prefer explicit skill invocation fo
 - **Astro over Next.js** (2026-05): Chose Astro for static site simplicity and Cloudflare compatibility.
 - **MDX for content**: Enables rich content with components while maintaining markdown simplicity.
 - **Cloudflare deployment**: Using `@astrojs/cloudflare` adapter for edge deployment.
-- **OG image generation**: Programmatic SVG generation via `.svg.ts` files — no manual image assets.
+- **OG image generation**: `scripts/generate-og-images.mjs` renders `og-image-core.mjs` SVGs to PNG at build time (via sharp) into `public/og/`. PNG, not SVG, because social platforms don't render SVG OG images.
 - **No traditional linting**: `astro check` provides type and content validation; Prettier for formatting only.
 
 ## Required Output Shape

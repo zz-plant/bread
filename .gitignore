@@ -4,6 +4,7 @@ dist/
 .DS_Store
 .wrangler/
 src/data/*.json
+public/og/
 .wrangler/
 opencode.json
 

@@ -246,6 +246,7 @@ const activeLinkHref = navLinks
     justify-content: space-between;
     align-items: center;
     gap: 1rem;
+    min-width: 0;
     padding: 0.8rem max(1rem, env(safe-area-inset-right)) 0.8rem max(1rem, env(safe-area-inset-left));
   }
 
@@ -260,6 +261,7 @@ const activeLinkHref = navLinks
     display: flex;
     justify-content: space-between;
     gap: 1rem;
+    flex-wrap: wrap;
     padding: 0.55rem max(1rem, env(safe-area-inset-right)) 0.4rem max(1rem, env(safe-area-inset-left));
     font-family: var(--font-mono);
     font-size: 0.68rem;
@@ -267,6 +269,11 @@ const activeLinkHref = navLinks
     text-transform: uppercase;
     color: var(--color-text-muted);
     border-bottom: 1px solid var(--color-border);
+  }
+
+  .site-topstrip span {
+    min-width: 0;
+    overflow-wrap: anywhere;
   }
 
   .brand {
@@ -291,6 +298,10 @@ const activeLinkHref = navLinks
     gap: 0.45rem;
     flex-wrap: wrap;
     justify-content: flex-end;
+  }
+
+  nav li {
+    min-width: 0;
   }
 
   nav a {

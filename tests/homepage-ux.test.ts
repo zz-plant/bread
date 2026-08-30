@@ -52,6 +52,17 @@ describe("homepage UX", () => {
 		expect(styles).not.toContain(".deck");
 	});
 
+	it("keeps responsive controls usable without narrow-screen overflow", () => {
+		const styles = read("src/styles/home.css");
+
+		expect(styles).toContain("min-height: 2.75rem");
+		expect(styles).toContain(
+			"grid-template-columns: minmax(0, 1fr) minmax(11rem, auto)",
+		);
+		expect(styles).toContain("grid-template-columns: auto minmax(0, 1fr)");
+		expect(styles).toContain("text-wrap: pretty");
+	});
+
 	it("does not repeat global navigation in the homepage footer", () => {
 		const homepage = read("src/pages/index.astro");
 

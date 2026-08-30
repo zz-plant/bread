@@ -11,7 +11,7 @@ tags:
 
 ## Founding core
 
-- **Cage A (Kanav Jain)**
+- **Cage A**
 - **Prawns**
 
 Their early goal, based on archive notes, was to make space in San Francisco for riskier and less-commercial club sounds.
@@ -31,7 +31,7 @@ Recurring names across archive notes and public traces include:
 
 Names vary by platform, including Instagram bios and SoundCloud profiles. Together they show a roster that changed over time.
 
-For profile links, see [Radio Shows](/archive/radio-shows/).
+For profile links, use the [Radio Shows](/archive/radio-shows/) directory.
 
 ## Network effects
 
@@ -43,7 +43,7 @@ BREAD operated as more than a party series:
 
 ## What still needs confirmation
 
-- Founding names and the core resident structure are currently marked **strong/user-archive** until line-by-line sources are attached.
-- Later-career claims for individuals should stay **open** unless directly tied to reliable references in this repo.
+- Founding names and the core resident structure are retained as archive-sourced history and may be refined as references improve.
+- Later-career claims for individuals stay limited to the public links and roles represented here.
 
 Related: [Timeline](/archive/timeline/) and [Venue Map](/archive/map/).

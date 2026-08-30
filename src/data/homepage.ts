@@ -44,7 +44,7 @@ export async function getHomepageData() {
 						external: event.data.sourceExternal,
 					}
 				: {
-						label: event.data.sourceLabel || "Archive notes (link coming soon)",
+						label: event.data.sourceLabel || "Archive-sourced record",
 					},
 		}));
 

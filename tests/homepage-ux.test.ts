@@ -111,4 +111,31 @@ describe("homepage UX", () => {
 			'<p class="section-kicker">{section.title}</p>',
 		);
 	});
+
+	it("keeps the story page focused on its canonical narrative source", () => {
+		const storyPage = read("src/pages/story/index.astro");
+
+		expect(storyPage).not.toContain('class="what-bread-was"');
+		expect(storyPage).toContain("<StoryContent />");
+	});
+
+	it("keeps the timeline chronology in one canonical page", () => {
+		const timelineContent = read("src/content/archive/timeline.md");
+		const timelinePage = read("src/pages/archive/timeline.astro");
+
+		expect(timelineContent).toContain("canonical timeline presentation");
+		expect(timelineContent).not.toContain("## Era 1");
+		expect(timelinePage).toContain("const eras = [");
+	});
+
+	it("does not expose internal research or private-location wording", () => {
+		const ledger = read("src/content/archive/event-ledger.md");
+		const map = read("src/pages/archive/map.astro");
+		const radio = read("src/pages/archive/radio-shows.astro");
+
+		expect(ledger).not.toContain("address by text");
+		expect(ledger).not.toContain("link coming soon");
+		expect(map).not.toContain("anti-bot");
+		expect(radio).not.toContain("Recovered Facebook event URLs");
+	});
 });

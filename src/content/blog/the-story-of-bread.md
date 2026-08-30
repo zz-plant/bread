@@ -18,7 +18,7 @@ For event-by-event links, use the [Archive](/archive/) and the [Event List](/arc
 
 ## What this page covers
 
-The timeline below is based on materials currently tracked in this repository (archive notes, recovered event URLs, flyer images, and public Instagram posts). Treat it as a living draft, not a final word.
+The timeline below draws from flyer images, public listings, and public Instagram posts. Treat it as a living archive that may be refined as sources improve.
 
 ## Chronological summary
 
@@ -50,7 +50,7 @@ Documented campaigns reference support for organizations including NBDA, Atlanta
 
 Public post history then shows a radio chapter through Internet Public Radio and HKCR.
 
-The latest public post in this archive pass is a March 2024 SF event announcement with a secret SOMA location flow.
+The latest public post in this archive pass is a March 2024 SF event announcement in the SOMA area.
 
 ## Quick timeline snapshot
 
@@ -71,7 +71,7 @@ This table gives a quick, plain-English timeline. For full rows and links, use t
 | 2021-07-10 | Long Bread Summer             | Livestream | Fundraiser stream supporting Rebuilding Alliance and Oxygen for India.      | [Flyer image](/bread-long-bread-summer-fundraiser-july-10.png) |
 | 2022-07-27 | Bread FM monthly launch       | Radio      | Monthly show framing appears on Internet Public Radio.                      | [Instagram post](https://www.instagram.com/p/Cgfdlh4Pdtx/) |
 | 2023-06-15 | HKCR residency announcement   | Radio      | HKCR residency announcement and first-show phase.                           | [Announcement](https://www.instagram.com/p/CthThTOpds1/) |
-| 2024-03-21 | SF event announcement         | Club night | Latest public post in this pass (secret SOMA location flow).                | [Instagram post](https://www.instagram.com/p/C4ygjDoynTY/) |
+| 2024-03-21 | SF event announcement         | Club night | Latest public post in this pass (SOMA area).                                | [Instagram post](https://www.instagram.com/p/C4ygjDoynTY/) |
 
 ## Current gaps
 

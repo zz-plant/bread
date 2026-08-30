@@ -16,16 +16,16 @@ This archive is built to keep growing as more history is confirmed.
 - **Timeline**: key eras and dates. See [Timeline](/archive/timeline/).
 - **Event list**: event-by-event rows with links. See [Event List](/archive/event-ledger/).
 - **People**: founders, residents, collaborators, and local impact. See [People](/archive/people-network/).
-- **Venues**: where things happened and how formats changed. See [Venues](/archive/venues-format-shifts/).
-- **Links**: main links and recovered event URLs. See [Links](/archive/channel-profile-directory/).
+- **Venues**: where things happened and how formats changed. See the [Venue Map](/archive/map/).
+- **Links**: main links and recovered event URLs. See the [Radio Shows](/archive/radio-shows/) directory.
 - **Story page**: a narrative walkthrough. See [The Story of BREAD](/story/).
 
 ## Archive principles
 
 - Preserve claims with clear dates where possible.
-- Separate **confirmed** facts from **pending review** notes.
+- Separate confirmed facts from archive-sourced records that may be refined.
 - Keep pages linkable and easy to update as new materials appear.
 
 ## Current status
 
-The archive currently combines in-repo research notes, user-supplied draft notes, and recovered links. As more primary material is attached event by event, status notes can be tightened.
+The archive combines public listings, flyer images, and contributed historical material. Records are kept broad when the available public source does not support more detail.

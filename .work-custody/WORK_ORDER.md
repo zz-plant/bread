@@ -16,6 +16,10 @@ Find and fix UI and copy on bread.fm that reads as obviously AI-generated ("vibe
 - Changing routes, nav structure, or the content collection schema
 - Inventing facts: every rewritten sentence must trace back to existing copy, event data, source URLs, or the artwork itself
 
+## Addendum (2026-09-24): design pass
+Follow-up request: "make the graphic design less unimpressive, less displeasing, easier on the eyes, more intuitive across mobile and desktop."
+Additionally allowed: rewriting `src/styles/*.css`, page/component markup and scoped styles, `BaseLayout` header/footer/nav, homepage tab script, and updating CSS-string assertions in `tests/homepage-ux.test.ts` to match the new layout.
+
 ## Required Verification
 - `npm run lint` (biome) introduces no new errors
 - `npm test`

@@ -16,3 +16,5 @@ Audit of changed files against authorized scope in `WORK_ORDER.md`.
 | scripts/generate-data.mjs | Yes | Flyer title and radio guest heuristics |
 | tests/homepage-ux.test.ts | Yes | Copy regression test |
 | .work-custody/* | Yes | Custody records |
+| src/styles/global.css, src/styles/home.css | Yes | Design pass: tokens, shared components, homepage layout |
+| src/layouts/BaseLayout.astro, ArchiveLayout.astro, src/components/Breadcrumbs.astro, CardLink.astro | Yes | Design pass: unified header/nav/footer and page headers |

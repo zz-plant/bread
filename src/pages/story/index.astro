@@ -98,119 +98,81 @@ const storyGallery = [
   ogImage="/og/blog/the-story-of-bread.png"
   ogImageAlt={`${storyPost.data.title} — ${storyPost.data.description}`}
 >
-  <article class="panel">
+  <article>
     <header class="page-header">
-      <h1>{storyPost.data.title}</h1>
-      <p>{storyPost.data.description}</p>
-      <p class="section-meta">Published {formatDate(storyPost.data.date)}</p>
       <Breadcrumbs items={breadcrumbItems} />
-      <nav class="link-row" aria-label="Story links">
-        <a class="chip-link" href="/archive/">Archive</a>
-        <a class="chip-link" href="/archive/timeline/">Timeline</a>
-      </nav>
+      <h1>{storyPost.data.title}</h1>
+      <p class="intro">{storyPost.data.description}</p>
+      <p class="section-meta">Published {formatDate(storyPost.data.date)}</p>
     </header>
-    <hr />
-    <StoryContent />
+    <div class="prose">
+      <StoryContent />
+    </div>
     <section class="story-gallery" aria-labelledby="story-gallery-title">
-      <h2 id="story-gallery-title">Flyers and photos</h2>
-      <ul class="story-gallery-grid">
+      <div class="story-gallery-head">
+        <h2 id="story-gallery-title">Flyers and photos</h2>
+        <a href="/archive/flyers/">All flyers →</a>
+      </div>
+      <ul class="gallery">
         {storyGallery.map((item) => (
           <li>
-            <figure>
-              <img src={item.src} alt={item.alt} loading="lazy" decoding="async" />
-              <figcaption>
-                <p>{item.title}</p>
-                <small>{item.caption}</small>
+            <figure class="gallery-item">
+              <span class="gallery-frame">
+                <img src={item.src} alt={item.alt} loading="lazy" decoding="async" />
+              </span>
+              <figcaption class="gallery-caption">
+                <span class="gallery-title">{item.title}</span>
+                <span class="gallery-meta">{item.caption}</span>
               </figcaption>
             </figure>
           </li>
         ))}
       </ul>
-      <p class="story-gallery-route"><a href="/archive/flyers/">All flyers →</a></p>
     </section>
+    <nav class="pager" aria-label="Keep reading">
+      <a class="pager-prev" href="/archive/timeline/">
+        <span>Year by year</span>
+        <strong>Timeline</strong>
+      </a>
+      <a class="pager-next" href="/archive/event-ledger/">
+        <span>Every night, with sources</span>
+        <strong>Event list</strong>
+      </a>
+    </nav>
   </article>
 </BaseLayout>
 
 <style>
   .story-gallery {
-    margin: 1.5rem 0 0;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    background: var(--color-surface);
-    padding: 0.85rem;
-    display: grid;
-    gap: 0.65rem;
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-xl);
+    border-top: 1px solid var(--color-border);
   }
 
-  .story-gallery h2 {
+  .story-gallery-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: var(--space-lg);
+  }
+
+  .story-gallery-head h2 {
     margin: 0;
-    line-height: 1;
+    font: var(--text-title);
   }
 
-  .story-gallery-grid {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    gap: 0.7rem;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  }
-
-  .story-gallery-grid li {
-    border: 1px solid var(--color-border-strong);
-    border-radius: var(--radius-sm);
-    background: var(--color-surface-raised);
-    overflow: hidden;
-  }
-
-  .story-gallery-grid figure {
-    margin: 0;
-    display: grid;
-  }
-
-  .story-gallery-grid img {
-    width: 100%;
-    height: auto;
-    display: block;
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .story-gallery-grid figcaption {
-    display: grid;
-    gap: 0.2rem;
-    padding: 0.55rem 0.65rem 0.6rem;
-  }
-
-  .story-gallery-grid figcaption p {
-    margin: 0;
-    color: var(--color-text);
-    font-weight: 600;
-  }
-
-  .story-gallery-grid figcaption small {
-    color: var(--color-text-muted);
-    font-size: 0.78rem;
-  }
-
-  .story-gallery-route {
-    margin: 0.15rem 0 0;
-  }
-
-  .story-gallery-route a {
-    color: var(--color-accent);
+  .story-gallery-head a {
+    font: var(--text-caption);
+    color: var(--color-text-secondary);
     text-decoration: none;
-    border-bottom: 1px solid var(--color-border);
   }
 
-  .story-gallery-route a:hover,
-  .story-gallery-route a:focus-visible {
-    text-decoration: underline;
-    border-bottom-color: var(--color-border-strong);
+  .story-gallery-head a:hover {
+    color: var(--color-accent-text);
   }
 
-  @media (max-width: 620px) {
-    .story-gallery-grid {
-      grid-template-columns: 1fr;
-    }
+  .story-gallery figure {
+    margin: 0;
   }
 </style>

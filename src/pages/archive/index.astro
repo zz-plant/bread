@@ -77,12 +77,11 @@ const structuredDataEntries = [
   ogImage="/og/archive.png"
   ogImageAlt="BREAD archive"
 >
-  <header class="page-header panel">
-    <p class="section-kicker">Archive</p>
-    <h1>BREAD Archive</h1>
+  <header class="page-header">
+    <Breadcrumbs items={breadcrumbItems} />
+    <h1>Archive</h1>
     <p class="intro">Flyers, lineups, and links from BREAD's run, 2015–2024. For the short version, read <a href="/story/">the story</a>.</p>
     <p class="section-meta">Updated {formatDate(latestArchiveUpdate)}</p>
-    <Breadcrumbs items={breadcrumbItems} />
   </header>
 
   <section class="archive-group" aria-labelledby="primary-heading">
@@ -123,21 +122,8 @@ const structuredDataEntries = [
 </BaseLayout>
 
 <style>
-  .archive-group {
+  .archive-group + .archive-group {
     margin-top: var(--space-xl);
-  }
-
-  .archive-group:first-of-type {
-    margin-top: var(--space-lg);
-  }
-
-  .group-heading {
-    margin: 0 0 var(--space-sm);
-    font: var(--text-overline);
-    text-transform: uppercase;
-    color: var(--color-text-muted);
-    border-bottom: 1px solid var(--color-border);
-    padding-bottom: 0.45rem;
   }
 
   .archive-map {
@@ -145,19 +131,7 @@ const structuredDataEntries = [
     padding: 0;
     margin: 0;
     display: grid;
-    gap: 0.65rem;
-  }
-
-  .archive-map p {
-    margin: 0.35rem 0 0;
-    font: var(--text-caption);
-    color: var(--color-text-muted);
-  }
-
-  .archive-map .section-kicker {
-    margin: 0;
-    font: var(--text-footnote);
-    text-transform: uppercase;
-    color: var(--color-text-muted);
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+    gap: 1rem;
   }
 </style>

@@ -1,4 +1,4 @@
-export const EVENTS_PER_PAGE = 20;
+export const EVENTS_PER_PAGE = 50;
 
 export interface EventItem {
 	index: number;

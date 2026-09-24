@@ -1,7 +1,8 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
-import { toContentSlug } from "../../utils/content";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { formatDate, toContentSlug } from "../../utils/content";
 
 const timelinePage = (await getCollection("archive")).find(
 	(page) => toContentSlug(page.id) === "timeline",
@@ -151,47 +152,50 @@ const milestones = [
   ogImage="/og/timeline.png"
   ogImageAlt="BREAD timeline, 2015–2024"
 >
-  <header class="timeline-hero">
-    <p class="section-kicker">Archive</p>
+  <header class="page-header">
+    <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Archive", href: "/archive/" }, { label: "Timeline" }]} />
     <h1>{timelinePage.data.title}</h1>
-    <p>{timelinePage.data.description}</p>
-    <p class="route-note">Every event, with sources, is on the <a href="/archive/event-ledger/">Event list</a>.</p>
-    <small>Updated {timelinePage.data.updated.toISOString().slice(0, 10)}</small>
+    <p class="intro">{timelinePage.data.description}</p>
+    <p class="context">Every event, with sources, is on the <a href="/archive/event-ledger/">Event list</a>.</p>
+    <p class="section-meta">Updated {formatDate(timelinePage.data.updated)}</p>
   </header>
 
-  <section aria-label="BREAD era timeline" class="timeline-grid">
+  <ol class="eras" aria-label="BREAD eras">
     {
       eras.map((era) => (
-        <article class="era-card">
+        <li class="era">
           <p class="era-range">{era.range}</p>
-          <h2>{era.title}</h2>
-          <p>{era.summary}</p>
-          <ul>
-            {era.highlights.map((item) => <li>{item}</li>)}
-          </ul>
-        </article>
+          <div class="era-body">
+            <h2>{era.title}</h2>
+            <p class="era-summary">{era.summary}</p>
+            <ul>
+              {era.highlights.map((item) => <li>{item}</li>)}
+            </ul>
+          </div>
+        </li>
       ))
     }
-  </section>
+  </ol>
 
-  <section class="milestones" aria-label="Key dated events">
-    <h2>Key dates</h2>
+  <section class="key-dates" aria-labelledby="key-dates-title">
+    <h2 id="key-dates-title">Key dates</h2>
     <ol>
       {
         milestones.map((milestone) => (
           <li>
-            <p class="date">{milestone.date}</p>
-            <p class="label">{milestone.label}</p>
-            <p class="venue">{milestone.venue}</p>
+            <p class="key-date">{milestone.date}</p>
+            <div>
+              <p class="key-label">{milestone.label}</p>
+              <p class="key-venue">{milestone.venue}</p>
+            </div>
             {milestone.sourceHref && (
-              <p class="source">
-                Source:{' '}
+              <p class="key-source">
                 <a
                   href={milestone.sourceHref}
                   target={milestone.sourceHref.startsWith('http') ? '_blank' : undefined}
                   rel={milestone.sourceHref.startsWith('http') ? 'noreferrer noopener' : undefined}
                 >
-                  {milestone.sourceLabel ?? 'link'}
+                  {milestone.sourceLabel ?? 'Source'}{milestone.sourceHref.startsWith('http') ? ' ↗' : ''}
                 </a>
               </p>
             )}
@@ -201,61 +205,50 @@ const milestones = [
     </ol>
   </section>
 
-  <section class="next-links" aria-labelledby="next-links-title">
-    <h2 id="next-links-title">See also</h2>
+  <section class="see-also" aria-labelledby="see-also-title">
+    <h2 class="group-heading" id="see-also-title">See also</h2>
     <ul>
-      <li><a href="/archive/event-ledger/">Event list</a>: every night, with lineups and sources.</li>
-      <li><a href="/archive/map/">Venue map</a>: where it all happened.</li>
-      <li><a href="/archive/people-network/">People</a>: founders, residents, and collaborators.</li>
-      <li><a href="/story/">The Story of BREAD</a>: the whole run in one read.</li>
+      <li class="tile"><a class="card-link" href="/archive/event-ledger/">Event list</a><p>Every night, with lineups and sources.</p></li>
+      <li class="tile"><a class="card-link" href="/archive/map/">Venue map</a><p>Where it all happened.</p></li>
+      <li class="tile"><a class="card-link" href="/archive/people-network/">People</a><p>Founders, residents, and collaborators.</p></li>
+      <li class="tile"><a class="card-link" href="/story/">The Story of BREAD</a><p>The whole run in one read.</p></li>
     </ul>
   </section>
 </BaseLayout>
 
 <style>
-  .timeline-hero p:not(.section-kicker) {
-    margin: 0.5rem 0;
+  .eras {
+    margin: 0;
+    padding: 0;
+    list-style: none;
   }
 
-  .route-note {
-    color: var(--color-text-muted);
-  }
-
-  .timeline-grid {
-    position: relative;
-    margin-top: 1.8rem;
+  .era {
     display: grid;
-    gap: 1rem;
+    grid-template-columns: 9rem minmax(0, 1fr);
+    gap: 1.5rem;
+    padding-bottom: var(--space-xl);
   }
 
-  .timeline-grid::before {
-    content: '';
-    position: absolute;
-    left: 0.5rem;
-    top: 0.2rem;
-    bottom: 0.2rem;
-    width: 2px;
-    background: linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--color-accent) 35%, transparent),
-      var(--color-border-strong)
-    );
+  .era-range {
+    margin: 0;
+    padding-top: 0.2rem;
+    font: 700 1.05rem / 1.3 var(--font-display);
+    color: var(--color-accent-muted);
+    font-variant-numeric: tabular-nums;
   }
 
-  .era-card {
+  .era-body {
     position: relative;
-    margin-left: 1.5rem;
-    padding: 0.9rem 1rem;
-    border: 1px solid var(--color-border);
-    background: var(--color-surface);
-    border-radius: var(--radius-md);
+    padding-left: 1.5rem;
+    border-left: 1px solid var(--color-border-strong);
   }
 
-  .era-card::before {
+  .era-body::before {
     content: '';
     position: absolute;
-    left: -1.35rem;
-    top: 1.2rem;
+    left: -0.4rem;
+    top: 0.45rem;
     width: 0.7rem;
     height: 0.7rem;
     border-radius: 50%;
@@ -263,108 +256,105 @@ const milestones = [
     background: var(--color-bg);
   }
 
-  .era-card h2 {
-    margin: 0.15rem 0 0.3rem;
-    font-size: 1.1rem;
+  .era-body h2 {
+    margin: 0 0 0.35rem;
+    font: var(--text-title);
   }
 
-  .era-range {
+  .era-summary {
+    margin: 0 0 0.75rem;
+    max-width: 60ch;
+    font: var(--text-lede);
+    color: var(--color-text-secondary);
+  }
+
+  .era-body ul {
+    max-width: 62ch;
     margin: 0;
-    color: var(--color-accent-muted);
-    font-weight: 700;
-    letter-spacing: 0.02em;
-  }
-
-  .era-card ul {
-    margin: 0.55rem 0 0;
     padding-left: 1.1rem;
+    color: var(--color-text-secondary);
   }
 
-  .milestones,
-  .next-links {
-    margin-top: 2rem;
+  .era-body li + li {
+    margin-top: 0.35rem;
   }
 
-  .milestones ol {
-    list-style: none;
+  .key-dates,
+  .see-also {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-xl);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .key-dates h2 {
+    margin: 0 0 var(--space-md);
+    font: var(--text-title);
+  }
+
+  .key-dates ol {
+    margin: 0;
     padding: 0;
-    margin: 0.8rem 0 0;
+    list-style: none;
+  }
+
+  .key-dates li {
     display: grid;
-    gap: 0.65rem;
+    grid-template-columns: 7.5rem minmax(0, 1fr) auto;
+    align-items: baseline;
+    gap: 0.25rem 1.25rem;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid var(--color-border);
   }
 
-  .milestones li {
-    border: 1px dashed var(--color-border-strong);
-    border-radius: var(--radius-md);
-    padding: 0.75rem 0.9rem;
-    background: var(--color-surface);
-  }
-
-  .date,
-  .label,
-  .venue,
-  .source {
+  .key-dates p {
     margin: 0;
   }
 
-  .date {
-    color: var(--color-accent-muted);
-    font-family: var(--font-mono);
-    font-size: 0.9rem;
-  }
-
-  .label {
-    margin-top: 0.2rem;
-    font-weight: 600;
-  }
-
-  .venue {
+  .key-date {
+    font: var(--text-mono);
     color: var(--color-text-muted);
-    margin-top: 0.1rem;
-    font-size: 0.92rem;
   }
 
-  .source {
+  .key-label {
+    font: var(--text-body-strong);
+  }
+
+  .key-venue {
+    font: var(--text-caption);
     color: var(--color-text-muted);
-    margin-top: 0.2rem;
-    font-size: 0.88rem;
   }
 
-  .next-links ul {
-    margin-top: 0.6rem;
+  .key-source {
+    font: var(--text-footnote);
   }
 
-  @media (min-width: 48rem) {
-    .timeline-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 1rem;
+  .key-source a {
+    color: var(--color-text-muted);
+    text-decoration: none;
+  }
+
+  .key-source a:hover {
+    color: var(--color-accent-text);
+    text-decoration: underline;
+  }
+
+  .see-also ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  @media (max-width: 640px) {
+    .era {
+      grid-template-columns: 1fr;
+      gap: 0.4rem;
     }
 
-    .timeline-grid::before {
-      left: 50%;
-      transform: translateX(-50%);
-    }
-
-    .era-card {
-      margin-left: 0;
-    }
-
-    .era-card:nth-child(odd) {
-      margin-right: 1.3rem;
-    }
-
-    .era-card:nth-child(even) {
-      margin-left: 1.3rem;
-    }
-
-    .era-card::before {
-      left: auto;
-      right: -1.72rem;
-    }
-
-    .era-card:nth-child(even)::before {
-      left: -1.72rem;
-      right: auto;
+    .key-dates li {
+      grid-template-columns: minmax(0, 1fr);
     }
   }
 </style>

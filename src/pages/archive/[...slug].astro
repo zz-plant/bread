@@ -70,19 +70,29 @@ const structuredDataEntries = [
   ogImage={`/og/archive/${toContentSlug(page.id)}.png`}
   ogImageAlt={`${page.data.title} — ${page.data.description}`}
 >
-  <article class="panel">
+  <article>
     <header class="page-header">
-      <p class="section-kicker">Archive</p>
-      <h1>{page.data.title}</h1>
-      <p>{page.data.description}</p>
-      <p class="section-meta">Last updated {formatDate(page.data.updated)}</p>
       <Breadcrumbs items={breadcrumbItems} />
-      <nav class="link-row" aria-label="Archive section pagination">
-        {previousPage && <a class="chip-link" href={`/archive/${toContentSlug(previousPage.id)}/`}>← {previousPage.data.title}</a>}
-        {nextPage && <a class="chip-link" href={`/archive/${toContentSlug(nextPage.id)}/`}>{nextPage.data.title} →</a>}
-      </nav>
+      <h1>{page.data.title}</h1>
+      <p class="intro">{page.data.description}</p>
+      <p class="section-meta">Updated {formatDate(page.data.updated)}</p>
     </header>
-    <hr />
-    <Content />
+    <div class="prose">
+      <Content />
+    </div>
+    <nav class="pager" aria-label="More archive pages">
+      {previousPage && (
+        <a class="pager-prev" href={`/archive/${toContentSlug(previousPage.id)}/`}>
+          <span>← Previous</span>
+          <strong>{previousPage.data.title}</strong>
+        </a>
+      )}
+      {nextPage && (
+        <a class="pager-next" href={`/archive/${toContentSlug(nextPage.id)}/`}>
+          <span>Next →</span>
+          <strong>{nextPage.data.title}</strong>
+        </a>
+      )}
+    </nav>
   </article>
 </BaseLayout>

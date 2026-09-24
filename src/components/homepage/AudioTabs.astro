@@ -31,76 +31,137 @@ const {
 const listeningLinks = directoryLinks.filter(
 	(item) => item.href !== "https://soundcloud.com/breadfm",
 );
+
+const [featuredCollection, ...moreCollections] = soundcloudEmbedCollections;
+const appleAllow =
+	"autoplay *; encrypted-media *; fullscreen *; clipboard-write";
+const appleSandbox =
+	"allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation";
+
+const radioPlayers = [
+	{
+		...platformEmbeds.ipr,
+		linkLabel: "Internet Public Radio",
+	},
+	{
+		...platformEmbeds.appleShow,
+		linkLabel: "Apple Podcasts",
+		allow: appleAllow,
+		sandbox: appleSandbox,
+	},
+	{
+		...platformEmbeds.appleEpisode,
+		linkLabel: "Apple Podcasts",
+		allow: appleAllow,
+		sandbox: appleSandbox,
+	},
+	{
+		...platformEmbeds.facebook,
+		linkLabel: "Facebook",
+		allow:
+			"autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share",
+	},
+];
 ---
 
 <article class="panel" id="panel-audio" role="tabpanel" aria-labelledby="tab-audio" hidden>
-  <div class="panel-heading">
-    <h2>Listen</h2>
+  <h2 class="visually-hidden">Listen</h2>
+
+  <div class="listen-intro">
+    <p class="audio-intro">Mixes and radio shows from BREAD and the residents.</p>
+    <a class="chip-link" href="https://soundcloud.com/breadfm" target="_blank" rel="noreferrer noopener">BREAD on SoundCloud ↗</a>
   </div>
-  <p class="audio-intro">Mixes and radio shows from BREAD and the residents.</p>
-  <div class="audio-actions">
-    <a href="https://soundcloud.com/breadfm" target="_blank" rel="noreferrer noopener">BREAD on SoundCloud ↗</a>
-  </div>
-  <ul class="audio-grid">
-    {soundcloudEmbedCollections.map((item) => (
-      <li class="audio-card">
-        <h3>{item.title}</h3>
-        <p>{item.description}</p>
-        <div class="embed-preview" data-title={item.title} data-height={item.height} data-allow="autoplay" data-embed-src={buildSoundCloudEmbedSrc(item.href, item.visual)}>
-          <button class="chip load-player" type="button">Load player</button>
+
+  {featuredCollection && (
+    <section class="listen-featured player-row" data-player aria-labelledby="listen-featured-title">
+      <div class="player-head">
+        <div>
+          <h3 id="listen-featured-title">{featuredCollection.title}</h3>
+          <p>{featuredCollection.description}</p>
         </div>
-        <a href={item.href} target="_blank" rel="noreferrer noopener">Open on SoundCloud ↗</a>
-      </li>
-    ))}
-  </ul>
-  <section class="resident-audio" aria-labelledby="resident-audio-title">
-    <h3 id="resident-audio-title">Residents</h3>
-    <ul class="resident-audio-grid">
-      {residentSoundcloudProfiles.map((profile) => (
-        <li>
-          <h4>{profile.name}</h4>
-          <p>{profile.role}</p>
-          <div class="embed-preview" data-title={`${profile.name} on SoundCloud`} data-height="166" data-allow="autoplay" data-embed-src={buildSoundCloudEmbedSrc(profile.href, false)}>
-            <button class="chip load-player" type="button">Load player</button>
+        <div class="player-actions">
+          <button class="chip load-player" type="button" aria-label={`Load ${featuredCollection.title} player`}>
+            <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z" fill="currentColor"/></svg>
+            Load player
+          </button>
+          <a href={featuredCollection.href} target="_blank" rel="noreferrer noopener">SoundCloud ↗</a>
+        </div>
+      </div>
+      <div class="embed-preview" data-autoload data-title={featuredCollection.title} data-height="360" data-allow="autoplay" data-embed-src={buildSoundCloudEmbedSrc(featuredCollection.href, featuredCollection.visual)} hidden></div>
+    </section>
+  )}
+
+  <section class="listen-section" aria-labelledby="more-collections-title">
+    <h3 id="more-collections-title">More from BREAD</h3>
+    <ul class="player-list">
+      {moreCollections.map((item) => (
+        <li class="player-row" data-player>
+          <div class="player-head">
+            <div>
+              <h4>{item.title}</h4>
+              <p>{item.description}</p>
+            </div>
+            <div class="player-actions">
+              <button class="chip load-player" type="button" aria-label={`Load ${item.title} player`}>
+                <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z" fill="currentColor"/></svg>
+                Load player
+              </button>
+              <a href={item.href} target="_blank" rel="noreferrer noopener">SoundCloud ↗</a>
+            </div>
           </div>
-          <a href={profile.href} target="_blank" rel="noreferrer noopener">Open on SoundCloud ↗</a>
+          <div class="embed-preview" data-title={item.title} data-height={item.height} data-allow="autoplay" data-embed-src={buildSoundCloudEmbedSrc(item.href, item.visual)} hidden></div>
         </li>
       ))}
     </ul>
   </section>
-  <section class="platform-embeds" aria-labelledby="platform-embeds-title">
-    <h3 id="platform-embeds-title">Radio and podcasts</h3>
-    <ul class="audio-grid">
-      <li class="audio-card">
-        <h4>{platformEmbeds.ipr.title}</h4>
-        <div class="embed-preview featured-player" data-title={platformEmbeds.ipr.title} data-height={platformEmbeds.ipr.height} data-embed-src={platformEmbeds.ipr.src}>
-          <button class="chip load-player" type="button">Load player</button>
-        </div>
-        <a href={platformEmbeds.ipr.href} target="_blank" rel="noreferrer noopener">Open on Internet Public Radio ↗</a>
-      </li>
-      <li class="audio-card">
-        <h4>{platformEmbeds.appleShow.title}</h4>
-        <div class="embed-preview" data-title={platformEmbeds.appleShow.title} data-height={platformEmbeds.appleShow.height} data-allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write" data-sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation" data-embed-src={platformEmbeds.appleShow.src}>
-          <button class="chip load-player" type="button">Load player</button>
-        </div>
-        <a href={platformEmbeds.appleShow.href} target="_blank" rel="noreferrer noopener">Open in Apple Podcasts ↗</a>
-      </li>
-      <li class="audio-card">
-        <h4>{platformEmbeds.appleEpisode.title}</h4>
-        <div class="embed-preview" data-title={platformEmbeds.appleEpisode.title} data-height={platformEmbeds.appleEpisode.height} data-allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write" data-sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation" data-embed-src={platformEmbeds.appleEpisode.src}>
-          <button class="chip load-player" type="button">Load player</button>
-        </div>
-        <a href={platformEmbeds.appleEpisode.href} target="_blank" rel="noreferrer noopener">Open in Apple Podcasts ↗</a>
-      </li>
-      <li class="audio-card">
-        <h4>{platformEmbeds.facebook.title}</h4>
-        <div class="embed-preview" data-title={platformEmbeds.facebook.title} data-height={platformEmbeds.facebook.height} data-allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" data-embed-src={platformEmbeds.facebook.src}>
-          <button class="chip load-player" type="button">Load player</button>
-        </div>
-        <a href={platformEmbeds.facebook.href} target="_blank" rel="noreferrer noopener">Open on Facebook ↗</a>
-      </li>
+
+  <section class="listen-section resident-audio" aria-labelledby="resident-audio-title">
+    <h3 id="resident-audio-title">Residents</h3>
+    <ul class="player-list">
+      {residentSoundcloudProfiles.map((profile) => (
+        <li class="player-row" data-player>
+          <div class="player-head">
+            <div>
+              <h4>{profile.name}</h4>
+              <p>{profile.role}</p>
+            </div>
+            <div class="player-actions">
+              <button class="chip load-player" type="button" aria-label={`Load ${profile.name} player`}>
+                <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z" fill="currentColor"/></svg>
+                Load player
+              </button>
+              <a href={profile.href} target="_blank" rel="noreferrer noopener">SoundCloud ↗</a>
+            </div>
+          </div>
+          <div class="embed-preview" data-title={`${profile.name} on SoundCloud`} data-height="166" data-allow="autoplay" data-embed-src={buildSoundCloudEmbedSrc(profile.href, false)} hidden></div>
+        </li>
+      ))}
     </ul>
   </section>
+
+  <section class="listen-section platform-embeds" aria-labelledby="platform-embeds-title">
+    <h3 id="platform-embeds-title">Radio and podcasts</h3>
+    <ul class="player-list">
+      {radioPlayers.map((player) => (
+        <li class="player-row" data-player>
+          <div class="player-head">
+            <div>
+              <h4>{player.title}</h4>
+            </div>
+            <div class="player-actions">
+              <button class="chip load-player" type="button" aria-label={`Load ${player.title} player`}>
+                <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z" fill="currentColor"/></svg>
+                Load player
+              </button>
+              <a href={player.href} target="_blank" rel="noreferrer noopener">{player.linkLabel} ↗</a>
+            </div>
+          </div>
+          <div class="embed-preview" data-title={player.title} data-height={player.height} data-allow={player.allow} data-sandbox={player.sandbox} data-embed-src={player.src} hidden></div>
+        </li>
+      ))}
+    </ul>
+  </section>
+
   <section class="listening-links" aria-labelledby="listening-links-title">
     <h3 id="listening-links-title">Elsewhere</h3>
     <ul class="route-list">

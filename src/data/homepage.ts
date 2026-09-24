@@ -29,9 +29,11 @@ export async function getHomepageData() {
 			id: event.id,
 			title: event.data.title,
 			year: event.data.year,
+			isoDate: event.data.date.toISOString().slice(0, 10),
 			date: new Date(event.data.date).toLocaleDateString("en-US", {
 				month: "short",
 				day: "numeric",
+				timeZone: "UTC",
 			}),
 			venue: event.data.venue,
 			lineup: event.data.lineup,
@@ -189,14 +191,6 @@ export async function getHomepageData() {
 		}),
 	].filter((entry): entry is Record<string, unknown> => Boolean(entry));
 
-	const homeNavLinks = [
-		{ label: "Archive", href: "/archive/" },
-		{ label: "Flyers", href: "/archive/flyers/" },
-		{ label: "Radio shows", href: "/archive/radio-shows/" },
-		{ label: "Timeline", href: "/archive/timeline/" },
-		{ label: "Story", href: "/story/" },
-	];
-
 	const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
 		const params = new URLSearchParams({
 			url: href,
@@ -227,7 +221,6 @@ export async function getHomepageData() {
 		platformEmbeds: platformEmbedsMap,
 		residentSoundcloudProfiles,
 		homeStructuredData,
-		homeNavLinks,
 		buildSoundCloudEmbedSrc,
 	};
 }

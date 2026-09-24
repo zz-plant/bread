@@ -11,6 +11,7 @@ interface Event {
 	id: string;
 	title: string;
 	year: string;
+	isoDate: string;
 	date: string;
 	venue: string;
 	lineup: string;
@@ -40,20 +41,20 @@ const visualDestinations = Array.from(
 ---
 
 <article class="panel active" id="panel-events" role="tabpanel" aria-labelledby="tab-events">
-  <div class="panel-heading">
-    <h2>Events</h2>
-    <p class="result-count" id="eventsResultCount" aria-live="polite">{events.length} events</p>
-  </div>
+  <h2 class="visually-hidden">Events</h2>
 
   <section class="featured-visuals" aria-labelledby="featured-visuals-title">
     <div class="featured-visuals-head">
       <h3 id="featured-visuals-title">Flyers and photos</h3>
+      <nav class="featured-visual-links" aria-label="More flyers and photos">
+        {visualDestinations.map(([href, label]) => <a href={href}>{label}</a>)}
+      </nav>
     </div>
     <ul class="featured-visual-grid">
       {visuals.map((item, visualIndex) => (
         <li>
           <figure>
-            <img src={item.src} alt={item.alt} width="960" height="1280" loading={visualIndex === 0 ? 'eager' : 'lazy'} fetchpriority={visualIndex === 0 ? 'high' : undefined} decoding={visualIndex === 0 ? 'sync' : 'async'} sizes="(max-width: 780px) 46vw, 24vw" />
+            <img src={item.src} alt={item.alt} width="960" height="1200" loading={visualIndex === 0 ? 'eager' : 'lazy'} fetchpriority={visualIndex === 0 ? 'high' : undefined} decoding={visualIndex === 0 ? 'sync' : 'async'} sizes="(max-width: 780px) 70vw, 18rem" />
             <figcaption>
               <p>{item.title}</p>
               <small>{item.caption}</small>
@@ -62,9 +63,6 @@ const visualDestinations = Array.from(
         </li>
       ))}
     </ul>
-    <nav class="featured-visual-links" aria-label="More flyers and photos">
-      {visualDestinations.map(([href, label]) => <a href={href}>{label}</a>)}
-    </nav>
   </section>
 
   <div class="events-toolbar" role="search" aria-label="Search and sort events">
@@ -82,21 +80,25 @@ const visualDestinations = Array.from(
         <option value="newest">Newest first</option>
       </select>
     </label>
+    <p class="result-count" id="eventsResultCount" aria-live="polite">{events.length} events</p>
   </div>
 
-  <ul class="cards">
+  <ul class="cards event-list">
     {events.map((event, index) => (
-      <li class="card" id={`event-${event.id}`} data-kind="event" data-index={index} data-year={event.year} data-venue={event.venue} data-lineup={event.lineup} data-status={event.status} data-has-source={event.source.href ? 'true' : 'false'}>
-        <div class="card-header">
-          <h3 class="title">{event.title}</h3>
-          {event.status !== 'played' && (
-            <span class={`status-badge status-${event.status}`}>{event.status}</span>
-          )}
+      <li class:list={['card', 'event-row', (index === 0 || events[index - 1].year !== event.year) && 'year-start']} id={`event-${event.id}`} data-kind="event" data-index={index} data-year={event.year} data-venue={event.venue} data-lineup={event.lineup} data-status={event.status} data-has-source={event.source.href ? 'true' : 'false'}>
+        <p class="event-date"><time datetime={event.isoDate}>{event.date}<span class="visually-hidden">, {event.year}</span></time></p>
+        <div class="event-main">
+          <h3 class="title">
+            {event.title}
+            {event.status !== 'played' && (
+              <span class={`status-badge status-${event.status}`}>{event.status}</span>
+            )}
+          </h3>
+          <p class="lineup">{event.lineup}</p>
         </div>
-        <p class="meta">{event.date}, {event.year} · {event.venue}</p>
-        <p class="lineup">{event.lineup}</p>
+        <p class="meta event-venue">{event.venue}</p>
         {event.source.href && (
-          <p class="status source-row">Source: <a href={event.source.href} target={event.source.external ? '_blank' : undefined} rel={event.source.external ? 'noreferrer noopener' : undefined}>{event.source.label}</a></p>
+          <p class="status source-row"><a href={event.source.href} target={event.source.external ? '_blank' : undefined} rel={event.source.external ? 'noreferrer noopener' : undefined}>{event.source.label}{event.source.external ? ' ↗' : ''}</a></p>
         )}
       </li>
     ))}

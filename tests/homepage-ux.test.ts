@@ -56,26 +56,35 @@ describe("homepage UX", () => {
 		const styles = read("src/styles/home.css");
 
 		expect(styles).toContain("min-height: 2.75rem");
-		expect(styles).toContain(
-			"grid-template-columns: minmax(0, 1fr) minmax(11rem, auto)",
-		);
 		expect(styles).toContain("grid-template-columns: auto minmax(0, 1fr)");
+		expect(styles).toContain("grid-column: 1 / -1");
 		expect(styles).toContain("text-wrap: pretty");
+		// 16px inputs stop iOS Safari from zooming the page on focus.
+		expect(styles).toContain("font: 400 1rem / 1.2 var(--font-body)");
 	});
 
-	it("does not repeat global navigation in the homepage footer", () => {
-		const homepage = read("src/pages/index.astro");
+	it("keeps artwork at full color and never covers it with text", () => {
+		const pages = [
+			"src/pages/archive/flyers.astro",
+			"src/pages/archive/radio-shows.astro",
+			"src/styles/global.css",
+		].map(read);
 
-		expect(homepage).toContain(
-			'footerNavLinks={[{ label: "Archive", href: "/archive/" }]}',
-		);
-		expect(homepage).not.toContain('{ label: "Home", href: "/" }');
-		expect(read("src/layouts/BaseLayout.astro")).toContain(
-			"{navLinks.map((link) => (",
-		);
-		expect(read("src/layouts/BaseLayout.astro")).toContain(
-			"{footerNavLinks.map((link) => (",
-		);
+		for (const source of pages) {
+			expect(source).not.toContain("filter: grayscale");
+			expect(source).not.toContain("-overlay");
+		}
+	});
+
+	it("uses one nav everywhere and keeps the footer from repeating it", () => {
+		const homepage = read("src/pages/index.astro");
+		const baseLayout = read("src/layouts/BaseLayout.astro");
+
+		expect(homepage).not.toContain("navLinks=");
+		expect(homepage).not.toContain("footerNavLinks=");
+		expect(baseLayout).toContain("{navLinks.map((link) => (");
+		expect(baseLayout).toContain("footerNavLinks = FOOTER_LINKS");
+		expect(baseLayout).not.toContain("footerNavLinks = navLinks");
 	});
 
 	it("consolidates featured visual destinations into section links", () => {

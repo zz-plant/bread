@@ -14,15 +14,13 @@ const { roster } = Astro.props;
 ---
 
 <article class="panel" id="panel-people" role="tabpanel" aria-labelledby="tab-people" hidden>
-  <div class="panel-heading">
-    <h2>People</h2>
-  </div>
+  <h2 class="visually-hidden">People</h2>
   <ul class="cards people">
     {roster.map((person: Person) => (
-      <li class="card" data-kind="person">
-        <h3 class="title">{person.name}</h3>
-        <p class="meta">{person.role}</p>
-        {person.notes && <p class="lineup">{person.notes}</p>}
+      <li class="card person" data-kind="person">
+        <h3 class="person-name">{person.name}</h3>
+        <p class="person-role">{person.role}</p>
+        {person.notes && <p class="person-notes">{person.notes}</p>}
         <div class="person-links">
           {person.links.sc && (
             <a href={person.links.sc} class="person-link" target="_blank" rel="noreferrer noopener" aria-label={`${person.name} on SoundCloud`}>SoundCloud</a>

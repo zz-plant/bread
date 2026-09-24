@@ -22,3 +22,9 @@ Command-level evidence of testing, linting, and validation. Update in real time 
 | 2026-09-24 | npm run build | 0 | astro check 0 errors/0 warnings/0 hints; build complete |
 | 2026-09-24 | Playwright screenshots, 1280px and 390px | 0 | home (3 tabs), archive, timeline, flyers, radio, map, story, overview, ledger, people reviewed |
 | 2026-09-24 | Playwright interaction check | 0 | search "zzzz" shows empty state; "rabit" → "2 events"; reset → "Showing 20 of 27" / "Show 7 more"; "Newest first" now puts 2024 first |
+| 2026-09-24 | Design pass: npm run lint | 1 | 4 errors, all pre-existing (favicon.svg title, 3 organizeImports); down from 5 |
+| 2026-09-24 | Design pass: npm test | 0 | 17 passed (tests updated for new nav/footer and toolbar; added artwork and 16px-input checks) |
+| 2026-09-24 | Design pass: npm run build | 0 | astro check 0/0/0; build complete |
+| 2026-09-24 | Playwright overflow check, 12 pages at 390/768/1280px | 0 | no horizontal overflow (fixed one at 390px caused by the swipe strip widening the grid column) |
+| 2026-09-24 | Playwright interactions | 0 | year headings follow sort and search; empty state; sticky tabs sit under header (57px); switching tabs while deep in the list lands at the top of the new panel; Listen button opens the tab; featured player auto-loads, others load on tap; #event hash reveal; map loads 11 SF pins |
+| 2026-09-24 | WCAG contrast of palette | 0 | text 14–16:1, secondary 10–11:1, muted 5.8–6.5:1, accent text 7–8:1; control borders 3.0–3.4:1 |

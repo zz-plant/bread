@@ -18,11 +18,7 @@ const latestArchiveUpdate = archivePages.reduce(
 	archivePages[0]?.data.updated ?? new Date(),
 );
 
-const primaryIds = new Set([
-	"overview",
-	"timeline",
-	"people-network",
-]);
+const primaryIds = new Set(["overview", "timeline", "people-network"]);
 const referenceIds = new Set(["event-ledger"]);
 const primaryPages = archivePages.filter((p) => primaryIds.has(p.id));
 const referencePages = archivePages.filter((p) => referenceIds.has(p.id));
@@ -31,22 +27,20 @@ const visualSections = [
 	{
 		id: "flyers",
 		title: "Flyers",
-		description:
-			"BREAD and Toasted Trax flyers and posters from the main image folder and imported archive files.",
+		description: "Flyers, posters, and promo art for BREAD and Toasted Trax.",
 		href: "/archive/flyers/",
 	},
 	{
 		id: "radio-shows",
 		title: "Radio Shows",
 		description:
-			"BREAD FM artwork cards with names and dates pulled from each image filename.",
+			"Cover art for BREAD FM shows, plus links to every BREAD channel.",
 		href: "/archive/radio-shows/",
 	},
 	{
 		id: "map",
 		title: "Venue Map",
-		description:
-			"A touch-friendly map and venue list for documented event locations.",
+		description: "Where the nights happened, on a map and venue by venue.",
 		href: "/archive/map/",
 	},
 ];
@@ -56,7 +50,7 @@ const archiveIndexStructuredData = createCollectionPageSchema({
 	pathname: Astro.url.pathname,
 	name: "BREAD Archive",
 	description:
-		"Overview page for BREAD archive sections including timeline, venues, and people.",
+		"The BREAD archive: timeline, events, people, venues, flyers, and radio.",
 	isPartOf: "BREAD",
 });
 
@@ -74,41 +68,24 @@ const structuredDataEntries = [
 	archiveIndexStructuredData,
 	breadcrumbStructuredData,
 ].filter((entry): entry is Record<string, unknown> => Boolean(entry));
-const archiveRouteCount = archivePages.length + 3;
-
-const overviewStats = [
-	{ label: "Archive sections", value: archiveRouteCount },
-	{ label: "Page", value: "Archive home" },
-	{ label: "Last updated", value: formatDate(latestArchiveUpdate) },
-];
 ---
 
 <BaseLayout
   title="BREAD Archive"
-  description="Browse the BREAD archive: timeline, people, venues, and event notes."
+  description="The BREAD archive: timeline, events, people, venues, flyers, and radio."
   structuredData={structuredDataEntries}
   ogImage="/og/archive.png"
-  ogImageAlt="BREAD archive home covering eras, venues, people, and events"
+  ogImageAlt="BREAD archive"
 >
-  <header class="page-header panel">
-    <p class="section-kicker">Archive</p>
-    <h1>BREAD Archive</h1>
-    <p class="intro">Start with timeline, people, venues, and event notes.</p>
-    <p class="context">Want the full background? Read <a href="/story/">Story</a>.</p>
+  <header class="page-header">
     <Breadcrumbs items={breadcrumbItems} />
+    <h1>Archive</h1>
+    <p class="intro">Flyers, lineups, and links from BREAD's run, 2015–2024. For the short version, read <a href="/story/">the story</a>.</p>
+    <p class="section-meta">Updated {formatDate(latestArchiveUpdate)}</p>
   </header>
 
-  <section class="stats-strip" aria-label="Archive overview stats">
-    {overviewStats.map((item) => (
-      <p>
-        <span class="stat-value">{item.value}</span>
-        <span class="stat-label">{item.label}</span>
-      </p>
-    ))}
-  </section>
-
   <section class="archive-group" aria-labelledby="primary-heading">
-    <h2 id="primary-heading" class="group-heading">Primary</h2>
+    <h2 id="primary-heading" class="group-heading">History</h2>
     <ul class="archive-map">
       {primaryPages.map((page) => (
         <li class="tile">
@@ -120,7 +97,7 @@ const overviewStats = [
   </section>
 
   <section class="archive-group" aria-labelledby="visual-heading">
-    <h2 id="visual-heading" class="group-heading">Visual Archives</h2>
+    <h2 id="visual-heading" class="group-heading">Flyers, radio, and venues</h2>
     <ul class="archive-map">
       {visualSections.map((section) => (
         <li class="tile">
@@ -145,21 +122,8 @@ const overviewStats = [
 </BaseLayout>
 
 <style>
-  .archive-group {
+  .archive-group + .archive-group {
     margin-top: var(--space-xl);
-  }
-
-  .archive-group:first-of-type {
-    margin-top: var(--space-lg);
-  }
-
-  .group-heading {
-    margin: 0 0 var(--space-sm);
-    font: var(--text-overline);
-    text-transform: uppercase;
-    color: var(--color-text-muted);
-    border-bottom: 1px solid var(--color-border);
-    padding-bottom: 0.45rem;
   }
 
   .archive-map {
@@ -167,19 +131,7 @@ const overviewStats = [
     padding: 0;
     margin: 0;
     display: grid;
-    gap: 0.65rem;
-  }
-
-  .archive-map p {
-    margin: 0.35rem 0 0;
-    font: var(--text-caption);
-    color: var(--color-text-muted);
-  }
-
-  .archive-map .section-kicker {
-    margin: 0;
-    font: var(--text-footnote);
-    text-transform: uppercase;
-    color: var(--color-text-muted);
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+    gap: 1rem;
   }
 </style>

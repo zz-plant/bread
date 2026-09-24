@@ -6,43 +6,31 @@
 		"type": "link"
 	},
 	{
-		"label": "IPR show page",
+		"label": "BREAD FM on Internet Public Radio",
 		"href": "https://www.internetpublicradio.live/shows/bread-fm",
 		"external": true,
 		"type": "link"
 	},
 	{
-		"label": "Flyer gallery",
-		"href": "/archive/flyers/",
-		"external": false,
-		"type": "link"
-	},
-	{
-		"label": "Radio shows gallery",
-		"href": "/archive/radio-shows/",
-		"external": false,
-		"type": "link"
-	},
-	{
-		"label": "Featured mix (Prawns + Botaz, 2023-04-26)",
+		"label": "Prawns & Botaz on IPR, April 2023",
 		"href": "https://soundcloud.com/breadfm/bread-fm-on-internet-public-radio-prawns-botaz-04262023",
 		"external": true,
 		"type": "link"
 	},
 	{
-		"label": "BREAD Instagram",
+		"label": "Instagram",
 		"href": "https://instagram.com/bread_sf",
 		"external": true,
 		"type": "link"
 	},
 	{
-		"label": "BREAD X / Twitter",
+		"label": "X / Twitter",
 		"href": "https://x.com/breadsf",
 		"external": true,
 		"type": "link"
 	},
 	{
-		"label": "RA promoter page",
+		"label": "Resident Advisor",
 		"href": "https://ra.co/promoters/51043",
 		"external": true,
 		"type": "link"
@@ -54,53 +42,23 @@
 		"type": "link"
 	},
 	{
-		"label": "Links directory",
-		"href": "/archive/channel-profile-directory/",
-		"external": false,
-		"type": "link"
-	},
-	{
-		"label": "Timeline",
-		"href": "/archive/timeline/",
-		"external": false,
-		"type": "link"
-	},
-	{
-		"label": "Venue map",
-		"href": "/archive/map/",
-		"external": false,
-		"type": "link"
-	},
-	{
-		"label": "Read the story",
-		"href": "/story/",
-		"external": false,
-		"type": "link"
-	},
-	{
-		"label": "Journal posts",
-		"href": "/blog/",
-		"external": false,
-		"type": "link"
-	},
-	{
-		"title": "BREAD profile stream",
-		"description": "Main feed with uploads and mixes.",
+		"title": "Uploads",
+		"description": "Mixes and recordings, newest first.",
 		"href": "https://soundcloud.com/breadfm",
 		"height": 420,
 		"visual": true,
 		"type": "embed"
 	},
 	{
-		"title": "BREAD playlists",
-		"description": "Curated playlists and series.",
+		"title": "Playlists",
+		"description": "Sets and series.",
 		"href": "https://soundcloud.com/breadfm/sets",
 		"height": 300,
 		"visual": false,
 		"type": "embed"
 	},
 	{
-		"title": "BREAD likes",
+		"title": "Likes",
 		"description": "Tracks the crew has been into.",
 		"href": "https://soundcloud.com/breadfm/likes",
 		"height": 300,
@@ -108,8 +66,8 @@
 		"type": "embed"
 	},
 	{
-		"title": "BREAD reposts",
-		"description": "Reposts from friends and collaborators.",
+		"title": "Reposts",
+		"description": "From friends and collaborators.",
 		"href": "https://soundcloud.com/breadfm/reposts",
 		"height": 300,
 		"visual": false,

@@ -20,15 +20,22 @@ interface Props {
 	ogType?: "website" | "article";
 	navLinks?: NavLink[];
 	footerNavLinks?: NavLink[];
-	topStrip?: { left: string; right: string };
 	footerNote?: string;
-	wide?: boolean;
 }
 
+// The BREAD wordmark links home, so the nav only lists the other sections.
 const DEFAULT_NAV_LINKS: NavLink[] = [
-	{ label: "Home", href: "/" },
 	{ label: "Archive", href: "/archive/" },
+	{ label: "Flyers", href: "/archive/flyers/" },
+	{ label: "Radio", href: "/archive/radio-shows/" },
 	{ label: "Story", href: "/story/" },
+];
+
+// The footer points outward instead of repeating the header nav.
+const FOOTER_LINKS: NavLink[] = [
+	{ label: "SoundCloud", href: "https://soundcloud.com/breadfm" },
+	{ label: "Instagram", href: "https://instagram.com/bread_sf" },
+	{ label: "Resident Advisor", href: "https://ra.co/promoters/51043" },
 ];
 
 const {
@@ -42,10 +49,8 @@ const {
 	noindex = false,
 	ogType,
 	navLinks = DEFAULT_NAV_LINKS,
-	footerNavLinks = navLinks,
-	topStrip,
-	footerNote = "BREAD archive and story.",
-	wide = false,
+	footerNavLinks = FOOTER_LINKS,
+	footerNote = "BREAD · San Francisco, 2015–2024",
 } = Astro.props;
 
 const structuredDataEntries = (
@@ -96,7 +101,8 @@ const activeLinkHref = navLinks
     <meta name="description" content={description} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+    <meta name="theme-color" content="#0f0e0d" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="stylesheet" href={globalStylesUrl} />
     <link rel="stylesheet" href={printStylesUrl} media="print" />
@@ -127,19 +133,11 @@ const activeLinkHref = navLinks
   <body>
     {
       showSiteFrame ? (
-        <div class:list={['site-shell', wide && 'site-shell--wide']}>
+        <div class="site-shell">
           <a class="skip-link" href="#main-content">Skip to content</a>
           <header class="site-header">
-            {
-              topStrip && (
-                <div class="site-topstrip" aria-hidden="true">
-                  <span>{topStrip.left}</span>
-                  <span>{topStrip.right}</span>
-                </div>
-              )
-            }
             <div class="site-header-inner">
-              <a class="brand" href="/">BREAD</a>
+              <a class="brand" href="/" aria-current={pathname === '/' ? 'page' : undefined}>BREAD</a>
               <nav aria-label="Primary">
                 <ul>
                   {navLinks.map((link) => (
@@ -165,11 +163,18 @@ const activeLinkHref = navLinks
           <footer class="site-footer">
             <div class="site-footer-inner">
               <p>{footerNote}</p>
-              <nav aria-label="Footer">
+              <nav aria-label="BREAD elsewhere">
                 <ul>
-                  {footerNavLinks.map((link) => (
-                    <li><a href={link.href}>{link.label}</a></li>
-                  ))}
+                  {footerNavLinks.map((link) => {
+                    const external = link.href.startsWith('http');
+                    return (
+                      <li>
+                        <a href={link.href} target={external ? '_blank' : undefined} rel={external ? 'noreferrer noopener' : undefined}>
+                          {link.label}{external && ' ↗'}
+                        </a>
+                      </li>
+                    );
+                  })}
                 </ul>
               </nav>
             </div>
@@ -190,29 +195,10 @@ const activeLinkHref = navLinks
 </html>
 
 <style>
-  :global(h1, h2, h3) {
-    line-height: 1.2;
-    color: var(--color-text);
-  }
-
-  :global(p),
-  :global(li) {
-    line-height: 1.7;
-  }
-
-  :global(a) {
-    color: var(--color-accent);
-  }
-
-  :global(hr) {
-    border: 0;
-    border-top: 1px solid var(--color-border);
-    margin: 1.5rem 0;
-  }
-
   .site-shell {
     min-height: 100vh;
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     grid-template-rows: auto 1fr auto;
   }
 
@@ -236,111 +222,93 @@ const activeLinkHref = navLinks
     top: 0;
     z-index: 20;
     border-bottom: 1px solid var(--color-border);
-    background: var(--color-bg);
+    background: color-mix(in srgb, var(--color-bg) 88%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .site-header-inner,
+  .site-footer-inner,
+  .content-wrap {
+    width: min(var(--page-width), calc(100% - 2 * var(--gutter)));
+    margin: 0 auto;
   }
 
   .site-header-inner {
-    width: min(64rem, 100%);
-    margin: 0 auto;
+    min-height: var(--header-height);
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 1rem;
-    min-width: 0;
-    padding: 0.8rem max(1rem, env(safe-area-inset-right)) 0.8rem max(1rem, env(safe-area-inset-left));
-  }
-
-  .site-shell--wide .site-header-inner,
-  .site-shell--wide .site-footer-inner {
-    width: min(90rem, 100%);
-  }
-
-  .site-topstrip {
-    width: min(90rem, 100%);
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    flex-wrap: wrap;
-    padding: 0.55rem max(1rem, env(safe-area-inset-right)) 0.4rem max(1rem, env(safe-area-inset-left));
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-text-muted);
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .site-topstrip span {
-    min-width: 0;
-    overflow-wrap: anywhere;
   }
 
   .brand {
+    flex: none;
     color: var(--color-text);
-    font-weight: 700;
-    letter-spacing: 0.04em;
+    font: 700 1.3rem / 1 var(--font-display);
+    letter-spacing: -0.02em;
     text-decoration: none;
-    padding: 0.2rem 0.4rem;
-    margin-left: -0.4rem;
   }
 
-  .brand:hover,
-  .brand:focus-visible {
-    background: var(--color-surface);
+  .brand:hover {
+    color: var(--color-accent-text);
   }
 
-  nav ul {
+  .site-header nav {
+    min-width: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .site-header nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .site-header ul {
     display: flex;
     list-style: none;
     margin: 0;
     padding: 0;
-    gap: 0.45rem;
-    flex-wrap: wrap;
-    justify-content: flex-end;
+    gap: 0.15rem;
   }
 
-  nav li {
-    min-width: 0;
-  }
-
-  nav a {
-    color: var(--color-text);
-    text-decoration: none;
-    padding: 0.55rem 0.85rem;
-    min-height: 44px;
+  .site-header nav a {
     display: inline-flex;
     align-items: center;
+    min-height: 2.75rem;
+    padding: 0 0.7rem;
+    color: var(--color-text-secondary);
+    font: 500 0.95rem / 1 var(--font-body);
+    text-decoration: none;
+    white-space: nowrap;
     touch-action: manipulation;
   }
 
-  nav a:hover,
-  nav a:focus-visible,
-  nav a.active {
-    background: var(--color-surface);
-    color: var(--color-accent);
+  .site-header nav a:hover {
+    color: var(--color-text);
+  }
+
+  .site-header nav a.active {
+    color: var(--color-text);
+    box-shadow: inset 0 -2px var(--color-accent);
   }
 
   .content-wrap {
-    width: min(52rem, calc(100% - 2rem));
-    margin: 0 auto;
-    padding: 1.5rem 0 calc(3rem + env(safe-area-inset-bottom));
+    padding-bottom: calc(var(--space-2xl) + env(safe-area-inset-bottom));
   }
 
   .site-footer {
     border-top: 1px solid var(--color-border);
     color: var(--color-text-muted);
-    font-size: 0.9rem;
-    padding: 1.2rem max(1rem, env(safe-area-inset-right)) calc(1.6rem + env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));
+    font: var(--text-caption);
+    padding: 1.5rem 0 calc(1.75rem + env(safe-area-inset-bottom));
   }
 
   .site-footer-inner {
-    width: min(64rem, 100%);
-    margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 1rem;
+    gap: 0.75rem 1.5rem;
     flex-wrap: wrap;
   }
 
@@ -351,63 +319,38 @@ const activeLinkHref = navLinks
   .site-footer ul {
     list-style: none;
     display: flex;
-    gap: 0.8rem;
+    gap: 0.35rem 1.25rem;
     margin: 0;
     padding: 0;
     flex-wrap: wrap;
   }
 
   .site-footer a {
-    color: inherit;
+    color: var(--color-text-secondary);
     text-decoration: none;
   }
 
-  .site-footer a:hover,
-  .site-footer a:focus-visible {
-    text-decoration: underline;
+  .site-footer a:hover {
     color: var(--color-text);
+    text-decoration: underline;
   }
 
-  @media (max-width: 640px) {
+  @media (max-width: 480px) {
+    .brand {
+      font-size: 1.15rem;
+    }
+
+    .site-header nav a {
+      padding: 0 0.5rem;
+      font-size: 0.9rem;
+    }
+
     .site-header-inner {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.65rem;
+      gap: 0.5rem;
     }
 
-    nav {
-      width: 100%;
-    }
-
-    nav ul {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 0.4rem;
-      width: 100%;
-      justify-content: stretch;
-    }
-
-    nav li,
-    nav a {
-      width: 100%;
-    }
-
-    nav a {
-      justify-content: center;
-    }
-
-    .content-wrap {
-      width: min(52rem, calc(100% - 1.25rem));
-      padding-top: 1.1rem;
-    }
-
-    .site-footer-inner {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-
-    .site-footer ul {
-      gap: 0.55rem 0.8rem;
+    .site-header ul {
+      margin-right: -0.5rem;
     }
   }
 </style>

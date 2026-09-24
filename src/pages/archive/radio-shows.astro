@@ -13,8 +13,7 @@ const breadcrumbItems = [
 
 const imageListStructuredData = createItemListSchema({
 	name: "BREAD FM Radio Show Artwork",
-	description:
-		"Radio show cards built from image file names in the public radio folder.",
+	description: "Cover art for BREAD FM radio shows, with guests and dates.",
 	itemListElement: radioShows.map((show, index) => ({
 		"@type": "ImageObject",
 		name: `${show.guests} — ${show.dateLabel}`,
@@ -27,188 +26,143 @@ const imageListStructuredData = createItemListSchema({
 
 const summaryStats = [
 	{ label: "Shows", value: radioShows.length },
-	{ label: "Guest lineups", value: uniqueGuestCount },
+	{ label: "Lineups", value: uniqueGuestCount },
 	{ label: "Months covered", value: monthCount },
 ];
 ---
 
 <ArchiveLayout
   title="BREAD Archive: Radio Shows"
-  description="Browse BREAD FM radio show images with lineup names and dates pulled from file names."
+  heading="Radio shows"
+  description="Cover art for BREAD FM radio shows, plus links to BREAD's SoundCloud, Instagram, and residents."
   breadcrumbItems={breadcrumbItems}
   stats={summaryStats}
-  intro="Radio show images turned into cards with guest names and dates."
-  context='Looking for party visuals? Open <a href="/archive/flyers/">Flyers</a>.'
+  intro="Cover art for BREAD FM's Wednesday show on Radio Valencia, with who played and when."
+  context='Club night flyers are on the <a href="/archive/flyers/">Flyers</a> page.'
   ogImage="/og/archive/radio-shows.png"
-  ogImageAlt="BREAD FM radio show artwork gallery"
+  ogImageAlt="BREAD FM radio show cover art"
 >
-  <section class="show-grid" aria-label="Radio show artwork gallery">
+  <ul class="gallery gallery--square" aria-label="Radio show cover art">
     {radioShows.map((show, index) => (
-      <article class="show-card" id={`show-${index + 1}`}>
-        <img src={show.imagePath} alt={`BREAD FM artwork for ${show.guests} on ${show.dateLabel}`} loading="lazy" decoding="async" />
-        <div class="show-overlay">
-          <p class="show-title">{show.guests}</p>
-          <p class="show-date">{show.dateLabel}</p>
-          <a href={show.imagePath} target="_blank" rel="noreferrer noopener" class="show-action">Open full image</a>
-        </div>
-      </article>
+      <li id={`show-${index + 1}`}>
+        <a class="gallery-item" href={show.imagePath} target="_blank" rel="noreferrer noopener">
+          <span class="gallery-frame">
+            <img src={show.imagePath} alt={`BREAD FM cover art for ${show.guests}, ${show.dateLabel}`} loading="lazy" decoding="async" />
+          </span>
+          <span class="gallery-caption">
+            <span class="gallery-title">{show.guests}</span>
+            <span class="gallery-meta">{show.dateLabel}</span>
+          </span>
+        </a>
+      </li>
     ))}
-  </section>
+  </ul>
 
-  <section class="channel-directory" aria-label="Channel and profile directory">
-    <h2>Channels & profiles</h2>
+  <section class="channel-directory" aria-labelledby="channel-directory-title">
+    <h2 id="channel-directory-title">Where to find BREAD</h2>
 
-    <h3>Collective channels</h3>
-    <ul>
-      <li>SoundCloud (BREAD): <a href="https://soundcloud.com/breadfm" target="_blank" rel="noreferrer noopener">soundcloud.com/breadfm</a></li>
-      <li>SoundCloud tracks list (BREAD): <a href="https://soundcloud.com/breadfm/tracks" target="_blank" rel="noreferrer noopener">/tracks</a></li>
-      <li>SoundCloud mix example (Prawns + Botaz on Internet Public Radio, 2023-04-26): <a href="https://soundcloud.com/breadfm/bread-fm-on-internet-public-radio-prawns-botaz-04262023" target="_blank" rel="noreferrer noopener">IPR mix</a></li>
-      <li>SoundCloud mix example (bastiengoat on Internet Public Radio, 2023-03-29): <a href="https://soundcloud.com/breadfm/bread-fm-on-internet-public-radio-bastiengoat-03292023" target="_blank" rel="noreferrer noopener">IPR mix</a></li>
-      <li>Internet Public Radio show page: <a href="https://www.internetpublicradio.live/shows/bread-fm" target="_blank" rel="noreferrer noopener">ipr.live/shows/bread-fm</a></li>
-      <li>Internet Public Radio episode (Bread FM w/ Botaz & Shl, 2022-09-28): <a href="https://www.internetpublicradio.live/episodes/bread-fm-w-botaz-shl-28th-september-2022" target="_blank" rel="noreferrer noopener">IPR episode</a></li>
-      <li>Apple Podcasts episode (Exteeng & Baowao, 2022-11-30): <a href="https://podcasts.apple.com/gb/podcast/bread-fm-on-internet-public-radio-exteeng-baowao-11-30-2022/id1227134378?i=1000588387545" target="_blank" rel="noreferrer noopener">Apple Podcasts</a></li>
-      <li>Instagram (BREAD): <a href="https://instagram.com/bread_sf" target="_blank" rel="noreferrer noopener">@bread_sf</a></li>
-      <li>X / Twitter (BREAD SF): <a href="https://x.com/breadsf" target="_blank" rel="noreferrer noopener">@breadsf</a></li>
-      <li>Resident Advisor promoter page: <a href="https://ra.co/promoters/51043" target="_blank" rel="noreferrer noopener">RA promoter</a></li>
-      <li>Radio Valencia (host site): <a href="http://www.radiovalencia.fm/" target="_blank" rel="noreferrer noopener">radiovalencia.fm</a></li>
-    </ul>
+    <div class="directory-grid">
+      <div>
+        <h3>BREAD</h3>
+        <ul>
+          <li><a href="https://soundcloud.com/breadfm" target="_blank" rel="noreferrer noopener">SoundCloud</a> (<a href="https://soundcloud.com/breadfm/tracks" target="_blank" rel="noreferrer noopener">all tracks</a>)</li>
+          <li><a href="https://www.internetpublicradio.live/shows/bread-fm" target="_blank" rel="noreferrer noopener">Internet Public Radio show page</a></li>
+          <li><a href="https://instagram.com/bread_sf" target="_blank" rel="noreferrer noopener">Instagram: @bread_sf</a></li>
+          <li><a href="https://x.com/breadsf" target="_blank" rel="noreferrer noopener">X / Twitter: @breadsf</a></li>
+          <li><a href="https://ra.co/promoters/51043" target="_blank" rel="noreferrer noopener">Resident Advisor promoter page</a></li>
+          <li><a href="http://www.radiovalencia.fm/" target="_blank" rel="noreferrer noopener">Radio Valencia</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Radio episodes</h3>
+        <ul>
+          <li>2023-04-26: <a href="https://soundcloud.com/breadfm/bread-fm-on-internet-public-radio-prawns-botaz-04262023" target="_blank" rel="noreferrer noopener">Prawns &amp; Botaz on IPR</a> (SoundCloud)</li>
+          <li>2023-03-29: <a href="https://soundcloud.com/breadfm/bread-fm-on-internet-public-radio-bastiengoat-03292023" target="_blank" rel="noreferrer noopener">bastiengoat on IPR</a> (SoundCloud)</li>
+          <li>2022-11-30: <a href="https://podcasts.apple.com/gb/podcast/bread-fm-on-internet-public-radio-exteeng-baowao-11-30-2022/id1227134378?i=1000588387545" target="_blank" rel="noreferrer noopener">Exteeng &amp; Baowao on IPR</a> (Apple Podcasts)</li>
+          <li>2022-09-28: <a href="https://www.internetpublicradio.live/episodes/bread-fm-w-botaz-shl-28th-september-2022" target="_blank" rel="noreferrer noopener">Botaz &amp; Shl on IPR</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Instagram posts</h3>
+        <ul>
+          <li>2024-03-21: <a href="https://www.instagram.com/p/C4ygjDoynTY/" target="_blank" rel="noreferrer noopener">SF night announced</a></li>
+          <li>2023-06-15: <a href="https://www.instagram.com/p/CthThTOpds1/" target="_blank" rel="noreferrer noopener">HKCR residency announced</a></li>
+          <li>2023-06-15: <a href="https://www.instagram.com/p/CthVnIVpIgv/" target="_blank" rel="noreferrer noopener">First HKCR episode</a></li>
+          <li>2023-03-29: <a href="https://www.instagram.com/p/CqYuOcTyg7v/" target="_blank" rel="noreferrer noopener">IPR monthly episode</a></li>
+          <li>2022-07-26: <a href="https://www.instagram.com/p/Cgfdlh4Pdtx/" target="_blank" rel="noreferrer noopener">IPR monthly show announced</a></li>
+          <li>2021-03-01: <a href="https://www.instagram.com/p/CL44SfGli4d/" target="_blank" rel="noreferrer noopener">Six Years fundraiser stream announced</a></li>
+          <li>2021-01-02: <a href="https://www.instagram.com/p/CJed4dGFKbz/" target="_blank" rel="noreferrer noopener">New Year fundraiser stream announced</a></li>
+          <li>2017-09-22: <a href="https://www.instagram.com/p/BZUfch2nGBD/" target="_blank" rel="noreferrer noopener">Underground SF night</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Collaborators</h3>
+        <ul>
+          <li><a href="https://surething.info" target="_blank" rel="noreferrer noopener">Sure Thing</a></li>
+          <li><a href="https://parameterpresents.com" target="_blank" rel="noreferrer noopener">Parameter</a></li>
+          <li><a href="https://www.instagram.com/fakeandgayinc" target="_blank" rel="noreferrer noopener">Nightsweats / Fake and Gay</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Residents</h3>
+        <ul>
+          <li><strong>Prawns</strong>: <a href="https://soundcloud.com/prawns" target="_blank" rel="noreferrer noopener">SoundCloud</a> · <a href="https://instagram.com/_prawns" target="_blank" rel="noreferrer noopener">Instagram</a> · <a href="https://ra.co/dj/prawns" target="_blank" rel="noreferrer noopener">RA</a></li>
+          <li><strong>Botaz</strong>: <a href="https://soundcloud.com/botaz" target="_blank" rel="noreferrer noopener">SoundCloud</a> · <a href="https://botaz.bandcamp.com/" target="_blank" rel="noreferrer noopener">Bandcamp</a> · <a href="https://instagram.com/brian_aviles" target="_blank" rel="noreferrer noopener">Instagram</a> · <a href="https://ra.co/dj/botaz" target="_blank" rel="noreferrer noopener">RA</a></li>
+          <li><strong>TF1000 / Tranespotting</strong>: <a href="https://soundcloud.com/tranespotting" target="_blank" rel="noreferrer noopener">SoundCloud</a> · <a href="https://instagram.com/tf1000_" target="_blank" rel="noreferrer noopener">Instagram</a> · <a href="https://ra.co/dj/tf1000" target="_blank" rel="noreferrer noopener">RA</a></li>
+          <li><strong>Adam Kraft</strong>: <a href="https://soundcloud.com/adamkraftneindanke" target="_blank" rel="noreferrer noopener">SoundCloud</a> · <a href="https://instagram.com/adamkraft_" target="_blank" rel="noreferrer noopener">Instagram</a> · <a href="https://ra.co/dj/adamkraft" target="_blank" rel="noreferrer noopener">RA</a></li>
+          <li><strong>Gewzer</strong>: <a href="https://soundcloud.com/gewzer" target="_blank" rel="noreferrer noopener">SoundCloud</a> · <a href="https://cyberspa.bandcamp.com/album/g-love-s" target="_blank" rel="noreferrer noopener">Bandcamp</a> · <a href="https://instagram.com/gewzer" target="_blank" rel="noreferrer noopener">Instagram</a></li>
+          <li><strong>Exteeng</strong>: <a href="https://soundcloud.com/exteeng" target="_blank" rel="noreferrer noopener">SoundCloud</a> · <a href="https://instagram.com/exteeng" target="_blank" rel="noreferrer noopener">Instagram</a> · <a href="https://ra.co/dj/exteeng" target="_blank" rel="noreferrer noopener">RA</a></li>
+          <li><strong>Judy (dhra)</strong>: co-founder</li>
+          <li><strong>Misoh</strong>: resident until around 2018</li>
+          <li><strong>Shl</strong>: resident from 2021</li>
+        </ul>
+      </div>
+    </div>
 
-    <h3>Selected Instagram post references (timeline)</h3>
-    <ul>
-      <li>2024-03-21 SF event announcement: <a href="https://www.instagram.com/p/C4ygjDoynTY/" target="_blank" rel="noreferrer noopener">C4ygjDoynTY</a></li>
-      <li>2023-06-15 HKCR residency announcement: <a href="https://www.instagram.com/p/CthThTOpds1/" target="_blank" rel="noreferrer noopener">CthThTOpds1</a></li>
-      <li>2023-06-15 HKCR premiere episode: <a href="https://www.instagram.com/p/CthVnIVpIgv/" target="_blank" rel="noreferrer noopener">CthVnIVpIgv</a></li>
-      <li>2023-03-29 Internet Public Radio monthly episode: <a href="https://www.instagram.com/p/CqYuOcTyg7v/" target="_blank" rel="noreferrer noopener">CqYuOcTyg7v</a></li>
-      <li>2022-07-26 Internet Public Radio monthly launch announcement: <a href="https://www.instagram.com/p/Cgfdlh4Pdtx/" target="_blank" rel="noreferrer noopener">Cgfdlh4Pdtx</a></li>
-      <li>2021-03-01 Six Years fundraiser stream announcement: <a href="https://www.instagram.com/p/CL44SfGli4d/" target="_blank" rel="noreferrer noopener">CL44SfGli4d</a></li>
-      <li>2021-01-02 New Year fundraiser stream announcement: <a href="https://www.instagram.com/p/CJed4dGFKbz/" target="_blank" rel="noreferrer noopener">CJed4dGFKbz</a></li>
-      <li>2017-09-22 Underground SF period event: <a href="https://www.instagram.com/p/BZUfch2nGBD/" target="_blank" rel="noreferrer noopener">BZUfch2nGBD</a></li>
-    </ul>
-
-    <h3>Collaboration links</h3>
-    <ul>
-      <li>Sure Thing: <a href="https://surething.info" target="_blank" rel="noreferrer noopener">surething.info</a></li>
-      <li>Parameter: <a href="https://parameterpresents.com" target="_blank" rel="noreferrer noopener">parameterpresents.com</a></li>
-      <li>Nightsweats / Fake and Gay: <a href="https://www.instagram.com/fakeandgayinc" target="_blank" rel="noreferrer noopener">@fakeandgayinc</a></li>
-    </ul>
-
-    <h3>Resident directory</h3>
-    <ul>
-      <li><strong>Prawns</strong>: <a href="https://soundcloud.com/prawns" target="_blank" rel="noreferrer noopener">SoundCloud</a> · <a href="https://instagram.com/_prawns" target="_blank" rel="noreferrer noopener">Instagram</a> · <a href="https://ra.co/dj/prawns" target="_blank" rel="noreferrer noopener">RA</a></li>
-      <li><strong>Botaz</strong>: <a href="https://soundcloud.com/botaz" target="_blank" rel="noreferrer noopener">SoundCloud</a> · <a href="https://botaz.bandcamp.com/" target="_blank" rel="noreferrer noopener">Bandcamp</a> · <a href="https://instagram.com/brian_aviles" target="_blank" rel="noreferrer noopener">Instagram</a> · <a href="https://ra.co/dj/botaz" target="_blank" rel="noreferrer noopener">RA</a></li>
-      <li><strong>TF1000 / Tranespotting</strong>: <a href="https://soundcloud.com/tranespotting" target="_blank" rel="noreferrer noopener">SoundCloud</a> · <a href="https://instagram.com/tf1000_" target="_blank" rel="noreferrer noopener">Instagram</a> · <a href="https://ra.co/dj/tf1000" target="_blank" rel="noreferrer noopener">RA</a></li>
-      <li><strong>Adam Kraft</strong>: <a href="https://soundcloud.com/adamkraftneindanke" target="_blank" rel="noreferrer noopener">SoundCloud</a> · <a href="https://instagram.com/adamkraft_" target="_blank" rel="noreferrer noopener">Instagram</a> · <a href="https://ra.co/dj/adamkraft" target="_blank" rel="noreferrer noopener">RA</a></li>
-      <li><strong>Gewzer</strong>: <a href="https://soundcloud.com/gewzer" target="_blank" rel="noreferrer noopener">SoundCloud</a> · <a href="https://cyberspa.bandcamp.com/album/g-love-s" target="_blank" rel="noreferrer noopener">Bandcamp ref</a> · <a href="https://instagram.com/gewzer" target="_blank" rel="noreferrer noopener">Instagram</a></li>
-      <li><strong>Exteeng</strong>: <a href="https://soundcloud.com/exteeng" target="_blank" rel="noreferrer noopener">SoundCloud</a> · <a href="https://instagram.com/exteeng" target="_blank" rel="noreferrer noopener">Instagram</a> · <a href="https://ra.co/dj/exteeng" target="_blank" rel="noreferrer noopener">RA</a></li>
-      <li><strong>Judy (dhra)</strong>: Co-founding member. Later artistic direction shifted away from BREAD's core lane.</li>
-      <li><strong>Misoh</strong>: Resident through the ~2018 transition era.</li>
-      <li><strong>Shl</strong>: Resident from 2021 onward.</li>
-    </ul>
-
-    <p>For event-linked source records, see the <a href="/archive/event-ledger/">Event List</a> and <a href="/archive/timeline/">Timeline</a>.</p>
+    <p>Sources for individual nights are on the <a href="/archive/event-ledger/">Event list</a>.</p>
   </section>
 </ArchiveLayout>
 
 <style>
-  .show-grid {
-    display: grid;
-    gap: 0.6rem;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  }
-
-  .show-card {
-    position: relative;
-    overflow: hidden;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    background: var(--color-surface);
-    aspect-ratio: 1 / 1;
-  }
-
-  .show-card img {
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: cover;
-    filter: grayscale(0.4);
-    transition: filter 700ms ease;
-  }
-
-  .show-card:hover img,
-  .show-card:focus-within img {
-    filter: grayscale(0);
-  }
-
-  .show-overlay {
-    position: absolute;
-    inset: auto 0 0 0;
-    padding: 1.5rem 0.9rem 0.8rem;
-    background: linear-gradient(0deg, rgb(0 0 0 / 92%) 30%, rgb(0 0 0 / 0) 100%);
-    transform: translateY(calc(100% - 2.6rem));
-    transition: transform 350ms ease;
-  }
-
-  .show-card:hover .show-overlay,
-  .show-card:focus-within .show-overlay {
-    transform: translateY(0);
-  }
-
-  .show-title {
-    margin: 0;
-    font: 600 1rem / 1.15 var(--font-display);
-    color: var(--color-text);
-  }
-
-  .show-date {
-    margin: 0.35rem 0 0;
-    font: var(--text-caption);
-    color: var(--color-accent-muted);
-  }
-
-  .show-action {
-    display: inline-block;
-    margin-top: 0.5rem;
-    font: var(--text-overline);
-    text-transform: uppercase;
-    color: var(--color-accent);
-    text-decoration: none;
-  }
-
-  .show-action:hover,
-  .show-action:focus-visible {
-    text-decoration: underline;
-  }
-
   .channel-directory {
-    margin-top: var(--space-xl);
-    padding-top: var(--space-lg);
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-xl);
     border-top: 1px solid var(--color-border);
   }
 
   .channel-directory h2 {
-    margin: 0 0 var(--space-md);
+    margin: 0 0 var(--space-lg);
     font: var(--text-title);
   }
 
-  .channel-directory h3 {
-    margin: var(--space-lg) 0 var(--space-sm);
-    font: var(--text-subtitle);
-    color: var(--color-text);
+  .directory-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+    gap: var(--space-lg) var(--space-xl);
   }
 
-  .channel-directory ul,
-  .channel-directory ol {
-    margin: 0 0 var(--space-md) var(--space-md);
-    padding-left: var(--space-lg);
+  .channel-directory h3 {
+    margin: 0 0 var(--space-sm);
+    font: var(--text-overline);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+
+  .channel-directory ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
   }
 
   .channel-directory li {
-    margin: var(--space-xs) 0;
-    line-height: 1.6;
+    padding: 0.45rem 0;
+    border-bottom: 1px solid var(--color-border);
+    font: var(--text-caption);
+    color: var(--color-text-muted);
   }
 
   .channel-directory a {
-    color: var(--color-accent);
     text-decoration: none;
   }
 
@@ -218,24 +172,11 @@ const summaryStats = [
 
   .channel-directory strong {
     color: var(--color-text);
+    font-weight: 600;
   }
 
-  .channel-directory p {
-    margin: var(--space-sm) 0;
+  .channel-directory > p {
+    margin: var(--space-lg) 0 0;
     color: var(--color-text-muted);
-  }
-</style>
-
-<style>
-  @media (hover: none), (max-width: 780px) {
-    .show-overlay {
-      transform: translateY(0);
-    }
-
-    .show-action {
-      min-height: 44px;
-      display: inline-flex;
-      align-items: center;
-    }
   }
 </style>

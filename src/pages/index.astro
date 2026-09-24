@@ -14,25 +14,17 @@ const {
 	platformEmbeds,
 	residentSoundcloudProfiles,
 	homeStructuredData,
-	homeNavLinks,
 	buildSoundCloudEmbedSrc,
 } = await getHomepageData();
 ---
 
 <BaseLayout
   title="BREAD"
-  description="Timeline, people, visuals, and listening links from BREAD."
+  description="BREAD: a San Francisco club night, fundraiser stream, and radio show, 2015–2024."
   structuredData={homeStructuredData}
   ogImage="/og/home.png"
-  ogImageAlt="BREAD home page with timeline, people, and listening links"
-  navLinks={homeNavLinks}
-  footerNavLinks={[{ label: "Archive", href: "/archive/" }]}
-  topStrip={{ left: "BREAD // SAN FRANCISCO", right: "2015—2024" }}
-  footerNote="BREAD archive • San Francisco and beyond"
-  wide
+  ogImageAlt="BREAD, San Francisco, 2015–2024"
 >
-  <div class="bg-mark" aria-hidden="true">BREAD</div>
-
   <noscript>
     <style>
       .section-tabs { display: none !important; }
@@ -42,9 +34,15 @@ const {
 
   <section class="shell" aria-labelledby="home-title">
     <header class="home-intro">
-      <p class="eyebrow">San Francisco · 2015—2024</p>
       <h1 id="home-title">BREAD</h1>
-      <p>Events, residents, flyers, and radio from the archive.</p>
+      <div class="home-intro-copy">
+        <p class="eyebrow">San Francisco · 2015–2024</p>
+        <p class="home-lede">Club nights, fundraiser streams, and a radio show. Lineups, flyers, and mixes from the whole run.</p>
+        <div class="link-row">
+          <a class="chip-link" href="/?section=audio" data-tab-link="panel-audio">Listen</a>
+          <a class="chip-link" href="/story/">Read the story</a>
+        </div>
+      </div>
     </header>
 
     <nav class="section-tabs" aria-label="Browse BREAD" role="tablist">
@@ -74,6 +72,7 @@ const {
 <script>
   import { filterEvents, sortVisibleEvents, showEventsPage, EVENTS_PER_PAGE } from '../utils/eventFilters';
 
+  const tabList = document.querySelector<HTMLElement>('.section-tabs');
   const tabs = Array.from(document.querySelectorAll<HTMLElement>('.tab'));
   const panels = Array.from(document.querySelectorAll<HTMLElement>('.panel'));
   const eventSearch = document.getElementById('eventSearch') as HTMLInputElement | null;
@@ -81,6 +80,7 @@ const {
   const resultCount = document.getElementById('eventsResultCount');
   const eventSort = document.getElementById('eventSort') as HTMLSelectElement | null;
   const loadMoreBtn = document.getElementById('loadMoreEvents');
+  const emptyState = document.getElementById('eventsEmpty');
 
   let activeFilters = { year: 'all', venue: 'all', search: '', quick: 'all', sort: 'oldest' };
   let visibleEvents: HTMLElement[] = [];
@@ -90,10 +90,38 @@ const {
     if ('vibrate' in navigator) navigator.vibrate(pattern);
   }
 
+  // Show a year heading above the first visible event of each year.
+  function markYearStarts() {
+    let previousYear = '';
+    for (const card of visibleEvents) {
+      const shown = card.style.display !== 'none';
+      const year = card.dataset.year ?? '';
+      card.classList.toggle('year-start', shown && year !== previousYear);
+      if (shown) previousYear = year;
+    }
+  }
+
+  function showPage(page: number) {
+    currentPage = showEventsPage(visibleEvents, page, resultCount, loadMoreBtn);
+    markYearStarts();
+  }
+
   function filterAndShowEvents() {
+    for (const card of eventCards) card.classList.remove('year-start');
     visibleEvents = filterEvents(eventCards, activeFilters);
     sortVisibleEvents(visibleEvents, activeFilters.sort);
-    currentPage = showEventsPage(visibleEvents, 1, resultCount, loadMoreBtn);
+    visibleEvents.forEach((card) => card.parentElement?.appendChild(card));
+    showPage(1);
+    if (emptyState) emptyState.hidden = visibleEvents.length > 0;
+  }
+
+  // The tabs are sticky, so measure from the panels below them instead.
+  function scrollToPanels({ always = false } = {}) {
+    const content = document.querySelector<HTMLElement>('.content');
+    if (!content || !tabList) return;
+    const headerHeight = document.querySelector('.site-header')?.getBoundingClientRect().height ?? 0;
+    const target = content.getBoundingClientRect().top + window.scrollY - headerHeight - tabList.offsetHeight;
+    if (always || window.scrollY > target) window.scrollTo({ top: Math.max(target, 0) });
   }
 
   function activateTab(tab: HTMLElement, { focus = false, updateUrl = true } = {}) {
@@ -129,6 +157,7 @@ const {
     tab.tabIndex = tab.classList.contains('active') ? 0 : -1;
     tab.addEventListener('click', () => {
       activateTab(tab);
+      scrollToPanels();
       triggerHaptic();
     });
     tab.addEventListener('keydown', (event) => {
@@ -140,6 +169,16 @@ const {
       if (event.key === 'Home') nextIndex = 0;
       if (event.key === 'End') nextIndex = tabs.length - 1;
       activateTab(tabs[nextIndex], { focus: true });
+    });
+  });
+
+  document.querySelectorAll<HTMLAnchorElement>('[data-tab-link]').forEach((link) => {
+    link.addEventListener('click', (event) => {
+      const tab = tabs.find((item) => item.dataset.panel === link.dataset.tabLink);
+      if (!tab) return;
+      event.preventDefault();
+      activateTab(tab);
+      scrollToPanels({ always: true });
     });
   });
 
@@ -165,20 +204,20 @@ const {
     if (preview.dataset.allow) iframe.setAttribute('allow', preview.dataset.allow);
     if (preview.dataset.sandbox) iframe.setAttribute('sandbox', preview.dataset.sandbox);
     preview.replaceChildren(iframe);
+    preview.hidden = false;
     preview.dataset.loaded = 'true';
+    const button = preview.closest<HTMLElement>('[data-player]')?.querySelector<HTMLButtonElement>('.load-player');
+    if (button) button.hidden = true;
   }
 
+  // Only the featured player loads with the tab; the rest wait for a tap.
   function hydrateAudioEmbeds() {
-    const targets = document.querySelectorAll<HTMLElement>('.embed-preview[data-embed-src]');
-    targets.forEach((preview, index) => {
-      if (window.matchMedia('(max-width: 780px)').matches && index > 0) return;
-      loadEmbedPreview(preview);
-    });
+    document.querySelectorAll<HTMLElement>('.embed-preview[data-autoload]').forEach(loadEmbedPreview);
   }
 
-  document.querySelectorAll<HTMLElement>('.load-player').forEach((button) => {
+  document.querySelectorAll<HTMLButtonElement>('.load-player').forEach((button) => {
     button.addEventListener('click', () => {
-      const preview = button.closest<HTMLElement>('.embed-preview');
+      const preview = button.closest<HTMLElement>('[data-player]')?.querySelector<HTMLElement>('.embed-preview');
       if (preview) loadEmbedPreview(preview);
       triggerHaptic();
     });
@@ -200,7 +239,7 @@ const {
 
   if (loadMoreBtn) {
     loadMoreBtn.addEventListener('click', () => {
-      currentPage = showEventsPage(visibleEvents, currentPage + 1, resultCount, loadMoreBtn);
+      showPage(currentPage + 1);
     });
   }
 
@@ -213,7 +252,7 @@ const {
     if (!visibleEvents.includes(card)) visibleEvents.unshift(card);
     const cardIndex = visibleEvents.indexOf(card);
     if (cardIndex >= EVENTS_PER_PAGE * currentPage) {
-      currentPage = showEventsPage(visibleEvents, Math.ceil((cardIndex + 1) / EVENTS_PER_PAGE), resultCount, loadMoreBtn);
+      showPage(Math.ceil((cardIndex + 1) / EVENTS_PER_PAGE));
     }
     card.style.display = '';
     card.scrollIntoView({ block: 'center' });

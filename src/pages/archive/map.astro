@@ -6,55 +6,53 @@ const events = (await getCollection("events"))
 	.filter((event) => event.data.confidence !== "unverified")
 	.sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
 
+const UNKNOWN_VENUE_LABEL = "Exact venue unknown";
+
+// Online venues keep a pin location for the data shape but are left off the map.
 const venueCoordinates: Record<
 	string,
-	{ lat: number; lng: number; label: string }
+	{ lat: number; lng: number; label: string; online?: boolean }
 > = {
-	F8: { lat: 37.7756, lng: -122.4089, label: "F8 / 1192 Folsom area" },
-	"F8 (noted)": {
-		lat: 37.7756,
-		lng: -122.4089,
-		label: "F8 / 1192 Folsom area",
+	F8: { lat: 37.7756, lng: -122.4089, label: "1192 Folsom St, SoMa" },
+	Codeword: { lat: 37.7786, lng: -122.3929, label: "SoMa" },
+	"Underground SF": { lat: 37.7702, lng: -122.445, label: "Lower Haight" },
+	"60 6th St": { lat: 37.781, lng: -122.4088, label: "SoMa" },
+	"Public Works Loft": { lat: 37.7689, lng: -122.4193, label: "Mission" },
+	Mighty: { lat: 37.7671, lng: -122.4064, label: "San Francisco" },
+	"Club 6ix": { lat: 37.7852, lng: -122.4089, label: "SoMa" },
+	OMG: { lat: 37.7813, lng: -122.4096, label: "SoMa" },
+	"SoMa, San Francisco": {
+		lat: 37.7785,
+		lng: -122.4056,
+		label: UNKNOWN_VENUE_LABEL,
 	},
-	Codeword: { lat: 37.7786, lng: -122.3929, label: "Codeword / SoMa area" },
-	"Underground SF": {
-		lat: 37.7702,
-		lng: -122.445,
-		label: "Underground SF / Lower Haight area",
+	"Mission District, San Francisco": {
+		lat: 37.7599,
+		lng: -122.4148,
+		label: UNKNOWN_VENUE_LABEL,
 	},
-	"60 6th St": { lat: 37.781, lng: -122.4088, label: "60 6th St" },
-	"2389 Mission St": { lat: 37.7593, lng: -122.4191, label: "2389 Mission St" },
-	"Public Works Loft (noted)": {
-		lat: 37.7689,
-		lng: -122.4193,
-		label: "Public Works area",
-	},
-	"Mighty (noted)": { lat: 37.7671, lng: -122.4064, label: "Mighty area" },
-	"Club 6ix (noted)": { lat: 37.7852, lng: -122.4089, label: "Club 6ix area" },
-	"OMG (noted)": { lat: 37.7813, lng: -122.4096, label: "OMG area" },
-	"SOMA area, SF": { lat: 37.7785, lng: -122.4056, label: "SOMA area" },
-	"SF (noted)": { lat: 37.7749, lng: -122.4194, label: "San Francisco" },
-	"SF (venue pending)": {
+	"San Francisco": {
 		lat: 37.7749,
 		lng: -122.4194,
-		label: "San Francisco",
+		label: UNKNOWN_VENUE_LABEL,
 	},
-	"San Francisco": { lat: 37.7749, lng: -122.4194, label: "San Francisco" },
 	Twitch: {
 		lat: 37.7749,
 		lng: -122.4194,
-		label: "Online stream / SF archive context",
+		label: "Online stream",
+		online: true,
 	},
 	"Internet Public Radio": {
 		lat: 40.7128,
 		lng: -74.006,
-		label: "Internet Public Radio",
+		label: "Online radio",
+		online: true,
 	},
-	HKCR: { lat: 22.3193, lng: 114.1694, label: "HKCR / Hong Kong" },
-	"HKCR / hkcr.live": {
+	HKCR: {
 		lat: 22.3193,
 		lng: 114.1694,
-		label: "HKCR / Hong Kong",
+		label: "Online radio, Hong Kong",
+		online: true,
 	},
 };
 
@@ -65,6 +63,7 @@ const venueMap = new Map<
 		label: string;
 		lat: number;
 		lng: number;
+		online: boolean;
 		count: number;
 		years: Set<string>;
 		events: { title: string; date: string; id: string }[];
@@ -79,6 +78,7 @@ for (const event of events) {
 		label: coords.label,
 		lat: coords.lat,
 		lng: coords.lng,
+		online: coords.online ?? false,
 		count: 0,
 		years: new Set<string>(),
 		events: [],
@@ -96,6 +96,15 @@ for (const event of events) {
 const venues = Array.from(venueMap.values())
 	.map((venue) => ({ ...venue, years: Array.from(venue.years).sort() }))
 	.sort((a, b) => b.count - a.count || a.venue.localeCompare(b.venue));
+const inPersonVenues = venues.filter((venue) => !venue.online);
+const onlineVenues = venues.filter((venue) => venue.online);
+const mapVenues = inPersonVenues.map(({ venue, lat, lng, count, events }) => ({
+	venue,
+	lat,
+	lng,
+	count,
+	firstEventId: events[0]?.id,
+}));
 
 const breadcrumbItems = [
 	{ label: "Home", href: "/" },
@@ -104,72 +113,68 @@ const breadcrumbItems = [
 ];
 
 const stats = [
-	{ label: "Venues", value: venues.length },
-	{ label: "Events mapped", value: events.length },
+	{ label: "venues", value: inPersonVenues.length },
+	{ label: "online", value: onlineVenues.length },
+	{ label: "events", value: events.length },
 ];
 ---
 
 <ArchiveLayout
   title="BREAD Archive: Venue Map"
-  description="A mobile-friendly venue map and list for documented BREAD events."
+  heading="Venue map"
+  description="Where BREAD events happened, from F8 and Underground SF to Twitch and online radio."
   breadcrumbItems={breadcrumbItems}
   stats={stats}
-  intro="Browse BREAD event history by place, with a lightweight map that loads only when requested."
-  context='Prefer text? Open the <a href="/archive/event-ledger/">Event list</a>.'
+  intro="Where BREAD events happened, venue by venue."
+  context='Dates, lineups, and sources for each night are on the <a href="/archive/event-ledger/">Event list</a>.'
   ogImage="/og/archive/map.png"
   ogImageAlt="BREAD venue map"
 >
-  <section class="map-panel" aria-label="Venue map">
-    <div id="venueMap" class="venue-map" data-venues={JSON.stringify(venues)}>
-      <p>Map is ready when you are.</p>
-      <button class="map-load" type="button">Open map</button>
+  <section class="map-panel" aria-label="Map of San Francisco venues">
+    <div id="venueMap" class="venue-map" data-venues={JSON.stringify(mapVenues)}>
+      <div class="map-placeholder">
+        <p>San Francisco venues on a map. Tiles load from OpenStreetMap.</p>
+        <button class="chip map-load" type="button">Load map</button>
+      </div>
     </div>
   </section>
 
-  <section class="venue-list" aria-label="Venue list">
-    {venues.map((venue) => (
-      <article class="tile venue-card">
-        <p class="section-kicker">{venue.label}</p>
-        <h2>{venue.venue}</h2>
-        <p>{venue.count} event{venue.count === 1 ? '' : 's'} · {venue.years.join(', ')}</p>
-        <ul>
-          {venue.events.slice(0, 4).map((event) => (
-            <li><a href={`/#event-${event.id}`}>{event.date} · {event.title}</a></li>
-          ))}
-        </ul>
-      </article>
-    ))}
-  </section>
+  {[
+    { id: 'in-person', title: 'San Francisco', items: inPersonVenues },
+    { id: 'online', title: 'Online', items: onlineVenues },
+  ].map((group) => (
+    <section class="venue-group" aria-labelledby={`venues-${group.id}`}>
+      <h2 class="group-heading" id={`venues-${group.id}`}>{group.title}</h2>
+      <ul class="venue-list">
+        {group.items.map((venue) => (
+          <li class="venue-card">
+            <p class="section-kicker">{venue.label}</p>
+            <h3>{venue.venue}</h3>
+            <p class="venue-count">{venue.count} {venue.count === 1 ? 'event' : 'events'} · {venue.years.join(', ')}</p>
+            <ul class="venue-events">
+              {venue.events.map((event) => (
+                <li><a href={`/#event-${event.id}`}><span>{event.date}</span> {event.title}</a></li>
+              ))}
+            </ul>
+          </li>
+        ))}
+      </ul>
+    </section>
+  ))}
 
-  <section class="venue-phases" aria-label="Venue phases and format transitions">
-    <h2>Venue phases & format shifts</h2>
+  <section class="venue-phases prose" aria-labelledby="venue-phases-title">
+    <h2 id="venue-phases-title">How the venues changed</h2>
+    <p>The pilot and most of the early nights were at F8 on Folsom. From 2017, more nights moved to Underground SF in the Lower Haight. Other rooms that show up in the records: Public Works Loft, Mighty, Bruno's, Codeword, Club 6ix, and OMG.</p>
 
-    <h3>Primary venue phases</h3>
-
-    <h4>F8 period (early cycle)</h4>
-    <p>F8 appears as an early anchor for pilot and resident activity, especially in the first growth years.</p>
-
-    <h4>Underground SF period (later club cycle)</h4>
-    <p>Programming emphasis later shifted to Underground SF as city conditions and scene dynamics changed.</p>
-
-    <h4>Additional venue references</h4>
-    <p>Archive notes also mention Public Works Loft, Mighty, Bruno's, Codeword, Club 6ix, and OMG.</p>
-    <p>These are best tracked as event-linked venue records, not one-off mentions.</p>
-
-    <h3>Format transitions</h3>
+    <h3>Formats</h3>
     <ul>
-      <li><strong>Club-night format:</strong> recurring in-person events with residents + guests.</li>
-      <li><strong>Radio format:</strong> BREAD FM continuity between parties and later online programming.</li>
-      <li><strong>Telethon format:</strong> pandemic-era livestream fundraising.</li>
+      <li><strong>Club nights (2015–2018):</strong> residents plus guests, mostly in SoMa and the Lower Haight.</li>
+      <li><strong>Fundraiser streams (2020–2021):</strong> Twitch streams during the pandemic.</li>
+      <li><strong>Radio:</strong> BREAD FM's Wednesday show on Radio Valencia, a monthly show on Internet Public Radio from 2022, and a residency on HKCR from 2023.</li>
     </ul>
 
-    <h3>Source notes</h3>
-    <ul>
-      <li>Venue details are kept broad when public sources do not establish a more precise location.</li>
-      <li>Event-linked sources provide the strongest context for each venue record.</li>
-    </ul>
-    <p>Verification context is documented inline where relevant.</p>
-    <p>Related: <a href="/archive/timeline/">Timeline</a> and <a href="/archive/people-network/">People</a>.</p>
+    <p>When a source doesn't give an exact venue, the event is listed by neighborhood or just as San Francisco.</p>
+    <p>See also: <a href="/archive/timeline/">Timeline</a> and <a href="/archive/people-network/">People</a>.</p>
   </section>
 </ArchiveLayout>
 
@@ -180,6 +185,7 @@ const stats = [
   async function loadMap() {
     if (!mapRoot || mapRoot.dataset.loaded === 'true') return;
     mapRoot.dataset.loaded = 'true';
+    mapRoot.classList.add('is-loaded');
     const venues = JSON.parse(mapRoot.dataset.venues || '[]');
     const leaflet = await import('leaflet');
     await import('leaflet/dist/leaflet.css');
@@ -191,7 +197,8 @@ const stats = [
     const bounds = [];
     venues.forEach((venue) => {
       const marker = leaflet.marker([venue.lat, venue.lng]).addTo(map);
-      marker.bindPopup(`<strong>${venue.venue}</strong><br>${venue.count} events<br><a href=\"/#event-${venue.events[0]?.id}\">Open first event</a>`);
+      const countLabel = `${venue.count} ${venue.count === 1 ? 'event' : 'events'}`;
+      marker.bindPopup(`<strong>${venue.venue}</strong><br>${countLabel}<br><a href="/#event-${venue.firstEventId}">First event</a>`);
       bounds.push([venue.lat, venue.lng]);
     });
     if (bounds.length) map.fitBounds(bounds, { padding: [24, 24] });
@@ -202,103 +209,107 @@ const stats = [
 
 <style>
   .map-panel {
-    margin: var(--space-md) 0;
+    margin-bottom: var(--space-xl);
   }
 
   .venue-map {
-    min-height: min(70vh, 34rem);
+    min-height: 14rem;
+    display: grid;
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
-    background: var(--color-surface);
-    display: grid;
-    place-items: center;
-    gap: 0.8rem;
-    padding: 1rem;
+    background:
+      radial-gradient(circle at 30% 40%, var(--color-surface-raised), transparent 60%),
+      var(--color-surface);
     overflow: hidden;
   }
 
-  .map-load {
-    min-height: 44px;
-    border: 1px solid var(--color-accent);
-    background: var(--color-bg);
-    color: var(--color-text);
-    padding: 0.7rem 1rem;
+  .venue-map.is-loaded {
+    min-height: min(65vh, 32rem);
+  }
+
+  .map-placeholder {
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 0.9rem;
+    padding: 2rem 1rem;
+    text-align: center;
+  }
+
+  .map-placeholder p {
+    margin: 0;
+    max-width: 28rem;
+    color: var(--color-text-muted);
+  }
+
+  .venue-group + .venue-group {
+    margin-top: var(--space-xl);
   }
 
   .venue-list {
     display: grid;
-    gap: 0.75rem;
-  }
-
-  .venue-card p {
-    margin: 0.2rem 0;
-  }
-
-  .venue-card .section-kicker,
-  .venue-card h2 {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
+    gap: 1rem;
     margin: 0;
+    padding: 0;
+    list-style: none;
   }
 
-  .venue-card ul {
-    margin: 0.7rem 0 0;
-    padding-left: 1.1rem;
+  .venue-card {
+    display: grid;
+    align-content: start;
+    gap: 0.35rem;
+    padding: 1.1rem 1.25rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+  }
+
+  .venue-card h3 {
+    margin: 0;
+    font: 700 1.15rem / 1.25 var(--font-body);
+  }
+
+  .venue-count {
+    margin: 0;
+    font: var(--text-caption);
+    color: var(--color-text-muted);
+  }
+
+  .venue-events {
+    margin: 0.5rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .venue-events a {
+    display: flex;
+    gap: 0.75rem;
+    padding: 0.35rem 0;
+    border-top: 1px solid var(--color-border);
+    color: var(--color-text-secondary);
+    font: var(--text-caption);
+    text-decoration: none;
+  }
+
+  .venue-events a:hover {
+    color: var(--color-accent-text);
+  }
+
+  .venue-events span {
+    flex: none;
+    font: var(--text-mono);
+    font-size: 0.78rem;
+    color: var(--color-text-muted);
   }
 
   .venue-phases {
-    margin-top: var(--space-xl);
-    padding-top: var(--space-lg);
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-xl);
     border-top: 1px solid var(--color-border);
   }
 
   .venue-phases h2 {
-    margin: 0 0 var(--space-md);
-    font: var(--text-title);
-  }
-
-  .venue-phases h3 {
-    margin: var(--space-lg) 0 var(--space-sm);
-    font: var(--text-subtitle);
-    color: var(--color-text);
-  }
-
-  .venue-phases h4 {
-    margin: var(--space-md) 0 var(--space-xs);
-    font: var(--text-body-strong);
-    color: var(--color-text);
-  }
-
-  .venue-phases p {
-    margin: var(--space-xs) 0 var(--space-sm);
-    color: var(--color-text-muted);
-  }
-
-  .venue-phases ul {
-    margin: 0 0 var(--space-md) var(--space-md);
-    padding-left: var(--space-lg);
-  }
-
-  .venue-phases li {
-    margin: var(--space-xs) 0;
-    line-height: 1.6;
-  }
-
-  .venue-phases strong {
-    color: var(--color-text);
-  }
-
-  .venue-phases a {
-    color: var(--color-accent);
-    text-decoration: none;
-  }
-
-  .venue-phases a:hover {
-    text-decoration: underline;
-  }
-
-  @media (max-width: 780px) {
-    .venue-map {
-      min-height: 65vh;
-      border-radius: 1rem;
-    }
+    margin-top: 0;
   }
 </style>

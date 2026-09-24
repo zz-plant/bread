@@ -3,13 +3,7 @@ import data from "../../data/flyers.json";
 import ArchiveLayout from "../../layouts/ArchiveLayout.astro";
 import { createItemListSchema } from "../../utils/structuredData";
 
-const {
-	flyerAssets,
-	datedAssetCount,
-	seriesCount,
-	importedAssetCount,
-	topLevelAssetCount,
-} = data;
+const { flyerAssets, datedAssetCount } = data;
 
 const breadcrumbItems = [
 	{ label: "Home", href: "/" },
@@ -20,7 +14,7 @@ const breadcrumbItems = [
 const imageListStructuredData = createItemListSchema({
 	name: "BREAD Flyer Assets",
 	description:
-		"Flyer cards built from the main image folder and imported archive files.",
+		"Flyers, posters, and promo art for BREAD and Toasted Trax nights.",
 	itemListElement: flyerAssets.map((asset, index) => ({
 		"@type": "ImageObject",
 		name: asset.dateLabel ? `${asset.title} — ${asset.dateLabel}` : asset.title,
@@ -33,127 +27,34 @@ const imageListStructuredData = createItemListSchema({
 
 const summaryStats = [
 	{ label: "Images", value: flyerAssets.length },
-	{ label: "Images with dates", value: datedAssetCount },
-	{ label: "Main folder images", value: topLevelAssetCount },
-	{ label: "Imported images", value: importedAssetCount },
-	{ label: "Series", value: seriesCount },
+	{ label: "Dated", value: datedAssetCount },
 ];
 ---
 
 <ArchiveLayout
   title="BREAD Archive: Flyers"
-  description="Browse BREAD and Toasted Trax flyers and promo images from the main image folder and imported archive files."
+  heading="Flyers"
+  description="Flyers, posters, and promo art for BREAD and Toasted Trax nights in San Francisco."
   breadcrumbItems={breadcrumbItems}
   stats={summaryStats}
-  intro="Flyers, posters, and promo images from the main folder and imported archive files."
-  context='Looking for radio episode art? Open <a href="/archive/radio-shows/">Radio shows</a>.'
+  intro="Flyers, posters, and promo art for BREAD and Toasted Trax, plus a few photos and design files. Dated images come first."
+  context='Cover art for the radio show is on the <a href="/archive/radio-shows/">Radio shows</a> page.'
   ogImage="/og/archive/flyers.png"
-  ogImageAlt="BREAD flyer and poster image gallery"
+  ogImageAlt="BREAD flyers and posters"
 >
-  <section class="flyer-grid" aria-label="Flyer image gallery">
+  <ul class="gallery" aria-label="Flyers and posters">
     {flyerAssets.map((asset, index) => (
-      <article class="flyer-card" id={`flyer-${index + 1}`}>
-        <img src={asset.imagePath} alt={`${asset.title}${asset.dateLabel ? ` on ${asset.dateLabel}` : ''}`} loading="lazy" decoding="async" />
-        <div class="flyer-overlay">
-          <p class="flyer-title">{asset.title}</p>
-          <p class="flyer-subline">{asset.assetType}{asset.dateLabel ? ` · ${asset.dateLabel}` : ''}</p>
-          <p class="flyer-source">{asset.source}</p>
-          <a href={asset.imagePath} target="_blank" rel="noreferrer noopener" class="flyer-action">Open full image</a>
-        </div>
-      </article>
+      <li id={`flyer-${index + 1}`}>
+        <a class="gallery-item" href={asset.imagePath} target="_blank" rel="noreferrer noopener">
+          <span class="gallery-frame">
+            <img src={asset.imagePath} alt={`${asset.title}${asset.dateLabel ? `, ${asset.dateLabel}` : ''}`} loading="lazy" decoding="async" />
+          </span>
+          <span class="gallery-caption">
+            <span class="gallery-title">{asset.title}</span>
+            <span class="gallery-meta">{[asset.assetType !== 'Image' && asset.assetType, asset.dateLabel].filter(Boolean).join(' · ') || 'Undated'}</span>
+          </span>
+        </a>
+      </li>
     ))}
-  </section>
+  </ul>
 </ArchiveLayout>
-
-<style>
-  .flyer-grid {
-    display: grid;
-    gap: 0.6rem;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  }
-
-  .flyer-card {
-    position: relative;
-    overflow: hidden;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    background: var(--color-surface);
-    aspect-ratio: 4 / 3;
-  }
-
-  .flyer-card img {
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: cover;
-    filter: grayscale(0.4);
-    transition: filter 700ms ease, transform 600ms ease;
-  }
-
-  .flyer-card:hover img,
-  .flyer-card:focus-within img {
-    filter: grayscale(0);
-    transform: scale(1.03);
-  }
-
-  .flyer-overlay {
-    position: absolute;
-    inset: auto 0 0 0;
-    padding: 1.5rem 0.9rem 0.8rem;
-    background: linear-gradient(0deg, rgb(0 0 0 / 92%) 30%, rgb(0 0 0 / 0) 100%);
-    transform: translateY(calc(100% - 2.8rem));
-    transition: transform 350ms ease;
-  }
-
-  .flyer-card:hover .flyer-overlay,
-  .flyer-card:focus-within .flyer-overlay {
-    transform: translateY(0);
-  }
-
-  .flyer-title {
-    margin: 0;
-    font: 600 1rem / 1.15 var(--font-display);
-    color: var(--color-text);
-  }
-
-  .flyer-subline {
-    margin: 0.35rem 0 0;
-    font: var(--text-caption);
-    color: var(--color-accent-muted);
-  }
-
-  .flyer-source {
-    margin: 0.3rem 0 0;
-    font: var(--text-footnote);
-    text-transform: uppercase;
-    color: var(--color-text-muted);
-  }
-
-  .flyer-action {
-    display: inline-block;
-    margin-top: 0.5rem;
-    font: var(--text-overline);
-    text-transform: uppercase;
-    color: var(--color-accent);
-    text-decoration: none;
-  }
-
-  .flyer-action:hover,
-  .flyer-action:focus-visible {
-    text-decoration: underline;
-  }
-</style>
-
-<style>
-  @media (hover: none), (max-width: 780px) {
-    .flyer-overlay {
-      transform: translateY(0);
-    }
-
-    .flyer-action {
-      min-height: 44px;
-      display: inline-flex;
-      align-items: center;
-    }
-  }
-</style>

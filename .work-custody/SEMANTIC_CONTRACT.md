@@ -1,19 +1,16 @@
 # Semantic Contract
 ## Success Criteria
-Visual refinements applied that enhance readability and archive feel without breaking layout or responsiveness.
+Copy reads like it was written by someone from the collective: plain, specific, no research-report hedging, no meta-commentary about "this page" or "this archive pass", and no build details (folders, filenames, "loads only when requested") shown to visitors.
 
 ## Acceptance Criteria
-- [ ] Improved typography scale and line lengths for better readability
-- [ ] More restrained use of accent color (orange) for visual hierarchy
-- [ ] Increased whitespace in key areas (cards, featured visuals, stats)
-- [ ] Subtle visual treatment for images (borders, shadows)
-- [ ] Enhanced story page hierarchy (headline, meta, content)
-- [ ] Optional: Simplified navigation if appropriate
-- [ ] All changes pass `npm run lint` (astro check)
-- [ ] No regression in core functionality
+- [x] No "(noted)", "pending", "in this pass", "Archive-sourced", "Documented chronology" etc. in visitor-facing files (enforced by test)
+- [x] Event titles describe the night, not the research status ("BREAD SF: Mr. Mitch", not "UGSF period event")
+- [x] No filler stats ("Page: Archive home", "Main folder images")
+- [x] No broken internal links (`/blog/`, `/archive/channel-profile-directory/`, `/archive/venues-format-shifts/`)
+- [x] Template tells removed (grain overlay, ghost watermark, `//` top strip, emoji status badges on every card)
+- [x] OG cards match the site palette and no longer truncate subtitles
+- [x] `npm run lint` adds no errors; `npm test` and `npm run build` pass
 
 ## Out of Scope
-- Major layout changes
-- New content creation
-- Functional changes to filtering/search
-- Theme or dark mode additions
+- Fixing mislabeled image files (see PARKING_LOT)
+- Navigation/IA changes

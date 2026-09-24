@@ -14,28 +14,25 @@ const { roster } = Astro.props;
 ---
 
 <article class="panel" id="panel-people" role="tabpanel" aria-labelledby="tab-people" hidden>
-  <div class="panel-heading">
-    <div>
-      <p class="section-kicker">Residents + collaborators</p>
-      <h2>People</h2>
-    </div>
-  </div>
-  <p class="people-intro">The people represented in the BREAD archive, with direct links where available.</p>
+  <h2 class="visually-hidden">People</h2>
   <ul class="cards people">
     {roster.map((person: Person) => (
-      <li class="card" data-kind="person">
-        <h3 class="title">{person.name}</h3>
-        <p class="meta">{person.role}</p>
-        {person.notes && <p class="lineup">{person.notes}</p>}
+      <li class="card person" data-kind="person">
+        <h3 class="person-name">{person.name}</h3>
+        <p class="person-role">{person.role}</p>
+        {person.notes && <p class="person-notes">{person.notes}</p>}
         <div class="person-links">
           {person.links.sc && (
-            <a href={person.links.sc} class="person-link" target="_blank" rel="noreferrer noopener" aria-label={`${person.name} SoundCloud`}>SC ↗</a>
+            <a href={person.links.sc} class="person-link" target="_blank" rel="noreferrer noopener" aria-label={`${person.name} on SoundCloud`}>SoundCloud</a>
+          )}
+          {person.links.bc && (
+            <a href={person.links.bc} class="person-link" target="_blank" rel="noreferrer noopener" aria-label={`${person.name} on Bandcamp`}>Bandcamp</a>
           )}
           {person.links.ig && (
-            <a href={person.links.ig} class="person-link" target="_blank" rel="noreferrer noopener" aria-label={`${person.name} Instagram`}>IG ↗</a>
+            <a href={person.links.ig} class="person-link" target="_blank" rel="noreferrer noopener" aria-label={`${person.name} on Instagram`}>Instagram</a>
           )}
           {person.links.ra && (
-            <a href={person.links.ra} class="person-link" target="_blank" rel="noreferrer noopener" aria-label={`${person.name} Resident Advisor`}>RA ↗</a>
+            <a href={person.links.ra} class="person-link" target="_blank" rel="noreferrer noopener" aria-label={`${person.name} on Resident Advisor`}>RA</a>
           )}
         </div>
       </li>

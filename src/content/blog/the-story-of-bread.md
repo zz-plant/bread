@@ -1,6 +1,6 @@
 ---
 title: The Story of BREAD
-description: A careful, plain-language history of BREAD across club nights, fundraiser streams, and later radio/event announcements.
+description: How a San Francisco club night became a fundraiser stream and then a radio show, 2015–2024.
 date: 2026-02-28
 draft: false
 tags:
@@ -10,69 +10,49 @@ tags:
   - community
 ---
 
-This page shares the best currently documented history of BREAD.
+BREAD started in San Francisco in 2014. The idea was a club night for riskier, less commercial dance music than the city usually booked. Cage A (Kanav) and Prawns started it, and residents and collaborators came and went over the years.
 
-Where details are incomplete or still being checked, this text stays cautious and points to the archive.
+What follows is the part of the story that flyers, listings, and posts can back up. For every night with its lineup and source, see the [Event list](/archive/event-ledger/).
 
-For event-by-event links, use the [Archive](/archive/) and the [Event List](/archive/event-ledger/).
+## 2014–2015: Getting started
 
-## What this page covers
+Planning started in 2014. The first night was a pilot with Grime City at F8 on February 13, 2015, with Nevermind and Helix. Numbered BREAD nights followed through the rest of the year, including BREAD #3 with Doctor Jeep in November.
 
-The timeline below draws from flyer images, public listings, and public Instagram posts. Treat it as a living archive that may be refined as sources improve.
+## 2016: Bigger bookings
 
-## Chronological summary
+2016 was the busiest year on record. Alongside the numbered nights (Jlin and Iyer at BREAD #5; Pinch, Rabit, Mumdance, and Logos at BREAD #10), there were partner nights: the Toasted Trax series, Parameter x BREAD, and a Lobster Theremin showcase with Sure Thing.
 
-### 2014–2015: Formation and first recurring events
+## 2017–2018: Underground SF
 
-Current records indicate a planning phase in 2014 and public event activity by 2015, including an early F8 pilot and numbered events through that year.
+In 2017 more nights moved to Underground SF, with guests like DJ J Heat, Mr. Mitch, Kozee, Roska, and Kelman Duran. The regular club nights wound down in 2018.
 
-Founding credit is most consistently associated with Cage A (Kanav) and Prawns, with resident and collaborator participation expanding over time.
+## 2020–2021: Fundraiser streams
 
-### 2016: More events and broader bookings
+When the pandemic closed the clubs, BREAD moved to Twitch. The streams raised money for groups including NBDA, Atlanta Solidarity Fund, Rebuilding Alliance, and Oxygen for India.
 
-Records for 2016 show a denser schedule and wider collaborations.
+## 2022–2024: Radio
 
-Alongside core numbered nights, recovered listings and flyers show partner-program events such as Toasted Trax and showcase formats linked with Parameter and Sure Thing contexts.
+In 2022 BREAD FM started a monthly show on Internet Public Radio, and in 2023 it took up a residency on HKCR. BREAD FM also had a Wednesday afternoon show on Radio Valencia; the cover art is on the [Radio shows](/archive/radio-shows/) page. In March 2024 BREAD announced a night in SoMa.
 
-### 2017–2018: Venue shift and close of the original run
-
-Records indicate a shift in venue center-of-gravity toward Underground SF-era programming and related rooms.
-
-The available timeline places the end of the original recurring club-night chapter in 2018.
-
-### 2020–2021: Livestream and mutual-aid fundraising
-
-During pandemic shutdowns, activity moved from in-person events to remote broadcasts and fundraiser streams.
-
-Documented campaigns reference support for organizations including NBDA, Atlanta Solidarity Fund, Rebuilding Alliance, and Oxygen for India.
-
-### 2022–2024: Radio chapters and latest public announcement
-
-Public post history then shows a radio chapter through Internet Public Radio and HKCR.
-
-The latest public post in this archive pass is a March 2024 SF event announcement in the SOMA area.
-
-## Quick timeline snapshot
-
-This table gives a quick, plain-English timeline. For full rows and links, use the event list.
+## Key dates
 
 | Date       | Moment                        | Type       | What happened                                                               | Source |
 | ---------- | ----------------------------- | ---------- | --------------------------------------------------------------------------- | ------ |
-| 2015-02-13 | Early F8 pilot                | Club night | Grime City x BREAD pilot night with Nevermind and Helix.                   | [Facebook event](https://www.facebook.com/events/588841281252200/) |
-| 2015-11-06 | BREAD #3                      | Club night | One of the early numbered BREAD nights, featuring Doctor Jeep.             | [Facebook event](https://www.facebook.com/events/d41d8cd9/bread-3-wdoctor-jeep-patrick-brian-ballast-javascript-sha-sha-kimbo/1013123788738124/) |
-| 2016-03-25 | Jlin night                    | Club night | Jlin and Iyer appear in this period, documented in event links and flyers. | [Flyer image](/bread-jlin-planet-mu-iyer-2016-03-25-flyer.jpg) |
+| 2015-02-13 | Pilot night                   | Club night | Pilot night with Grime City, featuring Nevermind and Helix.                | [Facebook event](https://www.facebook.com/events/588841281252200/) |
+| 2015-11-06 | BREAD #3                      | Club night | Early numbered night with Doctor Jeep.                                      | [Facebook event](https://www.facebook.com/events/d41d8cd9/bread-3-wdoctor-jeep-patrick-brian-ballast-javascript-sha-sha-kimbo/1013123788738124/) |
+| 2016-03-25 | BREAD #5                      | Club night | BREAD #5 with Jlin and Iyer.                                                | [Flyer image](/bread-jlin-planet-mu-iyer-2016-03-25-flyer.jpg) |
 | 2016-06-29 | Toasted Trax #1               | Club night | Codeword event with Abyss X, DHRA, DJ Spider, Gabes, and Gewzer b2b Cage A. | [Flyer image](/toasted-trax-number-one-june-29.jpg) |
 | 2016-08-19 | Parameter x BREAD             | Club night | Lineup included Pinch, Rabit, Mumdance, Logos, Caski, and Ganesa.          | [Flyer image](/bread-number-ten-pinch-rabit-mumdance-logos-caski-ganesa-aug-19.png) |
-| 2016-11-19 | Sure Thing x BREAD            | Club night | Collaboration with the Lobster Theremin showcase.                           | [Facebook event](https://www.facebook.com/events/60-6th-st-san-francisco-ca-94103-1609-united-states/sure-thing-bread-sf-lobster-theremin-showcase/1062894940491694/) |
-| 2017-05-26 | Underground SF period         | Club night | Lineup included Mr. Mitch, Kozee, and Prawns.                               | [Facebook event](https://www.facebook.com/events/d41d8cd9/bread-sf-mr-mitch-planet-mu-kozee-prawns/277151372731142/) |
-| 2017-09-22 | Late Underground SF period    | Club night | Lineup included Kelman Duran and Suda.                                      | [Flyer image](/bread-suda-kelman-duran-bread-djs-sept-22.jpg) |
-| 2021-01-02 | New Year fundraiser           | Livestream | No-cover fundraiser stream with a multi-artist lineup.                      | [Instagram post](https://www.instagram.com/p/CJed4dGFKbz/) |
-| 2021-03-13 | Six Years stream              | Livestream | Anniversary stream announcement in the archive period.                      | [Instagram post](https://www.instagram.com/p/CL44SfGli4d/) |
+| 2016-11-19 | Sure Thing x BREAD            | Club night | Lobster Theremin showcase, co-presented with Sure Thing.                    | [Facebook event](https://www.facebook.com/events/60-6th-st-san-francisco-ca-94103-1609-united-states/sure-thing-bread-sf-lobster-theremin-showcase/1062894940491694/) |
+| 2017-05-26 | BREAD SF: Mr. Mitch           | Club night | Lineup included Mr. Mitch, Kozee, and Prawns.                               | [Facebook event](https://www.facebook.com/events/d41d8cd9/bread-sf-mr-mitch-planet-mu-kozee-prawns/277151372731142/) |
+| 2017-09-22 | BREAD SF: Kelman Duran        | Club night | Lineup included Kelman Duran and Suda.                                      | [Flyer image](/bread-suda-kelman-duran-bread-djs-sept-22.jpg) |
+| 2021-01-02 | New Year fundraiser           | Livestream | Free fundraiser stream with Color Plus, Gila, Zaida, Wonja, and residents.  | [Instagram post](https://www.instagram.com/p/CJed4dGFKbz/) |
+| 2021-03-13 | Six Years stream              | Livestream | Anniversary fundraiser stream.                                              | [Instagram post](https://www.instagram.com/p/CL44SfGli4d/) |
 | 2021-07-10 | Long Bread Summer             | Livestream | Fundraiser stream supporting Rebuilding Alliance and Oxygen for India.      | [Flyer image](/bread-long-bread-summer-fundraiser-july-10.png) |
-| 2022-07-27 | Bread FM monthly launch       | Radio      | Monthly show framing appears on Internet Public Radio.                      | [Instagram post](https://www.instagram.com/p/Cgfdlh4Pdtx/) |
-| 2023-06-15 | HKCR residency announcement   | Radio      | HKCR residency announcement and first-show phase.                           | [Announcement](https://www.instagram.com/p/CthThTOpds1/) |
-| 2024-03-21 | SF event announcement         | Club night | Latest public post in this pass (SOMA area).                                | [Instagram post](https://www.instagram.com/p/C4ygjDoynTY/) |
+| 2022-07-27 | BREAD FM monthly launch       | Radio      | Monthly show announced on Internet Public Radio.                            | [Instagram post](https://www.instagram.com/p/Cgfdlh4Pdtx/) |
+| 2023-06-15 | BREAD FM joins HKCR           | Radio      | Residency on Hong Kong Community Radio announced.                           | [Instagram post](https://www.instagram.com/p/CthThTOpds1/) |
+| 2024-03-21 | BREAD SF: Nhac Gay            | Club night | BREAD night in SoMa announced.                                              | [Instagram post](https://www.instagram.com/p/C4ygjDoynTY/) |
 
-## Current gaps
+## What's missing
 
-This page will keep evolving as more primary material is confirmed. Biggest gaps are exact venue history for some rows, fuller lineup detail in older years, and resolving date conflicts across sources.
+Some older nights are missing an exact venue or a full lineup, and a few dates don't match across sources. This page gets updated as more turns up.

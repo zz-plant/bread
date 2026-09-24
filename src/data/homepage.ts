@@ -29,9 +29,11 @@ export async function getHomepageData() {
 			id: event.id,
 			title: event.data.title,
 			year: event.data.year,
+			isoDate: event.data.date.toISOString().slice(0, 10),
 			date: new Date(event.data.date).toLocaleDateString("en-US", {
 				month: "short",
 				day: "numeric",
+				timeZone: "UTC",
 			}),
 			venue: event.data.venue,
 			lineup: event.data.lineup,
@@ -44,7 +46,7 @@ export async function getHomepageData() {
 						external: event.data.sourceExternal,
 					}
 				: {
-						label: event.data.sourceLabel || "Archive-sourced record",
+						label: event.data.sourceLabel || "BREAD records",
 					},
 		}));
 
@@ -56,7 +58,7 @@ export async function getHomepageData() {
 	const summaryStats = [
 		{ label: "Events listed", value: documentedChronology.length },
 		{ label: "Years active", value: activeYears },
-		{ label: "Events with links", value: sourceLinkedEvents },
+		{ label: "Events with sources", value: sourceLinkedEvents },
 		{ label: "Residents", value: roster.length },
 	];
 
@@ -64,29 +66,29 @@ export async function getHomepageData() {
 		{
 			src: "/drive/bread-x-grime-city_150213-show.png",
 			alt: "BREAD x Grime City flyer featuring Nevermind and Helix",
-			title: "Pilot flyer · February 2015",
-			caption: "BREAD x Grime City at F8",
+			title: "BREAD x Grime City",
+			caption: "The pilot night at F8, February 2015",
 			href: "/archive/flyers/",
 		},
 		{
 			src: "/drive/bread2-smaller.jpg",
 			alt: "BREAD #2 flyer with chain and blue artwork treatment",
-			title: "BREAD #2 flyer",
-			caption: "Rabit, Sheen, Korma, Lyeform",
+			title: "BREAD #2",
+			caption: "Rabit, Sheen, Korma, Lyeform · July 2015",
 			href: "/archive/flyers/",
 		},
 		{
 			src: "/drive/2015-07-19-08.54.27.jpg",
 			alt: "Street photo of a BREAD #2 poster on a San Francisco utility pole",
-			title: "Street placement",
-			caption: "Poster in the wild, San Francisco",
+			title: "BREAD #2 poster",
+			caption: "On a utility pole in San Francisco",
 			href: "/story/",
 		},
 		{
 			src: "/drive/img_0530.jpg",
 			alt: "Party photo showing three attendees at a BREAD event",
 			title: "Party photo",
-			caption: "From the venue photo archive",
+			caption: "Inside a BREAD night",
 			href: "/story/",
 		},
 	];
@@ -172,30 +174,22 @@ export async function getHomepageData() {
 		createWebsiteSchema({
 			site: undefined as any,
 			name: "BREAD",
-			description: "BREAD history, flyers, and listening links.",
+			description:
+				"BREAD: a San Francisco club night, fundraiser stream, and radio show, 2015–2024.",
 		}),
 		createCollectionPageSchema({
 			site: undefined as any,
 			pathname: "/",
-			name: "BREAD Home",
-			description:
-				"Main page for the timeline, residents, visuals, and listening links.",
+			name: "BREAD",
+			description: "Events, residents, flyers, and mixes from BREAD.",
 			isPartOf: "BREAD",
 		}),
 		createItemListSchema({
 			name: "BREAD Events",
-			description: "Event timeline shown on the BREAD homepage.",
+			description: "BREAD events from 2015 to 2024.",
 			itemListElement: eventSchemas,
 		}),
 	].filter((entry): entry is Record<string, unknown> => Boolean(entry));
-
-	const homeNavLinks = [
-		{ label: "Archive", href: "/archive/" },
-		{ label: "Flyers", href: "/archive/flyers/" },
-		{ label: "Radio shows", href: "/archive/radio-shows/" },
-		{ label: "Timeline", href: "/archive/timeline/" },
-		{ label: "Story", href: "/story/" },
-	];
 
 	const buildSoundCloudEmbedSrc = (href: string, visual = false) => {
 		const params = new URLSearchParams({
@@ -227,7 +221,6 @@ export async function getHomepageData() {
 		platformEmbeds: platformEmbedsMap,
 		residentSoundcloudProfiles,
 		homeStructuredData,
-		homeNavLinks,
 		buildSoundCloudEmbedSrc,
 	};
 }

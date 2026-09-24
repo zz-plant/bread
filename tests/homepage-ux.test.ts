@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 
 const read = (path: string) =>
@@ -56,26 +56,35 @@ describe("homepage UX", () => {
 		const styles = read("src/styles/home.css");
 
 		expect(styles).toContain("min-height: 2.75rem");
-		expect(styles).toContain(
-			"grid-template-columns: minmax(0, 1fr) minmax(11rem, auto)",
-		);
 		expect(styles).toContain("grid-template-columns: auto minmax(0, 1fr)");
+		expect(styles).toContain("grid-column: 1 / -1");
 		expect(styles).toContain("text-wrap: pretty");
+		// 16px inputs stop iOS Safari from zooming the page on focus.
+		expect(styles).toContain("font: 400 1rem / 1.2 var(--font-body)");
 	});
 
-	it("does not repeat global navigation in the homepage footer", () => {
-		const homepage = read("src/pages/index.astro");
+	it("keeps artwork at full color and never covers it with text", () => {
+		const pages = [
+			"src/pages/archive/flyers.astro",
+			"src/pages/archive/radio-shows.astro",
+			"src/styles/global.css",
+		].map(read);
 
-		expect(homepage).toContain(
-			'footerNavLinks={[{ label: "Archive", href: "/archive/" }]}',
-		);
-		expect(homepage).not.toContain('{ label: "Home", href: "/" }');
-		expect(read("src/layouts/BaseLayout.astro")).toContain(
-			"{navLinks.map((link) => (",
-		);
-		expect(read("src/layouts/BaseLayout.astro")).toContain(
-			"{footerNavLinks.map((link) => (",
-		);
+		for (const source of pages) {
+			expect(source).not.toContain("filter: grayscale");
+			expect(source).not.toContain("-overlay");
+		}
+	});
+
+	it("uses one nav everywhere and keeps the footer from repeating it", () => {
+		const homepage = read("src/pages/index.astro");
+		const baseLayout = read("src/layouts/BaseLayout.astro");
+
+		expect(homepage).not.toContain("navLinks=");
+		expect(homepage).not.toContain("footerNavLinks=");
+		expect(baseLayout).toContain("{navLinks.map((link) => (");
+		expect(baseLayout).toContain("footerNavLinks = FOOTER_LINKS");
+		expect(baseLayout).not.toContain("footerNavLinks = navLinks");
 	});
 
 	it("consolidates featured visual destinations into section links", () => {
@@ -137,5 +146,51 @@ describe("homepage UX", () => {
 		expect(ledger).not.toContain("link coming soon");
 		expect(map).not.toContain("anti-bot");
 		expect(radio).not.toContain("Recovered Facebook event URLs");
+	});
+
+	it("keeps research-pipeline and placeholder wording out of visitor-facing copy", () => {
+		const listFiles = (dir: string): string[] =>
+			readdirSync(new URL(`../${dir}`, import.meta.url), {
+				withFileTypes: true,
+			}).flatMap((entry) =>
+				entry.isDirectory()
+					? listFiles(`${dir}/${entry.name}`)
+					: [`${dir}/${entry.name}`],
+			);
+		const copyFiles = [
+			...listFiles("src/pages"),
+			...listFiles("src/components"),
+			...listFiles("src/layouts"),
+			...listFiles("src/content/archive").filter(
+				(file) => !file.endsWith("timeline.md"),
+			),
+			...listFiles("src/content/blog"),
+			...listFiles("src/content/events"),
+			...listFiles("src/content/roster"),
+			...listFiles("src/content/config"),
+			"src/data/homepage.ts",
+			"scripts/generate-og-images.mjs",
+		];
+		const bannedPhrases = [
+			"(noted)",
+			"pending",
+			"in this pass",
+			"Archive-sourced",
+			"Documented chronology",
+			"when you are",
+			"Visual trail",
+			"Keep exploring",
+			"BREAD //",
+			"venues-format-shifts",
+			"channel-profile-directory",
+			"main image folder",
+		];
+
+		for (const file of copyFiles) {
+			const text = read(file);
+			for (const phrase of bannedPhrases) {
+				expect(text, `${file} contains "${phrase}"`).not.toContain(phrase);
+			}
+		}
 	});
 });

@@ -65,9 +65,7 @@ for (const slug of listContentFiles(archiveContentDir, ".md")) {
 		label: `archive/${slug}.png`,
 		eyebrow: "BREAD ARCHIVE",
 		title: title || "BREAD Archive",
-		subtitle:
-			description ||
-			"Timeline, venues, people, and the events that shaped BREAD.",
+		subtitle: description || "Events, flyers, venues, and people, 2015–2024.",
 		variant: "archive",
 	});
 }
@@ -88,52 +86,51 @@ for (const slug of listContentFiles(blogContentDir, ".md")) {
 const imageSpecs = [
 	{
 		label: "home.png",
-		eyebrow: "BREAD // SAN FRANCISCO",
-		title: "BREAD // Archive",
-		subtitle: "Timeline, people, radio, and flyers from San Francisco.",
+		eyebrow: "SAN FRANCISCO",
+		title: "BREAD",
+		subtitle: "Club nights, fundraiser streams, and radio, 2015–2024.",
 		variant: "home",
 	},
 	{
 		label: "og-default.png",
-		eyebrow: "BREAD // SAN FRANCISCO",
-		title: "BREAD // Archive",
-		subtitle: "Timeline, people, radio, and flyers from San Francisco.",
+		eyebrow: "SAN FRANCISCO",
+		title: "BREAD",
+		subtitle: "Club nights, fundraiser streams, and radio, 2015–2024.",
 		variant: "home",
 	},
 	{
 		label: "archive.png",
 		eyebrow: "BREAD ARCHIVE",
 		title: "BREAD Archive",
-		subtitle: "Timeline, venues, people, and the events that shaped BREAD.",
+		subtitle: "Events, flyers, venues, and people, 2015–2024.",
 		variant: "archive",
 	},
 	{
 		label: "timeline.png",
 		eyebrow: "BREAD ARCHIVE",
 		title: "Timeline",
-		subtitle: "From 2015 club nights to 2024 radio and event announcements.",
+		subtitle: "From the first club nights in 2015 to the radio show.",
 		variant: "archive",
 	},
 	{
 		label: "archive/flyers.png",
 		eyebrow: "BREAD ARCHIVE",
 		title: "Flyers",
-		subtitle: "Flyers, posters, and promo images from the archive.",
+		subtitle: "Flyers, posters, and promo art for BREAD and Toasted Trax.",
 		variant: "archive",
 	},
 	{
 		label: "archive/radio-shows.png",
 		eyebrow: "BREAD ARCHIVE",
 		title: "Radio Shows",
-		subtitle: "BREAD FM radio show artwork with guests and dates.",
+		subtitle: "Cover art for BREAD FM radio shows.",
 		variant: "archive",
 	},
 	{
 		label: "archive/map.png",
 		eyebrow: "BREAD ARCHIVE",
 		title: "Venue Map",
-		subtitle:
-			"A mobile-friendly venue map and list for documented BREAD events.",
+		subtitle: "Where BREAD events happened.",
 		variant: "archive",
 	},
 	...archiveCatchallImages,

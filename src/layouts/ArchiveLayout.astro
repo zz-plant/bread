@@ -18,8 +18,8 @@ interface Stat {
 
 interface Props {
 	title: string;
+	heading?: string;
 	description: string;
-	kicker?: string;
 	intro?: string;
 	context?: string;
 	breadcrumbItems: BreadcrumbItem[];
@@ -30,8 +30,8 @@ interface Props {
 
 const {
 	title,
+	heading = title,
 	description,
-	kicker = "Archive section",
 	intro,
 	context,
 	breadcrumbItems,
@@ -68,26 +68,24 @@ const structuredData = [pageStructuredData, breadcrumbStructuredData].filter(
   ogImage={ogImage}
   ogImageAlt={ogImageAlt}
 >
-  <header class="page-header panel">
-    <p class="section-kicker">{kicker}</p>
-    <h1>{title}</h1>
+  <header class="page-header">
+    <Breadcrumbs items={breadcrumbItems} />
+    <h1>{heading}</h1>
     {intro && <p class="intro">{intro}</p>}
     {context && <p class="context"><Fragment set:html={context} /></p>}
-    <Breadcrumbs items={breadcrumbItems} />
+    {
+      stats.length > 0 && (
+        <ul class="stats-strip" aria-label="Overview">
+          {stats.map((stat) => (
+            <li>
+              <span class="stat-value">{stat.value}</span>
+              <span class="stat-label">{stat.label}</span>
+            </li>
+          ))}
+        </ul>
+      )
+    }
   </header>
-
-  {
-    stats.length > 0 && (
-      <div class="stats-strip" aria-label="Overview stats">
-        {stats.map((stat) => (
-          <p>
-            <span class="stat-value">{stat.value}</span>
-            <span class="stat-label">{stat.label}</span>
-          </p>
-        ))}
-      </div>
-    )
-  }
 
   <slot />
 </BaseLayout>

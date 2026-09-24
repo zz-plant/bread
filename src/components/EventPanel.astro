@@ -33,7 +33,7 @@ const visualDestinations = Array.from(
 	new Map(
 		visuals.map((item) => [
 			item.href,
-			item.href === "/archive/flyers/" ? "Browse flyers →" : "Read the story →",
+			item.href === "/archive/flyers/" ? "All flyers →" : "Read the story →",
 		]),
 	).entries(),
 );
@@ -41,42 +41,19 @@ const visualDestinations = Array.from(
 
 <article class="panel active" id="panel-events" role="tabpanel" aria-labelledby="tab-events">
   <div class="panel-heading">
-    <div>
-      <p class="section-kicker">Documented chronology</p>
-      <h2>Events</h2>
-    </div>
-    <p class="result-count" id="eventsResultCount">{events.length} events shown</p>
-  </div>
-  <p class="events-intro">Dates, venues, lineups, and sources from the documented archive.</p>
-
-  <div class="events-toolbar" aria-label="Search and sort events">
-    <div class="search-wrapper">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-        <circle cx="11" cy="11" r="8"></circle>
-        <path d="m21 21-4.35-4.35"></path>
-      </svg>
-      <input type="search" id="eventSearch" name="event-search" placeholder="Search title, venue, or lineup…" aria-label="Search events by title, venue, or lineup" autocomplete="off" />
-    </div>
-    <label class="event-control">
-      <span>Sort</span>
-      <select id="eventSort" aria-label="Sort events">
-        <option value="oldest">Oldest first</option>
-        <option value="newest">Newest first</option>
-        <option value="year">Group by year</option>
-      </select>
-    </label>
+    <h2>Events</h2>
+    <p class="result-count" id="eventsResultCount" aria-live="polite">{events.length} events</p>
   </div>
 
-  <section class="featured-visuals" aria-label="Featured visuals">
+  <section class="featured-visuals" aria-labelledby="featured-visuals-title">
     <div class="featured-visuals-head">
-      <h3>Flyers + photos</h3>
-      <p>A few flyer and party photos from the archive.</p>
+      <h3 id="featured-visuals-title">Flyers and photos</h3>
     </div>
     <ul class="featured-visual-grid">
       {visuals.map((item, visualIndex) => (
         <li>
           <figure>
-            <img src={item.src} alt={item.alt} width="960" height="720" loading={visualIndex === 0 ? 'eager' : 'lazy'} fetchpriority={visualIndex === 0 ? 'high' : undefined} decoding={visualIndex === 0 ? 'sync' : 'async'} sizes="(max-width: 780px) 92vw, 32vw" />
+            <img src={item.src} alt={item.alt} width="960" height="1280" loading={visualIndex === 0 ? 'eager' : 'lazy'} fetchpriority={visualIndex === 0 ? 'high' : undefined} decoding={visualIndex === 0 ? 'sync' : 'async'} sizes="(max-width: 780px) 46vw, 24vw" />
             <figcaption>
               <p>{item.title}</p>
               <small>{item.caption}</small>
@@ -85,34 +62,47 @@ const visualDestinations = Array.from(
         </li>
       ))}
     </ul>
-    <nav class="featured-visual-links" aria-label="Visual archive links">
+    <nav class="featured-visual-links" aria-label="More flyers and photos">
       {visualDestinations.map(([href, label]) => <a href={href}>{label}</a>)}
     </nav>
   </section>
 
+  <div class="events-toolbar" role="search" aria-label="Search and sort events">
+    <div class="search-wrapper">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <circle cx="11" cy="11" r="8"></circle>
+        <path d="m21 21-4.35-4.35"></path>
+      </svg>
+      <input type="search" id="eventSearch" name="event-search" placeholder="Search by name, venue, or artist" aria-label="Search events by name, venue, or artist" autocomplete="off" />
+    </div>
+    <label class="event-control">
+      <span>Sort</span>
+      <select id="eventSort">
+        <option value="oldest">Oldest first</option>
+        <option value="newest">Newest first</option>
+      </select>
+    </label>
+  </div>
+
   <ul class="cards">
-     {events.map((event, index) => (
-       <li class="card" id={`event-${event.id}`} data-kind="event" data-index={index} data-year={event.year} data-venue={event.venue} data-lineup={event.lineup} data-status={event.status} data-has-source={event.source.href ? 'true' : 'false'}>
-         <div class="card-header">
-           <h3 class="title">{event.title}</h3>
-           <span class={`status-badge status-${event.status}`} aria-label={`Status: ${event.status}`}>
-            {event.status === 'played' && '✓ '}
-            {event.status === 'cancelled' && '✕ '}
-            {event.status === 'postponed' && '⏸ '}
-            {event.status}
-          </span>
-         </div>
-         <p class="meta">{event.year} · {event.date} · {event.venue}</p>
-         <p class="lineup">{event.lineup}</p>
-         {event.source.href ? (
-           <p class="status source-row">Source: <a href={event.source.href} target={event.source.external ? '_blank' : undefined} rel={event.source.external ? 'noreferrer noopener' : undefined}>{event.source.label}</a></p>
-         ) : (
-           <p class="status source-row">Source: {event.source.label}</p>
-         )}
-       </li>
-      ))}
+    {events.map((event, index) => (
+      <li class="card" id={`event-${event.id}`} data-kind="event" data-index={index} data-year={event.year} data-venue={event.venue} data-lineup={event.lineup} data-status={event.status} data-has-source={event.source.href ? 'true' : 'false'}>
+        <div class="card-header">
+          <h3 class="title">{event.title}</h3>
+          {event.status !== 'played' && (
+            <span class={`status-badge status-${event.status}`}>{event.status}</span>
+          )}
+        </div>
+        <p class="meta">{event.date}, {event.year} · {event.venue}</p>
+        <p class="lineup">{event.lineup}</p>
+        {event.source.href && (
+          <p class="status source-row">Source: <a href={event.source.href} target={event.source.external ? '_blank' : undefined} rel={event.source.external ? 'noreferrer noopener' : undefined}>{event.source.label}</a></p>
+        )}
+      </li>
+    ))}
   </ul>
+  <p class="events-empty" id="eventsEmpty" hidden>No events match that search.</p>
   <div class="load-more-container">
-    <button class="chip" type="button" id="loadMoreEvents">Load more events</button>
+    <button class="chip" type="button" id="loadMoreEvents">Show more</button>
   </div>
 </article>

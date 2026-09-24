@@ -2,9 +2,10 @@
 Command-level evidence of testing, linting, and validation. Update in real time as commands are run.
 
 ## Detected Repo Commands
-- test: None detected
-- lint: `npm run lint` (runs `astro check` for type/content validation)
-- typecheck: `astro check` (included in `npm run lint` and `npm run build`)
+- test: `npm test` (vitest)
+- lint: `npm run lint` (runs `biome check .`)
+- typecheck: `astro check` (included in `npm run build`)
+- install: `bun install --frozen-lockfile` (`npm ci` currently fails on a peer conflict)
 
 ## Evidence Log
 | Date | Command | Exit Code | Output Summary |
@@ -15,3 +16,9 @@ Command-level evidence of testing, linting, and validation. Update in real time 
 | 2026-05-06 | update astro.config.mjs | 0 | Added mdx() to integrations |
 | 2026-05-06 | create src/pages/story.astro | 0 | Created story page rendering the-story-of-bread.mdx content |
 | 2026-05-06 | npm run lint (after MDX) | 0 | 0 errors, 0 warnings, 0 hints - MDX files now recognized |
+| 2026-09-24 | npm run lint (baseline, before changes) | 1 | 7 errors, 129 warnings (pre-existing) |
+| 2026-09-24 | npm run lint (after changes) | 1 | 5 errors, 128 warnings; all 5 pre-existing (favicon.svg title, 4 organizeImports) |
+| 2026-09-24 | npm test | 0 | 16 passed, including new copy regression test |
+| 2026-09-24 | npm run build | 0 | astro check 0 errors/0 warnings/0 hints; build complete |
+| 2026-09-24 | Playwright screenshots, 1280px and 390px | 0 | home (3 tabs), archive, timeline, flyers, radio, map, story, overview, ledger, people reviewed |
+| 2026-09-24 | Playwright interaction check | 0 | search "zzzz" shows empty state; "rabit" → "2 events"; reset → "Showing 20 of 27" / "Show 7 more"; "Newest first" now puts 2024 first |

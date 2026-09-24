@@ -57,6 +57,7 @@ const tokenOverrides = {
 	ig: "IG",
 	bw: "B/W",
 	yxexaxr: "YXEXAXR",
+	x: "x",
 };
 
 const publicDir = fileURLToPath(new URL("../public/", import.meta.url));
@@ -82,10 +83,6 @@ const toPersonLabel = (rawSlug) =>
 		.filter(Boolean)
 		.map((token) => toTitleToken(token))
 		.join(" ");
-
-// ── Abstract syntax markers for JSON serialization ─────────────────────────
-// We need to serialize undefined values explicitly to preserve optional fields
-// in the JSON output, so Astro can destructure them safely.
 
 // ── Flyer data generation ───────────────────────────────────────────────────
 
@@ -291,6 +288,74 @@ const getPreferredFlyerFiles = () => {
 	);
 };
 
+const numberWords = {
+	one: 1,
+	two: 2,
+	three: 3,
+	four: 4,
+	five: 5,
+	six: 6,
+	seven: 7,
+	eight: 8,
+	nine: 9,
+	ten: 10,
+	eleven: 11,
+	twelve: 12,
+	thirteen: 13,
+	fourteen: 14,
+	fifteen: 15,
+};
+
+// Filename tokens that describe the file (format, revision, export size)
+// rather than what the image shows.
+const fileNoiseTokens = new Set([
+	"alt",
+	"bw",
+	"cards",
+	"copy",
+	"cover",
+	"edit",
+	"facebook",
+	"fb",
+	"final",
+	"flier",
+	"flyer",
+	"framed",
+	"ig",
+	"img",
+	"instagram",
+	"letter",
+	"o",
+	"poster",
+	"smaller",
+	"story",
+	"tabloid",
+]);
+
+const isFileNoiseToken = (token) =>
+	fileNoiseTokens.has(token) ||
+	/^(alt|ig|fb|v)\d+[a-z]?$/.test(token) ||
+	/^\d+x\d+$/.test(token) ||
+	/^\d+dpi$/.test(token) ||
+	/^\d+[a-z]?$/.test(token) ||
+	(/\d/.test(token) &&
+		/[a-z]/.test(token) &&
+		token.length >= 6 &&
+		!tokenOverrides[token]);
+
+const readEventNumber = (tokens) => {
+	const [first, second] = tokens;
+	const leading = first?.match(/^(\d{1,2})[a-z]?$/);
+	if (leading) return { number: Number(leading[1]), consumed: 1 };
+	if (first === "no" || first === "number") {
+		const numeric = second?.match(/^(\d{1,2})$/);
+		if (numeric) return { number: Number(numeric[1]), consumed: 2 };
+		if (numberWords[second])
+			return { number: numberWords[second], consumed: 2 };
+	}
+	return undefined;
+};
+
 const parseFlyerAsset = (file) => {
 	const { filename } = file;
 	const extension = extname(filename).toLowerCase();
@@ -302,17 +367,17 @@ const parseFlyerAsset = (file) => {
 
 	const series =
 		normalizedForTokens.startsWith("toasted-trax-") ||
-		normalizedForTokens.startsWith("toastedtrax-")
+		normalizedForTokens.startsWith("toastedtrax-") ||
+		normalizedForTokens.startsWith("tt-")
 			? "Toasted Trax"
 			: normalizedForTokens.startsWith("bread")
 				? "BREAD"
-				: file.source === "Imported archive"
-					? "Drive archive"
-					: "Archive";
+				: "";
 
 	const body = normalizedForTokens
 		.replace(/^bread[-_]*/, "")
 		.replace(/^toasted[-_]*trax[-_]*/, "")
+		.replace(/^tt-/, "")
 		.replace(/^drive[-_]*/, "");
 	let tokens = body.split("-").filter(Boolean);
 	if (tokens.length === 0) return undefined;
@@ -320,7 +385,7 @@ const parseFlyerAsset = (file) => {
 	let assetType = "Image";
 	if (tokens.some((token) => token === "story")) {
 		assetType = "Story";
-	} else if (tokens.some((token) => token === "ig" || token === "instagram")) {
+	} else if (tokens.some((token) => /^(ig\d*|instagram)$/.test(token))) {
 		assetType = "Instagram";
 	} else if (tokens.some((token) => token === "fb" || token === "facebook")) {
 		assetType = "Facebook";
@@ -336,20 +401,40 @@ const parseFlyerAsset = (file) => {
 		}
 	}
 
+	const tailDate = parseDateFromTail(tokens);
 	const parsedDate =
-		parseDateFromTail(tokens) ??
+		tailDate ??
 		parseIsoDate(normalizedForTokens) ??
 		parseCompactDate(normalizedForTokens);
-	if (parsedDate) tokens = tokens.slice(0, -parsedDate.consumedTokens);
+	if (tailDate) {
+		tokens = tokens.slice(0, -tailDate.consumedTokens);
+	} else if (parsedDate) {
+		// ISO and compact dates sit mid-name (e.g. 2016-03-25 or 150213).
+		tokens = tokens.filter((token) => !/^\d{2,6}$/.test(token));
+	}
 
-	const eventCore = toTitle(tokens);
-	const title = eventCore ? `${series} ${eventCore}` : series;
+	const looksLikePhoto =
+		tokens.includes("img") ||
+		tokens.includes("photo") ||
+		/^\d{4}-\d{2}-\d{2}/.test(normalizedForTokens);
+
+	const eventNumber = series ? readEventNumber(tokens) : undefined;
+	if (eventNumber) tokens = tokens.slice(eventNumber.consumed);
+
+	const heading = [series, eventNumber ? `#${eventNumber.number}` : ""]
+		.filter(Boolean)
+		.join(" ");
+	const detail = toTitle(tokens.filter((token) => !isFileNoiseToken(token)));
+	const title =
+		heading && detail
+			? `${heading}${eventNumber ? ":" : ""} ${detail}`
+			: heading || detail || (looksLikePhoto ? "Photo" : "Untitled");
 
 	return {
 		filename,
 		imagePath: file.imagePath,
 		title,
-		series,
+		series: series || "Other",
 		source: file.source,
 		dateLabel: parsedDate?.label,
 		hasYear: parsedDate?.hasYear ?? false,
@@ -387,6 +472,41 @@ const getPreferredImageBySlug = () => {
 	);
 };
 
+// Show artwork filenames run the guest and resident slugs together
+// (e.g. "kozee-adam-kraft"), so split on known resident names.
+const residentSlugs = [
+	"adam-kraft",
+	"bread-djs",
+	"botaz",
+	"cage-a",
+	"exteeng",
+	"gewzer",
+	"misoh",
+	"prawns",
+	"shl",
+	"tf1000",
+];
+
+const toRadioName = (slug) =>
+	slug === "bread-djs" ? "BREAD DJs" : toPersonLabel(slug);
+
+const toGuestLabel = (guestSlug) => {
+	for (const resident of residentSlugs) {
+		if (guestSlug === resident) return toRadioName(resident);
+		if (guestSlug.endsWith(`-${resident}`)) {
+			const guest = guestSlug.slice(0, -resident.length - 1);
+			return `${toRadioName(guest)} & ${toRadioName(resident)}`;
+		}
+	}
+	for (const resident of residentSlugs) {
+		if (guestSlug.startsWith(`${resident}-`)) {
+			const guest = guestSlug.slice(resident.length + 1);
+			return `${toRadioName(resident)} & ${toRadioName(guest)}`;
+		}
+	}
+	return toRadioName(guestSlug);
+};
+
 const parseRadioShow = (filename) => {
 	const extension = extname(filename).toLowerCase();
 	const basename = filename.slice(0, -extension.length);
@@ -404,7 +524,7 @@ const parseRadioShow = (filename) => {
 	return {
 		filename,
 		imagePath: `/radio/${filename}`,
-		guests: toPersonLabel(guestSlug),
+		guests: toGuestLabel(guestSlug),
 		dateLabel: `${month.label} ${day}`,
 		sortKey: month.index * 100 + day,
 	};
@@ -420,7 +540,7 @@ const flyerAssets = getPreferredFlyerFiles()
 	.sort((left, right) => {
 		if (left.hasYear !== right.hasYear) return left.hasYear ? -1 : 1;
 		if (left.dateSort !== right.dateSort) return right.dateSort - left.dateSort;
-		return left.title.localeCompare(right.title);
+		return left.title.localeCompare(right.title, "en", { numeric: true });
 	});
 
 const flyersData = {

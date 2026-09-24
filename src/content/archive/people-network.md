@@ -1,6 +1,6 @@
 ---
 title: People
-description: Founders, residents, collaborators, and the community around BREAD.
+description: The founders, residents, and regular collaborators behind BREAD.
 order: 4
 updated: 2026-02-14
 tags:
@@ -9,41 +9,30 @@ tags:
   - network
 ---
 
-## Founding core
+## Founders
 
-- **Cage A**
-- **Prawns**
+BREAD was started by **Cage A** and **Prawns**. The idea was to give San Francisco a night for riskier, less commercial club music.
 
-Their early goal, based on archive notes, was to make space in San Francisco for riskier and less-commercial club sounds.
+## Residents
 
-## Expanded resident circle
-
-Recurring names across archive notes and public traces include:
+The residents changed over the years. Regulars included:
 
 - Adam Kraft
 - Gewzer
 - Botaz
 - TF1000 / Tranespotting
+- Misoh
 - Exteeng
-- Additional era-specific collaborators reflected in flyers, streams, and radio episodes
+- Shl
 
-## Handles and aliases
+Guests and one-off collaborators are listed night by night in the [Event list](/archive/event-ledger/).
 
-Names vary by platform, including Instagram bios and SoundCloud profiles. Together they show a roster that changed over time.
+Some people use different names on different platforms, so the same person can show up under more than one handle. Profile links are on the [Radio shows](/archive/radio-shows/) page.
 
-For profile links, use the [Radio Shows](/archive/radio-shows/) directory.
+## Beyond the parties
 
-## Network effects
+BREAD brought artists from online music scenes to San Francisco dance floors, and several residents went on to their own projects. After the club nights ended, the fundraiser streams and the radio show kept the group playing together.
 
-BREAD operated as more than a party series:
+This page sticks to what people did with BREAD. The lists come from BREAD's own records and may change as more turns up.
 
-- A booking bridge between online music subcultures and local dance floors.
-- A local incubator linked to later projects by resident artists.
-- A radio/streaming node between in-person events and distributed communities.
-
-## What still needs confirmation
-
-- Founding names and the core resident structure are retained as archive-sourced history and may be refined as references improve.
-- Later-career claims for individuals stay limited to the public links and roles represented here.
-
-Related: [Timeline](/archive/timeline/) and [Venue Map](/archive/map/).
+See also: [Timeline](/archive/timeline/) and [Venue map](/archive/map/).

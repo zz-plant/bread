@@ -14,46 +14,42 @@ if (!timelinePage) {
 const eras = [
 	{
 		range: "2014–2015",
-		title: "Formation & Pilot",
-		summary:
-			"BREAD takes shape, then quickly becomes a recurring night in San Francisco.",
+		title: "Getting started",
+		summary: "A pilot at F8, then a regular night in San Francisco.",
 		highlights: [
-			"Public profile language points to a 2014 start.",
-			"A pilot event appears on February 13, 2015 at F8 with Nevermind and Helix.",
-			"By May 2015, regular events are visible in San Francisco listings.",
+			"BREAD's own profiles date the start to 2014.",
+			"Pilot night with Grime City at F8 on February 13, 2015, with Nevermind and Helix.",
+			"Numbered BREAD nights start in May 2015.",
 		],
 	},
 	{
 		range: "2015–2016",
-		title: "Booking Expansion",
-		summary:
-			"Resident structure and visuals sharpen as bookings widen across connected club scenes.",
+		title: "Bigger bookings",
+		summary: "The residents settle in and the guest list gets bigger.",
 		highlights: [
-			"Flyers and listings show a stronger resident core during this stretch.",
-			"A May 29, 2015 listing confirms steady public programming by mid-2015.",
-			"2016 highlights include Jlin, Distal, Celestial Trax, Deadboy, Murlo, Rabit, Logos, Mumdance, and partner showcases (Parameter / Sure Thing / Toasted Trax).",
+			"Flyers from this stretch show a steady group of residents.",
+			"Guests in 2016 included Jlin, Distal, Celestial Trax, Deadboy, Murlo, Rabit, Logos, and Mumdance.",
+			"Partner nights with Parameter and Sure Thing, and the Toasted Trax series.",
 		],
 	},
 	{
 		range: "2017–2018",
-		title: "UGSF / Bunker Shift",
-		summary: "More events move toward Underground SF as the sound widens.",
+		title: "Underground SF",
+		summary: "More nights move to Underground SF in the Lower Haight.",
 		highlights: [
-			"2017 events include DJ J Heat, Mr. Mitch + Kozee, Roska, and Kelman Duran period bookings.",
-			"Event records reflect broader venue shifts happening across the city.",
-			"2018 appears as the end of the original recurring club-night run.",
+			"2017 guests included DJ J Heat, Mr. Mitch, Kozee, Roska, and Kelman Duran.",
+			"The regular club nights wind down in 2018.",
 		],
 	},
 	{
 		range: "2020–2024",
-		title: "Remote Mutual Aid + Radio Network",
+		title: "Streams and radio",
 		summary:
-			"Activity shifts from in-person nights to fundraiser streams, then into radio chapters and later event announcements.",
+			"Fundraiser streams during the pandemic, then a monthly radio show.",
 		highlights: [
-			"2020–2021 streams and telethons focus on mutual-aid fundraising.",
-			"Fundraiser streams support mutual-aid campaigns and community organizations.",
-			"2022 onward traces show BREAD FM activity through Internet Public Radio and HKCR.",
-			"Most recent public post in this pass is a March 21, 2024 SF event announcement.",
+			"Twitch streams in 2020 and 2021 raised money for mutual aid groups, including NBDA, Atlanta Solidarity Fund, Rebuilding Alliance, and Oxygen for India.",
+			"BREAD FM starts a monthly show on Internet Public Radio in 2022, then a residency on HKCR in 2023.",
+			"A BREAD night in SoMa is announced in March 2024.",
 		],
 	},
 ];
@@ -62,14 +58,14 @@ const milestones = [
 	{
 		date: "2015-02-13",
 		venue: "F8, SF",
-		label: "Pilot (Grime City vs BREAD)",
+		label: "Pilot night: BREAD x Grime City",
 		sourceLabel: "Facebook event",
 		sourceHref: "https://www.facebook.com/events/588841281252200/",
 	},
 	{
 		date: "2016-03-25",
 		venue: "F8, SF",
-		label: "BREAD #5 / Jlin window",
+		label: "BREAD #5 with Jlin",
 		sourceLabel: "Flyer image",
 		sourceHref: "/bread-jlin-planet-mu-iyer-2016-03-25-flyer.jpg",
 	},
@@ -99,7 +95,7 @@ const milestones = [
 	{
 		date: "2017-05-26",
 		venue: "Underground SF",
-		label: "UGSF period event",
+		label: "BREAD SF: Mr. Mitch",
 		sourceLabel: "Facebook event",
 		sourceHref:
 			"https://www.facebook.com/events/d41d8cd9/bread-sf-mr-mitch-planet-mu-kozee-prawns/277151372731142/",
@@ -107,7 +103,7 @@ const milestones = [
 	{
 		date: "2017-09-22",
 		venue: "Underground SF",
-		label: "Late UGSF period event",
+		label: "BREAD SF: Kelman Duran",
 		sourceLabel: "Flyer image",
 		sourceHref: "/bread-suda-kelman-duran-bread-djs-sept-22.jpg",
 	},
@@ -121,28 +117,28 @@ const milestones = [
 	{
 		date: "2021-03-13",
 		venue: "Twitch",
-		label: "Six Years anniversary stream",
+		label: "Six Years of BREAD stream",
 		sourceLabel: "Instagram post",
 		sourceHref: "https://www.instagram.com/p/CL44SfGli4d/",
 	},
 	{
 		date: "2022-07-27",
 		venue: "Internet Public Radio",
-		label: "Monthly show launch announcement",
+		label: "BREAD FM launches on IPR",
 		sourceLabel: "Instagram post",
 		sourceHref: "https://www.instagram.com/p/Cgfdlh4Pdtx/",
 	},
 	{
 		date: "2023-06-15",
 		venue: "HKCR",
-		label: "HKCR residency announcement",
+		label: "BREAD FM joins HKCR",
 		sourceLabel: "Instagram post",
 		sourceHref: "https://www.instagram.com/p/CthThTOpds1/",
 	},
 	{
 		date: "2024-03-21",
-		venue: "SOMA area, SF",
-		label: "SF event announcement",
+		venue: "SoMa, SF",
+		label: "BREAD SF: Nhac Gay",
 		sourceLabel: "Instagram post",
 		sourceHref: "https://www.instagram.com/p/C4ygjDoynTY/",
 	},
@@ -153,14 +149,14 @@ const milestones = [
   title={timelinePage.data.title}
   description={timelinePage.data.description}
   ogImage="/og/timeline.png"
-  ogImageAlt="BREAD timeline from 2015 club events through 2024 radio and event announcements"
+  ogImageAlt="BREAD timeline, 2015–2024"
 >
   <header class="timeline-hero">
-    <p class="section-kicker">Archive section</p>
+    <p class="section-kicker">Archive</p>
     <h1>{timelinePage.data.title}</h1>
     <p>{timelinePage.data.description}</p>
-    <p class="route-note">Want the full event list? Open the <a href="/archive/event-ledger/">Event List</a>.</p>
-    <small>Last updated: {timelinePage.data.updated.toISOString().slice(0, 10)}</small>
+    <p class="route-note">Every event, with sources, is on the <a href="/archive/event-ledger/">Event list</a>.</p>
+    <small>Updated {timelinePage.data.updated.toISOString().slice(0, 10)}</small>
   </header>
 
   <section aria-label="BREAD era timeline" class="timeline-grid">
@@ -189,7 +185,7 @@ const milestones = [
             <p class="venue">{milestone.venue}</p>
             {milestone.sourceHref && (
               <p class="source">
-                source:{' '}
+                Source:{' '}
                 <a
                   href={milestone.sourceHref}
                   target={milestone.sourceHref.startsWith('http') ? '_blank' : undefined}
@@ -205,13 +201,13 @@ const milestones = [
     </ol>
   </section>
 
-  <section class="next-links" aria-label="Related archive material">
-    <h2>Keep exploring</h2>
+  <section class="next-links" aria-labelledby="next-links-title">
+    <h2 id="next-links-title">See also</h2>
     <ul>
-      <li><a href="/archive/event-ledger/">Event List</a> for a full event-by-event timeline.</li>
-      <li><a href="/archive/venues-format-shifts/">Venues &amp; Format Shifts</a> for where things happened and how formats changed.</li>
-      <li><a href="/archive/people-network/">People &amp; Network</a> for recurring collaborators and lineups.</li>
-      <li><a href="/archive/overview/">Start Here</a> for a plain map of the archive.</li>
+      <li><a href="/archive/event-ledger/">Event list</a>: every night, with lineups and sources.</li>
+      <li><a href="/archive/map/">Venue map</a>: where it all happened.</li>
+      <li><a href="/archive/people-network/">People</a>: founders, residents, and collaborators.</li>
+      <li><a href="/story/">The Story of BREAD</a>: the whole run in one read.</li>
     </ul>
   </section>
 </BaseLayout>

@@ -1,6 +1,6 @@
 ---
 title: Timeline
-description: A plain timeline of BREAD from early club nights to radio chapters and 2024 event announcements.
+description: BREAD year by year, from the first club nights to the radio show.
 order: 2
 updated: 2026-03-04
 tags:

@@ -1,6 +1,6 @@
 ---
 title: Start Here
-description: A plain map of the BREAD archive, with links to timeline, people, venues, and event notes.
+description: What's in the BREAD archive and where to find it.
 order: 1
 updated: 2026-02-14
 tags:
@@ -9,23 +9,17 @@ tags:
   - methodology
 ---
 
-This archive is built to keep growing as more history is confirmed.
+BREAD was a San Francisco club night from 2015 to 2018, then a fundraiser stream and a radio show. This archive collects the flyers, lineups, and links that are left.
 
-## How this archive is organized
+## What's here
 
-- **Timeline**: key eras and dates. See [Timeline](/archive/timeline/).
-- **Event list**: event-by-event rows with links. See [Event List](/archive/event-ledger/).
-- **People**: founders, residents, collaborators, and local impact. See [People](/archive/people-network/).
-- **Venues**: where things happened and how formats changed. See the [Venue Map](/archive/map/).
-- **Links**: main links and recovered event URLs. See the [Radio Shows](/archive/radio-shows/) directory.
-- **Story page**: a narrative walkthrough. See [The Story of BREAD](/story/).
+- [Timeline](/archive/timeline/): the main eras and key dates.
+- [Event list](/archive/event-ledger/): every known night, with lineups and sources.
+- [People](/archive/people-network/): founders, residents, and collaborators.
+- [Venue map](/archive/map/): where things happened.
+- [Flyers](/archive/flyers/) and [Radio shows](/archive/radio-shows/): artwork, plus links to BREAD's channels.
+- [The Story of BREAD](/story/): the whole run in one read.
 
-## Archive principles
+## Where it comes from
 
-- Preserve claims with clear dates where possible.
-- Separate confirmed facts from archive-sourced records that may be refined.
-- Keep pages linkable and easy to update as new materials appear.
-
-## Current status
-
-The archive combines public listings, flyer images, and contributed historical material. Records are kept broad when the available public source does not support more detail.
+Dates and lineups come from flyers, public listings, and social posts, plus BREAD's own records. When a source doesn't give an exact venue or lineup, the entry says so instead of guessing. The archive gets updated as more material turns up.

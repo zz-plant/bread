@@ -20,7 +20,6 @@ interface Props {
 	ogType?: "website" | "article";
 	navLinks?: NavLink[];
 	footerNavLinks?: NavLink[];
-	topStrip?: { left: string; right: string };
 	footerNote?: string;
 	wide?: boolean;
 }
@@ -43,8 +42,7 @@ const {
 	ogType,
 	navLinks = DEFAULT_NAV_LINKS,
 	footerNavLinks = navLinks,
-	topStrip,
-	footerNote = "BREAD archive and story.",
+	footerNote = "BREAD · San Francisco, 2015–2024",
 	wide = false,
 } = Astro.props;
 
@@ -130,14 +128,6 @@ const activeLinkHref = navLinks
         <div class:list={['site-shell', wide && 'site-shell--wide']}>
           <a class="skip-link" href="#main-content">Skip to content</a>
           <header class="site-header">
-            {
-              topStrip && (
-                <div class="site-topstrip" aria-hidden="true">
-                  <span>{topStrip.left}</span>
-                  <span>{topStrip.right}</span>
-                </div>
-              )
-            }
             <div class="site-header-inner">
               <a class="brand" href="/">BREAD</a>
               <nav aria-label="Primary">
@@ -253,27 +243,6 @@ const activeLinkHref = navLinks
   .site-shell--wide .site-header-inner,
   .site-shell--wide .site-footer-inner {
     width: min(90rem, 100%);
-  }
-
-  .site-topstrip {
-    width: min(90rem, 100%);
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    flex-wrap: wrap;
-    padding: 0.55rem max(1rem, env(safe-area-inset-right)) 0.4rem max(1rem, env(safe-area-inset-left));
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-text-muted);
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .site-topstrip span {
-    min-width: 0;
-    overflow-wrap: anywhere;
   }
 
   .brand {

@@ -6,56 +6,42 @@ const events = (await getCollection("events"))
 	.filter((event) => event.data.confidence !== "unverified")
 	.sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
 
+const UNKNOWN_VENUE_LABEL = "Exact venue unknown";
+
 const venueCoordinates: Record<
 	string,
 	{ lat: number; lng: number; label: string }
 > = {
-	F8: { lat: 37.7756, lng: -122.4089, label: "F8 / 1192 Folsom area" },
-	"F8 (noted)": {
-		lat: 37.7756,
-		lng: -122.4089,
-		label: "F8 / 1192 Folsom area",
+	F8: { lat: 37.7756, lng: -122.4089, label: "1192 Folsom St, SoMa" },
+	Codeword: { lat: 37.7786, lng: -122.3929, label: "SoMa" },
+	"Underground SF": { lat: 37.7702, lng: -122.445, label: "Lower Haight" },
+	"60 6th St": { lat: 37.781, lng: -122.4088, label: "SoMa" },
+	"Public Works Loft": { lat: 37.7689, lng: -122.4193, label: "Mission" },
+	Mighty: { lat: 37.7671, lng: -122.4064, label: "San Francisco" },
+	"Club 6ix": { lat: 37.7852, lng: -122.4089, label: "SoMa" },
+	OMG: { lat: 37.7813, lng: -122.4096, label: "SoMa" },
+	"SoMa, San Francisco": {
+		lat: 37.7785,
+		lng: -122.4056,
+		label: UNKNOWN_VENUE_LABEL,
 	},
-	Codeword: { lat: 37.7786, lng: -122.3929, label: "Codeword / SoMa area" },
-	"Underground SF": {
-		lat: 37.7702,
-		lng: -122.445,
-		label: "Underground SF / Lower Haight area",
+	"Mission District, San Francisco": {
+		lat: 37.7599,
+		lng: -122.4148,
+		label: UNKNOWN_VENUE_LABEL,
 	},
-	"60 6th St": { lat: 37.781, lng: -122.4088, label: "60 6th St" },
-	"2389 Mission St": { lat: 37.7593, lng: -122.4191, label: "2389 Mission St" },
-	"Public Works Loft (noted)": {
-		lat: 37.7689,
-		lng: -122.4193,
-		label: "Public Works area",
-	},
-	"Mighty (noted)": { lat: 37.7671, lng: -122.4064, label: "Mighty area" },
-	"Club 6ix (noted)": { lat: 37.7852, lng: -122.4089, label: "Club 6ix area" },
-	"OMG (noted)": { lat: 37.7813, lng: -122.4096, label: "OMG area" },
-	"SOMA area, SF": { lat: 37.7785, lng: -122.4056, label: "SOMA area" },
-	"SF (noted)": { lat: 37.7749, lng: -122.4194, label: "San Francisco" },
-	"SF (venue pending)": {
+	"San Francisco": {
 		lat: 37.7749,
 		lng: -122.4194,
-		label: "San Francisco",
+		label: UNKNOWN_VENUE_LABEL,
 	},
-	"San Francisco": { lat: 37.7749, lng: -122.4194, label: "San Francisco" },
-	Twitch: {
-		lat: 37.7749,
-		lng: -122.4194,
-		label: "Online stream / SF archive context",
-	},
+	Twitch: { lat: 37.7749, lng: -122.4194, label: "Online stream" },
 	"Internet Public Radio": {
 		lat: 40.7128,
 		lng: -74.006,
-		label: "Internet Public Radio",
+		label: "Online radio",
 	},
-	HKCR: { lat: 22.3193, lng: 114.1694, label: "HKCR / Hong Kong" },
-	"HKCR / hkcr.live": {
-		lat: 22.3193,
-		lng: 114.1694,
-		label: "HKCR / Hong Kong",
-	},
+	HKCR: { lat: 22.3193, lng: 114.1694, label: "Online radio, Hong Kong" },
 };
 
 const venueMap = new Map<
@@ -111,18 +97,18 @@ const stats = [
 
 <ArchiveLayout
   title="BREAD Archive: Venue Map"
-  description="A mobile-friendly venue map and list for documented BREAD events."
+  description="Where BREAD events happened, from F8 and Underground SF to Twitch and online radio."
   breadcrumbItems={breadcrumbItems}
   stats={stats}
-  intro="Browse BREAD event history by place, with a lightweight map that loads only when requested."
-  context='Prefer text? Open the <a href="/archive/event-ledger/">Event list</a>.'
+  intro="Where BREAD events happened, venue by venue."
+  context='Dates, lineups, and sources for each night are on the <a href="/archive/event-ledger/">Event list</a>.'
   ogImage="/og/archive/map.png"
   ogImageAlt="BREAD venue map"
 >
   <section class="map-panel" aria-label="Venue map">
     <div id="venueMap" class="venue-map" data-venues={JSON.stringify(venues)}>
-      <p>Map is ready when you are.</p>
-      <button class="map-load" type="button">Open map</button>
+      <p>Map tiles load from OpenStreetMap.</p>
+      <button class="map-load" type="button">Load map</button>
     </div>
   </section>
 
@@ -141,35 +127,19 @@ const stats = [
     ))}
   </section>
 
-  <section class="venue-phases" aria-label="Venue phases and format transitions">
-    <h2>Venue phases & format shifts</h2>
+  <section class="venue-phases" aria-labelledby="venue-phases-title">
+    <h2 id="venue-phases-title">How the venues changed</h2>
+    <p>The pilot and most of the early nights were at F8 on Folsom. From 2017, more nights moved to Underground SF in the Lower Haight. Other rooms that show up in the records: Public Works Loft, Mighty, Bruno's, Codeword, Club 6ix, and OMG.</p>
 
-    <h3>Primary venue phases</h3>
-
-    <h4>F8 period (early cycle)</h4>
-    <p>F8 appears as an early anchor for pilot and resident activity, especially in the first growth years.</p>
-
-    <h4>Underground SF period (later club cycle)</h4>
-    <p>Programming emphasis later shifted to Underground SF as city conditions and scene dynamics changed.</p>
-
-    <h4>Additional venue references</h4>
-    <p>Archive notes also mention Public Works Loft, Mighty, Bruno's, Codeword, Club 6ix, and OMG.</p>
-    <p>These are best tracked as event-linked venue records, not one-off mentions.</p>
-
-    <h3>Format transitions</h3>
+    <h3>Formats</h3>
     <ul>
-      <li><strong>Club-night format:</strong> recurring in-person events with residents + guests.</li>
-      <li><strong>Radio format:</strong> BREAD FM continuity between parties and later online programming.</li>
-      <li><strong>Telethon format:</strong> pandemic-era livestream fundraising.</li>
+      <li><strong>Club nights (2015–2018):</strong> residents plus guests, mostly in SoMa and the Lower Haight.</li>
+      <li><strong>Fundraiser streams (2020–2021):</strong> Twitch streams during the pandemic.</li>
+      <li><strong>Radio:</strong> BREAD FM's Wednesday show on Radio Valencia, a monthly show on Internet Public Radio from 2022, and a residency on HKCR from 2023.</li>
     </ul>
 
-    <h3>Source notes</h3>
-    <ul>
-      <li>Venue details are kept broad when public sources do not establish a more precise location.</li>
-      <li>Event-linked sources provide the strongest context for each venue record.</li>
-    </ul>
-    <p>Verification context is documented inline where relevant.</p>
-    <p>Related: <a href="/archive/timeline/">Timeline</a> and <a href="/archive/people-network/">People</a>.</p>
+    <p>When a source doesn't give an exact venue, the event is listed by neighborhood or just as San Francisco.</p>
+    <p>See also: <a href="/archive/timeline/">Timeline</a> and <a href="/archive/people-network/">People</a>.</p>
   </section>
 </ArchiveLayout>
 
@@ -191,7 +161,8 @@ const stats = [
     const bounds = [];
     venues.forEach((venue) => {
       const marker = leaflet.marker([venue.lat, venue.lng]).addTo(map);
-      marker.bindPopup(`<strong>${venue.venue}</strong><br>${venue.count} events<br><a href=\"/#event-${venue.events[0]?.id}\">Open first event</a>`);
+      const countLabel = `${venue.count} ${venue.count === 1 ? 'event' : 'events'}`;
+      marker.bindPopup(`<strong>${venue.venue}</strong><br>${countLabel}<br><a href="/#event-${venue.events[0]?.id}">First event</a>`);
       bounds.push([venue.lat, venue.lng]);
     });
     if (bounds.length) map.fitBounds(bounds, { padding: [24, 24] });

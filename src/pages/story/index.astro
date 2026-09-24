@@ -8,7 +8,10 @@ import {
 	createBreadcrumbListSchema,
 } from "../../utils/structuredData";
 
-const posts = await getCollection("blog", ({ data }: { data: { draft: boolean } }) => !data.draft);
+const posts = await getCollection(
+	"blog",
+	({ data }: { data: { draft: boolean } }) => !data.draft,
+);
 const storyPost = posts.find(
 	(post: { id: string }) => toContentSlug(post.id) === "the-story-of-bread",
 );
@@ -51,38 +54,38 @@ const storyGallery = [
 	{
 		src: "/drive/bread-x-grime-city_150213-show.png",
 		alt: "BREAD x Grime City pilot flyer from February 2015",
-		title: "Pilot flyer",
-		caption: "BREAD x Grime City · February 2015",
+		title: "BREAD x Grime City",
+		caption: "Pilot night flyer, February 2015",
 	},
 	{
 		src: "/drive/bread2-smaller.jpg",
 		alt: "BREAD #2 flyer with chain visual treatment",
 		title: "BREAD #2",
-		caption: "Flyer artwork · July 2015",
+		caption: "Flyer, July 2015",
 	},
 	{
 		src: "/drive/bread-3-flyer-final-letter.png",
 		alt: "BREAD no.3 flyer featuring Doctor Jeep, Kieran Loftus, and others",
-		title: "BREAD no.3",
-		caption: "Flyer artwork · November 2015",
+		title: "BREAD #3",
+		caption: "Flyer, November 2015",
 	},
 	{
 		src: "/drive/bread7c-01.png",
 		alt: "Bread Number Seven poster with bread slice and utility crew imagery",
-		title: "BREAD Number Seven",
-		caption: "Flyer artwork · May 2016",
+		title: "BREAD #7",
+		caption: "Flyer, May 2016",
 	},
 	{
 		src: "/drive/2015-07-19-08.54.27.jpg",
 		alt: "Street photo of a BREAD #2 poster on a utility pole in San Francisco",
-		title: "Street posting",
-		caption: "Poster in the city",
+		title: "BREAD #2 poster",
+		caption: "On a utility pole in San Francisco",
 	},
 	{
 		src: "/drive/img_0530.jpg",
 		alt: "Photo of attendees at a BREAD night",
-		title: "Inside the venue",
-		caption: "Party photo",
+		title: "Party photo",
+		caption: "Inside a BREAD night",
 	},
 ];
 ---
@@ -97,7 +100,6 @@ const storyGallery = [
 >
   <article class="panel">
     <header class="page-header">
-      <p class="section-kicker">Story</p>
       <h1>{storyPost.data.title}</h1>
       <p>{storyPost.data.description}</p>
       <p class="section-meta">Published {formatDate(storyPost.data.date)}</p>
@@ -107,10 +109,10 @@ const storyGallery = [
         <a class="chip-link" href="/archive/timeline/">Timeline</a>
       </nav>
     </header>
-    <section class="story-gallery" aria-label="Story gallery">
-      <p class="section-kicker">Visual trail</p>
-      <h2>Story Gallery</h2>
-      <p class="story-gallery-intro">A few flyers and party photos to read alongside the story.</p>
+    <hr />
+    <StoryContent />
+    <section class="story-gallery" aria-labelledby="story-gallery-title">
+      <h2 id="story-gallery-title">Flyers and photos</h2>
       <ul class="story-gallery-grid">
         {storyGallery.map((item) => (
           <li>
@@ -124,16 +126,14 @@ const storyGallery = [
           </li>
         ))}
       </ul>
-      <p class="story-gallery-route"><a href="/archive/flyers/">Open full flyer archive →</a></p>
+      <p class="story-gallery-route"><a href="/archive/flyers/">All flyers →</a></p>
     </section>
-    <hr />
-    <StoryContent />
   </article>
 </BaseLayout>
 
 <style>
   .story-gallery {
-    margin: 1rem 0 1.2rem;
+    margin: 1.5rem 0 0;
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     background: var(--color-surface);
@@ -145,11 +145,6 @@ const storyGallery = [
   .story-gallery h2 {
     margin: 0;
     line-height: 1;
-  }
-
-  .story-gallery-intro {
-    margin: 0;
-    color: var(--color-text-muted);
   }
 
   .story-gallery-grid {

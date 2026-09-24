@@ -9,8 +9,7 @@
 	button,
 	iframe,
 	script,
-	.skip-link,
-	.bg-mark {
+	.skip-link {
 		display: none !important;
 	}
 

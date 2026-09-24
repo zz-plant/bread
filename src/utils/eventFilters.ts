@@ -87,11 +87,7 @@ export function sortVisibleEvents(
 	visibleEvents.sort((a, b) => {
 		const ai = Number(a.getAttribute("data-index") || 0);
 		const bi = Number(b.getAttribute("data-index") || 0);
-		const ay = a.getAttribute("data-year") || "";
-		const by = b.getAttribute("data-year") || "";
-		if (sortType === "newest") return bi - ai;
-		if (sortType === "year") return ay.localeCompare(by) || ai - bi;
-		return ai - bi;
+		return sortType === "newest" ? bi - ai : ai - bi;
 	});
 }
 
@@ -108,13 +104,19 @@ export function showEventsPage(
 		card.style.display = index >= start && index < end ? "" : "none";
 	});
 
+	const total = visibleEvents.length;
+	const remaining = total - end;
+
 	if (resultCount) {
-		resultCount.textContent = `${visibleEvents.length} events shown (showing ${Math.min(end, visibleEvents.length)} of ${visibleEvents.length})`;
+		resultCount.textContent =
+			remaining > 0
+				? `Showing ${end} of ${total}`
+				: `${total} ${total === 1 ? "event" : "events"}`;
 	}
 
 	if (loadMoreBtn) {
-		loadMoreBtn.style.display = end >= visibleEvents.length ? "none" : "";
-		loadMoreBtn.textContent = `Load more (${visibleEvents.length - end} remaining)`;
+		loadMoreBtn.style.display = remaining > 0 ? "" : "none";
+		loadMoreBtn.textContent = `Show ${Math.min(remaining, EVENTS_PER_PAGE)} more`;
 	}
 
 	return page;

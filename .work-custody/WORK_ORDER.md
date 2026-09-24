@@ -1,24 +1,26 @@
 # Work Order
 ## Objective
-Identify and implement visual refinements to improve the look and feel of bread.fm after SaaS de-glossing, focusing on typography, color, spacing, image treatment, and content hierarchy.
+Find and fix UI and copy on bread.fm that reads as obviously AI-generated ("vibecoded"): research-pipeline jargon, meta-commentary about the site, implementation details shown to visitors, filler stats, generic template styling, and the small UI bugs that came with them.
 
 ## Authorized Scope
 ### Allowed
-- `src/pages/index.astro` (styling tweaks)
-- `src/pages/story.astro` (content presentation)
-- `src/pages/index.astro` (structural/nav changes if needed)
-- Update CSS custom properties if beneficial
+- Visitor-facing copy in `src/pages/`, `src/components/`, `src/layouts/`, `src/content/` (archive, blog, events, roster, config)
+- Styles in `src/styles/` and page-scoped `<style>` blocks
+- Title heuristics in `scripts/generate-data.mjs` (flyer titles, radio guest names)
+- OG card copy and palette (`src/utils/og-image-core.mjs`, `scripts/generate-og-images.mjs`)
+- Small UI bug fixes found along the way (sort order, broken links, missing CSS tokens, image sizing)
+- Regression test in `tests/homepage-ux.test.ts`
 
 ### Not Allowed
-- Changing core layout structure (sidebar/main/panel)
-- Removing navigation or core sections
-- Altering content source (events, roster, archive)
-- Changing OG image generation
+- Renaming or re-sorting image assets in `public/`
+- Changing routes, nav structure, or the content collection schema
+- Inventing facts: every rewritten sentence must trace back to existing copy, event data, source URLs, or the artwork itself
 
 ## Required Verification
-- Run `npm run lint` to ensure no Astro/TypeScript errors
-- Visual inspection of key routes: home, story, archive, events
-- Confirm responsive behavior still works
+- `npm run lint` (biome) introduces no new errors
+- `npm test`
+- `npm run build` (includes `astro check`)
+- Screenshots of home (all tabs), archive, timeline, flyers, radio shows, map, and story at desktop and mobile widths
 
 ## Status
 - [ ] Draft

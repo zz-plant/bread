@@ -21,18 +21,14 @@ const {
 
 <BaseLayout
   title="BREAD"
-  description="Timeline, people, visuals, and listening links from BREAD."
+  description="BREAD: a San Francisco club night, fundraiser stream, and radio show, 2015–2024."
   structuredData={homeStructuredData}
   ogImage="/og/home.png"
-  ogImageAlt="BREAD home page with timeline, people, and listening links"
+  ogImageAlt="BREAD, San Francisco, 2015–2024"
   navLinks={homeNavLinks}
   footerNavLinks={[{ label: "Archive", href: "/archive/" }]}
-  topStrip={{ left: "BREAD // SAN FRANCISCO", right: "2015—2024" }}
-  footerNote="BREAD archive • San Francisco and beyond"
   wide
 >
-  <div class="bg-mark" aria-hidden="true">BREAD</div>
-
   <noscript>
     <style>
       .section-tabs { display: none !important; }
@@ -42,9 +38,9 @@ const {
 
   <section class="shell" aria-labelledby="home-title">
     <header class="home-intro">
-      <p class="eyebrow">San Francisco · 2015—2024</p>
+      <p class="eyebrow">San Francisco · 2015–2024</p>
       <h1 id="home-title">BREAD</h1>
-      <p>Events, residents, flyers, and radio from the archive.</p>
+      <p>Club nights, fundraiser streams, and a radio show. Lineups, flyers, and mixes from the whole run.</p>
     </header>
 
     <nav class="section-tabs" aria-label="Browse BREAD" role="tablist">
@@ -81,6 +77,7 @@ const {
   const resultCount = document.getElementById('eventsResultCount');
   const eventSort = document.getElementById('eventSort') as HTMLSelectElement | null;
   const loadMoreBtn = document.getElementById('loadMoreEvents');
+  const emptyState = document.getElementById('eventsEmpty');
 
   let activeFilters = { year: 'all', venue: 'all', search: '', quick: 'all', sort: 'oldest' };
   let visibleEvents: HTMLElement[] = [];
@@ -93,7 +90,9 @@ const {
   function filterAndShowEvents() {
     visibleEvents = filterEvents(eventCards, activeFilters);
     sortVisibleEvents(visibleEvents, activeFilters.sort);
+    visibleEvents.forEach((card) => card.parentElement?.appendChild(card));
     currentPage = showEventsPage(visibleEvents, 1, resultCount, loadMoreBtn);
+    if (emptyState) emptyState.hidden = visibleEvents.length > 0;
   }
 
   function activateTab(tab: HTMLElement, { focus = false, updateUrl = true } = {}) {

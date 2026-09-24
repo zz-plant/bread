@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 
 const read = (path: string) =>
@@ -137,5 +137,51 @@ describe("homepage UX", () => {
 		expect(ledger).not.toContain("link coming soon");
 		expect(map).not.toContain("anti-bot");
 		expect(radio).not.toContain("Recovered Facebook event URLs");
+	});
+
+	it("keeps research-pipeline and placeholder wording out of visitor-facing copy", () => {
+		const listFiles = (dir: string): string[] =>
+			readdirSync(new URL(`../${dir}`, import.meta.url), {
+				withFileTypes: true,
+			}).flatMap((entry) =>
+				entry.isDirectory()
+					? listFiles(`${dir}/${entry.name}`)
+					: [`${dir}/${entry.name}`],
+			);
+		const copyFiles = [
+			...listFiles("src/pages"),
+			...listFiles("src/components"),
+			...listFiles("src/layouts"),
+			...listFiles("src/content/archive").filter(
+				(file) => !file.endsWith("timeline.md"),
+			),
+			...listFiles("src/content/blog"),
+			...listFiles("src/content/events"),
+			...listFiles("src/content/roster"),
+			...listFiles("src/content/config"),
+			"src/data/homepage.ts",
+			"scripts/generate-og-images.mjs",
+		];
+		const bannedPhrases = [
+			"(noted)",
+			"pending",
+			"in this pass",
+			"Archive-sourced",
+			"Documented chronology",
+			"when you are",
+			"Visual trail",
+			"Keep exploring",
+			"BREAD //",
+			"venues-format-shifts",
+			"channel-profile-directory",
+			"main image folder",
+		];
+
+		for (const file of copyFiles) {
+			const text = read(file);
+			for (const phrase of bannedPhrases) {
+				expect(text, `${file} contains "${phrase}"`).not.toContain(phrase);
+			}
+		}
 	});
 });

@@ -16,3 +16,4 @@ Audit of changed files against authorized scope in `WORK_ORDER.md`.
 | src/layouts/ArchiveLayout.astro, src/pages/archive/[...slug].astro, src/pages/story/index.astro | Yes | Import order only (biome safe fix) |
 | public/favicon.svg | Yes | Added `<title>` (biome a11y error) |
 | .work-custody/* | Yes | Custody records |
+| src/layouts/BaseLayout.astro, src/utils/content.ts | Yes | `<title>` goes through `toDocumentTitle()`, which appends " · BREAD" when the title lacks it |

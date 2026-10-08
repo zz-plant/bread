@@ -1,6 +1,7 @@
 ---
 import globalStylesUrl from "../styles/global.css?url";
 import printStylesUrl from "../styles/print.css?url";
+import { toDocumentTitle } from "../utils/content";
 import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from "../utils/og-image-core.mjs";
 
 interface NavLink {
@@ -106,7 +107,7 @@ const activeLinkHref = navLinks
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="stylesheet" href={globalStylesUrl} />
     <link rel="stylesheet" href={printStylesUrl} media="print" />
-    <title>{title}</title>
+    <title>{toDocumentTitle(title)}</title>
 
     {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
     <meta property="og:site_name" content="BREAD" />

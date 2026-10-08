@@ -41,3 +41,7 @@ Command-level evidence of testing, linting, and validation. Update in real time 
 | 2026-10-08 | npx wrangler deploy --dry-run | 0 | Reads 220 files from dist/client via dist/client/wrangler.json |
 | 2026-10-08 | curl -sI live bread.fm/story vs bread-6vf.pages.dev/story | - | 307 (Workers assets) vs 308 (Pages): bread.fm is served by the Worker |
 | 2026-10-08 | Workers Builds check on PR #78 + curl preview alias | success | seo-home-title-sitemap-bread.kanavj.workers.dev: both legacy paths, with and without slash, 301 → /story/; new home title; sitemap 10 URLs, 0 redirect sources |
+| 2026-10-08 | Title suffix: npm run lint | 0 | 0 errors; 121 warnings (+1: biome reports the new `toDocumentTitle` import in BaseLayout.astro as unused because it can't see the Astro template; every other import there gets the same false positive) |
+| 2026-10-08 | Title suffix: npm test | 0 | 3 files, 24 tests passed; with `toDocumentTitle` stubbed to return its input, 2 tests fail on `src/content/archive/event-ledger.md` |
+| 2026-10-08 | Title suffix: npm run build | 0 | 10 pages |
+| 2026-10-08 | Built `<title>` audit, dist/client/**/index.html | - | 10/10 name BREAD; longest is the home title at 58 characters; none overflow 60 |

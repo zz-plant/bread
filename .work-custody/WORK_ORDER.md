@@ -15,6 +15,11 @@ Fix two SEO defects on bread.fm: the homepage `<title>` is the bare word "BREAD"
 - New copy for the short archive pages (`/archive/`, `/archive/overview/`, `/archive/people-network/`); listed as owner follow-up
 - Deploying, changing Cloudflare projects, or deleting `wrangler.toml`
 
+## Addendum (2026-10-08): page title suffix
+Follow-up request: give page titles that don't name BREAD ("Event List", "Start Here", "People", "Timeline") a brand suffix set once in the layout, without double-suffixing titles that already name BREAD or changing the home title. Keep every title at 60 characters or fewer, and make `tests/seo.test.ts` fail on a page title without BREAD unless the page is explicitly exempt.
+Additionally allowed: `src/layouts/BaseLayout.astro` `<title>`, a helper in `src/utils/content.ts`.
+Not allowed this round: the `bread` Pages project, `wrangler.toml`, the tsconfig/`astro check` issue.
+
 ## Required Verification
 - `npm run lint` (biome) passes
 - `npm test`

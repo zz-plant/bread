@@ -5,6 +5,7 @@ State to resume work if interrupted, or hand off to another agent/reviewer. Upda
 - Home title now carries city, format, and years (58 characters). Other page titles unchanged.
 - The two legacy URLs moved from `Astro.redirect()` page stubs to `redirects` in `astro.config.mjs`. `@astrojs/cloudflare` sets `build.redirects: false` and writes config redirects to `dist/client/_redirects`, which Workers static assets serves as 301s. The stubs had been built as 200 `noindex` meta-refresh pages.
 - The sitemap filter reads the same `redirects` object. Astro already leaves config redirects out of its page list, so the filter is a guard, not the fix.
+- BaseLayout passes every `<title>` through `toDocumentTitle()` (`src/utils/content.ts`), which appends " · BREAD" when the title doesn't name BREAD. Changed: Event List, Start Here, People, Timeline. `og:title` stays unsuffixed because `og:site_name` already says BREAD.
 - Sitemap: 12 URLs before, 10 after. The remaining 10 are all self-canonical with no robots meta.
 - Deploy target confirmed as a Worker with static assets: wrangler resolves `wrangler.jsonc` before `wrangler.toml`, the build redirects deploys to the generated `dist/client/wrangler.json`, and bread.fm answers trailing-slash requests with 307 (Workers assets) while the `bread` Pages project answers 308.
 

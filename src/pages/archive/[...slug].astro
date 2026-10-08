@@ -1,9 +1,9 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import { getCollection, render } from "astro:content";
-import { formatDate, toContentSlug } from "../../utils/content";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 import { includeInArchiveCatchall } from "../../utils/archive";
+import { formatDate, toContentSlug } from "../../utils/content";
 import {
 	createBreadcrumbListSchema,
 	createCollectionPageSchema,

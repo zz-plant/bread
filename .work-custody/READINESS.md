@@ -2,13 +2,13 @@
 Checklist to determine if work is ready for human review.
 
 ## Status
-- [ ] Ready
+- [x] Ready
 - [ ] Blocked
-- [x] Needs More Work (waiting on the Workers Builds check)
+- [ ] Needs More Work
 
 ## Review Checklist
 - [x] All authorized scope work complete
-- [ ] All required verification passed (local lint, tests, build, Lighthouse, screenshots pass; Workers Builds pending)
+- [x] All required verification passed (lint, tests, build, Lighthouse, screenshots, Workers Builds)
 - [x] No known unknowns dropped
 - [x] Diff audit confirms scope compliance (code repos only)
 - [x] Handoff updated

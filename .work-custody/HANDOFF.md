@@ -10,7 +10,7 @@ State to resume work if interrupted, or hand off to another agent/reviewer. Upda
 - Why not `astro:assets`: it only transforms images imported from `src/`. With `imageService: "compile"` it works with this adapter, but importing from `public/` copies every imported original into `_astro/` and deletes only the transformed ones (verified with a glob of `public/radio/`: 21 duplicates left). Moving the originals into `src/` would change their URLs.
 
 ## Next Steps
-- Watch the Workers Builds check on the PR; note the image step's time in its log (31 s locally, cold).
+- Workers Builds passed on PR #80; its preview alias (https://perf-responsive-images-bread.kanavj.workers.dev) serves the pictures and the immutable `/_img/*` header. The image step's CI duration is only in the dashboard log.
 - After merge and deploy, re-run Lighthouse against https://bread.fm/ and spot-check `curl -sI https://bread.fm/_img/<file>.avif` for the immutable header.
 
 ## Open Items

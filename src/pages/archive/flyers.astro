@@ -1,6 +1,8 @@
 ---
+import ResponsiveImage from "../../components/ResponsiveImage.astro";
 import data from "../../data/flyers.json";
 import ArchiveLayout from "../../layouts/ArchiveLayout.astro";
+import { GALLERY_IMAGE_SIZES } from "../../utils/images";
 import { createItemListSchema } from "../../utils/structuredData";
 
 const { flyerAssets, datedAssetCount } = data;
@@ -47,7 +49,7 @@ const summaryStats = [
       <li id={`flyer-${index + 1}`}>
         <a class="gallery-item" href={asset.imagePath} target="_blank" rel="noreferrer noopener">
           <span class="gallery-frame">
-            <img src={asset.imagePath} alt={`${asset.title}${asset.dateLabel ? `, ${asset.dateLabel}` : ''}`} loading="lazy" decoding="async" />
+            <ResponsiveImage src={asset.imagePath} alt={`${asset.title}${asset.dateLabel ? `, ${asset.dateLabel}` : ''}`} sizes={GALLERY_IMAGE_SIZES} priority={index === 0} />
           </span>
           <span class="gallery-caption">
             <span class="gallery-title">{asset.title}</span>

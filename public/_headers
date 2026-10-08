@@ -1,0 +1,4 @@
+# Resized images from scripts/generate-responsive-images.mjs. Each filename
+# carries a hash of its original, so a file never changes in place.
+/_img/*
+  Cache-Control: public, max-age=31536000, immutable

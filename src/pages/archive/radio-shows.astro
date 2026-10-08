@@ -1,6 +1,8 @@
 ---
+import ResponsiveImage from "../../components/ResponsiveImage.astro";
 import data from "../../data/radio-shows.json";
 import ArchiveLayout from "../../layouts/ArchiveLayout.astro";
+import { GALLERY_IMAGE_SIZES } from "../../utils/images";
 import { createItemListSchema } from "../../utils/structuredData";
 
 const { radioShows, uniqueGuestCount, monthCount } = data;
@@ -47,7 +49,7 @@ const summaryStats = [
       <li id={`show-${index + 1}`}>
         <a class="gallery-item" href={show.imagePath} target="_blank" rel="noreferrer noopener">
           <span class="gallery-frame">
-            <img src={show.imagePath} alt={`BREAD FM cover art for ${show.guests}, ${show.dateLabel}`} loading="lazy" decoding="async" />
+            <ResponsiveImage src={show.imagePath} alt={`BREAD FM cover art for ${show.guests}, ${show.dateLabel}`} sizes={GALLERY_IMAGE_SIZES} priority={index === 0} />
           </span>
           <span class="gallery-caption">
             <span class="gallery-title">{show.guests}</span>

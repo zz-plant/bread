@@ -25,6 +25,7 @@ Read these next when the task needs them:
 - `src/layouts/` — page layouts
 - `src/components/` — reusable components
 - `scripts/generate-data.mjs` — preflight data generation
+- `scripts/generate-responsive-images.mjs` + `src/components/ResponsiveImage.astro` — resized copies of `public/` images and the `<picture>` that serves them
 - `wrangler.jsonc` — Cloudflare Workers configuration
 - `docs/` — project documentation
 
@@ -48,6 +49,8 @@ CI order: `npm ci` → `npm run lint` → `npm run build`
 - `events` — event data (title, date, year, venue, lineup, confidence, status)
 - `roster` — roster members (name, role, notes, links, order)
 
+**Page images**: render `public/` images with `ResponsiveImage` (`src` is the public path), not `<img>`. `tests/images.test.ts` fails on an `<img>` with a computed `src` or a raw original over 200 KB.
+
 **OG Images**: built at build time from `src/utils/og-image-core.mjs` into PNGs in `public/og/` by `scripts/generate-og-images.mjs`. Social cards use PNG `og:image` (SVG is not rendered by major platforms).
 
 **Key Routes**:
@@ -70,7 +73,7 @@ Repository skills live in `.agents/skills/`. Prefer explicit skill invocation fo
 - All blog posts use MDX format with required frontmatter (title, description, date).
 - Draft posts have `draft: true` in frontmatter and should not appear in production builds.
 - OG images are generated programmatically — avoid manual image creation for social cards.
-- The build process runs `scripts/generate-data.mjs` then `scripts/generate-og-images.mjs` before type checking and building.
+- The build process runs `scripts/generate-data.mjs`, `scripts/generate-og-images.mjs`, then `scripts/generate-responsive-images.mjs` before type checking and building.
 - Prefer updating existing components/layouts over creating new ones for small changes.
 - Use Cloudflare-specific features (R2, KV, etc.) only when documented in `wrangler.jsonc`.
 
@@ -94,6 +97,7 @@ Repository skills live in `.agents/skills/`. Prefer explicit skill invocation fo
 - **Astro over Next.js** (2026-05): Chose Astro for static site simplicity and Cloudflare compatibility.
 - **MDX for content**: Enables rich content with components while maintaining markdown simplicity.
 - **Cloudflare deployment**: Using `@astrojs/cloudflare` adapter for edge deployment.
+- **Responsive images** (2026-10): a sharp prebuild script, not `astro:assets`, because `astro:assets` only transforms images imported from `src/` and the archive originals must keep their `public/` URLs. Importing them from `public/` copies each imported original into `_astro/`, and Astro removes only the copies it transforms.
 - **OG image generation**: `scripts/generate-og-images.mjs` renders `og-image-core.mjs` SVGs to PNG at build time (via sharp) into `public/og/`. PNG, not SVG, because social platforms don't render SVG OG images.
 - **No traditional linting**: `astro check` provides type and content validation; Prettier for formatting only.
 

@@ -45,3 +45,20 @@ Command-level evidence of testing, linting, and validation. Update in real time 
 | 2026-10-08 | Title suffix: npm test | 0 | 3 files, 24 tests passed; with `toDocumentTitle` stubbed to return its input, 2 tests fail on `src/content/archive/event-ledger.md` |
 | 2026-10-08 | Title suffix: npm run build | 0 | 10 pages |
 | 2026-10-08 | Built `<title>` audit, dist/client/**/index.html | - | 10/10 name BREAD; longest is the home title at 58 characters; none overflow 60 |
+| 2026-10-08 | Responsive images: bun install --frozen-lockfile | 0 | 803 packages |
+| 2026-10-08 | npm run build (baseline, origin/main 5d098c9) | 0 | 15 s; pages embed `/drive/`, `/radio/`, and top-level originals directly |
+| 2026-10-08 | Lighthouse 13.5.0 mobile, local `astro preview`, 3 runs, median (before) | - | `/`: score 70, 28,197 KiB, LCP 123.3 s. `/story/`: 99, 88 KiB, LCP 1.6 s. `/archive/flyers/`: 74, 44,122 KiB, LCP 7.0 s. `/archive/radio-shows/`: 74, 10,479 KiB, LCP 18.3 s |
+| 2026-10-08 | Experiment: `imageService: "compile"` + `import.meta.glob` of `public/radio/*` + one `<Picture>` | 0 | Build works with the adapter, but all 22 matched originals were copied into `dist/client/_astro/` and Astro deleted only the one it transformed, leaving 21 duplicates. Reverted; chose a sharp prebuild script |
+| 2026-10-08 | node scripts/generate-responsive-images.mjs (cold / warm) | 0 | 164 originals, 31 s / 0.3 s (M1 Max, 216 s CPU); 1,164 files, 38 MB; AVIF dropped for 5 images where it was larger than WebP |
+| 2026-10-08 | npm run lint | 0 | 0 errors; 130 warnings (121 before). The 9 new ones are biome's known Astro false positive: imports used only in the template (see PARKING_LOT) |
+| 2026-10-08 | npm test | 0 | 4 files, 27 tests (3 new in tests/images.test.ts). Without `dist/` the 2 built-page tests skip |
+| 2026-10-08 | tests/images.test.ts against an origin/main export + its build | 1 | All 3 fail: 4 computed-src `<img>` in src/; flyers/home/story/radio embed originals up to 10,951 KB; no `<picture>` |
+| 2026-10-08 | npm run build (after, cold image cache) | 0 | 43 s; astro check 0 errors (checks 0 files, see PARKING_LOT); 10 pages |
+| 2026-10-08 | Built HTML audit | - | home 4, story 6, flyers 100, radio 21 `<picture>`; 0 raw originals in `<img>`; 1 `fetchpriority="high"` on home, flyers, radio; story all lazy |
+| 2026-10-08 | Lighthouse 13.5.0 mobile, local `astro preview`, 3 runs, median (after) | - | `/`: score 98, 224 KiB, LCP 2.1 s. `/story/`: 99, 94 KiB, LCP 1.6 s (+6 KiB is uncompressed `<picture>` markup; the preview does not compress HTML, gzip adds 0.5 KiB). `/archive/flyers/`: 94, 1,286 KiB, LCP 2.7 s. `/archive/radio-shows/`: 93, 457 KiB, LCP 3.0 s |
+| 2026-10-08 | Playwright full-page scroll, image bytes (before → after) | - | home 27.41 → 0.09 MB; story 30.10 → 0.13 MB; flyers 244.94 → 1.55 MB; radio 10.15 → 0.20 MB |
+| 2026-10-08 | Screenshots 390/1280 px, 4 pages, pixelmatch | - | Page heights identical; 0 differing pixels outside image boxes; image boxes identical except 1 px height rounding on tall flyers that the frame clips. First pass found a 19 px shift on home and shorter boxes in galleries: `<source>` elements became grid items under `display: contents`; fixed with `source { display: none }` |
+| 2026-10-08 | astro dev on :4394 | - | home 4 and flyers 100 `<picture>`; `/_img/*.avif` served; server stopped |
+| 2026-10-08 | npx wrangler deploy --dry-run | 0 | Reads `wrangler.jsonc` → `dist/client/wrangler.json`; 1,385 asset files; none over 25 MiB |
+| 2026-10-08 | Workers Builds check on PR #80 (dbb4ced) | success | Preview alias https://perf-responsive-images-bread.kanavj.workers.dev: home has 4 `<picture>`; `/_img/*.avif` returns `image/avif` with `cache-control: public, max-age=31536000, immutable`; originals still served at `/drive/...` |
+| 2026-10-08 | Lighthouse 13.5.0 mobile, single run, live bread.fm vs PR preview | - | `/`: 64, 28,181 KiB, LCP 68.4 s → 99, 165 KiB, LCP 1.8 s. `/story/`: 92, 93 KiB, LCP 2.7 s → 99, 68 KiB, LCP 1.7 s (bread.fm makes 6 more requests than the workers.dev preview, so `/story/` is not like for like) |

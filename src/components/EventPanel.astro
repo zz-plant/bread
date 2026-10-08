@@ -1,4 +1,7 @@
 ---
+import { FEATURED_IMAGE_SIZES } from "../utils/images";
+import ResponsiveImage from "./ResponsiveImage.astro";
+
 interface Visual {
 	src: string;
 	alt: string;
@@ -54,7 +57,7 @@ const visualDestinations = Array.from(
       {visuals.map((item, visualIndex) => (
         <li>
           <figure>
-            <img src={item.src} alt={item.alt} width="960" height="1200" loading={visualIndex === 0 ? 'eager' : 'lazy'} fetchpriority={visualIndex === 0 ? 'high' : undefined} decoding={visualIndex === 0 ? 'sync' : 'async'} sizes="(max-width: 780px) 70vw, 18rem" />
+            <ResponsiveImage src={item.src} alt={item.alt} sizes={FEATURED_IMAGE_SIZES} priority={visualIndex === 0} />
             <figcaption>
               <p>{item.title}</p>
               <small>{item.caption}</small>

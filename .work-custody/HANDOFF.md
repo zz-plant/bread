@@ -2,20 +2,19 @@
 State to resume work if interrupted, or hand off to another agent/reviewer. Update before stopping work.
 
 ## Current State
-- Home title now carries city, format, and years (58 characters). Other page titles unchanged.
-- The two legacy URLs moved from `Astro.redirect()` page stubs to `redirects` in `astro.config.mjs`. `@astrojs/cloudflare` sets `build.redirects: false` and writes config redirects to `dist/client/_redirects`, which Workers static assets serves as 301s. The stubs had been built as 200 `noindex` meta-refresh pages.
-- The sitemap filter reads the same `redirects` object. Astro already leaves config redirects out of its page list, so the filter is a guard, not the fix.
-- BaseLayout passes every `<title>` through `toDocumentTitle()` (`src/utils/content.ts`), which appends " · BREAD" when the title doesn't name BREAD. Changed: Event List, Start Here, People, Timeline. `og:title` stays unsuffixed because `og:site_name` already says BREAD.
-- Sitemap: 12 URLs before, 10 after. The remaining 10 are all self-canonical with no robots meta.
-- Deploy target confirmed as a Worker with static assets: wrangler resolves `wrangler.jsonc` before `wrangler.toml`, the build redirects deploys to the generated `dist/client/wrangler.json`, and bread.fm answers trailing-slash requests with 307 (Workers assets) while the `bread` Pages project answers 308.
+- Pages no longer embed archive originals. `scripts/generate-responsive-images.mjs` (last `prebuild` step) writes AVIF, WebP, and a JPEG (or PNG, for images with transparency) at 320/480/640 px for every raster file in `public/` except `og/` into `public/_img/` (gitignored), named `<slug>-<content hash>-<width>.<ext>`. `src/data/responsive-images.json` (gitignored) maps each original's public path to its srcsets and dimensions.
+- `src/components/ResponsiveImage.astro` renders `<picture>` from that manifest. `display: contents` on `<picture>` and `display: none` on `<source>` keep the page grids seeing one child, so layout is unchanged. `priority` sets eager + sync decoding + `fetchpriority="high"`; everything else is lazy.
+- Used on home (featured visuals, first is priority), `/story/` gallery (all lazy, below the fold), `/archive/flyers/` and `/archive/radio-shows/` (first is priority). Gallery links and structured data still point at the originals.
+- `sizes` strings live in `src/utils/images.ts`, measured at 24 viewport widths against `.gallery` (global.css) and `.featured-visual-grid` (home.css).
+- `public/_headers` gives `/_img/*` a one-year immutable Cache-Control; the adapter prepends its `/_astro/*` rule to the same file.
+- Why not `astro:assets`: it only transforms images imported from `src/`. With `imageService: "compile"` it works with this adapter, but importing from `public/` copies every imported original into `_astro/` and deletes only the transformed ones (verified with a glob of `public/radio/`: 21 duplicates left). Moving the originals into `src/` would change their URLs.
 
 ## Next Steps
-- The `bread` Worker is connected to Git through Workers Builds. This branch's build passed, and its preview (https://seo-home-title-sitemap-bread.kanavj.workers.dev) returns the 301s, the new title, and a 10-URL sitemap. Merging to main should deploy production.
-- After deploy, check `curl -sI https://bread.fm/blog/the-story-of-bread/` returns 301 and resubmit the sitemap in Search Console.
-- See PARKING_LOT.md for follow-ups found along the way.
+- Workers Builds passed on PR #80; its preview alias (https://perf-responsive-images-bread.kanavj.workers.dev) serves the pictures and the immutable `/_img/*` header. The image step's CI duration is only in the dashboard log.
+- After merge and deploy, re-run Lighthouse against https://bread.fm/ and spot-check `curl -sI https://bread.fm/_img/<file>.avif` for the immutable header.
 
 ## Open Items
-- See PARKING_LOT.md and UNKNOWNS.md.
+- See PARKING_LOT.md (sharp not declared, 41 unrendered originals processed, grainy bread5 posters, CI cache, double prebuild) and UNKNOWNS.md.
 
 ## Blockers
 - None

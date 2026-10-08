@@ -1,30 +1,26 @@
 # Work Order
 ## Objective
-Find and fix UI and copy on bread.fm that reads as obviously AI-generated ("vibecoded"): research-pipeline jargon, meta-commentary about the site, implementation details shown to visitors, filler stats, generic template styling, and the small UI bugs that came with them.
+Fix two SEO defects on bread.fm: the homepage `<title>` is the bare word "BREAD", and `sitemap-0.xml` lists two meta-refresh redirect stubs (`/blog/the-story-of-bread/`, `/archive/narrative-history/`) that are `noindex` and canonicalize to `/story/`.
 
 ## Authorized Scope
 ### Allowed
-- Visitor-facing copy in `src/pages/`, `src/components/`, `src/layouts/`, `src/content/` (archive, blog, events, roster, config)
-- Styles in `src/styles/` and page-scoped `<style>` blocks
-- Title heuristics in `scripts/generate-data.mjs` (flyer titles, radio guest names)
-- OG card copy and palette (`src/utils/og-image-core.mjs`, `scripts/generate-og-images.mjs`)
-- Small UI bug fixes found along the way (sort order, broken links, missing CSS tokens, image sizing)
-- Regression test in `tests/homepage-ux.test.ts`
+- Homepage title in `src/pages/index.astro` (other page titles unchanged; they do not share a "Page | BREAD" pattern)
+- `astro.config.mjs`: `redirects` config and a sitemap filter derived from it
+- Deleting the two `Astro.redirect()` page stubs that the config redirects replace
+- Emitting real HTTP 301s through `_redirects` if the deploy target supports it
+- A regression test in `tests/`
+- Pre-existing biome errors that block `npm run lint` (import order, favicon `<title>`)
 
 ### Not Allowed
-- Renaming or re-sorting image assets in `public/`
-- Changing routes, nav structure, or the content collection schema
-- Inventing facts: every rewritten sentence must trace back to existing copy, event data, source URLs, or the artwork itself
-
-## Addendum (2026-09-24): design pass
-Follow-up request: "make the graphic design less unimpressive, less displeasing, easier on the eyes, more intuitive across mobile and desktop."
-Additionally allowed: rewriting `src/styles/*.css`, page/component markup and scoped styles, `BaseLayout` header/footer/nav, homepage tab script, and updating CSS-string assertions in `tests/homepage-ux.test.ts` to match the new layout.
+- New copy for the short archive pages (`/archive/`, `/archive/overview/`, `/archive/people-network/`); listed as owner follow-up
+- Deploying, changing Cloudflare projects, or deleting `wrangler.toml`
 
 ## Required Verification
-- `npm run lint` (biome) introduces no new errors
+- `npm run lint` (biome) passes
 - `npm test`
 - `npm run build` (includes `astro check`)
-- Screenshots of home (all tabs), archive, timeline, flyers, radio shows, map, and story at desktop and mobile widths
+- Built `dist/client/sitemap-0.xml` omits the redirect sources; built home page has the new title
+- Redirect sources answer with HTTP 301 when the build is served by wrangler
 
 ## Status
 - [ ] Draft

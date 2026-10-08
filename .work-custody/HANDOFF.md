@@ -2,20 +2,19 @@
 State to resume work if interrupted, or hand off to another agent/reviewer. Update before stopping work.
 
 ## Current State
-- Copy audit complete across home (Events/People/Listen), archive index, Start Here, Timeline, Event list, People, Flyers, Radio shows, Venue map, Story, and OG cards.
-- UI tells removed: grain overlay, ghost "BREAD" watermark, duplicate `//` top strip, eyebrow kickers repeating tab names, green "✓ PLAYED" badge on every card, filler stats.
-- UI bugs fixed: "Newest first" didn't reorder cards; featured images forced to 720px tall; map/radio headings used undefined CSS tokens; OG subtitles cut to one word on line 2; OG footer text sat outside the card; broken `/blog/`, `/archive/channel-profile-directory/`, `/archive/venues-format-shifts/` links; no empty state for search.
-- Flyer titles no longer come straight from filenames ("Drive archive Img 0530" → "Photo", "BREAD 14 V2 FB Edit" → "BREAD #14").
-- New test blocks research-pipeline phrases from coming back.
-
-- Design pass (same PR): warmer low-glare palette and 16px body type; one header/nav on every page (compact single row on phones) and a footer with outbound links; homepage hero + sticky underline tabs; events as a year-grouped listing; swipeable flyer strip on phones; Listen tab as compact player rows (one auto-loads, the rest on tap) instead of 16 empty boxes; flyer/radio galleries show full artwork with captions below; vertical timeline; stacked tables on phones; map fits SF venues only.
+- Home title now carries city, format, and years (58 characters). Other page titles unchanged.
+- The two legacy URLs moved from `Astro.redirect()` page stubs to `redirects` in `astro.config.mjs`. `@astrojs/cloudflare` sets `build.redirects: false` and writes config redirects to `dist/client/_redirects`, which Workers static assets serves as 301s. The stubs had been built as 200 `noindex` meta-refresh pages.
+- The sitemap filter reads the same `redirects` object. Astro already leaves config redirects out of its page list, so the filter is a guard, not the fix.
+- Sitemap: 12 URLs before, 10 after. The remaining 10 are all self-canonical with no robots meta.
+- Deploy target confirmed as a Worker with static assets: wrangler resolves `wrangler.jsonc` before `wrangler.toml`, the build redirects deploys to the generated `dist/client/wrangler.json`, and bread.fm answers trailing-slash requests with 307 (Workers assets) while the `bread` Pages project answers 308.
 
 ## Next Steps
-- Owner reviews renamed event titles and venue changes (UNKNOWNS.md).
-- Fix mislabeled image files (PARKING_LOT.md, first row). This is the biggest remaining visible problem.
+- The `bread` Worker is connected to Git through Workers Builds. This branch's build passed, and its preview (https://seo-home-title-sitemap-bread.kanavj.workers.dev) returns the 301s, the new title, and a 10-URL sitemap. Merging to main should deploy production.
+- After deploy, check `curl -sI https://bread.fm/blog/the-story-of-bread/` returns 301 and resubmit the sitemap in Search Console.
+- See PARKING_LOT.md for follow-ups found along the way.
 
 ## Open Items
-- See PARKING_LOT.md.
+- See PARKING_LOT.md and UNKNOWNS.md.
 
 ## Blockers
 - None

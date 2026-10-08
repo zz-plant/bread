@@ -5,6 +5,7 @@ dist/
 .wrangler/
 src/data/*.json
 public/og/
+public/_img/
 .wrangler/
 opencode.json
 

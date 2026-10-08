@@ -1,8 +1,10 @@
 ---
 import { getCollection, render } from "astro:content";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import ResponsiveImage from "../../components/ResponsiveImage.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { formatDate, toContentSlug } from "../../utils/content";
+import { GALLERY_IMAGE_SIZES } from "../../utils/images";
 import {
 	createArticleSchema,
 	createBreadcrumbListSchema,
@@ -118,7 +120,7 @@ const storyGallery = [
           <li>
             <figure class="gallery-item">
               <span class="gallery-frame">
-                <img src={item.src} alt={item.alt} loading="lazy" decoding="async" />
+                <ResponsiveImage src={item.src} alt={item.alt} sizes={GALLERY_IMAGE_SIZES} />
               </span>
               <figcaption class="gallery-caption">
                 <span class="gallery-title">{item.title}</span>

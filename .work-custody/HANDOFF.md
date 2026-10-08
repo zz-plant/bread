@@ -7,7 +7,7 @@ State to resume work if interrupted, or hand off to another agent/reviewer. Upda
 - Used on home (featured visuals, first is priority), `/story/` gallery (all lazy, below the fold), `/archive/flyers/` and `/archive/radio-shows/` (first is priority). Gallery links and structured data still point at the originals.
 - `sizes` strings live in `src/utils/images.ts`, measured at 24 viewport widths against `.gallery` (global.css) and `.featured-visual-grid` (home.css).
 - `public/_headers` gives `/_img/*` a one-year immutable Cache-Control; the adapter prepends its `/_astro/*` rule to the same file.
-- Why not `astro:assets`: it only transforms images imported from `src/`. With `imageService: "compile"` it works with this adapter, but importing from `public/` copies every imported original into `_astro/` and deletes only the transformed ones (verified with a glob of `public/radio/`: 22 duplicates left). Moving the originals into `src/` would change their URLs.
+- Why not `astro:assets`: it only transforms images imported from `src/`. With `imageService: "compile"` it works with this adapter, but importing from `public/` copies every imported original into `_astro/` and deletes only the transformed ones (verified with a glob of `public/radio/`: 21 duplicates left). Moving the originals into `src/` would change their URLs.
 
 ## Next Steps
 - Watch the Workers Builds check on the PR; note the image step's time in its log (31 s locally, cold).

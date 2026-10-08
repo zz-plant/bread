@@ -48,7 +48,7 @@ Command-level evidence of testing, linting, and validation. Update in real time 
 | 2026-10-08 | Responsive images: bun install --frozen-lockfile | 0 | 803 packages |
 | 2026-10-08 | npm run build (baseline, origin/main 5d098c9) | 0 | 15 s; pages embed `/drive/`, `/radio/`, and top-level originals directly |
 | 2026-10-08 | Lighthouse 13.5.0 mobile, local `astro preview`, 3 runs, median (before) | - | `/`: score 70, 28,197 KiB, LCP 123.3 s. `/story/`: 99, 88 KiB, LCP 1.6 s. `/archive/flyers/`: 74, 44,122 KiB, LCP 7.0 s. `/archive/radio-shows/`: 74, 10,479 KiB, LCP 18.3 s |
-| 2026-10-08 | Experiment: `imageService: "compile"` + `import.meta.glob` of `public/radio/*` + one `<Picture>` | 0 | Build works with the adapter, but 22 untransformed originals were copied into `dist/client/_astro/`; Astro deleted only the one it transformed. Reverted; chose a sharp prebuild script |
+| 2026-10-08 | Experiment: `imageService: "compile"` + `import.meta.glob` of `public/radio/*` + one `<Picture>` | 0 | Build works with the adapter, but all 22 matched originals were copied into `dist/client/_astro/` and Astro deleted only the one it transformed, leaving 21 duplicates. Reverted; chose a sharp prebuild script |
 | 2026-10-08 | node scripts/generate-responsive-images.mjs (cold / warm) | 0 | 164 originals, 31 s / 0.3 s (M1 Max, 216 s CPU); 1,164 files, 38 MB; AVIF dropped for 5 images where it was larger than WebP |
 | 2026-10-08 | npm run lint | 0 | 0 errors; 130 warnings (121 before). The 9 new ones are biome's known Astro false positive: imports used only in the template (see PARKING_LOT) |
 | 2026-10-08 | npm test | 0 | 4 files, 27 tests (3 new in tests/images.test.ts). Without `dist/` the 2 built-page tests skip |

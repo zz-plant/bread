@@ -9,7 +9,7 @@ State to resume work if interrupted, or hand off to another agent/reviewer. Upda
 - Deploy target confirmed as a Worker with static assets: wrangler resolves `wrangler.jsonc` before `wrangler.toml`, the build redirects deploys to the generated `dist/client/wrangler.json`, and bread.fm answers trailing-slash requests with 307 (Workers assets) while the `bread` Pages project answers 308.
 
 ## Next Steps
-- Owner deploys (`npm run build && npx wrangler deploy`); the last Worker deploys came from a local `wrangler deploy`, not CI.
+- The `bread` Worker is connected to Git through Workers Builds. This branch's build passed, and its preview (https://seo-home-title-sitemap-bread.kanavj.workers.dev) returns the 301s, the new title, and a 10-URL sitemap. Merging to main should deploy production.
 - After deploy, check `curl -sI https://bread.fm/blog/the-story-of-bread/` returns 301 and resubmit the sitemap in Search Console.
 - See PARKING_LOT.md for follow-ups found along the way.
 

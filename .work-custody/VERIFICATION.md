@@ -40,3 +40,4 @@ Command-level evidence of testing, linting, and validation. Update in real time 
 | 2026-10-08 | npx wrangler dev + curl | - | "Using redirected Wrangler configuration ... Original user's configuration: wrangler.jsonc"; "Parsed 4 valid redirect rules"; both legacy paths, with and without slash, return 301 → /story/; /story/ 200; /_redirects 404 |
 | 2026-10-08 | npx wrangler deploy --dry-run | 0 | Reads 220 files from dist/client via dist/client/wrangler.json |
 | 2026-10-08 | curl -sI live bread.fm/story vs bread-6vf.pages.dev/story | - | 307 (Workers assets) vs 308 (Pages): bread.fm is served by the Worker |
+| 2026-10-08 | Workers Builds check on PR #78 + curl preview alias | success | seo-home-title-sitemap-bread.kanavj.workers.dev: both legacy paths, with and without slash, 301 → /story/; new home title; sitemap 10 URLs, 0 redirect sources |

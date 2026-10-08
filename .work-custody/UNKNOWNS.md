@@ -10,4 +10,4 @@ Unresolved uncertainty, risks, or open questions from the work. Preserve these; 
 | 2026-09-24 | Dropped the "(noted)" suffix from venues (F8, Mighty, Public Works Loft, Club 6ix, OMG). If "(noted)" meant "unconfirmed", that nuance now lives only in each event's `confidence` field. | Low | Owner review. |
 | 2026-09-24 | Radio Valencia shows are undated in filenames. The artwork weekdays fit 2017 or 2023; copy mentions the show without giving a year. | Low | Owner supplies the year. |
 | 2026-10-08 | Does anything still deploy to the `bread` Pages project (bread-6vf.pages.dev)? bread.fm itself is served by the `bread` Worker. | Low | Owner confirms before deleting the project. |
-| 2026-10-08 | Worker deploys are manual (`wrangler deployments list` shows source "Unknown (deployment)"), so this change reaches bread.fm only when the owner deploys. | Low | Noted in PR and HANDOFF. |
+| 2026-10-08 | Workers Builds runs on PR branches (preview URLs); confirm main is its production branch, so merging deploys bread.fm. | Low | Check after merge with `curl -sI https://bread.fm/blog/the-story-of-bread/`. |

@@ -6,7 +6,7 @@ State to resume work if interrupted, or hand off to another agent/reviewer. Upda
 - `package-lock.json` is still stale against `package.json` (astro 6.4.2 vs `^7.2.2`, wrangler 4.95 vs `^4.123.0`), so `npm ci` still fails; that stays parked.
 
 ## Next Steps
-- Read the Workers Builds check on the PR; merge is the owner's step.
+- Workers Builds passed on PR #81; its preview alias (https://chore-declare-sharp-bread.kanavj.workers.dev) serves the sharp-built `/_img/` and `/og/` files. Merge is the owner's step.
 
 ## Open Items
 - See PARKING_LOT.md (stale package-lock.json, 41 unrendered originals processed, grainy bread5 posters, CI cache, double prebuild) and UNKNOWNS.md.

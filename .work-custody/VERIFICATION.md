@@ -71,3 +71,4 @@ Command-level evidence of testing, linting, and validation. Update in real time 
 | 2026-10-08 | npm run lint | 0 | 0 errors, 130 warnings (unchanged) |
 | 2026-10-08 | npm run build | 0 | 37 s with a cold image cache; 10 pages |
 | 2026-10-08 | npm test (after build) | 0 | 4 files, 27 tests passed |
+| 2026-10-08 | Workers Builds check on PR #81 (9c284db) | success | Preview alias https://chore-declare-sharp-bread.kanavj.workers.dev: home 200; `/_img/bread-x-grime-city-150213-show-78b9db1f98-320.avif` 200 `image/avif` (responsive-image step ran); `/og/home.png` 200 `image/png` (OG step ran) |

@@ -8,7 +8,7 @@ Checklist to determine if work is ready for human review.
 
 ## Review Checklist
 - [x] All authorized scope work complete
-- [x] All required verification passed (lint, tests, build, Lighthouse, screenshots, Workers Builds)
+- [ ] All required verification passed (frozen install, lint, tests, build pass; Workers Builds pending)
 - [x] No known unknowns dropped
 - [x] Diff audit confirms scope compliance (code repos only)
 - [x] Handoff updated

@@ -3,20 +3,12 @@ Audit of changed files against authorized scope in `WORK_ORDER.md`.
 
 ## Scope Compliance
 - [x] All changed files are in authorized scope
-- [x] No prohibited files modified (originals in `public/` untouched; no wrangler config changed)
+- [x] No prohibited files modified (no script, page, or wrangler config changed; no other dependency moved)
 
 ## Changed Files
 | File | In Scope | Notes |
 |------|----------|-------|
-| scripts/generate-responsive-images.mjs | Yes | New prebuild step: AVIF/WebP/JPEG-or-PNG at 320/480/640 px into `public/_img/`, manifest in `src/data/responsive-images.json` |
-| src/components/ResponsiveImage.astro | Yes | `<picture>` from the manifest; throws if an image has no variants |
-| src/utils/images.ts | Yes | `sizes` strings measured against the gallery and featured-strip CSS; manifest entry type |
-| src/components/EventPanel.astro | Yes | Home featured visuals use ResponsiveImage; first one `priority` |
-| src/pages/story/index.astro | Yes | Story gallery uses ResponsiveImage (all lazy, below the fold) |
-| src/pages/archive/flyers.astro, src/pages/archive/radio-shows.astro | Yes | Galleries use ResponsiveImage; first image `priority` |
-| package.json | Yes | `prebuild` runs the new script last |
-| .gitignore | Yes | `public/_img/` |
-| public/_headers | Yes | Immutable caching for `/_img/*` (hashed names); the adapter prepends its `/_astro/*` rule |
-| tests/images.test.ts | Yes | Source check (no computed-src `<img>`, no raw original over 200 KB) and built-HTML check |
-| AGENTS.md | Yes | Build-step list, page-image rule, and the astro:assets decision updated for the new step |
+| package.json | Yes | `"sharp": "^0.34.5"` in devDependencies |
+| bun.lock | Yes | One line: the same entry in the root workspace's devDependencies (written by `bun install`); the `sharp@0.34.5` package entry was already there |
+| package-lock.json | Yes | One line: the same entry in `packages[""].devDependencies`. Hand-edited, because `npm install --package-lock-only` stops on the parked ERESOLVE conflict and `--legacy-peer-deps` rewrites ~4,000 lines. `node_modules/sharp` (0.34.5, `devOptional`) keeps its flags: it is still reachable both as a dev dependency and as astro's optional one |
 | .work-custody/* | Yes | Custody records |

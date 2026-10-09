@@ -62,3 +62,13 @@ Command-level evidence of testing, linting, and validation. Update in real time 
 | 2026-10-08 | npx wrangler deploy --dry-run | 0 | Reads `wrangler.jsonc` → `dist/client/wrangler.json`; 1,385 asset files; none over 25 MiB |
 | 2026-10-08 | Workers Builds check on PR #80 (dbb4ced) | success | Preview alias https://perf-responsive-images-bread.kanavj.workers.dev: home has 4 `<picture>`; `/_img/*.avif` returns `image/avif` with `cache-control: public, max-age=31536000, immutable`; originals still served at `/drive/...` |
 | 2026-10-08 | Lighthouse 13.5.0 mobile, single run, live bread.fm vs PR preview | - | `/`: 64, 28,181 KiB, LCP 68.4 s → 99, 165 KiB, LCP 1.8 s. `/story/`: 92, 93 KiB, LCP 2.7 s → 99, 68 KiB, LCP 1.7 s (bread.fm makes 6 more requests than the workers.dev preview, so `/story/` is not like for like) |
+| 2026-10-08 | Declare sharp: `npm install --package-lock-only --save-dev sharp@^0.34.5` (scratch copy) | 1 | ERESOLVE: `@astrojs/cloudflare@14.3.4` peer `astro@^7.2.0` vs the lock's astro (the parked conflict) |
+| 2026-10-08 | Same with `--legacy-peer-deps` (scratch copy) | 0 | 2,763 insertions, 1,326 deletions in package-lock.json: a full regeneration, so not used; root entry edited by hand instead |
+| 2026-10-08 | bun install (after adding `"sharp": "^0.34.5"`) | 0 | 803 packages; bun.lock diff is one line in the root devDependencies |
+| 2026-10-08 | bun install --frozen-lockfile | 0 | No changes |
+| 2026-10-08 | `node -e "import('sharp')"` | 0 | sharp 0.34.5 from `node_modules/sharp` |
+| 2026-10-08 | npm ls sharp --package-lock-only | 0 | `sharp@0.34.5` at the root, deduped under astro and miniflare; no "invalid" on sharp (astro and wrangler show the pre-existing stale-lock "invalid") |
+| 2026-10-08 | npm run lint | 0 | 0 errors, 130 warnings (unchanged) |
+| 2026-10-08 | npm run build | 0 | 37 s with a cold image cache; 10 pages |
+| 2026-10-08 | npm test (after build) | 0 | 4 files, 27 tests passed |
+| 2026-10-08 | Workers Builds check on PR #81 (9c284db) | success | Preview alias https://chore-declare-sharp-bread.kanavj.workers.dev: home 200; `/_img/bread-x-grime-city-150213-show-78b9db1f98-320.avif` 200 `image/avif` (responsive-image step ran); `/og/home.png` 200 `image/png` (OG step ran) |

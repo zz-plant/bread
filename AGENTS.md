@@ -4,7 +4,7 @@ Compact guidance for agentic development in `bread`.
 
 ## Objective
 
-`bread` is a static site for bread.fm, built with Astro and deployed to Cloudflare Pages. It serves as a personal/brand site with blog content, archive pages, and OG image generation.
+`bread` is a static site for bread.fm, built with Astro and served by the `bread` Cloudflare Worker (static assets). It serves as a personal/brand site with blog content, archive pages, and OG image generation.
 
 ## Canonical Files
 
@@ -59,7 +59,7 @@ CI order: `npm ci` → `npm run lint` → `npm run build`
 - `/archive/` — archive pages (flyers, radio shows, timeline, event ledger, people, venues)
 - `/og/*.png` — OG image endpoints
 
-**Deployment**: Cloudflare Pages via `@astrojs/cloudflare` adapter.
+**Deployment**: the `bread` Cloudflare Worker, built from `wrangler.jsonc` through the `@astrojs/cloudflare` adapter (deploys use the generated `dist/client/wrangler.json`).
 
 ## Skills
 

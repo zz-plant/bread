@@ -72,3 +72,14 @@ Command-level evidence of testing, linting, and validation. Update in real time 
 | 2026-10-08 | npm run build | 0 | 37 s with a cold image cache; 10 pages |
 | 2026-10-08 | npm test (after build) | 0 | 4 files, 27 tests passed |
 | 2026-10-08 | Workers Builds check on PR #81 (9c284db) | success | Preview alias https://chore-declare-sharp-bread.kanavj.workers.dev: home 200; `/_img/bread-x-grime-city-150213-show-78b9db1f98-320.avif` 200 `image/avif` (responsive-image step ran); `/og/home.png` 200 `image/png` (OG step ran) |
+
+## 2026-10-14 follow-up
+
+- Baseline `bun run assets:check`: 14 valid compressed images rejected by minimum byte counts. New PNG tests also proved a corrupt padded header passed.
+- `bun install --frozen-lockfile`: pass; lockfile unchanged.
+- `bun run assets:check`: pass, 21 PNGs and source SVG; complete sharp decoding replaces the byte heuristic.
+- `npm run lint`: pass with the existing 130 warnings and 12 configuration infos.
+- `npm run build`: pass, Astro reports 0 errors/warnings, ten public pages built.
+- `npm test`: 7 files, 38 tests pass after build, including the rendered schema tests.
+- All ten generated pages: canonical URLs, descriptions, OG/Twitter images and image descriptions present. Home has WebSite/CollectionPage/events; timeline has collection/breadcrumb; galleries expose ImageObject lists; story exposes Article type and image.
+- `git diff --check`: pass. No deployment or live-state verification.

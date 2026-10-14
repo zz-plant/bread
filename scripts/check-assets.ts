@@ -1,6 +1,7 @@
 #!/usr/bin/env bun
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
+import sharp from "sharp";
 
 const ASSETS_DIR = join(
 	import.meta.dirname ?? __dirname,
@@ -11,24 +12,24 @@ const ASSETS_DIR = join(
 
 const PNG_SIGNATURE = Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]);
 
-type Spec = { width: number; height: number; minBytes: number };
+type Spec = { width: number; height: number };
 
 const SPECS: Record<string, Spec> = {
-	badge: { width: 240, height: 96, minBytes: 5_000 },
-	blur: { width: 50, height: 28, minBytes: 500 },
-	card: { width: 400, height: 300, minBytes: 25_000 },
-	circle: { width: 540, height: 540, minBytes: 15_000 },
-	dark: { width: 960, height: 540, minBytes: 25_000 },
-	demo: { width: 720, height: 405, minBytes: 25_000 },
-	email: { width: 600, height: 200, minBytes: 20_000 },
-	favicon: { width: 64, height: 64, minBytes: 1_000 },
-	github: { width: 1280, height: 640, minBytes: 50_000 },
-	header: { width: 1920, height: 400, minBytes: 25_000 },
-	mastodon: { width: 1200, height: 600, minBytes: 50_000 },
-	og: { width: 1200, height: 675, minBytes: 50_000 },
-	square: { width: 1080, height: 1080, minBytes: 50_000 },
-	touch: { width: 360, height: 360, minBytes: 20_000 },
-	unfurl: { width: 1200, height: 628, minBytes: 50_000 },
+	badge: { width: 240, height: 96 },
+	blur: { width: 50, height: 28 },
+	card: { width: 400, height: 300 },
+	circle: { width: 540, height: 540 },
+	dark: { width: 960, height: 540 },
+	demo: { width: 720, height: 405 },
+	email: { width: 600, height: 200 },
+	favicon: { width: 64, height: 64 },
+	github: { width: 1280, height: 640 },
+	header: { width: 1920, height: 400 },
+	mastodon: { width: 1200, height: 600 },
+	og: { width: 1200, height: 675 },
+	square: { width: 1080, height: 1080 },
+	touch: { width: 360, height: 360 },
+	unfurl: { width: 1200, height: 628 },
 };
 
 const COLOR_TYPE_LABELS: Record<number, string> = {
@@ -47,11 +48,14 @@ type PngInfo = {
 	byteLength: number;
 };
 
-function readPngInfo(filePath: string): PngInfo {
+async function readPngInfo(filePath: string): Promise<PngInfo> {
 	const buf = readFileSync(filePath);
 	if (buf.length < 33) throw new Error("file too small for valid PNG");
 	if (!buf.subarray(0, 8).equals(PNG_SIGNATURE))
 		throw new Error("not a valid PNG");
+	// Decode every pixel. Compressed byte count cannot distinguish a simple
+	// image from a truncated or posterized one.
+	await sharp(buf, { failOn: "warning" }).raw().toBuffer();
 	return {
 		width: buf.readUInt32BE(16),
 		height: buf.readUInt32BE(20),
@@ -61,7 +65,7 @@ function readPngInfo(filePath: string): PngInfo {
 	};
 }
 
-function main() {
+async function main() {
 	const files = readdirSync(ASSETS_DIR)
 		.filter((f) => f.endsWith(".png"))
 		.sort();
@@ -93,7 +97,7 @@ function main() {
 		const spec = SPECS[typeKey];
 		if (!spec) {
 			try {
-				const info = readPngInfo(filePath);
+				const info = await readPngInfo(filePath);
 				found.add(typeKey);
 				console.log(
 					`  ⚠  ${name}  (${info.width}×${info.height}) — no spec, skipped`,
@@ -106,7 +110,7 @@ function main() {
 
 		found.add(typeKey);
 		try {
-			const info = readPngInfo(filePath);
+			const info = await readPngInfo(filePath);
 
 			if (info.width !== spec.width || info.height !== spec.height) {
 				errors.push(
@@ -120,12 +124,6 @@ function main() {
 			}
 			if (info.bitDepth < 8) {
 				errors.push(`${name}: low bit depth (${info.bitDepth}-bit)`);
-				continue;
-			}
-			if (size < spec.minBytes) {
-				errors.push(
-					`${name}: ${size}B < ${spec.minBytes}B min — possible posterization or truncation`,
-				);
 				continue;
 			}
 
@@ -169,4 +167,4 @@ function main() {
 	}
 }
 
-main();
+await main();

@@ -13,3 +13,7 @@ State to resume work if interrupted, or hand off to another agent/reviewer. Upda
 
 ## Blockers
 - None
+
+## 2026-10-14 follow-up handoff
+
+PNG validation decodes pixels instead of inferring quality from byte size. `getHomepageData(Astro.site)` restores omitted website, collection and event records. Shared schemas identify the website and images; story previews use Article type. Timeline gets collection/breadcrumb data, and ArchiveLayout now publishes gallery image inventories already computed by the pages. Eleven regression checks cover integrity and structured metadata. Local lint/build/assets and all 38 tests pass. See the draft PR for review.

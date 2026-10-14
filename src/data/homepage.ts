@@ -9,7 +9,7 @@ import {
 } from "../utils/structuredData";
 import { ACCENT_COLOR } from "../utils/theme";
 
-export async function getHomepageData() {
+export async function getHomepageData(site?: URL) {
 	const events = (await getCollection("events")).sort(
 		(a, b) => a.data.date.valueOf() - b.data.date.valueOf(),
 	);
@@ -158,7 +158,7 @@ export async function getHomepageData() {
 			if (!startDate) return undefined;
 
 			return createEventSchema({
-				site: undefined as any,
+				site,
 				pagePathname: "/",
 				position: index + 1,
 				name: event.title,
@@ -172,13 +172,14 @@ export async function getHomepageData() {
 
 	const homeStructuredData = [
 		createWebsiteSchema({
-			site: undefined as any,
+			site,
 			name: "BREAD",
+			image: "/og/home.png",
 			description:
 				"BREAD: a San Francisco club night, fundraiser stream, and radio show, 2015–2024.",
 		}),
 		createCollectionPageSchema({
-			site: undefined as any,
+			site,
 			pathname: "/",
 			name: "BREAD",
 			description: "Events, residents, flyers, and mixes from BREAD.",

@@ -26,6 +26,7 @@ interface Props {
 	stats?: Stat[];
 	ogImage?: string;
 	ogImageAlt?: string;
+	structuredData?: Record<string, unknown>[];
 }
 
 const {
@@ -38,6 +39,7 @@ const {
 	stats = [],
 	ogImage,
 	ogImageAlt,
+	structuredData: extraStructuredData = [],
 } = Astro.props;
 
 const pageStructuredData = createCollectionPageSchema({
@@ -56,7 +58,7 @@ const breadcrumbStructuredData = createBreadcrumbListSchema({
 	})),
 });
 
-const structuredData = [pageStructuredData, breadcrumbStructuredData].filter(
+const structuredData = [pageStructuredData, breadcrumbStructuredData, ...extraStructuredData].filter(
 	(entry): entry is Record<string, unknown> => Boolean(entry),
 );
 ---

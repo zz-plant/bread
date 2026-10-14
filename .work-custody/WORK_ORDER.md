@@ -23,3 +23,7 @@ Declare `sharp`, which `scripts/generate-og-images.mjs` and `scripts/generate-re
 - [ ] In Progress
 - [x] Complete
 - [ ] Blocked
+
+## 2026-10-14 follow-up: assets and public metadata
+
+Authorized by the user’s unfinished-work and metadata requests. Scope: PNG integrity validation, homepage schema site resolution, website identity/image, story article metadata, timeline schemas, and the existing flyers/radio image inventories; regression tests and custody records. No image-byte changes, dependencies, deployment, or archive-content changes. Local verification complete; draft PR ready.

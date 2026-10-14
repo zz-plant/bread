@@ -22,3 +22,7 @@ Adjacent findings discovered during work that are out of authorized scope. Do no
 | 2026-10-08 | The two `bread5*-11x17` poster scans compress poorly: their 640 px WebP is 244–281 KB and the PNG fallback 520 KB. | Lower quality for those files, or re-export the originals without the grain. |
 | 2026-10-08 | Workers Builds build cache keeps `node_modules/.astro` for Astro projects. The image step's reuse check reads `public/_img/`, which a fresh clone lacks, so every CI build runs the cold path. | If CI time matters, enable the build cache and move the reuse store under `node_modules/.astro/`. |
 | 2026-10-08 | `npm run build` runs `prebuild` twice: npm's automatic `prebuild` hook, then the explicit `npm run prebuild`. The second image pass is a 0.3 s no-op; data and OG generation run twice. | Drop the explicit `npm run prebuild &&` from `build`, or rename the script. |
+
+## 2026-10-14 follow-up
+
+No adjacent implementation changes included. The repo has no software changelog or GitHub release history; consider brief site-change notes when reader-visible behavior changes.

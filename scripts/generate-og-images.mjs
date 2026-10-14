@@ -1,4 +1,4 @@
-import { mkdirSync, readdirSync, readFileSync } from "node:fs";
+import { copyFileSync, mkdirSync, readdirSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import sharp from "sharp";
@@ -150,3 +150,7 @@ for (const spec of imageSpecs) {
 }
 
 console.log(`Generated ${imageSpecs.length} OG images into public/og/`);
+copyFileSync(join(ogDir, "og-default.png"), join(publicDir, "og-default.png"));
+console.log(
+	"Copied og-default.png to public/og-default.png as legacy fallback",
+);

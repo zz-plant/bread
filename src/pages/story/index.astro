@@ -35,6 +35,7 @@ const postStructuredData = createArticleSchema({
 	dateModified: storyPost.data.date,
 	section: "Story history",
 	siteName: "BREAD",
+	image: "/og/blog/the-story-of-bread.png",
 });
 
 const breadcrumbItems = [{ label: "Home", href: "/" }, { label: "Story" }];
@@ -97,6 +98,7 @@ const storyGallery = [
   description={storyPost.data.description}
   structuredData={structuredDataEntries}
   canonical="/story/"
+  ogType="article"
   ogImage="/og/blog/the-story-of-bread.png"
   ogImageAlt={`${storyPost.data.title} — ${storyPost.data.description}`}
 >

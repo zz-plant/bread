@@ -13,3 +13,7 @@ Checklist to determine if work is ready for human review.
 - [x] Diff audit confirms scope compliance (code repos only)
 - [x] Handoff updated
 - [x] Parking lot items not acted on
+
+## 2026-10-14 follow-up readiness
+
+All authorized changes are isolated on `codex/finish-assets-and-schema`, based on current `origin/main`. Required local lint, build, test, asset and rendered-metadata checks pass. Existing originals and generated image files are unchanged. Ready for a draft PR; no merge or deployment authorized.

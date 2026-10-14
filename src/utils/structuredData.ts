@@ -32,8 +32,9 @@ export function createWebsiteSchema(params: {
 	site?: URL;
 	name?: string;
 	description?: string;
+	image?: string;
 }): JsonLdRecord | undefined {
-	const { site, name = DEFAULT_SITE_NAME, description } = params;
+	const { site, name = DEFAULT_SITE_NAME, description, image } = params;
 	if (!site) return undefined;
 
 	const url = trimTrailingSlash(site.toString());
@@ -41,6 +42,8 @@ export function createWebsiteSchema(params: {
 	return {
 		"@context": "https://schema.org",
 		"@type": "WebSite",
+		"@id": `${toAbsoluteUrl(site, "/")}#website`,
+		...(image ? { image: toAbsoluteUrl(site, image) } : {}),
 		name,
 		url,
 		...(description ? { description } : {}),
@@ -64,7 +67,15 @@ export function createCollectionPageSchema(params: {
 		name,
 		url,
 		...(description ? { description } : {}),
-		...(isPartOf ? { isPartOf: { "@type": "WebSite", name: isPartOf } } : {}),
+		...(isPartOf
+			? {
+					isPartOf: {
+						"@type": "WebSite",
+						"@id": `${toAbsoluteUrl(site, "/")}#website`,
+						name: isPartOf,
+					},
+				}
+			: {}),
 	};
 }
 
@@ -78,6 +89,7 @@ export function createArticleSchema(params: {
 	authorName?: string;
 	section?: string;
 	siteName?: string;
+	image?: string;
 }): JsonLdRecord | undefined {
 	const {
 		site,
@@ -89,6 +101,7 @@ export function createArticleSchema(params: {
 		authorName = DEFAULT_SITE_NAME,
 		section,
 		siteName = DEFAULT_SITE_NAME,
+		image,
 	} = params;
 
 	const url = toAbsoluteUrl(site, pathname);
@@ -97,6 +110,7 @@ export function createArticleSchema(params: {
 	return {
 		"@context": "https://schema.org",
 		"@type": "BlogPosting",
+		...(image ? { image: toAbsoluteUrl(site, image) } : {}),
 		headline,
 		url,
 		datePublished: datePublished.toISOString(),

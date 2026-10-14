@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { formatDate, toContentSlug } from "../../utils/content";
+import { createBreadcrumbListSchema, createCollectionPageSchema } from "../../utils/structuredData";
 
 const timelinePage = (await getCollection("archive")).find(
 	(page) => toContentSlug(page.id) === "timeline",
@@ -11,6 +12,11 @@ const timelinePage = (await getCollection("archive")).find(
 if (!timelinePage) {
 	throw new Error("Timeline archive entry is missing.");
 }
+
+const structuredData = [
+	createCollectionPageSchema({ site: Astro.site, pathname: Astro.url.pathname, name: timelinePage.data.title, description: timelinePage.data.description, isPartOf: "BREAD" }),
+	createBreadcrumbListSchema({ site: Astro.site, items: [{ name: "Home", pathname: "/" }, { name: "Archive", pathname: "/archive/" }, { name: "Timeline", pathname: "/archive/timeline/" }] }),
+].filter((entry): entry is Record<string, unknown> => Boolean(entry));
 
 const eras = [
 	{
@@ -149,6 +155,7 @@ const milestones = [
 <BaseLayout
   title={timelinePage.data.title}
   description={timelinePage.data.description}
+  structuredData={structuredData}
   ogImage="/og/timeline.png"
   ogImageAlt="BREAD timeline, 2015–2024"
 >

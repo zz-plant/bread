@@ -13,3 +13,7 @@ Unresolved uncertainty, risks, or open questions from the work. Preserve these; 
 | 2026-10-08 | Workers Builds runs on PR branches (preview URLs); confirm main is its production branch, so merging deploys bread.fm. | Low | Check after merge with `curl -sI https://bread.fm/blog/the-story-of-bread/`. |
 | 2026-10-08 | How long the image step takes on Workers Builds (2 vCPU free, 4 vCPU paid). Locally it is 31 s of a 43 s cold build using 216 s of CPU. | Low | Read the Workers Builds log on the PR; the 20-minute limit leaves room. |
 | 2026-10-08 | Nine originals are CMYK JPEGs (`bread2-smaller.jpg` on the home page among them). sharp converts them with their embedded profile (or its default CMYK profile); browsers do their own conversion. Screenshots showed no visible color shift. | Low | Owner glance at BREAD #2 on the live site after deploy. |
+
+## 2026-10-14 follow-up
+
+No unresolved implementation questions. Metadata was verified against the local generated pages, not production; publication awaits review. Existing Biome warnings remain outside this scope.

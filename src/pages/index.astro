@@ -15,7 +15,7 @@ const {
 	residentSoundcloudProfiles,
 	homeStructuredData,
 	buildSoundCloudEmbedSrc,
-} = await getHomepageData();
+} = await getHomepageData(Astro.site);
 ---
 
 <BaseLayout

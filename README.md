@@ -1,51 +1,54 @@
-# bread
+# bread.fm
 
 <p align="center">
   <img src="docs/assets/bread-demo.gif" alt="bread demo animation" width="720">
 </p>
 
-A minimal static-site starter built with Astro, with repository conventions for agentic development.
+The digital archive, event ledger, flyer timeline, and radio broadcast companion for **Bread** ([bread.fm](https://bread.fm)). Built with Astro 7, Cloudflare Workers static assets, and automated SVG-to-PNG social card generation.
 
-## Getting started
+## Quick Start
 
 ```bash
 bun install
-bun run dev -- --host 0.0.0.0 --port 4321
+bun run dev
 ```
 
-Open <http://localhost:4321>.
+Open [http://localhost:4321](http://localhost:4321).
 
 ## Commands
 
-- `bun run dev` — start local dev server
-- `bun run lint` — run Astro type/content checks
-- `bun run build` — run checks then build static output to `dist/`
-- `bun run preview` — preview built output
+| Goal | Command | Description |
+| :--- | :--- | :--- |
+| Local dev server | `bun run dev` | Runs Astro with hot reloading |
+| Type & asset checks | `bun run check` | Validates asset references and links |
+| Lint & formatting | `bun run lint` | Biome code and style checks |
+| Unit test suite | `bun test` | Vitest suite (responsive images, schemas) |
+| Production build | `bun run build` | Preflight data + OG cards + Astro static build |
+| Local preview | `bun run preview` | Preview production bundle in `dist/` |
 
-## Content workflow
+## Content Architecture
 
-- Blog content lives in `src/content/blog/*.md`.
-- Collection schema is defined in `src/content.config.ts` (Astro 7 Content Layer).
-- Canonical story route lives at `/story/` (legacy `/blog/the-story-of-bread/` redirects).
-- Journal index is available at `/blog/` and non-canonical editorial posts continue at `/blog/<slug>/`.
+Content is organized into Astro Content Layer collections defined in `src/content.config.ts`:
 
-## Agentic workflow
+- **Events (`src/content/events/*.json`)**: Title, date, year, venue, lineup, status, and verification confidence (`strong`, `user-archive`, or `unverified`). Only verified events appear in the homepage chronology.
+- **Archive (`src/content/archive/*.mdx`)**: Historical deep-dives, flyer scans, radio show transcripts, and event retrospectives sorted by `order`.
+- **Roster (`src/content/roster/*.json`)**: Resident DJs, artists, and contributors with roles and profiles.
+- **Editorial (`src/content/blog/*.md`)**: Occasional dispatch posts and journals.
 
-- Repository guidance: `AGENTS.md`
-- Repo skills: `.agents/skills/`
-- Starter content skill: `.agents/skills/static-site-author/SKILL.md`
-- Optional Codex + MCP local defaults: `.codex/config.toml`
+## Asset & Image Optimization Pipeline
 
-## Implementation status
+To ensure sub-second page loads without incurring external CDN costs, image processing runs at build time:
 
-### Done
+1. **Preflight Data Generation (`scripts/generate-data.mjs`)**: Compiles event ledgers and archive indexes.
+2. **Social Cards (`scripts/generate-og-images.mjs`)**: Renders `src/utils/og-image-core.mjs` vector graphics into optimized 1200×630 PNGs in `public/og/` using Sharp.
+3. **Responsive Images (`scripts/generate-responsive-images.mjs`)**: Resizes raw archive assets into multi-resolution WebP files served by `src/components/ResponsiveImage.astro`. Never commit raw images $>200\text{ KB}$ directly into routes.
 
-- [x] Set production `site` URL in `astro.config.mjs` (`https://bread.fm`).
-- [x] Add CI checks for lint/build on pull requests and pushes to `main`.
+## Deployment & Edge Runtime
 
-### Still to implement
+- Deployed as a Cloudflare Worker using `@astrojs/cloudflare` static asset bindings (`wrangler.jsonc`).
+- Deploys run from GitHub Actions on push to `main` after verifying `bun run lint` and `bun run build`.
 
-- [ ] Configure a deployment target (Netlify/Cloudflare Pages/GitHub Pages).
-- [ ] Enable deployment from CI after selecting the target platform.
-- [ ] Add additional skills for QA and release automation.
-- [ ] Add more posts in `src/content/blog`.
+## Agentic Workflow
+
+- Invariants and non-negotiables: [`AGENTS.md`](./AGENTS.md).
+- Content authoring skill: [`.agents/skills/static-site-author/SKILL.md`](./.agents/skills/static-site-author/SKILL.md).

@@ -37,6 +37,7 @@ Read these next when the task needs them:
 - `npm run format` — Prettier check (not run in CI)
 - `npm run preview` — preview production build locally
 - `npm run generate-types` — generate Cloudflare types via wrangler
+- `npm run check:design` — scan `src/` for UI anti-patterns (impeccable, pinned); runs as part of `npm run check`
 
 CI order: `npm ci` → `npm run lint` → `npm run build`
 

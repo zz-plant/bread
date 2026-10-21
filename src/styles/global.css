@@ -1,18 +1,20 @@
 :root {
-	/* Palette: warm off-black and off-white keep contrast high without glare. */
-	--color-bg: #0f0e0d;
-	--color-surface: #161412;
-	--color-surface-raised: #1e1b18;
-	--color-border: #2b2724;
-	--color-border-strong: #423c36;
-	--color-border-control: #6e665e;
-	--color-text: #ede8e1;
-	--color-text-secondary: #cdc6bc;
-	--color-text-muted: #9d958b;
-	--color-accent: #ff5a1f;
-	--color-accent-text: #ff8552;
-	--color-accent-soft: rgb(255 90 31 / 14%);
-	--color-accent-muted: #f2b48e;
+	/* Palette: black and white, like the BREAD FM cards. Colour comes from
+	   the flyers themselves, so the frame around them stays neutral. */
+	--color-bg: #000000;
+	--color-surface: #0c0c0c;
+	--color-surface-raised: #161616;
+	--color-border: #262626;
+	--color-border-strong: #3d3d3d;
+	--color-border-control: #6b6b6b;
+	--color-text: #eeeeee;
+	--color-text-strong: #ffffff;
+	--color-text-secondary: #c6c6c6;
+	--color-text-muted: #9a9a9a;
+	--color-accent: #ffffff;
+	--color-accent-text: #ffffff;
+	--color-accent-soft: rgb(255 255 255 / 16%);
+	--color-accent-muted: #c6c6c6;
 
 	/* Status */
 	--color-status-cancel-bg: rgb(239 68 68 / 16%);
@@ -20,11 +22,11 @@
 	--color-status-postpone-bg: rgb(234 179 8 / 16%);
 	--color-status-postpone: #f0cf6a;
 
-	/* Radius */
+	/* Radius: the flyers have hard edges, so the site does too. */
 	--radius-none: 0;
-	--radius-sm: 0.25rem;
-	--radius-md: 0.5rem;
-	--radius-lg: 0.75rem;
+	--radius-sm: 0;
+	--radius-md: 0;
+	--radius-lg: 0;
 
 	/* Spacing */
 	--space-xs: 0.35rem;
@@ -40,15 +42,19 @@
 	--gutter: clamp(1rem, 4vw, 2rem);
 	--header-height: 3.5rem;
 
-	/* Type */
-	--font-display: "Syne", system-ui, sans-serif;
-	--font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
+	/* Type. Archivo is a grotesk with a width axis: condensed and heavy for
+	   names, dates and headings, the way the flyers set a lineup. */
+	--font-display:
+		"Archivo", "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
 	--font-body:
 		system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 
-	--text-display: 700 clamp(4rem, 15vw, 9rem) / 0.8 var(--font-display);
-	--text-h1: 700 clamp(2.1rem, 5.5vw, 3.25rem) / 1.02 var(--font-display);
-	--text-title: 700 clamp(1.35rem, 3vw, 1.7rem) / 1.15 var(--font-display);
+	--text-display:
+		800 condensed clamp(4rem, 15vw, 9rem) / 0.8 var(--font-display);
+	--text-h1:
+		800 condensed clamp(2.6rem, 7vw, 4.5rem) / 0.92 var(--font-display);
+	--text-title:
+		800 condensed clamp(1.6rem, 3.4vw, 2.1rem) / 1 var(--font-display);
 	--text-headline: 600 1.08rem / 1.3 var(--font-body);
 	--text-subtitle: 600 1.08rem / 1.35 var(--font-body);
 	--text-subhead: 500 0.98rem / 1.45 var(--font-body);
@@ -56,9 +62,10 @@
 	--text-body-strong: 600 1rem / 1.6 var(--font-body);
 	--text-lede: 400 clamp(1.05rem, 1.6vw, 1.2rem) / 1.55 var(--font-body);
 	--text-caption: 400 0.875rem / 1.5 var(--font-body);
-	--text-overline: 600 0.72rem / 1.3 var(--font-body);
+	--text-overline: 700 semi-condensed 0.78rem / 1.3 var(--font-display);
 	--text-footnote: 400 0.8rem / 1.45 var(--font-body);
-	--text-mono: 500 0.82rem / 1.4 var(--font-mono);
+	--text-label: 700 semi-condensed 0.9rem / 1 var(--font-display);
+	--text-date: 700 condensed 0.95rem / 1.2 var(--font-display);
 
 	color-scheme: dark;
 	font: var(--text-body);
@@ -106,7 +113,7 @@ li {
 
 a {
 	color: var(--color-accent-text);
-	text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
+	text-decoration-color: color-mix(in srgb, currentColor 55%, transparent);
 	text-decoration-thickness: 1px;
 	text-underline-offset: 0.2em;
 }
@@ -121,8 +128,8 @@ a:hover {
 }
 
 ::selection {
-	background: var(--color-accent-soft);
-	color: var(--color-text);
+	background: var(--color-text-strong);
+	color: var(--color-bg);
 }
 
 hr {
@@ -156,7 +163,9 @@ hr {
 .page-header h1 {
 	margin: 0;
 	font: var(--text-h1);
-	letter-spacing: -0.02em;
+	letter-spacing: -0.01em;
+	text-transform: uppercase;
+	color: var(--color-text-strong);
 }
 
 .page-header .intro,
@@ -255,8 +264,9 @@ hr {
 }
 
 .tile .card-link {
-	font: 700 1.2rem / 1.25 var(--font-display);
-	color: var(--color-text);
+	font: 800 condensed 1.45rem / 1.05 var(--font-display);
+	text-transform: uppercase;
+	color: var(--color-text-strong);
 	text-decoration: none;
 }
 
@@ -268,7 +278,8 @@ hr {
 }
 
 .tile:hover .card-link {
-	color: var(--color-accent-text);
+	text-decoration: underline;
+	text-decoration-thickness: 2px;
 }
 
 .group-heading {
@@ -289,10 +300,12 @@ hr {
 	min-height: 2.5rem;
 	padding: 0.45rem 0.9rem;
 	border: 1px solid var(--color-border-control);
-	border-radius: 999px;
-	background: var(--color-surface);
-	color: var(--color-text);
-	font: 500 0.875rem / 1 var(--font-body);
+	border-radius: var(--radius-none);
+	background: var(--color-bg);
+	color: var(--color-text-strong);
+	font: var(--text-label);
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
 	text-decoration: none;
 	cursor: pointer;
 	touch-action: manipulation;
@@ -303,8 +316,9 @@ hr {
 
 .chip:hover,
 .chip-link:hover {
-	border-color: var(--color-accent);
-	background: var(--color-surface-raised);
+	border-color: var(--color-text-strong);
+	background: var(--color-text-strong);
+	color: var(--color-bg);
 }
 
 .link-row {
@@ -373,7 +387,8 @@ hr {
 .prose h2 {
 	margin: 2.5rem 0 0.75rem;
 	font: var(--text-title);
-	letter-spacing: -0.01em;
+	text-transform: uppercase;
+	color: var(--color-text-strong);
 }
 
 .prose h3 {
@@ -437,7 +452,8 @@ hr {
 
 .prose td:first-child {
 	min-width: 0;
-	font: var(--text-mono);
+	font: var(--text-date);
+	font-variant-numeric: tabular-nums;
 	color: var(--color-text-muted);
 	white-space: nowrap;
 }
@@ -489,7 +505,7 @@ hr {
 
 .gallery-item:hover .gallery-frame,
 .gallery-item:focus-visible .gallery-frame {
-	border-color: var(--color-accent);
+	border-color: var(--color-text-strong);
 }
 
 .gallery-item:focus-visible {
@@ -502,8 +518,9 @@ hr {
 }
 
 .gallery-title {
-	font: 600 0.95rem / 1.35 var(--font-body);
-	color: var(--color-text);
+	font: 800 condensed 1.05rem / 1.15 var(--font-display);
+	text-transform: uppercase;
+	color: var(--color-text-strong);
 }
 
 .gallery-meta {

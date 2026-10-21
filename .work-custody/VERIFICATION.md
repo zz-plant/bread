@@ -83,3 +83,16 @@ Command-level evidence of testing, linting, and validation. Update in real time 
 - `npm test`: 7 files, 38 tests pass after build, including the rendered schema tests.
 - All ten generated pages: canonical URLs, descriptions, OG/Twitter images and image descriptions present. Home has WebSite/CollectionPage/events; timeline has collection/breadcrumb; galleries expose ImageObject lists; story exposes Article type and image.
 - `git diff --check`: pass. No deployment or live-state verification.
+
+## 2026-10-21 follow-up
+
+- Art audit: every top-level `public/bread-*`/`toasted-trax-*` file and every `public/radio/*` card opened and read (annotated crops). 12 of 13 top-level files and 22 of 22 radio cards held other art than their names said; two files were crossed between folders (a radio card in `public/`, the Kelman Duran flyer in `public/radio/`). Renamed with `git mv` through temp names; md5 of each file before == after under its new name (35 files, 0 mismatches).
+- `node scripts/generate-data.mjs`: 100 flyers, 22 radio shows (was 21: the Botaz & DJ Polo card was hidden under a flyer name). Captions now match the printed art (e.g. "SHL & Prawns, February 1", "Toasted Trax #1, June 29, 2016"). All 22 radio dates fall on Wednesdays in 2017.
+- Every `/…\.(jpg|png)` path in `src/content`, `src/pages`, `src/data/homepage.ts` exists under `public/` (only `/og/*` is generated at build).
+- Logo: traced with potracer from `public/drive/bread-13-ig-v4.png` (4500 px; crumbs dropped by colour, specks by `turdsize`); lockup spacing measured from `bread-14-v3-edit.png`. Rendered with sharp and compared by eye against the source.
+- `node scripts/generate-icons.mjs`: favicon.svg 4 KB, favicon.ico 32 px PNG-in-ICO, apple-touch-icon 180 px.
+- `npm run build`: exit 0; astro check 0 errors / 0 warnings; 10 pages; 11 OG cards in 2.7 s.
+- `npm run lint`: exit 0. 133 warnings vs 131 on main: the two new ones are Biome's known false positive for `.astro` imports used only in the template (`Logo`). The two pre-existing format errors (ArchiveLayout, timeline frontmatter) are fixed.
+- `npx vitest run`: 7 files, 38 tests pass (after `node node_modules/bun/install.js`, needed only because this checkout was installed with `--ignore-scripts`).
+- `npm run check`: assets valid; `impeccable@4.5.2 detect src/` exit 0, no findings.
+- Playwright on the built site (`dist/client`) at 1440, 820 and 390 px, eight routes: no horizontal overflow anywhere (the first pass found 46 px on the phone homepage from an old hero size; fixed). Screenshots of home (all three tabs), events, flyers, radio, story, timeline, map, archive, event ledger.

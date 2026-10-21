@@ -6,10 +6,13 @@
 export const GALLERY_IMAGE_SIZES =
 	"(max-width: 735px) 45vw, (max-width: 990px) 30vw, (max-width: 1216px) 23vw, 17rem";
 
-// .featured-visual-grid in home.css: an 11rem-wide swipe strip up to 700px,
-// then four columns inside the 72rem page.
+// .featured-visual-grid in home.css: a 9.5rem-wide swipe strip up to 700px,
+// then six columns inside the 72rem page.
 export const FEATURED_IMAGE_SIZES =
-	"(max-width: 700px) 11rem, (max-width: 1216px) 23vw, 17.25rem";
+	"(max-width: 700px) 9.5rem, (max-width: 1216px) 15vw, 11.25rem";
+
+// .event-flyer in home.css: the thumbnail beside each event row.
+export const EVENT_FLYER_SIZES = "(max-width: 700px) 3.5rem, 5rem";
 
 export interface ResponsiveImageEntry {
 	hash: string;

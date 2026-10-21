@@ -17,3 +17,7 @@ State to resume work if interrupted, or hand off to another agent/reviewer. Upda
 ## 2026-10-14 follow-up handoff
 
 PNG validation decodes pixels instead of inferring quality from byte size. `getHomepageData(Astro.site)` restores omitted website, collection and event records. Shared schemas identify the website and images; story previews use Article type. Timeline gets collection/breadcrumb data, and ArchiveLayout now publishes gallery image inventories already computed by the pages. Eleven regression checks cover integrity and structured metadata. Local lint/build/assets and all 38 tests pass. See the draft PR for review.
+
+## 2026-10-21 follow-up handoff
+
+The site now uses the crew's own visual language: the traced toast-stack + "bread" mark in the header, hero, footer, favicons and OG cards; a black-and-white frame like the BREAD FM cards; Archivo condensed caps for lineups, dates and headings; square corners; a flyer beside each event that has one; OG cards laid over a wall of that page's flyers. Before that, 35 art files were renamed to match what is printed on them, so flyer and radio captions are right. Lint, build, tests, asset and design checks pass; screenshots at three widths show no overflow. Open questions for the owner are in UNKNOWNS (font choice, original logo vector, radio year) and PARKING_LOT (BREAD #7 lineup, TT#2 venue, flyers without events, docs/assets template).

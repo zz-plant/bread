@@ -8,5 +8,6 @@
 	"status": "played",
 	"sourceLabel": "Facebook event",
 	"sourceHref": "https://www.facebook.com/events/public-works-sf/bread-9-w-dbm-deadboy-murlo-blackdown/813388422095198/",
-	"sourceExternal": true
+	"sourceExternal": true,
+	"flyer": "/drive/posters/bread-9-v3_poster.jpg"
 }

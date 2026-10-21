@@ -22,6 +22,8 @@ Read these next when the task needs them:
 - `src/content/roster/` — roster data (JSON with name, role, links)
 - `scripts/generate-og-images.mjs` — build-time OG PNG generation
 - `src/utils/og-image-core.mjs` — canonical OG SVG builder (single source)
+- `src/utils/bread-logo.mjs` + `src/components/Logo.astro` — the crew's toast-stack + lowercase "bread" mark, traced from the flyers; header, footer, hero, favicons and OG cards all draw it from here
+- `scripts/generate-icons.mjs` — rebuilds the committed favicons from the mark (run by hand)
 - `src/layouts/` — page layouts
 - `src/components/` — reusable components
 - `scripts/generate-data.mjs` — preflight data generation
@@ -52,7 +54,9 @@ CI order: `npm ci` → `npm run lint` → `npm run build`
 
 **Page images**: render `public/` images with `ResponsiveImage` (`src` is the public path), not `<img>`. `tests/images.test.ts` fails on an `<img>` with a computed `src` or a raw original over 200 KB.
 
-**OG Images**: built at build time from `src/utils/og-image-core.mjs` into PNGs in `public/og/` by `scripts/generate-og-images.mjs`. Social cards use PNG `og:image` (SVG is not rendered by major platforms).
+**OG Images**: built at build time from `src/utils/og-image-core.mjs` into PNGs in `public/og/` by `scripts/generate-og-images.mjs`, which lays each card over a wall of that page's flyers (`FLYER_WALLS`). Social cards use PNG `og:image` (SVG is not rendered by major platforms).
+
+**Visual language**: the site frame is black and white like the BREAD FM cards, with square corners; colour comes from the flyers. Archivo (condensed, heavy, uppercase) sets lineups, dates and headings the way the flyers do. Events can name their `flyer` (a `public/` path), shown beside the row. Flyer and radio captions come from filenames, so a file's name must match the art printed on it.
 
 **Key Routes**:
 - `/` — homepage (`src/pages/index.astro`)
@@ -100,6 +104,7 @@ Repository skills live in `.agents/skills/`. Prefer explicit skill invocation fo
 - **Cloudflare deployment**: Using `@astrojs/cloudflare` adapter for edge deployment.
 - **Responsive images** (2026-10): a sharp prebuild script, not `astro:assets`, because `astro:assets` only transforms images imported from `src/` and the archive originals must keep their `public/` URLs. Importing them from `public/` copies each imported original into `_astro/`, and Astro removes only the copies it transforms.
 - **OG image generation**: `scripts/generate-og-images.mjs` renders `og-image-core.mjs` SVGs to PNG at build time (via sharp) into `public/og/`. PNG, not SVG, because social platforms don't render SVG OG images.
+- **Flyer-led design** (2026-10): the logo, type, frame and share cards follow the crew's own flyers and radio cards instead of a generic dark theme with one accent colour.
 - **No traditional linting**: `astro check` provides type and content validation; Prettier for formatting only.
 
 ## Required Output Shape

@@ -4,7 +4,7 @@ Adjacent findings discovered during work that are out of authorized scope. Do no
 ## Findings
 | Date | Finding | Suggested Next Step |
 |------|---------|---------------------|
-| 2026-09-24 | Several image files hold different artwork than their filenames say. `public/radio/bread-fm-botaz-dj-polo-aug-30.jpg` is the "SHL & Prawns, Wed Feb 1" Radio Valencia card; `public/bread-botaz-prawns-tf1000-2024-02-24.jpg` is the Long Bread Summer (July 10) flyer. Radio show and flyer card labels, and some event "Flyer image" source links, therefore point at the wrong art. | Open every file in `public/radio/` and the top-level `public/bread-*.jpg/png`, rename to match the artwork, then re-run `scripts/generate-data.mjs`. |
+| 2026-09-24 | Several image files hold different artwork than their filenames say. `public/radio/bread-fm-botaz-dj-polo-aug-30.jpg` is the "SHL & Prawns, Wed Feb 1" Radio Valencia card; `public/bread-botaz-prawns-tf1000-2024-02-24.jpg` is the Long Bread Summer (July 10) flyer. Radio show and flyer card labels, and some event "Flyer image" source links, therefore point at the wrong art. | Done 2026-10-21: every file opened, 35 renamed to match their art (one only gained its year; two moved between `public/` and `public/radio/`), references updated. |
 | 2026-09-24 | Resident links on `/archive/radio-shows/` disagree with `src/content/roster/*.json` (e.g. Prawns SoundCloud `soundcloud.com/prawns` vs `soundcloud.com/pkj`; Adam Kraft `adamkraftneindanke` vs `adam_kraft`). | Owner confirms the right handles; then render the directory from the roster collection instead of hardcoding it. |
 | 2026-09-24 | Dead code: `src/components/homepage/StatsSidebar.astro`, `src/components/ClickHint.astro`, `src/config/navLinks.ts` (points at nonexistent `/about/`, `/events/`, `/roster/`), `src/data/flyers.ts`, `src/data/radio-shows.ts`, `createYearVenueChips` and the `quick`/`year`/`venue` filters in `eventFilters.ts`, unused `imageListStructuredData` in flyers/radio pages. | Delete in a cleanup PR. |
 | 2026-09-24 | Roster schema drops `web` and `tw` links (Botaz's site, Cage A's Twitter) because `content.config.ts` only allows sc/ig/bc/ra. | Add the keys to the schema and render them in `PeopleTab.astro`. |
@@ -26,3 +26,13 @@ Adjacent findings discovered during work that are out of authorized scope. Do no
 ## 2026-10-14 follow-up
 
 No adjacent implementation changes included. The repo has no software changelog or GitHub release history; consider brief site-change notes when reader-visible behavior changes.
+
+## 2026-10-21 follow-up
+
+| Date | Finding | Suggested Next Step |
+|------|---------|---------------------|
+| 2026-10-21 | `docs/assets/source.svg`, the declared "design source", reads "bread.fm — ambient audio, generative soundscapes", and `scripts/generate-scenes.ts` renders it onto hue-rotated navy cards (README/GitHub previews). Template leftovers, not BREAD. | Point `source.svg` at `BREAD_LOCKUP` and regenerate the scenes on black (needs `rsvg-convert`). |
+| 2026-10-21 | BREAD #7 lists Endgame, but its flyer (Celestial Trax, Distal, Cage A + Prawns + Botaz) does not. | Owner confirms the lineup. |
+| 2026-10-21 | Toasted Trax #2's flyer gives the venue as Codeword, 917 Folsom St; the event record says "San Francisco". | Update the venue if the owner agrees. |
+| 2026-10-21 | Flyers exist for nights with no event record: BREAD #4 (Feb 15, 2016 day party), BREAD + Nightsweats (Apr 23, 2016), BREAD #13 (Feb 24, 2017, Milk Bar), and the Feb 13, 2015 pilot. | Add event JSONs with `flyer` set. |
+| 2026-10-21 | `public/radio/null` is a 1-byte file (a newline); the data script skips it by name. | Delete it. |

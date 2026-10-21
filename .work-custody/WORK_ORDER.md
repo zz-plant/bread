@@ -27,3 +27,14 @@ Declare `sharp`, which `scripts/generate-og-images.mjs` and `scripts/generate-re
 ## 2026-10-14 follow-up: assets and public metadata
 
 Authorized by the user’s unfinished-work and metadata requests. Scope: PNG integrity validation, homepage schema site resolution, website identity/image, story article metadata, timeline schemas, and the existing flyers/radio image inventories; regression tests and custody records. No image-byte changes, dependencies, deployment, or archive-content changes. Local verification complete; draft PR ready.
+
+## 2026-10-21 follow-up: use the crew's design language
+
+Authorized by the owner ("work through all") after a review found the site's identity (Syne, one orange accent, rounded cards, teal favicon) came from a generic template rather than BREAD's flyers. Scope, in order:
+
+1. Rename the flyer and radio files whose names don't match their artwork (the 2026-09-24 parking-lot item), and update every reference.
+2. Vectorize the toast-stack + lowercase "bread" mark from the flyers; use it for the header, hero, footer, favicons and OG cards.
+3. Black-and-white frame; a flyer beside each event that has one; OG cards built from flyers.
+4. Flyer layout rules: big date numerals, lineups in a heavy condensed face, square corners; drop the orange, Syne and JetBrains Mono.
+
+Also allowed: correcting an event field where its own cited flyer contradicts it (BREAD #7 date and venue), the two pre-existing Biome format errors that keep `npm run lint` red, AGENTS.md notes. Not allowed: new events, roster or copy rewrites, docs/assets scene regeneration, dependency changes, deployment.

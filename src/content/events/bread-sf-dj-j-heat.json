@@ -8,5 +8,6 @@
 	"status": "played",
 	"sourceLabel": "Facebook event",
 	"sourceHref": "https://www.facebook.com/events/d41d8cd9/bread-sf-dj-j-heat-night-slugs-kieran-loftus/1603512559678229/",
-	"sourceExternal": true
+	"sourceExternal": true,
+	"flyer": "/drive/bread-14-v3-edit.png"
 }

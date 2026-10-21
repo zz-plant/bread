@@ -8,5 +8,6 @@
 	"status": "played",
 	"sourceLabel": "Facebook event",
 	"sourceHref": "https://www.facebook.com/events/d41d8cd9/bread-sf-mr-mitch-planet-mu-kozee-prawns/277151372731142/",
-	"sourceExternal": true
+	"sourceExternal": true,
+	"flyer": "/drive/bread-15-ig-v1-dark-b.jpg"
 }

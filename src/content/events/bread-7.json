@@ -1,11 +1,12 @@
 {
 	"title": "BREAD #7",
-	"date": "2016-05-20",
+	"date": "2016-05-21",
 	"year": "2016",
-	"venue": "San Francisco",
+	"venue": "Underground SF",
 	"lineup": "Distal, Celestial Trax, Endgame",
 	"confidence": "strong",
 	"status": "played",
 	"sourceLabel": "Flyer image",
-	"sourceHref": "/bread-number-seven-celestial-trax-may-21.jpg"
+	"sourceHref": "/bread-number-seven-celestial-trax-distal-2016-05-21.jpg",
+	"flyer": "/bread-number-seven-celestial-trax-distal-2016-05-21.jpg"
 }

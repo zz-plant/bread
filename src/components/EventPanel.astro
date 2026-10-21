@@ -1,5 +1,5 @@
 ---
-import { FEATURED_IMAGE_SIZES } from "../utils/images";
+import { EVENT_FLYER_SIZES, FEATURED_IMAGE_SIZES } from "../utils/images";
 import ResponsiveImage from "./ResponsiveImage.astro";
 
 interface Visual {
@@ -16,6 +16,9 @@ interface Event {
 	year: string;
 	isoDate: string;
 	date: string;
+	month: string;
+	day: string;
+	flyer?: string;
 	venue: string;
 	lineup: string;
 	confidence: string;
@@ -89,7 +92,14 @@ const visualDestinations = Array.from(
   <ul class="cards event-list">
     {events.map((event, index) => (
       <li class:list={['card', 'event-row', (index === 0 || events[index - 1].year !== event.year) && 'year-start']} id={`event-${event.id}`} data-kind="event" data-index={index} data-year={event.year} data-venue={event.venue} data-lineup={event.lineup} data-status={event.status} data-has-source={event.source.href ? 'true' : 'false'}>
-        <p class="event-date"><time datetime={event.isoDate}>{event.date}<span class="visually-hidden">, {event.year}</span></time></p>
+        <p class="event-date"><time datetime={event.isoDate}><span class="event-month">{event.month}</span> <span class="event-day">{event.day}</span><span class="visually-hidden">, {event.year}</span></time></p>
+        <div class="event-flyer">
+          {event.flyer && (
+            <a href={event.flyer} target="_blank" rel="noreferrer noopener">
+              <ResponsiveImage src={event.flyer} alt={`${event.title} flyer`} sizes={EVENT_FLYER_SIZES} />
+            </a>
+          )}
+        </div>
         <div class="event-main">
           <h3 class="title">
             {event.title}

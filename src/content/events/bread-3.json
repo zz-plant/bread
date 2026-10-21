@@ -8,5 +8,6 @@
 	"status": "played",
 	"sourceLabel": "Facebook event",
 	"sourceHref": "https://www.facebook.com/events/d41d8cd9/bread-3-wdoctor-jeep-patrick-brian-ballast-javascript-sha-sha-kimbo/1013123788738124/",
-	"sourceExternal": true
+	"sourceExternal": true,
+	"flyer": "/drive/bread-3-flyer-final-letter.png"
 }

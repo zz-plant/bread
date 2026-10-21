@@ -1,0 +1,45 @@
+---
+import {
+	BREAD_ICON,
+	BREAD_LOCKUP,
+	BREAD_WORDMARK,
+} from "../utils/bread-logo.mjs";
+
+interface Props {
+	variant?: "lockup" | "icon" | "wordmark";
+	class?: string;
+	// Omit when the surrounding link or heading already names BREAD.
+	label?: string;
+}
+
+const marks = {
+	lockup: BREAD_LOCKUP,
+	icon: BREAD_ICON,
+	wordmark: BREAD_WORDMARK,
+};
+
+const { variant = "lockup", class: className, label } = Astro.props;
+const mark = marks[variant];
+---
+
+<svg
+  class:list={["logo", className]}
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox={`0 0 ${mark.width} ${mark.height}`}
+  fill="currentColor"
+  role={label ? "img" : undefined}
+  aria-label={label}
+  aria-hidden={label ? undefined : "true"}
+  focusable="false"
+>
+  <path fill-rule="evenodd" d={mark.d} />
+</svg>
+
+<style>
+  .logo {
+    display: block;
+    height: 1em;
+    width: auto;
+    overflow: visible;
+  }
+</style>

@@ -17,3 +17,12 @@ Unresolved uncertainty, risks, or open questions from the work. Preserve these; 
 ## 2026-10-14 follow-up
 
 No unresolved implementation questions. Metadata was verified against the local generated pages, not production; publication awaits review. Existing Biome warnings remain outside this scope.
+
+## 2026-10-21 follow-up
+
+| Date | Question | Impact | Mitigation |
+|------|----------|--------|------------|
+| 2026-10-21 | Archivo stands in for the flyers' heavy grotesks (BREAD #2, #3, #7, JLIN). The crew may have a face they'd rather use. | Low | One token (`--font-display`) and one Google Fonts link to change. |
+| 2026-10-21 | The traced mark is from one flyer (BREAD #13). If an original vector of the logo exists, it should replace the trace. | Low | Swap the paths in `src/utils/bread-logo.mjs`, then rerun `scripts/generate-icons.mjs`. |
+| 2026-10-21 | With the corrected file mapping, all 22 Radio Valencia cards fall on Wednesdays in 2017 (not 2023), which matches the show's 2015–2018 run. The year is still not shown. | Low | Owner confirms 2017; then add it to the radio captions. |
+| 2026-10-21 | Event years for renamed flyers came from weekday checks (e.g. Feb 24 is a Friday in 2017, not 2024; the old filename said 2024). | Low | Owner glance at the Flyers page. |

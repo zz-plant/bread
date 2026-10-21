@@ -2,6 +2,7 @@
 import EventPanel from "../components/EventPanel.astro";
 import AudioTabs from "../components/homepage/AudioTabs.astro";
 import PeopleTab from "../components/homepage/PeopleTab.astro";
+import Logo from "../components/Logo.astro";
 import { getHomepageData } from "../data/homepage";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
@@ -34,9 +35,15 @@ const {
 
   <section class="shell" aria-labelledby="home-title">
     <header class="home-intro">
-      <h1 id="home-title">BREAD</h1>
+      <h1 id="home-title">
+        <span class="visually-hidden">BREAD</span>
+        <Logo />
+      </h1>
       <div class="home-intro-copy">
-        <p class="eyebrow">San Francisco · 2015–2024</p>
+        <p class="home-info">
+          <span>San Francisco</span>
+          <span class="home-years">2015–2024</span>
+        </p>
         <p class="home-lede">Club nights, fundraiser streams, and a radio show. Lineups, flyers, and mixes from the whole run.</p>
         <div class="link-row">
           <a class="chip-link" href="/?section=audio" data-tab-link="panel-audio">Listen</a>

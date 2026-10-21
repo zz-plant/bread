@@ -58,6 +58,8 @@ const tokenOverrides = {
 	bw: "B/W",
 	yxexaxr: "YXEXAXR",
 	x: "x",
+	// Filenames can't hold the "?" the artwork prints.
+	questonmarc: "quest?onmarc",
 };
 
 const publicDir = fileURLToPath(new URL("../public/", import.meta.url));

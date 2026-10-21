@@ -35,6 +35,13 @@ export async function getHomepageData(site?: URL) {
 				day: "numeric",
 				timeZone: "UTC",
 			}),
+			// Set like a flyer's date: a small month over a big day numeral.
+			month: new Date(event.data.date).toLocaleDateString("en-US", {
+				month: "short",
+				timeZone: "UTC",
+			}),
+			day: String(event.data.date.getUTCDate()),
+			flyer: event.data.flyer,
 			venue: event.data.venue,
 			lineup: event.data.lineup,
 			confidence: event.data.confidence,
@@ -62,6 +69,7 @@ export async function getHomepageData(site?: URL) {
 		{ label: "Residents", value: roster.length },
 	];
 
+	// A strip of flyers across the whole run, one per era.
 	const featuredVisuals = [
 		{
 			src: "/drive/bread-x-grime-city_150213-show.png",
@@ -78,18 +86,32 @@ export async function getHomepageData(site?: URL) {
 			href: "/archive/flyers/",
 		},
 		{
-			src: "/drive/2015-07-19-08.54.27.jpg",
-			alt: "Street photo of a BREAD #2 poster on a San Francisco utility pole",
-			title: "BREAD #2 poster",
-			caption: "On a utility pole in San Francisco",
-			href: "/story/",
+			src: "/drive/bread-3-flyer-final-letter.png",
+			alt: "BREAD no.3 flyer with yellow and blue dots, lineup in bold capitals",
+			title: "BREAD #3",
+			caption: "Doctor Jeep, Patrick Brian · November 2015",
+			href: "/archive/flyers/",
 		},
 		{
-			src: "/drive/img_0530.jpg",
-			alt: "Party photo showing three attendees at a BREAD event",
-			title: "Party photo",
-			caption: "Inside a BREAD night",
-			href: "/story/",
+			src: "/bread-5-jlin-planet-mu-iyer-2016-03-25-flyer.jpg",
+			alt: "BREAD #5 flyer: JLIN, Planet Mu, Iyer over a swirling purple pattern",
+			title: "BREAD #5",
+			caption: "Jlin, Iyer · March 2016",
+			href: "/archive/flyers/",
+		},
+		{
+			src: "/drive/posters/bread-9-v3_poster.jpg",
+			alt: "BREAD 9 poster with the lineup in blackletter on grey concrete",
+			title: "BREAD #9",
+			caption: "Deadboy, Murlo, Blackdown · July 2016",
+			href: "/archive/flyers/",
+		},
+		{
+			src: "/bread-long-bread-summer-fundraiser-2021-07-10.jpg",
+			alt: "Long Bread Summer flyer: a baguette floating over sky-blue water",
+			title: "Long Bread Summer",
+			caption: "Fundraiser stream · July 2021",
+			href: "/archive/flyers/",
 		},
 	];
 

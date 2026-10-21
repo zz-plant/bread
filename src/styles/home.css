@@ -12,25 +12,37 @@
 	padding: clamp(2.25rem, 7vw, 5rem) 0 clamp(1.75rem, 4vw, 3rem);
 }
 
+/* The flyers' lockup, as big as a headliner. Its height is the font size. */
 .home-intro h1 {
-	margin: 0 0 -0.06em;
-	font: var(--text-display);
-	letter-spacing: -0.06em;
+	margin: 0;
+	font-size: clamp(3.5rem, 10vw, 7rem);
+	line-height: 1;
+	color: var(--color-text-strong);
 }
 
 .home-intro-copy {
 	display: grid;
 	gap: 0.9rem;
-	max-width: 32rem;
+	max-width: 30rem;
 	justify-self: end;
 }
 
-.home-intro .eyebrow {
+/* Where and when, set like the info block at the foot of a flyer. */
+.home-info {
+	display: grid;
+	gap: 0.2rem;
 	margin: 0;
-	font: var(--text-overline);
-	letter-spacing: 0.1em;
+	font: var(--text-label);
+	letter-spacing: 0.08em;
 	text-transform: uppercase;
-	color: var(--color-accent-muted);
+	color: var(--color-text-secondary);
+}
+
+.home-years {
+	font: 800 condensed clamp(2.4rem, 5vw, 3.4rem) / 0.9 var(--font-display);
+	letter-spacing: -0.01em;
+	color: var(--color-text-strong);
+	font-variant-numeric: tabular-nums;
 }
 
 .home-lede {
@@ -59,7 +71,10 @@
 	border: 0;
 	background: transparent;
 	color: var(--color-text-muted);
-	font: 600 0.98rem / 1 var(--font-body);
+	font: var(--text-label);
+	font-size: 1.05rem;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
 	cursor: pointer;
 	touch-action: manipulation;
 	box-shadow: inset 0 -2px transparent;
@@ -73,8 +88,8 @@
 }
 
 .tab.active {
-	color: var(--color-text);
-	box-shadow: inset 0 -2px var(--color-accent);
+	color: var(--color-text-strong);
+	box-shadow: inset 0 -3px var(--color-accent);
 }
 
 .tab:focus-visible {
@@ -125,7 +140,8 @@
 }
 
 .featured-visual-links a:hover {
-	color: var(--color-accent-text);
+	color: var(--color-text-strong);
+	text-decoration: underline;
 }
 
 .featured-visual-grid,
@@ -140,8 +156,8 @@
 
 .featured-visual-grid {
 	display: grid;
-	grid-template-columns: repeat(4, minmax(0, 1fr));
-	gap: 1rem;
+	grid-template-columns: repeat(6, minmax(0, 1fr));
+	gap: 0.75rem;
 }
 
 .featured-visual-grid li,
@@ -162,7 +178,6 @@
 	aspect-ratio: 4 / 5;
 	object-fit: cover;
 	border: 1px solid var(--color-border);
-	border-radius: var(--radius-md);
 	background: var(--color-surface);
 }
 
@@ -173,8 +188,9 @@
 
 .featured-visual-grid figcaption p {
 	margin: 0;
-	font: 600 0.95rem / 1.35 var(--font-body);
-	color: var(--color-text);
+	font: 800 condensed 1.05rem / 1.15 var(--font-display);
+	text-transform: uppercase;
+	color: var(--color-text-strong);
 }
 
 .featured-visual-grid figcaption small {
@@ -211,8 +227,8 @@
 .event-control select {
 	min-height: 2.75rem;
 	border: 1px solid var(--color-border-control);
-	border-radius: 999px;
-	background-color: var(--color-surface);
+	border-radius: var(--radius-none);
+	background-color: var(--color-bg);
 	color: var(--color-text);
 	/* 16px keeps iOS from zooming the page on focus. */
 	font: 400 1rem / 1.2 var(--font-body);
@@ -258,17 +274,17 @@
 	font-variant-numeric: tabular-nums;
 }
 
-/* Events: the listing, grouped by year */
+/* Events: the listing, grouped by year. Each row reads like a flyer: a big
+   date, the flyer itself, the lineup in heavy capitals, then the details. */
 
 .event-row {
 	display: grid;
-	grid-template-columns: 5rem minmax(0, 1fr) minmax(8rem, 13rem) minmax(
-			7rem,
-			9.5rem
-		);
-	align-items: baseline;
+	grid-template-columns:
+		4.5rem 5rem minmax(0, 1fr) minmax(8rem, 12rem)
+		minmax(7rem, 9rem);
+	align-items: start;
 	gap: 0.3rem 1.25rem;
-	padding: 0.95rem 0;
+	padding: 1.1rem 0;
 	border-bottom: 1px solid var(--color-border);
 }
 
@@ -280,13 +296,13 @@
 .event-row.year-start::before {
 	content: attr(data-year);
 	grid-column: 1 / -1;
-	margin: -0.95rem 0 0.95rem;
-	padding: 2rem 0 0.6rem;
+	margin: -1.1rem 0 1.1rem;
+	padding: 2.25rem 0 0.5rem;
 	border-bottom: 1px solid var(--color-border-strong);
 	background: var(--color-bg);
-	font: 700 clamp(1.6rem, 3.5vw, 2.1rem) / 1 var(--font-display);
-	letter-spacing: -0.02em;
-	color: var(--color-text);
+	font: 800 condensed clamp(2.6rem, 6vw, 4rem) / 0.9 var(--font-display);
+	color: var(--color-text-strong);
+	font-variant-numeric: tabular-nums;
 }
 
 .event-date,
@@ -299,25 +315,61 @@
 	min-width: 0;
 }
 
-.event-date {
-	font: var(--text-mono);
-	color: var(--color-text-muted);
+.event-date time {
+	display: grid;
+	justify-items: start;
+}
+
+.event-month {
+	font: var(--text-label);
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--color-text-secondary);
+}
+
+.event-day {
+	font: 800 condensed 2.6rem / 0.9 var(--font-display);
+	color: var(--color-text-strong);
 	font-variant-numeric: tabular-nums;
+}
+
+.event-flyer a {
+	display: block;
+}
+
+.event-flyer img {
+	display: block;
+	width: 100%;
+	height: auto;
+	aspect-ratio: 4 / 5;
+	object-fit: cover;
+	object-position: top;
+	border: 1px solid var(--color-border);
+	background: var(--color-surface);
+}
+
+.event-flyer a:hover img,
+.event-flyer a:focus-visible img {
+	border-color: var(--color-text-strong);
 }
 
 .event-main {
 	display: grid;
-	gap: 0.2rem;
+	gap: 0.35rem;
 }
 
 .title {
-	font: var(--text-headline);
-	color: var(--color-text);
+	font: var(--text-label);
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--color-text-secondary);
 }
 
 .lineup {
-	font: 400 0.93rem / 1.5 var(--font-body);
-	color: var(--color-text-secondary);
+	font: 800 condensed clamp(1.3rem, 2.2vw, 1.65rem) / 1.02 var(--font-display);
+	text-transform: uppercase;
+	color: var(--color-text-strong);
+	overflow-wrap: anywhere;
 }
 
 .event-venue {
@@ -336,7 +388,7 @@
 }
 
 .source-row a:hover {
-	color: var(--color-accent-text);
+	color: var(--color-text-strong);
 	text-decoration: underline;
 }
 
@@ -344,8 +396,8 @@
 	display: inline-block;
 	margin-left: 0.5rem;
 	padding: 0.15rem 0.5rem;
-	border-radius: 999px;
-	font: 600 0.7rem / 1.3 var(--font-body);
+	border-radius: var(--radius-none);
+	font: 700 0.7rem / 1.3 var(--font-body);
 	letter-spacing: 0.04em;
 	text-transform: uppercase;
 	vertical-align: 0.15em;
@@ -400,7 +452,9 @@
 }
 
 .person-name {
-	font: 700 1.12rem / 1.25 var(--font-body);
+	font: 800 condensed 1.5rem / 1 var(--font-display);
+	text-transform: uppercase;
+	color: var(--color-text-strong);
 }
 
 .person-role {
@@ -429,15 +483,19 @@
 	min-height: 2.5rem;
 	padding: 0 0.85rem;
 	border: 1px solid var(--color-border-control);
-	border-radius: 999px;
-	color: var(--color-text-secondary);
-	font: 500 0.85rem / 1 var(--font-body);
+	border-radius: var(--radius-none);
+	color: var(--color-text-strong);
+	font: var(--text-label);
+	font-size: 0.85rem;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
 	text-decoration: none;
 }
 
 .person-link:hover {
-	border-color: var(--color-accent);
-	color: var(--color-text);
+	border-color: var(--color-text-strong);
+	background: var(--color-text-strong);
+	color: var(--color-bg);
 }
 
 /* Listen */
@@ -484,7 +542,9 @@
 }
 
 .listen-featured .player-head h3 {
-	font: 700 1.35rem / 1.2 var(--font-display);
+	font: 800 condensed 1.6rem / 1.05 var(--font-display);
+	text-transform: uppercase;
+	color: var(--color-text-strong);
 }
 
 .player-head p {
@@ -507,11 +567,12 @@
 }
 
 .player-actions a:hover {
-	color: var(--color-accent-text);
+	color: var(--color-text-strong);
+	text-decoration: underline;
 }
 
 .load-player svg {
-	color: var(--color-accent);
+	color: var(--color-text-strong);
 }
 
 .embed-preview {
@@ -569,8 +630,8 @@
 }
 
 .route-list .card-link:hover {
-	border-color: var(--color-border-strong);
-	color: var(--color-accent-text);
+	border-color: var(--color-text-strong);
+	color: var(--color-text-strong);
 	text-decoration: none;
 }
 
@@ -578,12 +639,16 @@
 
 @media (max-width: 860px) {
 	.event-row {
-		grid-template-columns: 4.5rem minmax(0, 1fr) minmax(7rem, 10rem);
+		grid-template-columns: 4rem 4.5rem minmax(0, 1fr) minmax(7rem, 10rem);
 	}
 
 	.source-row {
-		grid-column: 2;
+		grid-column: 3;
 		text-align: left;
+	}
+
+	.featured-visual-grid {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
 	}
 }
 
@@ -597,7 +662,7 @@
 	}
 
 	.home-intro h1 {
-		font-size: clamp(3.5rem, 24vw, 7rem);
+		font-size: clamp(2.5rem, 17vw, 4.5rem);
 	}
 
 	.home-intro-copy {
@@ -612,7 +677,7 @@
 	.featured-visual-grid {
 		grid-template-columns: none;
 		grid-auto-flow: column;
-		grid-auto-columns: minmax(11rem, 64%);
+		grid-auto-columns: minmax(9.5rem, 44%);
 		overflow-x: auto;
 		overscroll-behavior-x: contain;
 		scroll-snap-type: x mandatory;
@@ -643,17 +708,29 @@
 		justify-self: end;
 	}
 
+	/* Date left, flyer right; dense flow keeps the details beside both. */
 	.event-row {
-		grid-template-columns: 4rem minmax(0, 1fr);
-		gap: 0.2rem 0.85rem;
-		padding: 0.85rem 0;
+		grid-template-columns: 3.25rem minmax(0, 1fr) 3.5rem;
+		grid-auto-flow: row dense;
+		gap: 0.25rem 0.85rem;
+		padding: 0.95rem 0;
 	}
 
 	.event-row.year-start::before {
-		margin: -0.85rem 0 0.85rem;
+		margin: -0.95rem 0 0.95rem;
 		padding: 1.75rem 0 0.5rem;
 	}
 
+	.event-day {
+		font-size: 2.1rem;
+	}
+
+	.event-flyer {
+		grid-column: 3;
+		grid-row: span 3;
+	}
+
+	.event-main,
 	.event-venue,
 	.source-row {
 		grid-column: 2;

@@ -8,5 +8,6 @@
 	"status": "played",
 	"sourceLabel": "Facebook event",
 	"sourceHref": "https://www.facebook.com/events/d41d8cd9/bread-sf-presents-toasted-trax-2/1792378097640992/",
-	"sourceExternal": true
+	"sourceExternal": true,
+	"flyer": "/drive/tt-02-v1_poster.png"
 }

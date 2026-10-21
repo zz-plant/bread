@@ -36,6 +36,8 @@ const events = defineCollection({
 		sourceLabel: z.string().optional(),
 		sourceHref: z.string().optional(),
 		sourceExternal: z.boolean().optional().default(false),
+		// Path under public/ of the night's flyer, shown beside the event.
+		flyer: z.string().optional(),
 	}),
 });
 

@@ -130,3 +130,8 @@ A background search of the owner's Gmail and Drive, then the claims that change 
 - Reported by the search agent and not re-read here: BREAD #1 at 1192 Folsom (screenshot of a public Facebook post in Drive; Eventbrite title with Dreams and Fraxinus); Radio Valencia first show 2017-01-18, weekly (planning doc; SoundCloud episode numbering); BREAD #7 set times without Endgame (mailer 2016-05-21); Route 8 and Asquith at the Sure Thing showcase (schedule doc).
 - Nothing found for the Tokyo, Slug Bar and 2024 SoMa nights.
 - After the edits: `npm run lint` exit 0, `npm run build` exit 0 (10 pages), `npm test` 38 pass. Homepage lists 33 events; the venue list shows F8 with 8 events and Underground SF with 5; one San Francisco venue is still unknown (the Nightsweats afterhours).
+
+### Two radio episodes (follow-up PR, same day)
+
+- Event records added for the IPR episode of 2022-09-28 (Botaz, Shl) and the first HKCR episode of 2023-06-15, from their event-list rows. Events that share a date now sort by id, so the HKCR announcement stays ahead of the episode on every build.
+- `npm run lint` exit 0, `npm run build` exit 0 (10 pages), `npm test` 38 pass. Built homepage lists 35 events with the two rows in date order; the map shows Internet Public Radio and HKCR with 3 events each.

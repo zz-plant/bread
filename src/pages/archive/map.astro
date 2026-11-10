@@ -4,7 +4,10 @@ import ArchiveLayout from "../../layouts/ArchiveLayout.astro";
 
 const events = (await getCollection("events"))
 	.filter((event) => event.data.confidence !== "unverified")
-	.sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
+	.sort(
+		(a, b) =>
+			a.data.date.valueOf() - b.data.date.valueOf() || a.id.localeCompare(b.id),
+	);
 
 const UNKNOWN_VENUE_LABEL = "Exact venue unknown";
 

@@ -54,8 +54,8 @@ Every known BREAD event, oldest first: 23 club nights, three fundraiser streams,
 | ---------- | ------------------------ | -------------------------------- | ----------------------------------------------------------- | ---------------------------------------------------------- |
 | 2022-07-27 | BREAD FM launches on IPR | Internet Public Radio            | Monthly show announced                                      | [Instagram post](https://www.instagram.com/p/Cgfdlh4Pdtx/) |
 | 2022-09-28 | BREAD FM on IPR          | Internet Public Radio            | Botaz, Shl                                                  | [Instagram post](https://www.instagram.com/p/CjDoP1aLQjh/) |
-| 2023-03-16 | Tokyo, night 1           | Kagurane Tokyo                   | Wao Nao, Bao Nao, S_ IDNEY, Exteeng                         | [Instagram post](https://www.instagram.com/p/CpjVIOdrupR/) |
-| 2023-03-19 | Tokyo, night 2           | Space Tokyo                      | Ratchimera live, plus DJs                                   | [Instagram post](https://www.instagram.com/p/CpjVlkxLNqW/) |
+| 2023-03-16 | BREAD in Tokyo, night 1  | Kagurane Tokyo                   | Wao Nao, Bao Nao, S_ IDNEY, Exteeng                         | [Instagram post](https://www.instagram.com/p/CpjVIOdrupR/) |
+| 2023-03-19 | BREAD in Tokyo, night 2  | Space Tokyo                      | Ratchimera live, plus DJs                                   | [Instagram post](https://www.instagram.com/p/CpjVlkxLNqW/) |
 | 2023-03-29 | BREAD FM on IPR          | Internet Public Radio            | Guest mix: Bastiengoat                                      | [Instagram post](https://www.instagram.com/p/CqYuOcTyg7v/) |
 | 2023-04-19 | BREAD at Slug Bar        | Slug Bar, Oakland                | Unknown                                                     | [Instagram post](https://www.instagram.com/p/CrPCp7ivZ52/) |
 | 2023-06-15 | BREAD FM joins HKCR      | HKCR (Hong Kong Community Radio) | Residency announced                                         | [Instagram post](https://www.instagram.com/p/CthThTOpds1/) |

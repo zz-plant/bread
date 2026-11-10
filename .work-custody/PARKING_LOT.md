@@ -41,7 +41,7 @@ No adjacent implementation changes included. The repo has no software changelog 
 
 | Date | Finding | Suggested Next Step |
 |------|---------|---------------------|
-| 2026-11-10 | The event list has six rows the homepage and map do not: IPR 2022-09-28, Tokyo 2023-03-16 and 03-19, Slug Bar 2023-04-19, the first HKCR episode. Adding them needs map groups beyond "San Francisco" and "Online" (unknown venues fall back to a San Francisco pin). | Add the event JSONs with a Tokyo/Oakland group on the map. |
+| 2026-11-10 | The event list has rows the homepage and map do not: IPR 2022-09-28 and the first HKCR episode (2023-06-15). | Add the two event JSONs. The Tokyo and Oakland nights were added the same day. |
 | 2026-11-10 | Map pins for Codeword (917 Folsom) and Underground SF (424 Haight) sit about a mile from those addresses (lng -122.3929 and -122.445). | Re-pin from the addresses. |
 | 2026-11-10 | BREAD #3: the flyer lists Kieran Loftus, Botaz b2b Prawns and Gewzer; the record follows the Facebook title (Sha Sha Kimbo, no Kieran Loftus). Long Bread Summer's flyer adds Bianca Lexis. The long weekend special flyer adds hosts Saturn Rising and Fray Tormenta. | Owner decides which billing each record should follow. |
 | 2026-11-10 | The story post has one `date` (2026-02-28) used as both published and modified; the blog schema has no `updated` field, so the rewrite does not show. | Add `updated` to the blog schema and pass it to `dateModified`. |

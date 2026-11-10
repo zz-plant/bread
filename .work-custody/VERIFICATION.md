@@ -108,3 +108,10 @@ Command-level evidence of testing, linting, and validation. Update in real time 
 - `git diff --check`: pass.
 - Playwright on `dist/client` at 1100 px (story, timeline, people, map, event list, home, radio, overview) and 390 px (story): no horizontal overflow; story, timeline and home screenshots read through. Rendered venue list checked: Club 6ix 2 events, Bruno's, Milk Bar, Codeword 2 events.
 - No deployment or live-site check.
+
+### Tokyo and Oakland nights (same day)
+
+- Three event records added from the event list rows; homepage lists 34 events, and the 2023 rows read "BREAD in Tokyo, night 1 / night 2" and "BREAD at Slug Bar".
+- Venue map: groups are San Francisco (11), Oakland (1), Tokyo (2), Online (3). Playwright on the built page at 1100 and 390 px: 14 pins; the Bay Area view shows 12 and the Tokyo view 2; the pressed state follows the view; no page errors, no horizontal overflow.
+- Found while checking: Leaflet's pin images 404ed in the built site (`/archive/map/marker-icon.png`), so every pin was a broken image, on main too. The script now passes Leaflet the bundled URLs; pins load (natural width 25 px).
+- `npm run lint` exit 0 (134 warnings; the new one is the known `.astro` template false positive), `npm run build` exit 0, `npm test` 38 pass.

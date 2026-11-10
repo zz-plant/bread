@@ -115,3 +115,18 @@ Command-level evidence of testing, linting, and validation. Update in real time 
 - Venue map: groups are San Francisco (11), Oakland (1), Tokyo (2), Online (3). Playwright on the built page at 1100 and 390 px: 14 pins; the Bay Area view shows 12 and the Tokyo view 2; the pressed state follows the view; no page errors, no horizontal overflow.
 - Found while checking: Leaflet's pin images 404ed in the built site (`/archive/map/marker-icon.png`), so every pin was a broken image, on main too. The script now passes Leaflet the bundled URLs; pins load (natural width 25 px).
 - `npm run lint` exit 0 (134 warnings; the new one is the known `.astro` template false positive), `npm run build` exit 0, `npm test` 38 pass.
+
+### Gmail and Drive evidence (same day, read-only)
+
+A background search of the owner's Gmail and Drive, then the claims that change copy re-read directly:
+
+- Mailer from contact@bread.fm, 2021-03-12, "six years of bread – tomorrow!": Bread New Year raised $4,240 in donations, half matched, $6,360 in all, for Atlanta Solidarity Fund and National Black Deaf Advocates; Six Years of BREAD raised for DFW Mutual Aid Fund and Women's Prison Book Project, with Gila as guest. Read in full.
+- Mailer from info@breadsquad.com, 2016-02-15, "Addison Groove is here for your Monday off" ("BREAD #4 president's day"), and RA listing "Bread #4 with Addison Groove, Supraman & Letta". Seen.
+- Mailer from info@breadsf.club, 2016-12-08, "FRI at 1192 Folsom: NA of Nguzunguzu, Dubbel Dutch, TSVI, Jasmine Infiniti", half of presale proceeds to the Gray Area Foundation's relief fund for the Oakland fire; RA listing "Bread #12 with NA, Dubbel Dutch & Tsvi", Fri 9 Dec 2016. Seen.
+- Mailer from contact@bread.fm, 2017-07-26, "Bread is back this Friday at UGSF with ... Roska". Seen.
+- Mailers from contact@bread.fm, 2018-05-08 to 05-12, "Neana, Gila, London Jade & Bread DJs", with tf1000, exteeng, adam kraft, botaz. Seen.
+- Mailer from info@breadsquad.com, 2016-08-18, "Friday at 1192 Folsom: Pinch. Rabit. Logos. Mumdance. Caski": "Our biggest night yet." Seen.
+- Toasted Trax 2: Eventbrite page published 2016-10-14, RA listing, mailer 2016-10-20. Seen. Nothing after the night.
+- Reported by the search agent and not re-read here: BREAD #1 at 1192 Folsom (screenshot of a public Facebook post in Drive; Eventbrite title with Dreams and Fraxinus); Radio Valencia first show 2017-01-18, weekly (planning doc; SoundCloud episode numbering); BREAD #7 set times without Endgame (mailer 2016-05-21); Route 8 and Asquith at the Sure Thing showcase (schedule doc).
+- Nothing found for the Tokyo, Slug Bar and 2024 SoMa nights.
+- After the edits: `npm run lint` exit 0, `npm run build` exit 0 (10 pages), `npm test` 38 pass. Homepage lists 33 events; the venue list shows F8 with 8 events and Underground SF with 5; one San Francisco venue is still unknown (the Nightsweats afterhours).

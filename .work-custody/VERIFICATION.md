@@ -140,3 +140,7 @@ A background search of the owner's Gmail and Drive, then the claims that change 
 
 - OpenStreetMap (Nominatim) geocodes: 917 Folsom St is 37.7798, -122.4036; 424 Haight St is 37.7724, -122.4293 and is tagged "Underground SF". The old pins were about 0.6 and 0.9 miles away. The other addressed pins (F8, Club 6ix, Bruno's, Milk Bar) geocode to within about a block of where they sit and are unchanged.
 - `npm run lint` exit 0, `npm run build` exit 0, `npm test` 38 pass. The built map page carries the new coordinates for both venues.
+
+### Unflattering copy (same PR)
+
+- Read every built page's visible text for lines that could read as unflattering, and looked at the 38 photos and miscellaneous images on the Flyers page. Removed one: the note on Judy's roster card ("Later moved in a different musical direction."), a remark about a named person. Left in place and reported to the owner: the sourcing caveats (Toasted Trax #2, unknown lineup and venue rows, "What's missing"), which are statements of what the record does not show.

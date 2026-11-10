@@ -135,3 +135,8 @@ A background search of the owner's Gmail and Drive, then the claims that change 
 
 - Event records added for the IPR episode of 2022-09-28 (Botaz, Shl) and the first HKCR episode of 2023-06-15, from their event-list rows. Events that share a date now sort by id, so the HKCR announcement stays ahead of the episode on every build.
 - `npm run lint` exit 0, `npm run build` exit 0 (10 pages), `npm test` 38 pass. Built homepage lists 35 events with the two rows in date order; the map shows Internet Public Radio and HKCR with 3 events each.
+
+### Codeword and Underground SF pins (same PR)
+
+- OpenStreetMap (Nominatim) geocodes: 917 Folsom St is 37.7798, -122.4036; 424 Haight St is 37.7724, -122.4293 and is tagged "Underground SF". The old pins were about 0.6 and 0.9 miles away. The other addressed pins (F8, Club 6ix, Bruno's, Milk Bar) geocode to within about a block of where they sit and are unchanged.
+- `npm run lint` exit 0, `npm run build` exit 0, `npm test` 38 pass. The built map page carries the new coordinates for both venues.

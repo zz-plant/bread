@@ -10,8 +10,11 @@ import {
 import { ACCENT_COLOR } from "../utils/theme";
 
 export async function getHomepageData(site?: URL) {
+	// Two events can share a date (an announcement and the show itself), so
+	// break ties by id to keep their order the same on every build.
 	const events = (await getCollection("events")).sort(
-		(a, b) => a.data.date.valueOf() - b.data.date.valueOf(),
+		(a, b) =>
+			a.data.date.valueOf() - b.data.date.valueOf() || a.id.localeCompare(b.id),
 	);
 
 	const roster = (await getCollection("roster"))

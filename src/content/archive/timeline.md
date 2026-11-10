@@ -1,8 +1,8 @@
 ---
 title: Timeline
-description: BREAD year by year, from the first club nights to the radio show.
+description: BREAD year by year, from the pilot at F8 in 2015 to the last night announced in 2024.
 order: 2
-updated: 2026-03-04
+updated: 2026-11-10
 tags:
   - archive
   - timeline

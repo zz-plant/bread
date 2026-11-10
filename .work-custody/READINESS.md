@@ -21,3 +21,7 @@ All authorized changes are isolated on `codex/finish-assets-and-schema`, based o
 ## 2026-10-21 follow-up readiness
 
 All four authorized parts are done and verified locally (see VERIFICATION). Ready for review as a PR from `claude/wizardly-hawking-rd217i`; Workers Builds preview to be checked on the PR. No merge or deployment authorized.
+
+## 2026-11-10 follow-up readiness
+
+Copy and event-record changes are done and verified locally (see VERIFICATION). Ready for review as a PR from `claude/trusting-ramanujan-qy7f4i`. Seven facts need the owner's eye before merge; they are listed in UNKNOWNS. No merge or deployment authorized.

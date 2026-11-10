@@ -222,7 +222,7 @@ const imageSpecs = [
 		label: "timeline.png",
 		eyebrow: "BREAD Archive",
 		title: "Timeline",
-		subtitle: "From the first club nights in 2015 to the radio show.",
+		subtitle: "From the pilot at F8 in 2015 to SoMa in 2024.",
 		wall: "timeline",
 	},
 	{

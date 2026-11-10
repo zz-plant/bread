@@ -96,3 +96,15 @@ Command-level evidence of testing, linting, and validation. Update in real time 
 - `npx vitest run`: 7 files, 38 tests pass (after `node node_modules/bun/install.js`, needed only because this checkout was installed with `--ignore-scripts`).
 - `npm run check`: assets valid; `impeccable@4.5.2 detect src/` exit 0, no findings.
 - Playwright on the built site (`dist/client`) at 1440, 820 and 390 px, eight routes: no horizontal overflow anywhere (the first pass found 46 px on the phone homepage from an old hero size; fixed). Screenshots of home (all three tabs), events, flyers, radio, story, timeline, map, archive, event ledger.
+
+## 2026-11-10 follow-up
+
+- Flyers opened and read before any copy changed (resized with sharp, viewed): pilot, BREAD #2, #3, #4 (v3 and v4), Nightsweats, #5, #7, #9, #10, long weekend special, Toasted Trax #1 and #2, #13, DJ J Heat, Mr. Mitch, Kelman Duran, New Year, Long Bread Summer, two Radio Valencia cards. Each changed event field is printed on that night's flyer, except the two venue names and the Nightsweats year noted in UNKNOWNS.
+- Event counts behind the copy: 23 club nights (5 in 2015, 12 in 2016, 5 in 2017, 1 in 2018), 3 streams; homepage lists 31 events (was 27).
+- `npm run lint`: exit 0, 133 warnings and 12 infos as on main (two format errors from this change fixed with `biome format --write`).
+- `npm run build`: exit 0; 10 pages built.
+- `npm test`: 7 files, 38 tests pass after the build.
+- `npm run check:design`: exit 0.
+- `git diff --check`: pass.
+- Playwright on `dist/client` at 1100 px (story, timeline, people, map, event list, home, radio, overview) and 390 px (story): no horizontal overflow; story, timeline and home screenshots read through. Rendered venue list checked: Club 6ix 2 events, Bruno's, Milk Bar, Codeword 2 events.
+- No deployment or live-site check.

@@ -37,42 +37,56 @@ const structuredData = [
 const eras = [
 	{
 		range: "2014–2015",
-		title: "Getting started",
-		summary: "A pilot at F8, then a regular night in San Francisco.",
+		title: "A pilot at F8",
+		summary:
+			"Planning in 2014, a pilot in February 2015, then numbered nights.",
 		highlights: [
-			"BREAD's own profiles date the start to 2014.",
-			"Pilot night with Grime City at F8 on February 13, 2015, with Nevermind and Helix.",
-			"Numbered BREAD nights start in May 2015.",
+			"BREAD's own profiles date the start to 2014, when the planning began.",
+			"The pilot, with Grime City at F8 on February 13, 2015: Nevermind, Helix, and DJ Vague.",
+			"BREAD #1 in May with Rushmore and Kid Antoine, then Rabit at #2 in July and Doctor Jeep at #3 in November, both at F8.",
 		],
 	},
 	{
-		range: "2015–2016",
-		title: "Bigger bookings",
-		summary: "The residents settle in and the guest list gets bigger.",
+		range: "2016",
+		title: "Twelve nights",
+		summary:
+			"The busiest year on record, across seven rooms and one secret location.",
 		highlights: [
-			"Flyers from this stretch show a steady group of residents.",
-			"Guests in 2016 included Jlin, Distal, Celestial Trax, Deadboy, Murlo, Rabit, Logos, and Mumdance.",
-			"Partner nights with Parameter and Sure Thing, and the Toasted Trax series.",
+			"BREAD #4 in February is a one-year anniversary day party at F8.",
+			"Guests included Jlin, Celestial Trax, Distal, Neana, Deadboy, Murlo, Blackdown, Pinch, Mumdance, Logos, and Rabit.",
+			"Shared bills with Nightsweats, Parameter, and Sure Thing.",
+			"Toasted Trax, a second party by BREAD, starts at Codeword in June.",
 		],
 	},
 	{
 		range: "2017–2018",
-		title: "Underground SF",
-		summary: "More nights move to Underground SF in the Lower Haight.",
+		title: "Underground SF, and a radio show",
+		summary:
+			"A regular room in the Lower Haight and a weekly show on Radio Valencia.",
 		highlights: [
-			"2017 guests included DJ J Heat, Mr. Mitch, Kozee, Roska, and Kelman Duran.",
-			"The regular club nights wind down in 2018.",
+			"DJ J Heat, Mr. Mitch, and Kelman Duran play Underground SF in 2017; Roska plays a BREAD night that July.",
+			"BREAD FM goes out on Radio Valencia on Wednesday afternoons. The surviving cover cards run from January to August 2017.",
+			"The last club night on record is May 12, 2018, at OMG, with Gila and Neana.",
 		],
 	},
 	{
-		range: "2020–2024",
-		title: "Streams and radio",
-		summary:
-			"Fundraiser streams during the pandemic, then a monthly radio show.",
+		range: "2021",
+		title: "Three fundraiser streams",
+		summary: "With the clubs closed, BREAD comes back on Twitch.",
 		highlights: [
-			"Twitch streams in 2020 and 2021 raised money for mutual aid groups, including NBDA, Atlanta Solidarity Fund, Rebuilding Alliance, and Oxygen for India.",
-			"BREAD FM starts a monthly show on Internet Public Radio in 2022, then a residency on HKCR in 2023.",
-			"A BREAD night in SoMa is announced in March 2024.",
+			"The DJs play from New York, Denver, Atlanta, Oakland, San Francisco, Los Angeles, and Tokyo.",
+			"The streams raise money for National Black Deaf Advocates, the Atlanta Solidarity Fund, Rebuilding Alliance, and Oxygen for India.",
+			"BREAD's posts put the total at close to $12,000.",
+		],
+	},
+	{
+		range: "2022–2024",
+		title: "BREAD FM again",
+		summary: "A monthly radio show, a residency, and a few nights in rooms.",
+		highlights: [
+			"BREAD FM returns as a monthly show on Internet Public Radio in July 2022 and takes up a residency on HKCR in June 2023.",
+			"Two nights in Tokyo in March 2023 and one at Slug Bar in Oakland that April.",
+			"The last entry on record: a night in SoMa, announced in March 2024.",
 		],
 	},
 ];
@@ -84,6 +98,13 @@ const milestones = [
 		label: "Pilot night: BREAD x Grime City",
 		sourceLabel: "Facebook event",
 		sourceHref: "https://www.facebook.com/events/588841281252200/",
+	},
+	{
+		date: "2016-02-15",
+		venue: "F8, SF",
+		label: "BREAD #4: one-year anniversary day party",
+		sourceLabel: "Flyer image",
+		sourceHref: "/drive/bread-no-4-v4_cards-3.png",
 	},
 	{
 		date: "2016-03-25",
@@ -109,7 +130,7 @@ const milestones = [
 	},
 	{
 		date: "2016-11-19",
-		venue: "60 6th St, SF",
+		venue: "Club 6ix, SF",
 		label: "Sure Thing x BREAD showcase",
 		sourceLabel: "Facebook event",
 		sourceHref:
@@ -131,18 +152,31 @@ const milestones = [
 		sourceHref: "/bread-suda-kelman-duran-bread-djs-2017-09-22.png",
 	},
 	{
+		date: "2018-05-12",
+		venue: "OMG, SF",
+		label: "Last club night on record: Gila & Neana",
+		sourceLabel: "BREAD records",
+	},
+	{
 		date: "2021-01-02",
 		venue: "Twitch",
-		label: "New Year fundraiser",
+		label: "New Year fundraiser stream",
 		sourceLabel: "Instagram post",
 		sourceHref: "https://www.instagram.com/p/CJed4dGFKbz/",
 	},
 	{
 		date: "2021-03-13",
 		venue: "Twitch",
-		label: "Six Years of BREAD stream",
+		label: "Six Years of BREAD fundraiser stream",
 		sourceLabel: "Instagram post",
 		sourceHref: "https://www.instagram.com/p/CL44SfGli4d/",
+	},
+	{
+		date: "2021-07-10",
+		venue: "Twitch",
+		label: "Long Bread Summer fundraiser stream",
+		sourceLabel: "Flyer image",
+		sourceHref: "/bread-long-bread-summer-fundraiser-2021-07-10.jpg",
 	},
 	{
 		date: "2022-07-27",
@@ -161,7 +195,7 @@ const milestones = [
 	{
 		date: "2024-03-21",
 		venue: "SoMa, SF",
-		label: "BREAD SF: Nhac Gay",
+		label: "BREAD SF: Nhac Gay, announced",
 		sourceLabel: "Instagram post",
 		sourceHref: "https://www.instagram.com/p/C4ygjDoynTY/",
 	},
@@ -221,6 +255,9 @@ const milestones = [
                   {milestone.sourceLabel ?? 'Source'}{milestone.sourceHref.startsWith('http') ? ' ↗' : ''}
                 </a>
               </p>
+            )}
+            {!milestone.sourceHref && milestone.sourceLabel && (
+              <p class="key-source">{milestone.sourceLabel}</p>
             )}
           </li>
         ))

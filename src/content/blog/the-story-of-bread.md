@@ -1,6 +1,6 @@
 ---
 title: The Story of BREAD
-description: How a San Francisco club night became a fundraiser stream and then a radio show, 2015–2024.
+description: A San Francisco club night, its radio show, and the fundraiser streams that came after, 2015–2024.
 date: 2026-02-28
 draft: false
 tags:
@@ -10,49 +10,79 @@ tags:
   - community
 ---
 
-BREAD started in San Francisco in 2014. The idea was a club night for riskier, less commercial dance music than the city usually booked. Cage A (Kanav) and Prawns started it, and residents and collaborators came and went over the years.
+BREAD was a San Francisco club night. Cage A (Kanav) and Prawns started it, with Judy (dhra) as co-founder, to book riskier, less commercial dance music than the city's clubs usually did. One early flyer put the sound "at the intersection of house, ballroom, Jersey, grime, footwork."
+
+The club nights ran from 2015 to 2018, with a radio show alongside. BREAD came back in 2021 for three fundraiser streams, and again in 2022 as a monthly radio show.
 
 What follows is the part of the story that flyers, listings, and posts can back up. For every night with its lineup and source, see the [Event list](/archive/event-ledger/).
 
-## 2014–2015: Getting started
+## 2014–2015: A pilot at F8
 
-Planning started in 2014. The first night was a pilot with Grime City at F8 on February 13, 2015, with Nevermind and Helix. Numbered BREAD nights followed through the rest of the year, including BREAD #3 with Doctor Jeep in November.
+BREAD's own profiles date the start to 2014, when the planning began. The first night came on Friday, February 13, 2015: a pilot with Grime City at F8, at 1192 Folsom Street in SoMa, with Nevermind, Helix, and DJ Vague.
 
-## 2016: Bigger bookings
+BREAD #1 followed at F8 that May, with Rushmore, Dreams, Kid Antoine, and Fraxinus. Rabit topped the bill at #2 in July, and Doctor Jeep at #3 in November, both in the same room. The residents played every one.
 
-2016 was the busiest year on record. Alongside the numbered nights (Jlin and Iyer at BREAD #5; Pinch, Rabit, Mumdance, and Logos at BREAD #10), there were partner nights: the Toasted Trax series, Parameter x BREAD, and a Lobster Theremin showcase with Sure Thing.
+## 2016: Twelve nights
 
-## 2017–2018: Underground SF
+2016 was the busiest year on record. It opened on Presidents' Day with BREAD #4, a one-year anniversary day party at F8 headlined by Addison Groove. Jlin played #5 there in March.
 
-In 2017 more nights moved to Underground SF, with guests like DJ J Heat, Mr. Mitch, Kozee, Roska, and Kelman Duran. The regular club nights wound down in 2018.
+Then the nights started moving around the city: Underground SF in May (#7, with Celestial Trax and Distal), Mighty in June (#8, with Neana and Bleaker), Public Works Loft in July (#9, with Deadboy, Murlo, and Blackdown), and Bruno's in the Mission for a long weekend special in September.
 
-## 2020–2021: Fundraiser streams
+BREAD also shared bills. In April it put on an afterhours with Nightsweats, with Air Max '97 and False Witness, at a location the flyer kept secret. BREAD #10, in August, was a joint night with Parameter at F8: Pinch, Mumdance, Logos, and Rabit, who had played #2 a year earlier. BREAD's mailer called it "our biggest night yet." In November it co-presented a Lobster Theremin showcase with Sure Thing at Club 6ix, with Route 8 and Asquith.
 
-When the pandemic closed the clubs, BREAD moved to Twitch. The streams raised money for groups including NBDA, Atlanta Solidarity Fund, Rebuilding Alliance, and Oxygen for India.
+The same year BREAD started a second party, Toasted Trax, at Codeword on Folsom Street. Its flyers call it "a new party by BREAD." The first was on a Wednesday in June, with Abyss X and DJ Spider. A second was billed for October: free all night, with Iyer and the residents.
 
-## 2022–2024: Radio
+The year ended back at F8. BREAD #12, on December 9, had NA of Nguzunguzu, Dubbel Dutch, TSVI, and Jasmine Infiniti. It came a week after the Ghost Ship fire in Oakland, and half the presale proceeds went to the Gray Area Foundation's relief fund for the victims.
 
-In 2022 BREAD FM started a monthly show on Internet Public Radio, and in 2023 it took up a residency on HKCR. BREAD FM also had a Wednesday afternoon show on Radio Valencia; the cover art is on the [Radio shows](/archive/radio-shows/) page. In March 2024 BREAD announced a night in SoMa.
+## 2017–2018: Underground SF, and a radio show
+
+2017 began with a residents' night at Milk Bar in February, no cover. After that BREAD had a regular room, Underground SF at 424 Haight Street: DJ J Heat played there in March, Mr. Mitch in May, Roska in July, and Kelman Duran in September.
+
+BREAD was also on the radio. BREAD FM started on Radio Valencia in January 2017 and went out weekly, on Wednesday afternoons from 4 to 6, most weeks with one resident and one guest. Twenty-two of its cover cards survive, the last from the end of August. They are on the [Radio shows](/archive/radio-shows/) page.
+
+The club nights wound down in 2018. The last one on record was on May 12 at OMG, with Gila, Neana, and London Jade.
+
+## 2021: Three fundraiser streams
+
+Nothing is on record for more than two years after that. Then, with the clubs closed by the pandemic, BREAD came back on Twitch. By now the DJs were spread out: the flyer for the first stream tags them with New York, Denver, Atlanta, Oakland, San Francisco, Los Angeles, and Tokyo, and gives the start time in three time zones.
+
+There were three streams, and each was a fundraiser:
+
+- **January 2, BREAD New Year "YXEXAXR":** Color Plus, Gila, Zaida, and Wonja with the residents, for National Black Deaf Advocates and the Atlanta Solidarity Fund. It raised $6,360: $4,240 in donations during the stream, with half of that matched.
+- **March 13, Six Years of BREAD:** Gila with the residents, six years on from the pilot at F8, for DFW Mutual Aid Fund and the Women's Prison Book Project.
+- **July 10, Long Bread Summer:** Anónima and Bahar Khadem with the residents, for Rebuilding Alliance and Oxygen for India.
+
+## 2022–2024: BREAD FM again
+
+In July 2022 BREAD FM returned as a monthly show on Internet Public Radio. In June 2023 it took up a residency on HKCR, Hong Kong Community Radio; the first episode had Lethal Trax, a live set, and the residents.
+
+There were a few nights in rooms again, though not in San Francisco: two in Tokyo in March 2023, at Kagurane and Space Tokyo, and one at Slug Bar in Oakland that April.
+
+The last entry on record is from March 2024, when BREAD announced a night in SoMa with Nhac Gay, Ngo Linh, Mess Vndtown, Exteeng, and Weeaboo Diaspora.
 
 ## Key dates
 
-| Date       | Moment                        | Type       | What happened                                                               | Source |
-| ---------- | ----------------------------- | ---------- | --------------------------------------------------------------------------- | ------ |
-| 2015-02-13 | Pilot night                   | Club night | Pilot night with Grime City, featuring Nevermind and Helix.                | [Facebook event](https://www.facebook.com/events/588841281252200/) |
-| 2015-11-06 | BREAD #3                      | Club night | Early numbered night with Doctor Jeep.                                      | [Facebook event](https://www.facebook.com/events/d41d8cd9/bread-3-wdoctor-jeep-patrick-brian-ballast-javascript-sha-sha-kimbo/1013123788738124/) |
-| 2016-03-25 | BREAD #5                      | Club night | BREAD #5 with Jlin and Iyer.                                                | [Flyer image](/bread-5-jlin-planet-mu-iyer-2016-03-25-flyer.jpg) |
-| 2016-06-29 | Toasted Trax #1               | Club night | Codeword event with Abyss X, DHRA, DJ Spider, Gabes, and Gewzer b2b Cage A. | [Flyer image](/toasted-trax-number-one-2016-06-29.jpg) |
-| 2016-08-19 | Parameter x BREAD             | Club night | Lineup included Pinch, Rabit, Mumdance, Logos, Caski, and Ganesa.          | [Flyer image](/bread-number-ten-pinch-rabit-mumdance-logos-caski-ganesa-2016-08-19.png) |
-| 2016-11-19 | Sure Thing x BREAD            | Club night | Lobster Theremin showcase, co-presented with Sure Thing.                    | [Facebook event](https://www.facebook.com/events/60-6th-st-san-francisco-ca-94103-1609-united-states/sure-thing-bread-sf-lobster-theremin-showcase/1062894940491694/) |
-| 2017-05-26 | BREAD SF: Mr. Mitch           | Club night | Lineup included Mr. Mitch, Kozee, and Prawns.                               | [Facebook event](https://www.facebook.com/events/d41d8cd9/bread-sf-mr-mitch-planet-mu-kozee-prawns/277151372731142/) |
-| 2017-09-22 | BREAD SF: Kelman Duran        | Club night | Lineup included Kelman Duran and Suda.                                      | [Flyer image](/bread-suda-kelman-duran-bread-djs-2017-09-22.png) |
-| 2021-01-02 | New Year fundraiser           | Livestream | Free fundraiser stream with Color Plus, Gila, Zaida, Wonja, and residents.  | [Instagram post](https://www.instagram.com/p/CJed4dGFKbz/) |
-| 2021-03-13 | Six Years stream              | Livestream | Anniversary fundraiser stream.                                              | [Instagram post](https://www.instagram.com/p/CL44SfGli4d/) |
-| 2021-07-10 | Long Bread Summer             | Livestream | Fundraiser stream supporting Rebuilding Alliance and Oxygen for India.      | [Flyer image](/bread-long-bread-summer-fundraiser-2021-07-10.jpg) |
-| 2022-07-27 | BREAD FM monthly launch       | Radio      | Monthly show announced on Internet Public Radio.                            | [Instagram post](https://www.instagram.com/p/Cgfdlh4Pdtx/) |
-| 2023-06-15 | BREAD FM joins HKCR           | Radio      | Residency on Hong Kong Community Radio announced.                           | [Instagram post](https://www.instagram.com/p/CthThTOpds1/) |
-| 2024-03-21 | BREAD SF: Nhac Gay            | Club night | BREAD night in SoMa announced.                                              | [Instagram post](https://www.instagram.com/p/C4ygjDoynTY/) |
+| Date       | What happened                                                             | Where                 | Source |
+| ---------- | ------------------------------------------------------------------------- | --------------------- | ------ |
+| 2015-02-13 | Pilot night with Grime City: Nevermind, Helix, and DJ Vague.              | F8                    | [Facebook event](https://www.facebook.com/events/588841281252200/) |
+| 2015-11-06 | BREAD #3, with Doctor Jeep.                                               | F8                    | [Facebook event](https://www.facebook.com/events/d41d8cd9/bread-3-wdoctor-jeep-patrick-brian-ballast-javascript-sha-sha-kimbo/1013123788738124/) |
+| 2016-02-15 | BREAD #4, the one-year anniversary day party, with Addison Groove.        | F8                    | [Flyer image](/drive/bread-no-4-v4_cards-3.png) |
+| 2016-03-25 | BREAD #5, with Jlin and Iyer.                                             | F8                    | [Flyer image](/bread-5-jlin-planet-mu-iyer-2016-03-25-flyer.jpg) |
+| 2016-06-29 | The first Toasted Trax, with Abyss X, DHRA, DJ Spider, and Gabes.         | Codeword              | [Flyer image](/toasted-trax-number-one-2016-06-29.jpg) |
+| 2016-08-19 | BREAD #10 with Parameter: Pinch, Rabit, Mumdance, Logos, Caski, Ganesa.   | F8                    | [Flyer image](/bread-number-ten-pinch-rabit-mumdance-logos-caski-ganesa-2016-08-19.png) |
+| 2016-11-19 | Lobster Theremin showcase, co-presented with Sure Thing.                  | Club 6ix              | [Facebook event](https://www.facebook.com/events/60-6th-st-san-francisco-ca-94103-1609-united-states/sure-thing-bread-sf-lobster-theremin-showcase/1062894940491694/) |
+| 2017-05-26 | Mr. Mitch, with Kozee and Prawns.                                         | Underground SF        | [Facebook event](https://www.facebook.com/events/d41d8cd9/bread-sf-mr-mitch-planet-mu-kozee-prawns/277151372731142/) |
+| 2017-09-22 | Kelman Duran and Suda.                                                    | Underground SF        | [Flyer image](/bread-suda-kelman-duran-bread-djs-2017-09-22.png) |
+| 2018-05-12 | The last club night on record, with Gila, Neana, and London Jade.         | OMG                   | BREAD mailer |
+| 2021-01-02 | New Year fundraiser stream.                                               | Twitch                | [Instagram post](https://www.instagram.com/p/CJed4dGFKbz/) |
+| 2021-03-13 | Six Years of BREAD fundraiser stream.                                     | Twitch                | [Instagram post](https://www.instagram.com/p/CL44SfGli4d/) |
+| 2021-07-10 | Long Bread Summer fundraiser stream.                                      | Twitch                | [Flyer image](/bread-long-bread-summer-fundraiser-2021-07-10.jpg) |
+| 2022-07-27 | BREAD FM's monthly show announced.                                        | Internet Public Radio | [Instagram post](https://www.instagram.com/p/Cgfdlh4Pdtx/) |
+| 2023-06-15 | BREAD FM's residency announced.                                           | HKCR                  | [Instagram post](https://www.instagram.com/p/CthThTOpds1/) |
+| 2024-03-21 | A night in SoMa with Nhac Gay announced.                                  | SoMa, San Francisco   | [Instagram post](https://www.instagram.com/p/C4ygjDoynTY/) |
 
 ## What's missing
 
-Some older nights are missing an exact venue or a full lineup, and a few dates don't match across sources. This page gets updated as more turns up.
+Nothing from after the night confirms that the second Toasted Trax took place. The amounts raised by the second and third streams aren't on record. Nothing on the list is called BREAD #6 or #11, though the Nightsweats afterhours and the long weekend special fall where those would be. The Tokyo and Oakland nights and the 2024 night in SoMa each rest on a single Instagram post, and a few dates don't match across sources.
+
+This page gets updated as more turns up.

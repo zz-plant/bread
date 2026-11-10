@@ -26,3 +26,18 @@ No unresolved implementation questions. Metadata was verified against the local 
 | 2026-10-21 | The traced mark is from one flyer (BREAD #13). If an original vector of the logo exists, it should replace the trace. | Low | Swap the paths in `src/utils/bread-logo.mjs`, then rerun `scripts/generate-icons.mjs`. |
 | 2026-10-21 | With the corrected file mapping, all 22 Radio Valencia cards fall on Wednesdays in 2017 (not 2023), which matches the show's 2015–2018 run. The year is still not shown. | Low | Owner confirms 2017; then add it to the radio captions. |
 | 2026-10-21 | Event years for renamed flyers came from weekday checks (e.g. Feb 24 is a Friday in 2017, not 2024; the old filename said 2024). | Low | Owner glance at the Flyers page. |
+
+## 2026-11-10 follow-up
+
+Settled the same day from the owner's Gmail and Drive (read-only search; the mailers and listings named in VERIFICATION): the Radio Valencia show's year (2017), the BREAD #4 date (Monday February 15, 2016) and its headliner, the BREAD #1, BREAD #12 and Roska venues, the last night's lineup, the New Year stream's total, the Six Years beneficiaries. The "$12,000" total was not documented anywhere and is out of the copy.
+
+| Date | Question | Impact | Mitigation |
+|------|----------|--------|------------|
+| 2026-11-10 | The "Addison Groove special" (2015-11-13) is set to `confidence: "unverified"`, which takes it off the homepage and map, and its row is off the event list. Addison Groove headlined BREAD #4 on 2016-02-15 (mailer, RA listing), and no mailer, Eventbrite page or RA listing exists for a night between #3 and #4. The file is kept. | Medium | Owner confirms there was no separate November 2015 night, then delete `addison-groove-special.json`; or restore it with a source. |
+| 2026-11-10 | Judy (dhra) is named as co-founder in the story and People page, to match the roster. The April 2017 breadsf.club roster does not list Judy; the owner's own later draft says "It started with me, Prawns, and our friend Judy". Nothing found links the name dhra (a Toasted Trax #1 guest) to Judy; that link is the roster's. | Medium | Owner confirms the wording and the alias. |
+| 2026-11-10 | Toasted Trax #2 was listed on Eventbrite and RA and mailed out the night before; nothing from after the night confirms it happened. The story says it "was billed"; the record says `played`. | Low | Owner confirms. |
+| 2026-11-10 | The Tokyo nights (2023-03-16, 03-19), Slug Bar (2023-04-19) and the SoMa night (2024-03-21) left no trace in Gmail or Drive. Their dates may be Instagram post dates, the Slug Bar lineup is unknown, and the Tokyo and Oakland pins are placed from general knowledge (Space Tokyo at a city-centre placeholder). | Low | Owner supplies dates, lineups and addresses. |
+| 2026-11-10 | Amounts raised by Six Years of BREAD and Long Bread Summer are not on record. | Low | Owner supplies them if wanted. |
+| 2026-11-10 | The BREAD + Nightsweats afterhours had a street address in the day-of mailer. It is left off the site on purpose: the flyer calls it a "top secret location" and it may not be a public venue. | Low | Owner decides whether to name it. |
+| 2026-11-10 | BREAD #3: the flyer in `public/` prints Kieran Loftus, but the RA and Eventbrite titles do not; the record follows the listings (Sha Sha Kimbo, no Kieran Loftus). BREAD #2 lists both Lyeform (flyer) and Victoria Kim (BREAD's first-year guest list). | Low | Owner confirms. |
+| 2026-11-10 | "Bruno's" for 2389 Mission St and "Club 6ix" for the Sure Thing showcase come from the owner's own schedule document, not a public listing. The showcase lineup (Route 8, Asquith) is from the same document and the research notes. | Low | Owner glance. |

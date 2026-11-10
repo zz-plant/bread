@@ -73,7 +73,7 @@ export async function getHomepageData(site?: URL) {
 	const featuredVisuals = [
 		{
 			src: "/drive/bread-x-grime-city_150213-show.png",
-			alt: "BREAD x Grime City flyer featuring Nevermind and Helix",
+			alt: "BREAD x Grime City flyer: Nevermind, Helix, and DJ Vague in white type on black marble",
 			title: "BREAD x Grime City",
 			caption: "The pilot night at F8, February 2015",
 			href: "/archive/flyers/",

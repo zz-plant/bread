@@ -38,3 +38,9 @@ Authorized by the owner ("work through all") after a review found the site's ide
 4. Flyer layout rules: big date numerals, lineups in a heavy condensed face, square corners; drop the orange, Syne and JetBrains Mono.
 
 Also allowed: correcting an event field where its own cited flyer contradicts it (BREAD #7 date and venue), the two pre-existing Biome format errors that keep `npm run lint` red, AGENTS.md notes. Not allowed: new events, roster or copy rewrites, docs/assets scene regeneration, dependency changes, deployment.
+
+## 2026-11-10 follow-up: fix the storytelling
+
+Authorized by the owner ("find and fix any bad storytelling across the site"). Scope: the narrative copy on the story, timeline, overview, people, event list, map and radio pages, and the event records where the site's own flyers contradict or complete them, so the story and the records agree. Allowed: event JSONs for nights whose flyers the site already shows (pilot, BREAD #4, BREAD + Nightsweats, BREAD #13); venue, lineup and title fields read off a night's own flyer; map venue labels for those rooms. Not allowed: roster link changes, design or layout changes, dependencies, deployment, and events with no flyer in `public/` (the Tokyo and Oakland nights, the extra IPR and HKCR episodes stay ledger-only).
+
+Extended the same day by the owner: "add the tokyo and oakland nights to the homepage and map", and to look for more evidence in Gmail and Google Drive (read-only). The map may gain what it needs to show cities other than San Francisco. The two extra radio episodes stay ledger-only.

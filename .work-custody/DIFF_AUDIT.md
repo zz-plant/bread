@@ -30,3 +30,15 @@ Reviewed the isolated diff: asset checker, homepage data and caller, structured-
 | Data script | `generate-data.mjs` | `quest?onmarc` display name |
 | Lint | `ArchiveLayout.astro`, `timeline.astro` | Pre-existing Biome format errors, frontmatter only |
 | Docs | `AGENTS.md`, `.work-custody/*` | |
+
+## 2026-11-10 follow-up
+
+| Area | Files | Notes |
+|------|-------|-------|
+| Narrative | `the-story-of-bread.md`, `timeline.astro`, `timeline.md`, `overview.md`, `people-network.md`, `map.astro` (prose), `radio-shows.astro` (intro) | Rewritten to one chronology |
+| Event list | `event-ledger.md` | Three rows added, six corrected, intro and closing note; tables re-aligned |
+| New events | `bread-x-grime-city.json`, `bread-4.json`, `bread-x-nightsweats.json`, `bread-13.json` | Each from a flyer already in `public/` |
+| Corrected events | `bread-2.json`, `toasted-trax-2.json`, `bread-sf-dj-j-heat.json`, `bread-weekend-special.json`, `sure-thing-x-bread.json` | Lineup, venue or title |
+| Map data | `map.astro` | Bruno's and Milk Bar added; "60 6th St" merged into Club 6ix; address labels; no existing pin moved |
+| Small | `homepage.ts` (one alt), `generate-og-images.mjs` (timeline card subtitle), timeline key dates show a source label without a link |
+| Records | `.work-custody/*` | |

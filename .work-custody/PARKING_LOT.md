@@ -36,3 +36,13 @@ No adjacent implementation changes included. The repo has no software changelog 
 | 2026-10-21 | Toasted Trax #2's flyer gives the venue as Codeword, 917 Folsom St; the event record says "San Francisco". | Update the venue if the owner agrees. |
 | 2026-10-21 | Flyers exist for nights with no event record: BREAD #4 (Feb 15, 2016 day party), BREAD + Nightsweats (Apr 23, 2016), BREAD #13 (Feb 24, 2017, Milk Bar), and the Feb 13, 2015 pilot. | Add event JSONs with `flyer` set. |
 | 2026-10-21 | `public/radio/null` is a 1-byte file (a newline); the data script skips it by name. | Delete it. |
+
+## 2026-11-10 follow-up
+
+| Date | Finding | Suggested Next Step |
+|------|---------|---------------------|
+| 2026-11-10 | The event list has rows the homepage and map do not: IPR 2022-09-28 and the first HKCR episode (2023-06-15). | Add the two event JSONs. The Tokyo and Oakland nights were added the same day. |
+| 2026-11-10 | Map pins for Codeword (917 Folsom) and Underground SF (424 Haight) sit about a mile from those addresses (lng -122.3929 and -122.445). | Re-pin from the addresses. |
+| 2026-11-10 | BREAD #3: the flyer lists Kieran Loftus, Botaz b2b Prawns and Gewzer; the record follows the Facebook title (Sha Sha Kimbo, no Kieran Loftus). Long Bread Summer's flyer adds Bianca Lexis. The long weekend special flyer adds hosts Saturn Rising and Fray Tormenta. | Owner decides which billing each record should follow. |
+| 2026-11-10 | The story post has one `date` (2026-02-28) used as both published and modified; the blog schema has no `updated` field, so the rewrite does not show. | Add `updated` to the blog schema and pass it to `dateModified`. |
+| 2026-11-10 | Flyers for BREAD #4, #13 and the Nightsweats night show as "Undated" on the Flyers page because the data script reads dates from filenames. | Rename the files with their dates, as was done for the top-level flyers. |

@@ -18,3 +18,9 @@ Tracked risks from the work. Update as risks are identified or mitigated.
 | 2026-10-21 | OG card text uses whatever fonts the build machine has (Archivo is not installed on Workers Builds; Inter or DejaVu render instead) | Low | The logo is paths, not text, and the art carries the card; layout leaves slack for wider fallbacks | Open |
 | 2026-10-21 | Archivo loads from Google Fonts; if it fails, headings fall back to Helvetica/Arial at normal width | Low | `display=swap`; fallbacks named in `--font-display` | Open |
 | 2026-10-21 | Renamed image URLs break any outside link to an old filename | Low | The old names pointed at the wrong art anyway; no redirects added | Open |
+
+## 2026-11-10 follow-up
+
+| Date | Risk | Impact | Mitigation | Status |
+|------|------|--------|------------|--------|
+| 2026-11-10 | The rewritten story states something the owner knows to be wrong | Medium | Each new claim traces to a flyer in `public/`, an existing record, or `research/bread_sf_intel.md`; the ones resting on notes alone are listed in UNKNOWNS | Open |

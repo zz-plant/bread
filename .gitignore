@@ -15,3 +15,9 @@ opencode.json
 .sisyphus/
 .codex/
 .agent/
+
+# Wrangler local secrets
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example

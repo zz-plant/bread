@@ -30,7 +30,7 @@ Then the nights started moving around the city: Underground SF in May (#7, with 
 
 BREAD also shared bills. In April it put on an afterhours with Nightsweats, with Air Max '97 and False Witness, at a location the flyer kept secret. BREAD #10, in August, was a joint night with Parameter at F8: Pinch, Mumdance, Logos, and Rabit, who had played #2 a year earlier. BREAD's mailer called it "our biggest night yet." In November it co-presented a Lobster Theremin showcase with Sure Thing at Club 6ix, with Route 8 and Asquith.
 
-The same year BREAD started a second party, Toasted Trax, at Codeword on Folsom Street. Its flyers call it "a new party by BREAD." The first was on a Wednesday in June, with Abyss X and DJ Spider. A second was billed for October: free all night, with Iyer and the residents.
+The same year BREAD started a second party, Toasted Trax, at Codeword on Folsom Street. Its flyers call it "a new party by BREAD." The first was on a Wednesday in June, with Abyss X, DJ Spider, and Judy, billed as DHRA. The second, in October, was free all night, with Iyer and the residents.
 
 The year ended back at F8. BREAD #12, on December 9, had NA of Nguzunguzu, Dubbel Dutch, TSVI, and Jasmine Infiniti. It came a week after the Ghost Ship fire in Oakland, and half the presale proceeds went to the Gray Area Foundation's relief fund for the victims.
 
@@ -83,6 +83,6 @@ The last entry on record is from March 2024, when BREAD announced a night in SoM
 
 ## What's missing
 
-Nothing from after the night confirms that the second Toasted Trax took place. The amounts raised by the second and third streams aren't on record. Nothing on the list is called BREAD #6 or #11, though the Nightsweats afterhours and the long weekend special fall where those would be. The Tokyo and Oakland nights and the 2024 night in SoMa each rest on a single Instagram post, and a few dates don't match across sources.
+The amounts raised by the second and third streams aren't on record. Nothing on the list is called BREAD #6 or #11, though the Nightsweats afterhours and the long weekend special fall where those would be. The Tokyo and Oakland nights and the 2024 night in SoMa each rest on a single Instagram post, and a few dates don't match across sources.
 
 This page gets updated as more turns up.

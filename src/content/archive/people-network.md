@@ -11,7 +11,7 @@ tags:
 
 ## Founders
 
-BREAD was started by **Cage A** (Kanav) and **Prawns**, with **Judy (dhra)** as co-founder. They wanted a San Francisco night for riskier, less commercial club music than the city usually booked.
+BREAD was started by **Cage A** (Kanav) and **Prawns**, with **Judy (dhra)** as co-founder; Judy played the first Toasted Trax, billed as DHRA. They wanted a San Francisco night for riskier, less commercial club music than the city usually booked.
 
 ## Residents
 

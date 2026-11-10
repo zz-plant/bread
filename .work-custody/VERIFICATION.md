@@ -149,3 +149,4 @@ A background search of the owner's Gmail and Drive, then the claims that change 
 
 - The owner confirmed that Toasted Trax #2 took place and that dhra is Judy. The story states the second Toasted Trax plainly and drops the line doubting it; Judy's roster card and the People page credit the DHRA set at Toasted Trax #1 (the name is on that night's flyer).
 - `npm run lint` exit 0, `npm run build` exit 0 (10 pages), `npm test` 38 pass. The built story has no "was billed" and no "confirms that the second Toasted Trax"; the homepage People tab shows the new note.
+- The owner also confirmed BREAD hosted Addison Groove once, at BREAD #4. `addison-groove-special.json` (hidden as unverified since PR #89) is deleted; the homepage count stays at 35, and lint, build and the 38 tests pass.
